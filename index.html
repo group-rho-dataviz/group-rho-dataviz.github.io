@@ -1,1 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Group Rho - Conflict Data Visualization</title>
+    
+    <!-- Favicon and styles -->
+    <link rel="icon" type="image/png" href="./logos/favicon.png">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=zoom_out_map" />
 
+    <!-- Tailwind Import and Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="src/js/tailwind_config.js"></script>
+        
+    <script type="module" src="src/js/script.js"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="bg-brand-blue shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                
+                <!-- Logo -->
+                <div class="shrink-0">
+                    <a href="./index.html" class="flex items-center">
+                      <svg class="h-8 h-fill" viewBox="0 0 100 100" xmlns="src/images/logos/logo_UniGe_WHITE.svg" alt="University of Genoa Logo">
+                        <image href="src/images/logos/logo_UniGe_WHITE.svg" width="100" height="100"/>
+                      </svg>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#intro_id" class="text-white hover:bg-brand-cyan block px-3 py-2 rounded-md text-base font-medium transition-colors" onclick="toggleMenu()">
+                        Introduction
+                    </a>
+                    <button 
+                        data-popover-target="menu"
+                        class="text-white hover:bg-brand-cyan block px-3 py-2 rounded-md text-base font-medium transition-colors"
+                        type="button"
+                        onclick="toggleCustomPopover(event)"
+                    >
+                        Sections
+                    </button>
+                    <ul
+                        role="menu"
+                        data-popover="menu"
+                        hidden
+                        data-popover-placement="bottom"
+                        class="absolute z-50 top-full mt-1 overflow-auto rounded-lg border border-slate-200 bg-white shadow-lg focus:outline-none"
+                    >
+                        <li
+                            role="menuitem"
+                            class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                        >
+                            <a href="#sec1_id" class="w-full h-full">Problem</a>
+                        </li>
+                        <li
+                            role="menuitem"
+                            class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                        >
+                            <a href="#sec2_id" class="w-full h-full">Evidence</a>
+                        </li>
+                        <li
+                            role="menuitem"
+                            class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                        >
+                            <a href="#sec3_id" class="w-full h-full">Insight</a>
+                        </li>
+                        <li
+                            role="menuitem"
+                            class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                        >
+                            <a href="#sec4_id" class="w-full h-full">Takeaway</a>
+                        </li>
+                    </ul>
+                    <a href="#about_id" class="text-white hover:bg-brand-cyan block px-3 py-2 rounded-md text-base font-medium transition-colors" onclick="toggleMenu()">
+                        About
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button class="md:hidden hamburger flex flex-col space-y-1.5 p-2" onclick="toggleMenu()">
+                    <span class="block w-6 h-0.5 bg-white"></span>
+                    <span class="block w-6 h-0.5 bg-white"></span>
+                    <span class="block w-6 h-0.5 bg-white"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-menu md:hidden bg-brand-blue">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#intro_id" class="text-white hover:bg-brand-cyan block px-3 py-2 rounded-md text-base font-medium transition-colors" onclick="toggleMenu()">
+                    Introduction
+                </a>
+                <a href="#sec1_id" class="text-white hover:bg-brand-cyan block px-3 py-2 rounded-md text-base font-medium transition-colors" onclick="toggleMenu()">
+                    Problem
+                </a>
+                <a href="#sec2_id" class="text-white hover:bg-brand-cyan block px-3 py-2 rounded-md text-base font-medium transition-colors" onclick="toggleMenu()">
+                    Evidence
+                </a>
+                <a href="#sec3_id" class="text-white hover:bg-brand-cyan block px-3 py-2 rounded-md text-base font-medium transition-colors" onclick="toggleMenu()">
+                    Insight
+                </a>
+                <a href="#sec4_id" class="text-white hover:bg-brand-cyan block px-3 py-2 rounded-md text-base font-medium transition-colors" onclick="toggleMenu()">
+                    Takeaway
+                </a>
+                <a href="#about_id" class="text-white hover:bg-brand-cyan block px-3 py-2 rounded-md text-base font-medium transition-colors" onclick="toggleMenu()">
+                    About
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-gradient pt-24 pb-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center fade-in-up">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-white mb-4 leading-tight">
+                Visualizing Conflict and Human Suffering through Data
+            </h1>
+            <h2 class="text-lg sm:text-xl lg:text-2xl font-heading text-brand-yellow mb-8">
+                Group ρ - Data Visualization Project
+            </h2>
+            <div class="flex flex-wrap justify-center gap-4 text-sm text-white/90">
+                <span>Fabrizio Sardo (5250158)</span>
+                <span class="hidden sm:inline">•</span>
+                <span>Stefano Passaggio (4875279)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid pt-4 lg:grid-cols-[1fr_2fr_1fr] xl:grid-cols-[2fr_3fr_2fr] gap-4 max-w-7xl mx-auto w-full flex-grow">
+        <main class="col-start-2 w-full">
+            <!-- Introduction Section -->
+            <section id="intro_id" class="mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-16 w-full lg:w-full">
+                <div class="bg-white rounded-lg shadow-md p-6 sm:p-8 card">
+                    <div class="flex items-center mb-6">
+                        <div class="w-1 h-8 bg-brand-red rounded mr-4"></div>
+                        <h3 class="text-2xl sm:text-3xl font-heading font-bold text-brand-black">Introduction</h3>
+                    </div>
+                    
+                    <div class="prose max-w-none">
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            This project aims to visualize data related to conflict and human suffering around the world.
+                            The data used in this project is sourced from the <em class="text-brand-blue font-semibold">Armed Conflict Location & Event Data Project (ACLED)</em>,
+                            which provides detailed information on political violence and protest events across the globe.
+                            We also used data collected by the <em class="text-brand-blue font-semibold">World Food Program (WFP)</em>, in order to understand how prices of food are affected by conflict and data from the <em>World Bank's</em> data portal that provides information on Economic, Social, Environmental, Health, Education, Development and Energy indicators in Afghanistan.
+                        </p>
+
+                        <div class="bg-brand-yellow/10 border-l-4 border-brand-yellow p-4 rounded mt-6">
+                            <p class="text-sm text-gray-600 mb-2">
+                                <strong>Note:</strong> This project was developed as part of the <em>Data Visualization</em> course at the University of Genoa by students.
+                                Therefore it is important to double-check the data and graphs presented, as they may contain errors or inaccuracies.
+                            </p>
+                            <a href="https://acleddata.com" target="_blank" rel="noopener noreferrer" class="text-brand-cyan hover:text-brand-blue font-medium text-sm inline-flex items-center transition-colors">
+                                Visit ACLED Data Source
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                            <br />
+                            <a href="https://data.humdata.org/dataset/wfp-food-prices-for-afghanistan" target="_blank" rel="noopener noreferrer" class="text-brand-cyan hover:text-brand-blue font-medium text-sm inline-flex items-center transition-colors">
+                                Visit WFP Data Source
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>      
+                            <br />  
+                            <a href="https://data.humdata.org/dataset/world-bank-combined-indicators-for-afghanistan" target="_blank" rel="noopener noreferrer" class="text-brand-cyan hover:text-brand-blue font-medium text-sm inline-flex items-center transition-colors">
+                                Visit World Bank Data Source
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>                               
+                </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 1 - The Problem-->
+            <section id="sec1_id" class="mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-16 w-full lg:w-full fade-in-up">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl sm:text-3xl font-heading font-bold text-brand-black mb-4">Section Title</h3>
+                    <h5 class="font-bold font-heading">Subtitle</h5>
+                    <p class="text-gray-600 max-w-2xl mx-auto my-4 text-left">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eveniet esse non animi molestias voluptatem quae? Nostrum praesentium libero cum consequuntur in, alias, maiores laudantium saepe accusamus dolorem maxime? Fuga esse aliquam nesciunt? Voluptas nemo asperiores optio obcaecati soluta hic nobis accusamus voluptates cum ullam nulla magnam doloribus natus necessitatibus omnis, eos quos culpa recusandae? Dignissimos voluptates nihil et nesciunt praesentium nam possimus architecto non ratione fuga itaque sed doloribus tempore, amet nostrum dolores quos reiciendis modi iure saepe quis excepturi incidunt laborum? Aperiam at sunt, cupiditate, non dolor quae earum soluta maiores repellendus aspernatur, enim corrupti temporibus quo nesciunt officiis!
+                    </p>
+                    <div class="section-divider w-24 mx-auto mb-6"></div>
+                </div>
+
+                <!-- Graph -->
+                <div class="bg-white rounded-lg shadow-md p-6 card center my-4">
+                    <div class="text-center">
+                        <h5 class="font-heading font-bold text-2xl">Graph Title</h5>
+                        <h6 class="font-heading text-gray-600">Subtitle</h6>
+                    </div>
+                    <div id="graph_id" class="text-center w-full h-full p-4">
+                        
+                    </div>
+                    <p class="text-gray-600 text-sm">
+                        Description of the graph and insights derived from it.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+
+        <!-- Aside for navigation-->
+        <aside class="hidden lg:block pr-16">
+            <div class="shadow-md rounded p-8 mx-auto sticky w-full top-36 my-16 grid grid-cols-[10px_1fr] gap-2">
+                <div id="progressBar_id" class="hero-gradient w-full col-start-1 rounded">
+                </div>
+                <nav class="col-start-2">
+                    <ol>
+                        <li id="intro_id_nav"><a href="#intro_id">Introduction</a></li>
+                        <li id="sec1_id_nav"><a href="#sec1_id">Problem</a></li>
+                        <li id="sec2_id_nav"><a href="#sec2_id">Evidence</a></li>
+                        <li id="sec3_id_nav"><a href="#sec3_id">Insight</a></li>
+                        <li id="sec4_id_nav"><a href="#sec4_id">Takeaways</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </aside>
+    </div>
+
+    <!-- About Section -->
+    <section id="about_id" class="bg-brand-blue py-6 sm:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-4">About This Project</h3>
+                <p class="text-white/90 max-w-2xl mx-auto mb-8">
+                    Developed as part of the Data Visualization course at the University of Genoa, 
+                    this project demonstrates the power of visual analytics in understanding complex global issues.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 text-sm text-white/80">
+                  <a href="https://dibris.unige.it/" class="bg-dibris p-4 rounded-full">DIBRIS Department</a>
+                  <a href="https://unige.it/" class="bg-brand-cyan p-4 rounded-full">University of Genoa</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-black text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">© 2025 Group ρ - Data Visualization Course, University of Genoa</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" class="fixed bottom-8 right-8 bg-brand-cyan text-white p-3 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity hover:bg-brand-blue" onclick="scrollToTop()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <script>
+        // Toggle popover menu (renamed to avoid conflict with native HTMLElement.togglePopover)
+        function toggleCustomPopover(event) {
+            const button = event.currentTarget;
+            const popoverId = button.getAttribute('data-popover-target');
+            const popover = document.querySelector(`[data-popover="${popoverId}"]`);
+            if (!popover) return;
+            const isHidden = popover.hasAttribute('hidden');
+
+            console.log(popoverId, popover, isHidden);
+
+            if (isHidden) {
+                popover.removeAttribute('hidden');
+            } else {
+                popover.setAttribute('hidden', '');
+            }
+        }
+
+        // If click outside popover, close it
+        document.addEventListener('click', function(event) {
+            const popovers = document.querySelectorAll('[data-popover]');
+            popovers.forEach(popover => {
+                const popoverId = popover.getAttribute('data-popover');
+                const button = document.querySelector(`[data-popover-target="${popoverId}"]`);
+                if (button && !button.contains(event.target) && !popover.contains(event.target)) {
+                    popover.setAttribute('hidden', '');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('open');
+            hamburger.classList.toggle('active');
+        }
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.style.opacity = '1';
+                scrollTopBtn.style.pointerEvents = 'auto';
+            } else {
+                scrollTopBtn.style.opacity = '0';
+                scrollTopBtn.style.pointerEvents = 'none';
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80; // Account for fixed navbar
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

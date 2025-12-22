@@ -1,1 +1,205 @@
+* {
+    scroll-behavior: smooth;
+}
 
+body {
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.mobile-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.mobile-menu.open {
+    max-height: 500px;
+}
+
+.hero-gradient {
+    background: linear-gradient(135deg, #002677 0%, #199BFC 100%);
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 38, 119, 0.15);
+}
+
+.section-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #F4DA40, transparent);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.stat-card {
+    border-left: 4px solid #F4DA40;
+}
+
+nav a {
+    position: relative;
+}
+
+.hamburger span {
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+
+
+
+/* Heatmap Navigation Styles */
+
+.selector {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 2px solid #002677; /* brand-blue */
+  background: white;
+  color: #002677;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 38, 119, 0.3);
+  background: #f0f4ff;
+}
+
+.btn.active {
+  background: linear-gradient(135deg, #002677 0%, #199BFC 100%);
+  color: white;
+  border-color: #199BFC;
+  box-shadow: 0 4px 12px rgba(0, 38, 119, 0.4);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Heatmap Container Visibility */
+.multi-container {
+  display: none;
+  animation: fadeIn 0.4s ease-in;
+}
+
+.multi-container.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Shared Colorbar */
+#shared_heatmap_colorbar {
+  margin: 30px 0;
+  padding: 20px 0;
+}
+
+/* Heatmap Tooltip Styling */
+.heatmap-tooltip {
+  font-family: 'Fira Sans', sans-serif;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .btn {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+  }
+
+
+/* Responsive Visualizations: Fullscreen */
+.modal-backdrop {
+    backdrop-filter: blur(8px);
+    animation: fadeInViz 0.3s ease-out;
+}
+@keyframes fadeInViz {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.modal-content {
+    animation: scaleInViz 0.3s ease-out;
+}
+@keyframes scaleInViz {
+    from { 
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to { 
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+@keyframes rotatePhone {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-90deg); }
+    75% { transform: rotate(-90deg); }
+}
+.rotate-animation {
+    animation: rotatePhone 3s ease-in-out infinite;
+}
+
+/* Stili per assicurare che l'SVG si ridimensioni correttamente */
+#flowMap_id svg,
+#flowMap_fullscreen_id svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Migliora la leggibilità del contenuto fullscreen */
+.fullscreen-container {
+    max-height: 90vh;
+    overflow-y: auto;
+}
