@@ -1,5 +1,8 @@
 # Final Project for the Data Visualization Course - Data-Driven Storytelling Website - Group Rho (Stefano Passaggio, Fabrizio Sardo)
 
+GitHub Repo: https://github.com/group-rho-dataviz/group-rho-dataviz.github.io/tree/main
+Website: https://group-rho-dataviz.github.io/
+
 ## Important
 
 The provided website serves as a mockup and does not represent the final web page.
