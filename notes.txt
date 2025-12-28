@@ -1,0 +1,20 @@
+Problem
+    "Underrepresented conflicts in media coverage"
+    - Choroplet Map / Proportional Symbol
+        More talked about countries by events (also "Mention Count")
+    - Waffle Chart
+        Top talked about countries account for TOT% of the total news
+
+Evidence
+    "Some examples of less known conflicts "
+    - Bar Chart
+        Similar to what we did for Group Pi
+    - Line Chart
+        Similar to what we did for Group Pi
+
+Insight
+    "What influences regional/type of conflict differences between different medias/countries"
+    - Histogram/box plot
+
+Takeaway
+    "Conclusions. Final more global view on the problem"
