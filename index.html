@@ -27,15 +27,40 @@
 <body class="bg-gray-50 font-serif text-gray-900 antialiased">
 
     <!-- FIXED HEADER -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+    <header role="banner" aria-label="Site header" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <h1 class="font-sans text-sm font-bold tracking-wider uppercase">The Attention Gap</h1>
-                <nav class="hidden md:flex gap-8 font-sans text-sm">
+                <div class="font-sans text-sm font-bold tracking-wider uppercase">The Attention Gap</div>
+
+                <!-- Desktop nav -->
+                <nav role="navigation" aria-label="Primary" class="hidden md:flex gap-8 font-sans text-sm">
                     <a href="#data" class="text-gray-600 hover:text-gray-900 transition">Data</a>
                     <a href="#map" class="text-gray-600 hover:text-gray-900 transition">Map</a>
                     <a href="#stories" class="text-gray-600 hover:text-gray-900 transition">Stories</a>
                 </nav>
+
+                <!-- Mobile: hamburger -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        aria-controls="mobile-menu" aria-expanded="false"
+                        onclick="(function(btn){const menu=document.getElementById('mobile-menu'); const expanded = btn.getAttribute('aria-expanded') === 'true'; menu.classList.toggle('hidden'); btn.setAttribute('aria-expanded', String(!expanded));})(this)">
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu (hidden by default) -->
+            <div id="mobile-menu" class="hidden md:hidden mt-2">
+                <div class="px-2 pt-2 pb-3 space-y-1 font-sans">
+                    <a href="#data" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Data</a>
+                    <a href="#map" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Map</a>
+                    <a href="#stories" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Stories</a>
+                </div>
             </div>
         </div>
     </header>
@@ -277,11 +302,12 @@
             <p class="text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
                 A data journalism investigation exploring the disparity in global media coverage of armed conflicts. Data from ACLED, Media Cloud, and global news APIs.
             </p>
-            <div class="font-sans text-sm text-gray-500">© 2024 The Attention Gap Project</div>
+            <div class="font-sans text-sm text-gray-500">© 2025-2026 The Group Rho</div>
         </div>
     </footer>
 
     <script>
+        // TO BE REMOVED START
         // ===== DATA =====
         const data = {
             regions: [
@@ -687,6 +713,7 @@
                 if (mobileCharts[3]?.g) mobileCharts[3].drawStep3();
             }, 250);
         });
+        // TO BE REMOVED END
     </script>
 </body>
 </html>
