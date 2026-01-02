@@ -1,0 +1,122 @@
+The CAMEO (Conflict and Mediation Event Observations) system is the backbone of GDELT. 
+It is organized hierarchically into four major "QuadClasses."
+
+I. VERBAL COOPERATION (Neutral to Positive)
+These are words, statements, and meetings. They represent normal diplomatic relations.
+
+01 - MAKE PUBLIC STATEMENT: The most common code. "He said," "She announced." Totally neutral.
+
+Includes: Statements of policy, comments, factual reporting.
+
+Relevance: Exclude for conflict analysis. This is background noise.
+
+02 - APPEAL: Asking for something politely.
+
+Includes: "Call for peace," "Ask for aid," "Request meeting."
+
+Relevance: Usually positive or neutral.
+
+03 - EXPRESS INTENT TO COOPERATE: Offering to help.
+
+Includes: "Promise to sign treaty," "Offer to mediate."
+
+04 - CONSULT: Meetings.
+
+Includes: "Visit," "Host a summit," "Meet with."
+
+Relevance: Shows diplomatic activity, but not conflict.
+
+05 - ENGAGE IN DIPLOMATIC COOPERATION: Actions that support the relationship (symbolic).
+
+Includes: "Sign treaty," "Apologize," "Ratify agreement."
+
+II. MATERIAL COOPERATION (Positive Action)
+These are physical acts of help and giving.
+
+06 - ENGAGE IN MATERIAL COOPERATION: Sharing resources.
+
+Includes: "Share intelligence," "Economic trade deals."
+
+07 - PROVIDE AID: Giving money or goods.
+
+Includes: "Humanitarian aid," "Military aid," "Grant asylum."
+
+08 - YIELD: Giving in to a demand (Surrender/Concession).
+
+Includes: "Ease sanctions," "Return hostages," "Withdraw troops (peacefully)."
+
+Relevance: A positive end to a conflict.
+
+09 - INVESTIGATE: Fact-finding.
+
+Includes: "Inspect weapons," "Investigate crime."
+
+III. VERBAL CONFLICT (Negative Words / Tension)
+These codes represent "Political Instability" and "Diplomatic Crises." They are precursors to violence but are not violence itself.
+
+10 - DEMAND: Ordering someone to do something.
+
+Includes: "Demand reform," "Order troops out."
+
+11 - DISAPPROVE: Verbal criticism.
+
+Includes: "Condemn," "Criticize," "Denounce," "Veto."
+
+Relevance: High volume of this means diplomatic tension.
+
+12 - REJECT: Refusing a request.
+
+Includes: "Reject proposal," "Refuse to sign," "Defy law."
+
+13 - THREATEN: Promising future harm. (Important Pre-Conflict Indicator)
+
+Includes: "Threaten sanctions," "Threaten to attack," "Ultimatum."
+
+Relevance: The step just before war.
+
+14 - PROTEST: Civilian unrest. (INCLUDE for Social Conflict)
+
+Includes: "Demonstrate," "Rally," "Hunger strike," "Strike/Boycott."
+
+Note: Code 145 is "Violent Protest" (Riots).
+
+IV. MATERIAL CONFLICT (Violence / War)
+These are the codes for physical use of force. For your "Deaths" and "War" analysis, you MUST focus on these.
+
+15 - EXHIBIT FORCE POSTURE: Military movement (Intimidation).
+
+Includes: "Mobilize troops," "Military exercise," "Put police on alert."
+
+Relevance: High tension, but no shooting yet.
+
+16 - REDUCE RELATIONS: Diplomatic punishment.
+
+Includes: "Expel diplomat," "Sanctions," "Ban travel."
+
+17 - COERCE: Forcing action (Non-military destruction).
+
+Includes: "Seize property," "Arrest," "Deport," "Impose curfew."
+
+Relevance: Often used in authoritarian crackdowns.
+
+18 - ASSAULT: (CRITICAL: Terror / Crime / Asymmetric Violence)
+
+Definition: Use of violence that does not involve two conventional armies.
+
+Includes: Car bombings, Suicide attacks, Rape, Torture, Assassination.
+
+Note: This is where most "Terrorist Attacks" are coded.
+
+19 - FIGHT: (CRITICAL: War / Military Combat)
+
+Definition: Use of conventional military force or heavy riots.
+
+Includes: Aerial bombing, Artillery, Tank battle, Invasion.
+
+Note: This is where "Wars" (Ukraine, Gaza) are mostly coded.
+
+20 - UNCONVENTIONAL MASS VIOLENCE: (CRITICAL: Atrocity)
+
+Definition: Extreme violence.
+
+Includes: Ethnic cleansing, Chemical weapons, Biological warfare.

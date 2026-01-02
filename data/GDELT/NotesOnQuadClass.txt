@@ -1,0 +1,35 @@
+1. Verbal Cooperation (QuadClass = 1)
+"Parole amichevoli" Qui ci sono tutte le interazioni diplomatiche positive che non comportano scambi materiali.
+
+Cosa include: Dichiarazioni di sostegno, consultazioni, appelli alla pace, promesse di cooperazione futura, negoziati verbali.
+
+Esempio: "Il presidente francese loda l'iniziativa italiana."
+
+Utilità per te: Bassa, a meno che tu non voglia misurare i tentativi di risoluzione diplomatica.
+
+2. Material Cooperation (QuadClass = 2)
+"Fatti amichevoli" Qui si passa dalle parole ai fatti positivi. C'è uno scambio tangibile o un aiuto concreto.
+
+Cosa include: Invio di aiuti umanitari, firma di trattati economici, condivisione di intelligence, supporto militare (es. invio armi a un alleato).
+
+Esempio: "Gli USA inviano 50 carri armati all'Ucraina."
+
+Utilità per te: Alta. In un contesto di guerra, questo traccia le alleanze e il supporto logistico.
+
+3. Verbal Conflict (QuadClass = 3)
+"Parole ostili" (La "Guerra Fredda") Questa è la categoria della tensione, delle minacce e della propaganda. Non scorre sangue, ma volano accuse.
+
+Cosa include: Minacce, accuse, ultimatum, sanzioni verbali, richiamo di ambasciatori, dichiarazioni di condanna, voti contrari all'ONU.
+
+Esempio: "Putin minaccia conseguenze per l'adesione della Finlandia alla NATO."
+
+Utilità per te: Altissima per la "strumentazione politica". Prima che scoppi una bomba, c'è sempre un picco di QuadClass 3. È il sismografo della tensione politica.
+
+4. Material Conflict (QuadClass = 4)
+"Fatti ostili" (La "Guerra Calda") Questa è la violenza fisica. Qui succede qualcosa di tangibile e distruttivo.
+
+Cosa include: Combattimenti, bombardamenti, assassini, arresti di massa, distruzione di infrastrutture, scontri di piazza violenti.
+
+Esempio: "Missile colpisce un condominio a Kiev."
+
+Utilità per te: Fondamentale. Se vuoi mappare la guerra vera e propria, devi filtrare QuadClass = 4.

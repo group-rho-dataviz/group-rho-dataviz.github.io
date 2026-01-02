@@ -10,18 +10,18 @@ The provided website serves as a mockup and does not represent the final web pag
 ## The Proposal
 
 Our proposal is to explore how different conflicts around the world are covered by the media.
-In particular we would like to see the differences between medias from different countries and the type of conflict they focus on.
-In this section we would use a choropleth map or a proportional symbol map to see the most talked about countries by events and number of mentions.
-We would like to conclude this section using a waffle chart visualizing the percentage the more talked about countries occupy in the total news.
+In particular, we would like to examine the differences between media outlets from different countries and the types of conflicts they focus on.
+In this section, we would use a choropleth map or a proportional symbol map to show the most discussed countries based on the number of events and mentions.
+We would like to conclude this section with a waffle chart visualizing the percentage that the most discussed countries represent in total news coverage.
 
-We think it could be interesting to have a clustered bar chart that shows the number of events of a certain region of the world with respect to the media coverage of such region (potentially even the number of deaths caused of these events).
+We believe it could be interesting to include a clustered bar chart showing the number of events in a given region of the world in relation to the media coverage of that region (potentially also including the number of deaths caused by these events).
 
-Then, we would like to bring concrete examples of less covered conflicts and to explore them using bar charts and line charts to show the effects of these conflicts on the population.
+Next, we would like to present concrete examples of underreported conflicts and explore them using bar charts and line charts to illustrate their effects on the population.
 
-In the following section we would like to understand if there is something in common between these conflicts and if there are any differences. We think that an histogram or a box plot could be ideal.
+In the following section, we aim to identify whether these conflicts share common characteristics and to highlight any differences between them. We believe that a histogram or a box plot could be particularly suitable for this purpose.
 
-The last section is dedicated to our takeaways and conclusions and it gives a more global view on the problem.
+The final section is dedicated to our takeaways and conclusions and provides a more global perspective on the issue.
 
 ## Data Sources
 
-The GDELT and the ACLED datasets could be useful for this project.
+The GDELT and ACLED datasets could be useful for this project.

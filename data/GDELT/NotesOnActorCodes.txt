@@ -1,0 +1,75 @@
+I codici Actor1Type1Code (e Actor2Type1Code) in GDELT provengono dalla tassonomia CAMEO (Conflict and Mediation Event Observations). Sono codici a 3 lettere fondamentali per distinguere chi sta compiendo l'azione.
+
+Ecco la lista completa dei codici, suddivisa per categorie logiche utili al tuo progetto sui conflitti.
+
+1. Attori Statali e Istituzionali (Il "Potere")
+Questi sono essenziali per analizzare le azioni dei governi e delle forze ufficiali.
+
+GOV (Government): Governo centrale, ministeri, esecutivo.
+
+MIL (Military): Esercito regolare, marina, aviazione.
+
+COP (Police): Forze di polizia (spesso coinvolte in conflitti interni/proteste).
+
+JUD (Judiciary): Giudici, tribunali, sistema legale.
+
+LEG (Legislature): Parlamenti, senati, deputati.
+
+SPY (State Intelligence): Servizi segreti, intelligence.
+
+2. Attori Organizzati Non-Statali (I "Ribelli")
+Questa è la categoria più critica per il tuo filtro sui conflitti armati ("Material Conflict").
+
+REB (Rebels): Ribelli organizzati (opposizione armata).
+
+INS (Insurgents): Insorti (spesso usati per guerriglia).
+
+SEP (Separatists): Gruppi separatisti o secessionisti.
+
+OPP (Political Opposition): Opposizione politica (spesso coinvolta in scontri verbali o proteste).
+
+CRM (Criminals): Criminalità organizzata, cartelli, mafie.
+
+3. Società Civile e Privati (Le "Vittime" o "Target")
+Spesso questi codici appaiono come Actor2 (vittima) in un evento di conflitto, oppure come Actor1 in eventi di protesta.
+
+CVL (Civilian): Civili generici.
+
+ELI (Elites): Individui di spicco (ex presidenti, vip, portavoce non governativi).
+
+BUS (Business): Aziende, corporazioni, uomini d'affari.
+
+EDU (Education): Scuole, università, insegnanti, studenti.
+
+LAB (Labor): Sindacati, lavoratori.
+
+MED (Media): Giornalisti, testate, editori.
+
+REF (Refugees): Rifugiati, sfollati.
+
+REL (Religious): Clero, organizzazioni religiose.
+
+AGR (Agriculture): Agricoltori (comune in conflitti su terre/risorse).
+
+4. Attori Internazionali
+IGO (Inter-Governmental Organizations): ONU, NATO, UE, WHO.
+
+NGO (Non-Governmental Organizations): Croce Rossa, Amnesty, Medici Senza Frontiere.
+
+MNC (Multinational Corporations): Multinazionali.
+
+Quali usare per la tua Query "Anti-Rumore"?
+Per il tuo progetto focalizzato su conflitti e strumentazioni politiche, ti suggerisco di filtrare Actor1Type1Code (l'attaccante/iniziatore) usando questo raggruppamento logico nella WHERE clause:
+
+A. Gli attori della violenza organizzata (Hard Conflict) Se vuoi mappare la guerra cinetica:
+
+SQL
+
+AND e.Actor1Type1Code IN ('MIL', 'REB', 'INS', 'SEP', 'GOV')
+B. Gli attori dell'ordine pubblico (Civil Unrest) Se vuoi includere repressione di proteste:
+
+SQL
+
+AND e.Actor1Type1Code IN ('COP', 'MIL', 'GOV') 
+AND e.Actor2Type1Code IN ('CVL', 'OPP', 'LAB', 'EDU') -- Chi subisce
+C. Nota importante su CRM (Criminals) In posti come il Messico o l'Ecuador, i conflitti sono spesso tra GOV/MIL e CRM. Se escludi CRM, perdi gran parte dei conflitti in America Latina. Valuta se includerlo.
