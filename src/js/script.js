@@ -24,13 +24,8 @@ import WaffleChart from "./waffle.js";
         { name: 'Somalia', fatalities: 600000, coverage: 28, x: 0.58, y: 0.52 }
     ]
 }; */
-const waffleData = [
-    { category: 'A', value: 30 },
-    { category: 'B', value: 20 },
-    { category: 'C', value: 25 },
-    { category: 'D', value: 15 },
-    { category: 'E', value: 10 }
-];
+// For waffle chart, load data from CSV, parse it in an array
+const waffleData = d3.csv('../data/processed/waffle_chart_data.csv', d3.autoType);
 
 // ===== INITIALIZE =====
 // Desktop chart (one sticky instance)

@@ -2,6 +2,7 @@ import ScrollyChart from './scrolly_chart.js';
 
 export default class WaffleChart extends ScrollyChart {
     constructor(svgId, data) {
+        // data is expected to be a Promise that resolves to an array of objects
         super(svgId, data);
     }
 
@@ -15,12 +16,22 @@ export default class WaffleChart extends ScrollyChart {
         const colors = d3.schemeCategory10;
 
         const unitsData = [];
-        this.data.forEach((d, i) => {
-            for (let j = 0; j < d.value; j++) {
-                unitsData.push({ category: d.category, color: colors[i % colors.length] });
-            }
-        });
+        this.data.then(data => {
+            let unitIndex = 0;
+            data.forEach((d, i) => {
+                const numUnits = Math.round((d.value / d3.sum(data, dd => dd.value)) * totalUnits);
+                for (let j = 0; j < numUnits; j++) {
+                    unitsData.push({ category: d.category, color: colors[i % colors.length] });
+                    unitIndex++;
+                }
+            });
 
+            this.renderUnits(unitsData, unitSize, unitPadding, unitsPerRow);
+        });
+    }
+
+    renderUnits(unitsData, unitSize, unitPadding, unitsPerRow) {
+        if (!this.g) return;
         this.g.selectAll('.waffle-unit')
             .data(unitsData)
             .join('rect')
