@@ -1,5 +1,6 @@
 import ScrollyChart from "./scrolly_chart.js";
 import WaffleChart from "./waffle.js";
+import BarChart from "./bar.js";
 
 // ===== DATA =====
 /* const data = {
@@ -24,27 +25,76 @@ import WaffleChart from "./waffle.js";
         { name: 'Somalia', fatalities: 600000, coverage: 28, x: 0.58, y: 0.52 }
     ]
 }; */
-// For waffle chart, load data from CSV, parse it in an array
-const waffleData = d3.csv('../data/processed/waffle_chart_data.csv', d3.autoType);
+// ===== DATA =====
+const waffleData = d3.csv('data/processed/waffle_chart_data.csv', d3.autoType);
+const barChartData = d3.csv('data/processed/bar_chart.csv', d3.autoType);
 
 // ===== INITIALIZE =====
-const waffleColors = [/*gray*/ 'lightgray', /*red*/ '#ff4d4d'];
-// Desktop chart (one sticky instance)
-const desktopCharts = [
-    new WaffleChart('desktop-chart', waffleData, waffleColors),
-    new WaffleChart('desktop-chart', waffleData),
-    new WaffleChart('desktop-chart', waffleData),
-    new WaffleChart('desktop-chart', waffleData)
-];
-let desktopChart = desktopCharts[0];
+const waffleColors = ['lightgray', '#ff4d4d'];
 
-// Mobile charts (one per step)
+// Desktop charts - each step gets its own chart instance
+let desktopCharts = [];
+let currentDesktopChart = null;
+let isTransitioning = false;
+
+// Mobile charts - one per step, each with its own SVG
 const mobileCharts = [
     new WaffleChart('mobile-chart-0', waffleData, waffleColors),
-    new WaffleChart('mobile-chart-1', waffleData),
+    new BarChart('mobile-chart-1', barChartData),
     new WaffleChart('mobile-chart-2', waffleData),
     new WaffleChart('mobile-chart-3', waffleData)
 ];
+
+// Initialize desktop charts after a brief delay to ensure DOM is ready
+setTimeout(() => {
+    desktopCharts = [
+        new WaffleChart('desktop-chart', waffleData, waffleColors),
+        new BarChart('desktop-chart', barChartData),
+        new WaffleChart('desktop-chart', waffleData),
+        new WaffleChart('desktop-chart', waffleData)
+    ];
+    
+    // Set initial desktop chart
+    currentDesktopChart = desktopCharts[0];
+    
+    // Initial render
+    if (currentDesktopChart && currentDesktopChart.g) {
+        currentDesktopChart.draw();
+    }
+}, 100);
+
+// Function to smoothly transition between desktop charts
+function transitionToChart(newChart) {
+    if (isTransitioning || !currentDesktopChart || !newChart) return;
+    if (currentDesktopChart === newChart) return;
+    
+    isTransitioning = true;
+    const svg = d3.select('#desktop-chart');
+    
+    // Fade out current chart
+    svg.transition()
+        .duration(300)
+        .style('opacity', 0)
+        .on('end', () => {
+            // Switch to new chart
+            currentDesktopChart = newChart;
+            currentDesktopChart.init();
+            
+            // Draw new chart (but keep it invisible initially)
+            if (currentDesktopChart.g) {
+                svg.style('opacity', 0);
+                currentDesktopChart.draw();
+                
+                // Fade in new chart
+                svg.transition()
+                    .duration(400)
+                    .style('opacity', 1)
+                    .on('end', () => {
+                        isTransitioning = false;
+                    });
+            }
+        });
+}
 
 // ===== SCROLL OBSERVER =====
 let currentStep = -1;
@@ -58,17 +108,12 @@ const observer = new IntersectionObserver((entries) => {
             stepContent?.classList.add('is-active');
             
             const step = parseInt(stepEl.dataset.step);
-            if (step !== currentStep) {
+            if (step !== currentStep && desktopCharts.length > 0) {
                 currentStep = step;
                 
-                // Update desktop chart
-                if (desktopChart.g) {
-                    switch(step) {
-                        case 0: desktopChart = desktopCharts[0]; desktopChart.draw(); break;
-                        case 1: desktopChart = desktopCharts[1]; desktopChart.draw(); break;
-                        case 2: desktopChart = desktopCharts[2]; desktopChart.draw(); break;
-                        case 3: desktopChart = desktopCharts[3]; desktopChart.draw(); break;
-                    }
+                // Update desktop chart with smooth transition
+                if (desktopCharts[step]) {
+                    transitionToChart(desktopCharts[step]);
                 }
             }
         } else {
@@ -83,14 +128,13 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('[data-step]').forEach(el => observer.observe(el));
 
-// ===== INITIAL RENDER =====
+// ===== INITIAL MOBILE RENDER =====
 setTimeout(() => {
-    // Desktop
-    if (desktopChart.g) desktopChart.draw();
-    
-    // Mobile (render all charts immediately)
+    // Mobile - render all charts immediately
     mobileCharts.forEach(chart => {
-        if (chart.g) chart.draw();
+        if (chart && chart.g) {
+            chart.draw();
+        }
     });
 }, 500);
 
@@ -99,23 +143,21 @@ let resizeTimeout;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-        desktopChart.init();
-        mobileCharts.forEach(c => c.init());
-        
-        // Redraw current state
-        if (desktopChart.g) {
-            switch(currentStep) {
-                case 0: desktopChart = desktopCharts[0]; desktopChart.draw(); break;
-                case 1: desktopChart = desktopCharts[1]; desktopChart.draw(); break;
-                case 2: desktopChart = desktopCharts[2]; desktopChart.draw(); break;
-                case 3: desktopChart = desktopCharts[3]; desktopChart.draw(); break;
+        // Reinitialize and redraw current desktop chart
+        if (currentDesktopChart && desktopCharts.length > 0) {
+            currentDesktopChart.init();
+            if (currentDesktopChart.g) {
+                currentDesktopChart.draw();
             }
         }
         
-        // Redraw mobile charts
+        // Reinitialize and redraw all mobile charts
         mobileCharts.forEach(chart => {
-            if (chart.g) {
-                chart.draw();
+            if (chart) {
+                chart.init();
+                if (chart.g) {
+                    chart.draw();
+                }
             }
         });
     }, 250);

@@ -48,3 +48,84 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+/* Bar Chart Styles */
+#container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 40px;
+    max-width: 900px;
+    width: 100%;
+}
+
+#chart {
+    position: relative;
+}
+
+.bar {
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.bar:hover {
+    opacity: 0.8;
+}
+
+.axis-label {
+    font-size: 14px;
+    fill: #666;
+}
+
+.tick text {
+    font-size: 12px;
+    fill: #666;
+}
+
+.tick line {
+    stroke: #e0e0e0;
+}
+
+.domain {
+    stroke: #666;
+}
+
+#back-button {
+    display: none;
+    margin: 0 auto 20px auto;
+    padding: 10px 20px;
+    background: #5a6c7d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+#back-button:hover {
+    background: #4a5c6d;
+}
+
+.tooltip {
+    position: absolute;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.country-label {
+    font-size: 11px;
+    fill: white;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+
