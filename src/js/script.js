@@ -28,9 +28,10 @@ import WaffleChart from "./waffle.js";
 const waffleData = d3.csv('../data/processed/waffle_chart_data.csv', d3.autoType);
 
 // ===== INITIALIZE =====
+const waffleColors = [/*gray*/ 'lightgray', /*red*/ '#ff4d4d'];
 // Desktop chart (one sticky instance)
 const desktopCharts = [
-    new WaffleChart('desktop-chart', waffleData),
+    new WaffleChart('desktop-chart', waffleData, waffleColors),
     new WaffleChart('desktop-chart', waffleData),
     new WaffleChart('desktop-chart', waffleData),
     new WaffleChart('desktop-chart', waffleData)
@@ -39,7 +40,7 @@ let desktopChart = desktopCharts[0];
 
 // Mobile charts (one per step)
 const mobileCharts = [
-    new WaffleChart('mobile-chart-0', waffleData),
+    new WaffleChart('mobile-chart-0', waffleData, waffleColors),
     new WaffleChart('mobile-chart-1', waffleData),
     new WaffleChart('mobile-chart-2', waffleData),
     new WaffleChart('mobile-chart-3', waffleData)

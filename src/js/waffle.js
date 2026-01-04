@@ -1,9 +1,10 @@
 import ScrollyChart from './scrolly_chart.js';
 
 export default class WaffleChart extends ScrollyChart {
-    constructor(svgId, data) {
+    constructor(svgId, data, colors=d3.schemeTableau10) {
         // data is expected to be a Promise that resolves to an array of objects
         super(svgId, data);
+        this.colors = colors;
     }
 
     draw() {
@@ -13,7 +14,6 @@ export default class WaffleChart extends ScrollyChart {
         const unitsPerRow = 10;
         const unitSize = Math.min(this.innerWidth / unitsPerRow, this.innerHeight / (totalUnits / unitsPerRow));
         const unitPadding = 2;
-        const colors = d3.schemeCategory10;
 
         const unitsData = [];
         this.data.then(data => {
@@ -21,13 +21,18 @@ export default class WaffleChart extends ScrollyChart {
             data.forEach((d, i) => {
                 const numUnits = Math.round((d.value / d3.sum(data, dd => dd.value)) * totalUnits);
                 for (let j = 0; j < numUnits; j++) {
-                    unitsData.push({ category: d.category, color: colors[i % colors.length] });
+                    unitsData.push({ category: d.category, color: this.colors[i % this.colors.length] });
                     unitIndex++;
                 }
             });
 
             this.renderUnits(unitsData, unitSize, unitPadding, unitsPerRow);
         });
+
+        // resize the SVG to fit the waffle chart
+        const chartWidth = unitSize * unitsPerRow;
+        const chartHeight = unitSize * (totalUnits / unitsPerRow);
+        this.svg.attr('viewBox', `0 0 ${chartWidth} ${chartHeight}`);
     }
 
     renderUnits(unitsData, unitSize, unitPadding, unitsPerRow) {
@@ -40,6 +45,8 @@ export default class WaffleChart extends ScrollyChart {
             .attr('height', unitSize - unitPadding)
             .attr('x', (d, i) => (i % unitsPerRow) * unitSize)
             .attr('y', (d, i) => Math.floor(i / unitsPerRow) * unitSize)
+            .attr('rx', 2)
+            .attr('ry', 2)
             .attr('fill', d => d.color)
             .attr('opacity', 0.85);
     }
