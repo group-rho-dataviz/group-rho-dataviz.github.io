@@ -18,7 +18,7 @@ export default class BarChart extends ScrollyChart {
         this.tooltip = d3.select('body').append('div')
             .attr('class', 'chart-tooltip')
             .style('position', 'absolute')
-            .style('padding', '10px')
+            .style('padding', '8px 12px')
             .style('background', 'rgba(0, 0, 0, 0.9)')
             .style('color', 'white')
             .style('border-radius', '4px')
@@ -34,14 +34,15 @@ export default class BarChart extends ScrollyChart {
 
         const bbox = container.getBoundingClientRect();
         this.width = bbox.width;
-        this.height = bbox.height;
         
         // Adjust margins for mobile
         const isMobile = this.width < 640;
+        this.height = isMobile ? Math.max(bbox.height, 500) : Math.max(bbox.height, 550);
+
         this.margin = { 
-            top: isMobile ? 90 : 60,  // Extra space for back button on mobile
+            top: isMobile ? 100 : 50,  // Extra space for back button on mobile
             right: isMobile ? 20 : 30, 
-            bottom: isMobile ? 70 : 80,  // More space for range labels
+            bottom: isMobile ? 60 : 80,  // More space for range labels
             left: isMobile ? 50 : 70 
         };
         
@@ -71,11 +72,22 @@ export default class BarChart extends ScrollyChart {
             .style('font-family', 'Inter, sans-serif')
             .style('font-size', isMobile ? '13px' : '16px')
             .style('font-weight', '600');
-        
+
+        // Y-axis label
+        this.yAxisLabel = this.svg.append('text')
+            .attr('transform', 'rotate(-90)')
+            .attr('x', -(this.margin.top + this.innerHeight / 2))
+            .attr('y', isMobile ? 15 : 20)
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#9ca3af')
+            .style('font-family', 'Inter, sans-serif')
+            .style('font-size', '12px')
+            .style('font-weight', '500');
+            
         // Hint text for tap interaction
         this.hintText = this.svg.append('text')
             .attr('x', this.width / 2)
-            .attr('y', isMobile ? 70 : 48)
+            .attr('y', isMobile ? 70 : 43)
             .attr('text-anchor', 'middle')
             .attr('fill', '#9ca3af')
             .style('font-family', 'Inter, sans-serif')
@@ -91,8 +103,10 @@ export default class BarChart extends ScrollyChart {
             .style('pointer-events', 'none')
             .on('click', () => this.showClusters());
         
-        const buttonX = isMobile ? (this.width / 2 - 35) : 10;
-        const buttonY = isMobile ? 15 : 10;
+        const buttonWidth = isMobile ? 70 : 80;
+
+        const buttonX = this.width - buttonWidth - (isMobile ? 12 : 16);
+        const buttonY = isMobile ? 12 : 10;
         
         this.backButton.append('rect')
             .attr('x', buttonX)
@@ -153,15 +167,13 @@ export default class BarChart extends ScrollyChart {
         this.yAxisG.selectAll('line, path').attr('stroke', '#374151');
         
         // Add range labels if in cluster view
-        if (this.currentView === 'clusters') {
-            this.addRangeLabels();
-        }
+         this.addRangeLabels();
     }
     
     addRangeLabels() {
         const isMobile = this.width < 640;
         const ranges = {
-            'Low': '[0-100)',
+            'Low': '[10-100)',
             'Medium': '[100-1K)',
             'High': '[1K+)'
         };
@@ -169,18 +181,31 @@ export default class BarChart extends ScrollyChart {
         // Remove existing range labels
         this.g.selectAll('.range-label').remove();
         
-        // Add new range labels
-        this.clusterData.forEach(d => {
+        // Add range labels based on current view
+        if (this.currentView === 'clusters') {
+            this.clusterData.forEach(d => {
+                this.g.append('text')
+                    .attr('class', 'range-label')
+                    .attr('x', this.xScale(d.cluster) + this.xScale.bandwidth() / 2)
+                    .attr('y', this.innerHeight + (isMobile ? 38 : 42))
+                    .attr('text-anchor', 'middle')
+                    .attr('fill', '#6b7280')
+                    .style('font-size', isMobile ? '9px' : '10px')
+                    .style('font-style', 'italic')
+                    .text(ranges[d.cluster]);
+            });
+        } else if (this.currentView === 'countries' && this.selectedCluster) {
+            // Show range for the selected cluster
             this.g.append('text')
                 .attr('class', 'range-label')
-                .attr('x', this.xScale(d.cluster) + this.xScale.bandwidth() / 2)
-                .attr('y', this.innerHeight + (isMobile ? 35 : 40))
+                .attr('x', this.xScale(this.selectedCluster) + this.xScale.bandwidth() / 2)
+                .attr('y', this.innerHeight + (isMobile ? 38 : 42))
                 .attr('text-anchor', 'middle')
                 .attr('fill', '#6b7280')
                 .style('font-size', isMobile ? '9px' : '10px')
                 .style('font-style', 'italic')
-                .text(ranges[d.cluster]);
-        });
+                .text(ranges[this.selectedCluster]);
+        }
     }
 
     async draw() {
@@ -253,7 +278,12 @@ export default class BarChart extends ScrollyChart {
             .transition()
             .duration(300)
             .text('Countries by Fatality Cluster (2025)');
-        
+
+        this.yAxisLabel
+            .transition()
+            .duration(300)
+            .text('Number of Countries');
+            
         // Show hint text
         this.hintText
             .text(isMobile ? 'Tap a bar to see details' : 'Click a bar to see details')
@@ -342,6 +372,11 @@ export default class BarChart extends ScrollyChart {
             .transition()
             .duration(300)
             .text(titleText);
+
+        this.yAxisLabel
+            .transition()
+            .duration(300)
+            .text('Total Fatalities');            
         
         // Hide hint text
         this.hintText
@@ -427,7 +462,7 @@ export default class BarChart extends ScrollyChart {
             .attr('fill', (d, i) => colorScale(i));
         
         // Add country labels for larger segments
-        const minSegmentSize = isMobile ? 0.08 : 0.05; // Larger threshold on mobile
+        const minSegmentSize = isMobile ? 0.04 : 0.035; // Larger threshold on mobile
         const labels = this.g.selectAll('.country-label')
             .data(stackedData.filter(d => (d.end - d.start) / totalFatalities > minSegmentSize));
         
