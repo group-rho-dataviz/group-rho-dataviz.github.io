@@ -17,7 +17,18 @@ export default class ScrollyChart {
 
         const bbox = container.getBoundingClientRect();
         this.width = bbox.width;
-        this.height = bbox.height;
+        
+        // Adjust margins for mobile
+        const isMobile = this.width < 640;
+        this.height = isMobile ? Math.max(bbox.height, 500) : Math.max(bbox.height, 550);
+
+        this.margin = { 
+            top: 80,  // Extra space for title
+            right: 0, 
+            bottom: 0,  // More space for range labels
+            left: 0 
+        };
+        
         this.innerWidth = this.width - this.margin.left - this.margin.right;
         this.innerHeight = this.height - this.margin.top - this.margin.bottom;
 
@@ -35,13 +46,14 @@ export default class ScrollyChart {
 
         this.yAxisG = this.g.append('g');
 
+        // Title - positioned at top
         this.title = this.svg.append('text')
             .attr('x', this.width / 2)
-            .attr('y', 35)
+            .attr('y', this.margin.top / 2)
             .attr('text-anchor', 'middle')
             .attr('fill', '#f3f4f6')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', '16px')
+            .style('font-size', this.width / 20 + 'px')
             .style('font-weight', '600');
     }
 /*

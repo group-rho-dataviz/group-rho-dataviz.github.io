@@ -5,10 +5,16 @@ export default class WaffleChart extends ScrollyChart {
         // data is expected to be a Promise that resolves to an array of objects
         super(svgId, data, tooltip);
         this.colors = colors;
+
+        // Title specific to WaffleChart
+        this.title.text("Percentage of Countries in Conflict");
     }
 
     draw() {
         if (!this.g) return;
+
+        this.g.selectAll('*').remove();
+        this.title.text("Percentage of Countries in Conflict");
 
         const totalUnits = 100;
         const unitsPerRow = 10;
@@ -30,13 +36,14 @@ export default class WaffleChart extends ScrollyChart {
         });
 
         // resize the SVG to fit the waffle chart
-        const chartWidth = unitSize * unitsPerRow;
-        const chartHeight = unitSize * (totalUnits / unitsPerRow);
+        const chartWidth = unitSize * unitsPerRow + this.margin.left + this.margin.right;
+        const chartHeight = unitSize * (totalUnits / unitsPerRow) + this.margin.top + this.margin.bottom;
         this.svg.attr('viewBox', `0 0 ${chartWidth} ${chartHeight}`);
     }
 
     renderUnits(unitsData, unitSize, unitPadding, unitsPerRow) {
         if (!this.g) return;
+
         this.g.selectAll('.waffle-unit')
             .data(unitsData)
             .join('rect')

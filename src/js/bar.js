@@ -53,11 +53,11 @@ export default class BarChart extends ScrollyChart {
         // Title - positioned at top
         this.title = this.svg.append('text')
             .attr('x', this.width / 2)
-            .attr('y', isMobile ? 50 : 25)
+            .attr('y', this.margin.top / 2)
             .attr('text-anchor', 'middle')
             .attr('fill', '#f3f4f6')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', isMobile ? '13px' : '16px')
+            .style('font-size', this.width / 20 + 'px')
             .style('font-weight', '600');
 
         // Y-axis label
@@ -74,11 +74,11 @@ export default class BarChart extends ScrollyChart {
         // Hint text for tap interaction
         this.hintText = this.svg.append('text')
             .attr('x', this.width / 2)
-            .attr('y', isMobile ? 70 : 43)
+            .attr('y', this.margin.top * 2/3)
             .attr('text-anchor', 'middle')
             .attr('fill', '#9ca3af')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', '11px')
+            .style('font-size', Math.max(this.width / 35, 8) + 'px')
             .style('font-style', 'italic')
             .style('opacity', 0);
         
@@ -92,13 +92,13 @@ export default class BarChart extends ScrollyChart {
         
         const buttonWidth = isMobile ? 70 : 80;
 
-        const buttonX = this.width - buttonWidth - (isMobile ? 12 : 16);
-        const buttonY = isMobile ? 12 : 10;
+        const buttonX = this.width - buttonWidth;
+        const buttonY = this.margin.top / 20;
         
         this.backButton.append('rect')
             .attr('x', buttonX)
             .attr('y', buttonY)
-            .attr('width', isMobile ? 70 : 80)
+            .attr('width', buttonWidth)
             .attr('height', 28)
             .attr('rx', 5)
             .attr('fill', '#5a6c7d')
@@ -154,7 +154,7 @@ export default class BarChart extends ScrollyChart {
         this.yAxisG.selectAll('line, path').attr('stroke', '#374151');
         
         // Add range labels if in cluster view
-         this.addRangeLabels();
+        this.addRangeLabels();
     }
     
     addRangeLabels() {
