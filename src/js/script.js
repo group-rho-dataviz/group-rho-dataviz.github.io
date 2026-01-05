@@ -25,6 +25,22 @@ import BarChart from "./bar.js";
         { name: 'Somalia', fatalities: 600000, coverage: 28, x: 0.58, y: 0.52 }
     ]
 }; */
+// ===== TOOLTIP =====
+// Add tooltip
+let tooltip = d3.select('body').append('div')
+    .attr('class', 'chart-tooltip')
+    .style('position', 'absolute')
+    .style('top', '0px')
+    .style('left', '0px')
+    .style('padding', '8px 12px')
+    .style('background', 'rgba(0, 0, 0, 0.9)')
+    .style('color', 'white')
+    .style('border-radius', '4px')
+    .style('font-size', '12px')
+    .style('pointer-events', 'none')
+    .style('opacity', 0)
+    .style('z-index', 10);
+
 // ===== DATA =====
 const waffleData = d3.csv('data/processed/waffle_chart_data.csv', d3.autoType);
 const barChartData = d3.csv('data/processed/bar_chart.csv', d3.autoType);
@@ -39,19 +55,19 @@ let isTransitioning = false;
 
 // Mobile charts - one per step, each with its own SVG
 const mobileCharts = [
-    new WaffleChart('mobile-chart-0', waffleData, waffleColors),
-    new BarChart('mobile-chart-1', barChartData),
-    new WaffleChart('mobile-chart-2', waffleData),
-    new WaffleChart('mobile-chart-3', waffleData)
+    new WaffleChart('mobile-chart-0', waffleData, tooltip, waffleColors),
+    new BarChart('mobile-chart-1', barChartData, tooltip),
+    new WaffleChart('mobile-chart-2', waffleData, tooltip),
+    new WaffleChart('mobile-chart-3', waffleData, tooltip)
 ];
 
 // Initialize desktop charts after a brief delay to ensure DOM is ready
 setTimeout(() => {
     desktopCharts = [
-        new WaffleChart('desktop-chart', waffleData, waffleColors),
-        new BarChart('desktop-chart', barChartData),
-        new WaffleChart('desktop-chart', waffleData),
-        new WaffleChart('desktop-chart', waffleData)
+        new WaffleChart('desktop-chart', waffleData, tooltip, waffleColors),
+        new BarChart('desktop-chart', barChartData, tooltip),
+        new WaffleChart('desktop-chart', waffleData, tooltip),
+        new WaffleChart('desktop-chart', waffleData, tooltip)
     ];
     
     // Set initial desktop chart

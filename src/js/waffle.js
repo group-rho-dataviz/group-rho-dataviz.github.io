@@ -1,9 +1,9 @@
 import ScrollyChart from './scrolly_chart.js';
 
 export default class WaffleChart extends ScrollyChart {
-    constructor(svgId, data, colors=d3.schemeTableau10) {
+    constructor(svgId, data, tooltip, colors=d3.schemeTableau10) {
         // data is expected to be a Promise that resolves to an array of objects
-        super(svgId, data);
+        super(svgId, data, tooltip);
         this.colors = colors;
     }
 
@@ -45,9 +45,35 @@ export default class WaffleChart extends ScrollyChart {
             .attr('height', unitSize - unitPadding)
             .attr('x', (d, i) => (i % unitsPerRow) * unitSize)
             .attr('y', (d, i) => Math.floor(i / unitsPerRow) * unitSize)
-            .attr('rx', 2)
-            .attr('ry', 2)
+            .attr('rx', unitSize * 0.1)
+            .attr('ry', unitSize * 0.1)
             .attr('fill', d => d.color)
-            .attr('opacity', 0.85);
+            .attr('opacity', 0.85)
+            .on('mouseover', (event, d) => {
+                const count = unitsData.filter(u => u.category === d.category).length;
+                const percent = unitsData.length ? ((count / unitsData.length) * 100).toFixed(1) : '0.0';
+                this.tooltip
+                    .style('opacity', 1)
+                    .html(
+                        `<div style="display:flex;align-items:center;gap:8px;">
+                            <div style="width:12px;height:12px;background:${d.color};border-radius:2px;flex:0 0 12px;"></div>
+                            <div style="line-height:1;">
+                                <strong>${d.category == 'in_conflict' ? 'In Conflict' : 'Not in Conflict'}</strong><br/>
+                                <span style="font-size:12px;color:#ddd;">${percent}%</span>
+                            </div>
+                        </div>`
+                    );
+            })
+            .on('mousemove', (event) => {
+                this.tooltip
+                    .style('left', (event.pageX + 10) + 'px')
+                    .style('top', (event.pageY - 28) + 'px');
+            })
+            .on('mouseout', () => {
+                this.tooltip.style('opacity', 0);
+            })
+            .on('scroll', () => {
+                this.tooltip.style('opacity', 0);
+            });
     }
 }

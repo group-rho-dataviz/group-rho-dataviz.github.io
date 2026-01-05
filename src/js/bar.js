@@ -1,8 +1,8 @@
 import ScrollyChart from './scrolly_chart.js';
 
 export default class BarChart extends ScrollyChart {
-    constructor(svgId, data, colors = d3.schemeTableau10) {
-        super(svgId, data);
+    constructor(svgId, data, tooltip, colors = d3.schemeTableau10) {
+        super(svgId, data, tooltip);
         this.colors = colors;
         this.currentView = 'clusters';
         this.selectedCluster = null;
@@ -13,19 +13,6 @@ export default class BarChart extends ScrollyChart {
             'Medium': '#c49a6c',
             'High': '#a67c7c'
         };
-        
-        // Add tooltip
-        this.tooltip = d3.select('body').append('div')
-            .attr('class', 'chart-tooltip')
-            .style('position', 'absolute')
-            .style('padding', '8px 12px')
-            .style('background', 'rgba(0, 0, 0, 0.9)')
-            .style('color', 'white')
-            .style('border-radius', '4px')
-            .style('font-size', '12px')
-            .style('pointer-events', 'none')
-            .style('opacity', 0)
-            .style('z-index', 10);
     }
 
     init() {
@@ -336,6 +323,9 @@ export default class BarChart extends ScrollyChart {
                 d3.select(event.currentTarget).style('opacity', 1);
                 this.tooltip.style('opacity', 0);
             })
+            .on('scroll', () => {
+                this.tooltip.style('opacity', 0);
+            })
             .transition()
             .duration(600)
             .attr('x', d => this.xScale(d.cluster))
@@ -451,6 +441,9 @@ export default class BarChart extends ScrollyChart {
             })
             .on('mouseout', (event) => {
                 d3.select(event.currentTarget).style('opacity', 1);
+                this.tooltip.style('opacity', 0);
+            })
+            .on('scroll', () => {
                 this.tooltip.style('opacity', 0);
             })
             .transition()

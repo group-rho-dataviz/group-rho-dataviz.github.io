@@ -1,12 +1,13 @@
 // ===== CHART CLASS =====
 export default class ScrollyChart {
-    constructor(svgId, data) {
+    constructor(svgId, data, tooltip = null) {
         this.svg = d3.select(`#${svgId}`);
         if (this.svg.empty()) return;
         
         this.margin = { top: 0, right: 0, bottom: 0, left: 0 };
         // Data should be a Promise that resolves to an array of objects
         this.data = data;
+        this.tooltip = tooltip;
         this.init();
     }
 
