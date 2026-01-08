@@ -1,6 +1,6 @@
-import ScrollyChart from "./scrolly_chart.js";
 import WaffleChart from "./waffle.js";
 import BarChart from "./bar.js";
+import ScatterPlot from "./scatter.js";
 
 // ===== DATA =====
 /* const data = {
@@ -44,6 +44,7 @@ let tooltip = d3.select('body').append('div')
 // ===== DATA =====
 const waffleData = d3.csv('data/processed/waffle_chart_data.csv', d3.autoType);
 const barChartData = d3.csv('data/processed/bar_chart.csv', d3.autoType);
+const scatterData = d3.csv('data/processed/scatter_plot_data.csv', d3.autoType);
 
 // ===== INITIALIZE =====
 const waffleColors = ['lightgray', '#ff4d4d'];
@@ -57,7 +58,7 @@ let isTransitioning = false;
 const mobileCharts = [
     new WaffleChart('mobile-chart-0', waffleData, tooltip, waffleColors),
     new BarChart('mobile-chart-1', barChartData, tooltip),
-    new WaffleChart('mobile-chart-2', waffleData, tooltip),
+    new ScatterPlot('mobile-chart-2', scatterData, tooltip),
     new WaffleChart('mobile-chart-3', waffleData, tooltip)
 ];
 
@@ -66,7 +67,7 @@ setTimeout(() => {
     desktopCharts = [
         new WaffleChart('desktop-chart', waffleData, tooltip, waffleColors),
         new BarChart('desktop-chart', barChartData, tooltip),
-        new WaffleChart('desktop-chart', waffleData, tooltip),
+        new ScatterPlot('desktop-chart', scatterData, tooltip),
         new WaffleChart('desktop-chart', waffleData, tooltip)
     ];
     
