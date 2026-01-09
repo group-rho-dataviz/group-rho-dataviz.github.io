@@ -18,3 +18,16 @@ Insight
 
 Takeaway
     "Conclusions. Final more global view on the problem"
+
+
+-----------------------------------------------------------------------------------
+TO DO:
+1) Aggiungere una pagina in cui descriviamo in dettaglio la metodologia.
+	Il link a questa pagina non deve trovarsi nella nav bar siccome il sito è one page,
+	ma può trovarsi nel footer (dove aggiungere i nomi) o in una sezione CALL TO ACTION.
+
+2) Sistemare problemi di scrolling
+
+3) Choropleth map - Seconda colonna GDELT 2025
+
+4) Scatter Plot / Bubble Chart - Menzioni/Morti
