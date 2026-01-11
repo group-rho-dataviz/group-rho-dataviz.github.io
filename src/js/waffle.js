@@ -72,9 +72,7 @@ export default class WaffleChart extends ScrollyChart {
                     );
             })
             .on('mousemove', (event) => {
-                this.tooltip
-                    .style('left', (event.pageX + 10) + 'px')
-                    .style('top', (event.pageY - 28) + 'px');
+                this.positionTooltip(event);
             })
             .on('mouseout', () => {
                 this.tooltip.style('opacity', 0);

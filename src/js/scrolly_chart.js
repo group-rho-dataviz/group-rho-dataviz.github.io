@@ -56,6 +56,38 @@ export default class ScrollyChart {
             .style('font-size', this.width / 20 + 'px')
             .style('font-weight', '600');
     }
+
+    positionTooltip(event, offsetX = 12, offsetY = 12) {
+        const pageX = event.pageX;
+        const pageY = event.pageY;
+
+        const node = this.tooltip.node();
+        if (!node) return;
+
+        // initial position to the right/below the cursor
+        let left = pageX + offsetX;
+        let top = pageY + offsetY;
+
+        // measure tooltip size and viewport scroll
+        const rect = node.getBoundingClientRect();
+        const tw = rect.width;
+        const th = rect.height;
+        const scrollX = window.pageXOffset;
+        const scrollY = window.pageYOffset;
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+
+        // clamp horizontally (if it would overflow, try placing left of cursor)
+        if (left + tw > scrollX + vw - 8) {
+            left = pageX - offsetX - tw;
+        }
+        // clamp vertically (if it would overflow, try placing above cursor)
+        if (top + th > scrollY + vh - 8) {
+            top = pageY - offsetY - th;
+        }
+
+        this.tooltip.style("left", left + "px").style("top", top + "px");
+    }
 /*
     drawStep0() {
         if (!this.g) return;

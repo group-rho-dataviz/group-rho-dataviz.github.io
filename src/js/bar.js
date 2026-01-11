@@ -319,6 +319,9 @@ export default class BarChart extends ScrollyChart {
                     .style('left', (event.pageX + 10) + 'px')
                     .style('top', (event.pageY - 10) + 'px');
             })
+            .on('mousemove', (event) => {
+                this.positionTooltip(event);
+            })
             .on('mouseout', (event) => {
                 d3.select(event.currentTarget).style('opacity', 1);
                 this.tooltip.style('opacity', 0);
@@ -438,6 +441,9 @@ export default class BarChart extends ScrollyChart {
                     .html(`<strong>${d.country}</strong><br/>${d.fatalities.toLocaleString()} fatalities`)
                     .style('left', (event.pageX + 10) + 'px')
                     .style('top', (event.pageY - 10) + 'px');
+            })
+            .on('mousemove', (event) => {
+                this.positionTooltip(event);
             })
             .on('mouseout', (event) => {
                 d3.select(event.currentTarget).style('opacity', 1);

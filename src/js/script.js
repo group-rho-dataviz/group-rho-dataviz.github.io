@@ -44,7 +44,7 @@ let tooltip = d3.select('body').append('div')
 // ===== DATA =====
 const waffleData = d3.csv('data/processed/waffle_chart_data.csv', d3.autoType);
 const barChartData = d3.csv('data/processed/bar_chart.csv', d3.autoType);
-const scatterData = d3.csv('data/processed/scatter_plot_data.csv', d3.autoType);
+const scatterData = d3.csv('data/processed/scatter_plot.csv', d3.autoType);
 
 // ===== INITIALIZE =====
 const waffleColors = ['lightgray', '#ff4d4d'];
