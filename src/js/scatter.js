@@ -94,9 +94,13 @@ export default class ScatterPlot extends ScrollyChart {
                     .attr('cx', d => this.xScale(d.MENTIONS))
                     .attr('cy', d => this.yScale(d.FATALITIES))
                     .attr('r', this.width < 640 ? 4 : 6)
-                    .attr('fill', d => this.specialCoutries.has(d.COUNTRY) ? 'red' : 'lightgray')
+                    .attr('fill', 'lightgray')
                     .attr('opacity', 0.75)
                 .on('mouseover', (event, d) => {
+                    // gray out other points and remove their labels
+                    this.g.selectAll('.scatter-point')
+                        .attr('opacity', p => (p === d ? 0.9 : 0.1));
+                    this.g.selectAll('text').remove();
                     if (this.tooltip) {
                         this.tooltip
                             .style('opacity', 1)
@@ -109,11 +113,40 @@ export default class ScatterPlot extends ScrollyChart {
                     this.positionTooltip(event);
                 })
                 .on('mouseout', () => {
+                    // restore all points and redraw special country labels
+                    this.g.selectAll('.scatter-point')
+                        .attr('opacity', 0.75);
+                    this.g.selectAll('text').remove();
+                    this.drawSpecialCountries();
                     if (this.tooltip) {
                         this.tooltip.style('opacity', 0);
                     }
                 });
+
+                if (this.specialCoutries.size > 0) {
+                    this.drawSpecialCountries();
+                }
         });
     }
 
+    drawSpecialCountries() {
+        // Highlight special countries, bring them to front and add a label
+        this.g.selectAll('.scatter-point')
+            .filter(d => this.specialCoutries.has(d.COUNTRY))
+            .attr('fill', '#ff4d4d')
+            .attr('opacity', 1)
+            .attr('r', this.width < 640 ? 6 : 8)
+            .raise()
+            .each((d, i, nodes) => {
+                const point = d3.select(nodes[i]);
+                this.g.append('text')
+                    .attr('x', point.attr('cx'))
+                    .attr('y', i % 2 === 1 ? point.attr('cy') - 10 : +point.attr('cy') + 15)
+                    .attr('text-anchor', 'middle')
+                    .attr('font-size', this.width < 640 ? '10px' : '12px')
+                    .attr('font-weight', '600')
+                    .attr('fill', '#f3f4f6')
+                    .text(d.COUNTRY);
+            });
+    }
 }
