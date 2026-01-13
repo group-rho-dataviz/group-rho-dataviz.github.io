@@ -13,9 +13,6 @@ export default class WaffleChart extends ScrollyChart {
     draw() {
         if (!this.g) return;
 
-        this.g.selectAll('*').remove();
-        this.title.text("Percentage of Countries in Conflict");
-
         const totalUnits = 100;
         const unitsPerRow = 10;
         const unitSize = Math.min(this.innerWidth / unitsPerRow, this.innerHeight / (totalUnits / unitsPerRow));
@@ -39,10 +36,16 @@ export default class WaffleChart extends ScrollyChart {
         const chartWidth = unitSize * unitsPerRow + this.margin.left + this.margin.right;
         const chartHeight = unitSize * (totalUnits / unitsPerRow) + this.margin.top + this.margin.bottom;
         this.svg.attr('viewBox', `0 0 ${chartWidth} ${chartHeight}`);
+        this.width = chartWidth;
+        this.height = chartHeight;
+        this.title
+            .attr('x', this.width / 2)
+            .attr('y', this.margin.top / 2)
+            .text("Percentage of Countries in Conflict");
     }
 
     renderUnits(unitsData, unitSize, unitPadding, unitsPerRow) {
-        if (!this.g) return;
+        if (!this.g || !this.tooltip || unitSize <= 0) return;
 
         this.g.selectAll('.waffle-unit')
             .data(unitsData)
