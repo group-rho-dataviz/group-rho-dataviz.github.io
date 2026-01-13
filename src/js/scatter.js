@@ -12,15 +12,15 @@ export default class ScatterPlot extends ScrollyChart {
     init() {
         super.init();
 
-        // COuntries to highlight
+        // Countries to highlight
         this.specialCoutries = new Set(['Ukraine', 'India', 'Pakistan', 'Afghanistan', 'Palestine', 'United States', 'China', 'Russia', 'Israel']);
 
         const setup = (data) => {
             this.margin = { 
                 top: 60,  
-                right: 30,
-                bottom: 20,
-                left: 30 
+                right: 40,
+                bottom: 50,
+                left: 50 
             };
 
             this.innerWidth = this.width - this.margin.left - this.margin.right;
@@ -72,6 +72,30 @@ export default class ScatterPlot extends ScrollyChart {
 
             this.yAxisG = this.g.append('g')
                 .call(yAxis);
+
+            // Axis labels
+            this.svg.append('text')
+                .attr('class', 'x')
+                .attr('x', this.margin.left + this.innerWidth / 2)
+                .attr('y', this.height - 10)
+                .attr('text-anchor', 'middle')
+                .attr('fill', '#9ca3af')
+                .style('font-family', 'Inter, sans-serif')
+                .style('font-size', Math.min(this.width / 30, 16) + 'px')
+                .style('font-weight', '500')
+                .text('Number of Mentions in News Articles');
+
+            this.svg.append('text')
+                .attr('class', 'y')
+                .attr('x', -(this.margin.top + this.innerHeight / 2))
+                .attr('y', 15)
+                .attr('transform', 'rotate(-90)')
+                .attr('text-anchor', 'middle')
+                .attr('fill', '#9ca3af')
+                .style('font-family', 'Inter, sans-serif')
+                .style('font-size', Math.min(this.width / 30, 16) + 'px')
+                .style('font-weight', '500')
+                .text('Number of Fatalities');
         };
 
         if (this.data && typeof this.data.then === 'function') {
