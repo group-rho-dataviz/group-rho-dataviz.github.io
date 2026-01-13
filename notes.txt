@@ -31,5 +31,4 @@ TO DO:
 
 2) Sistemare problemi di scrolling
 
-3) Scatter Plot: Toggle che permette di rimuovere per ogni paese le menzioni di se stesso
-
+3) Controllare i codici e i Paesi
