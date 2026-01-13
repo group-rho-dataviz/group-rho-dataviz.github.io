@@ -1,7 +1,7 @@
 import WaffleChart from "./waffle.js";
 import BarChart from "./bar.js";
 import ScatterPlot from "./scatter.js";
-
+import Choropleth from "./choropleth.js";
 // ===== DATA =====
 /* const data = {
     regions: [
@@ -45,6 +45,10 @@ let tooltip = d3.select('body').append('div')
 const waffleData = d3.csv('data/processed/waffle_chart_data.csv', d3.autoType);
 const barChartData = d3.csv('data/processed/bar_chart.csv', d3.autoType);
 const scatterData = d3.csv('data/processed/scatter_plot.csv', d3.autoType);
+const choroplethData = d3.csv('data/processed/top_three_media_mentions_by_country_week_material_conflict.csv', d3.autoType);
+
+// ===== JSON =====
+const geoData = await d3.json('src/json/world.json');
 
 // ===== INITIALIZE =====
 const waffleColors = ['lightgray', '#ff4d4d'];
@@ -59,7 +63,8 @@ const mobileCharts = [
     new WaffleChart('mobile-chart-0', waffleData, tooltip, waffleColors),
     new BarChart('mobile-chart-1', barChartData, tooltip),
     new ScatterPlot('mobile-chart-2', scatterData, tooltip),
-    new WaffleChart('mobile-chart-3', waffleData, tooltip)
+    new WaffleChart('mobile-chart-3', waffleData, tooltip),
+    new Choropleth('mobile-chart-4', choroplethData, tooltip, geoData)
 ];
 
 // Initialize desktop charts after a brief delay to ensure DOM is ready
@@ -68,7 +73,7 @@ setTimeout(() => {
         new WaffleChart('desktop-chart', waffleData, tooltip, waffleColors),
         new BarChart('desktop-chart', barChartData, tooltip),
         new ScatterPlot('desktop-chart', scatterData, tooltip),
-        new WaffleChart('desktop-chart', waffleData, tooltip)
+        new Choropleth('desktop-chart', choroplethData, tooltip, geoData)
     ];
     
     // Set initial desktop chart
