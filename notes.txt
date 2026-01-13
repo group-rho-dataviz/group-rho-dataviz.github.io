@@ -7,9 +7,12 @@ Problem
 
 Evidence
     "Some examples of less known conflicts "
-    - Bar Chart
-        Similar to what we did for Group Pi
+    - Chord Diagram:
+        Mostrare qual è la top-5 mention di ogni paese nel tempo (magari raggruppato per continente)
+     Oppure focus su alcuni paesi con un Sankey (Paesi di cui si parla, escluso se stesso)
     - Line Chart
+        Small multiples di tutti i paesi di cui abbiamo dati (menzioni ed eventi nel tempo)
+        Potremmo metterlo nello stesso div dello scatter
         Similar to what we did for Group Pi
 
 Insight
@@ -28,6 +31,4 @@ TO DO:
 
 2) Sistemare problemi di scrolling
 
-3) Choropleth map - Seconda colonna GDELT 2025
-
-4) Scatter Plot / Bubble Chart - Menzioni/Morti
+3) Controllare i codici e i Paesi
