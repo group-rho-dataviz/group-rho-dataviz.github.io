@@ -1,17 +1,19 @@
 import ScrollyChart from './scrolly_chart.js';
 
 export default class BarChart extends ScrollyChart {
-    constructor(svgId, data, tooltip, colors = d3.schemeTableau10) {
+    constructor(svgId, data, tooltip, colors = d3.schemeTableau10, isMobile = false) {
         super(svgId, data, tooltip);
         this.colors = colors;
         this.currentView = 'clusters';
         this.selectedCluster = null;
+        this.isMobile = isMobile;
         
         // Muted colors for conflict data
         this.clusterColors = {
-            'Low': '#7da87b',
-            'Medium': '#c49a6c',
-            'High': '#a67c7c'
+            //'Low': '#7da87b',
+            'Low': '#d08c60',
+            'Medium': '#cb6c3d',
+            'High': '#9d4a33'
         };
     }
 
@@ -74,7 +76,7 @@ export default class BarChart extends ScrollyChart {
         // Hint text for tap interaction
         this.hintText = this.svg.append('text')
             .attr('x', this.width / 2)
-            .attr('y', this.margin.top * 2/3)
+            .attr('y', this.margin.top * 3/4)
             .attr('text-anchor', 'middle')
             .attr('fill', '#9ca3af')
             .style('font-family', 'Inter, sans-serif')
@@ -273,7 +275,7 @@ export default class BarChart extends ScrollyChart {
             
         // Show hint text
         this.hintText
-            .text(isMobile ? 'Tap a bar to see details' : 'Click a bar to see details')
+            .text('Click a bar to see details')
             .transition()
             .duration(300)
             .style('opacity', 1);

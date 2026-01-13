@@ -1,7 +1,10 @@
 import WaffleChart from "./waffle.js";
 import BarChart from "./bar.js";
 import ScatterPlot from "./scatter.js";
-import Choropleth from "./choropleth.js";
+//import Choropleth from "./choropleth.js";
+import Choropleth from "./choropleth_flags.js";
+
+
 // ===== DATA =====
 /* const data = {
     regions: [
@@ -61,17 +64,16 @@ let isTransitioning = false;
 // Mobile charts - one per step, each with its own SVG
 const mobileCharts = [
     new WaffleChart('mobile-chart-0', waffleData, tooltip, waffleColors),
-    new BarChart('mobile-chart-1', barChartData, tooltip),
+    new BarChart('mobile-chart-1', barChartData, tooltip, true),
     new ScatterPlot('mobile-chart-2', scatterData, tooltip),
-    new WaffleChart('mobile-chart-3', waffleData, tooltip),
-    new Choropleth('mobile-chart-4', choroplethData, tooltip, geoData)
+    new Choropleth('mobile-chart-3', choroplethData, tooltip, geoData)
 ];
 
 // Initialize desktop charts after a brief delay to ensure DOM is ready
 setTimeout(() => {
     desktopCharts = [
         new WaffleChart('desktop-chart', waffleData, tooltip, waffleColors),
-        new BarChart('desktop-chart', barChartData, tooltip),
+        new BarChart('desktop-chart', barChartData, tooltip, false),
         new ScatterPlot('desktop-chart', scatterData, tooltip),
         new Choropleth('desktop-chart', choroplethData, tooltip, geoData)
     ];
