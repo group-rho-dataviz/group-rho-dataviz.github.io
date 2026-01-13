@@ -41,14 +41,14 @@ export default class ScatterPlot extends ScrollyChart {
             // compute tick values at powers of ten (1, 10, 100, 1k, ...)
             const xMaxPow = Math.max(0, Math.ceil(Math.log10(xMax)));
             const xTickValues = [];
-            for (let p = 0; p <= xMaxPow; p++) {
+            for (let p = 0; p < xMaxPow; p++) {
                 xTickValues.push(Math.pow(10, p));
             }
             xTickValues[xTickValues.length-1] = xMax;
 
             const yMaxPow = Math.max(0, Math.ceil(Math.log10(yMax)));
             const yTickValues = [];
-            for (let p = 0; p < yMaxPow; p++) {
+            for (let p = 0; p <= yMaxPow; p++) {
                 yTickValues.push(Math.pow(10, p));
             }
             yTickValues[yTickValues.length-1] = yMax;
@@ -100,7 +100,7 @@ export default class ScatterPlot extends ScrollyChart {
                     // gray out other points and remove their labels
                     this.g.selectAll('.scatter-point')
                         .attr('opacity', p => (p === d ? 0.9 : 0.1));
-                    this.g.selectAll('text').remove();
+                    this.g.selectAll('.point-label').remove();
                     if (this.tooltip) {
                         this.tooltip
                             .style('opacity', 1)
@@ -116,7 +116,7 @@ export default class ScatterPlot extends ScrollyChart {
                     // restore all points and redraw special country labels
                     this.g.selectAll('.scatter-point')
                         .attr('opacity', 0.75);
-                    this.g.selectAll('text').remove();
+                    this.g.selectAll('.point-label').remove();
                     this.drawSpecialCountries();
                     if (this.tooltip) {
                         this.tooltip.style('opacity', 0);
@@ -140,6 +140,7 @@ export default class ScatterPlot extends ScrollyChart {
             .each((d, i, nodes) => {
                 const point = d3.select(nodes[i]);
                 this.g.append('text')
+                    .attr('class', 'point-label')
                     .attr('x', point.attr('cx'))
                     .attr('y', i % 2 === 1 ? point.attr('cy') - 10 : +point.attr('cy') + 15)
                     .attr('text-anchor', 'middle')
