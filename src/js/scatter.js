@@ -2,18 +2,18 @@ import ScrollyChart from './scrolly_chart.js';
 
 export default class ScatterPlot extends ScrollyChart {
     // Scatter Plot showing relationship between number of mentions in news articles
-    // and number of fatalities in a given country for the year 2025.
+    // and number of fatalities in a given country for a given year.
     constructor(svgId, data, tooltip = null) {
         super(svgId, data, tooltip);
         
-        this.title.text("Mentions vs Fatalities (2025)");
+        this.title.text("Mentions vs Fatalities");
     }
 
     init() {
         super.init();
 
         // Countries to highlight
-        this.specialCoutries = new Set(['Ukraine', 'India', 'Pakistan', 'Afghanistan', 'Palestine', 'United States', 'Russia', 'Israel']);
+        this.specialCountries = new Set(['Ukraine', 'India', 'Pakistan', 'Afghanistan', 'Palestine', 'United States', 'Russia', 'Israel']);
 
         const setup = (data) => {
             this.margin = { 
@@ -26,13 +26,91 @@ export default class ScatterPlot extends ScrollyChart {
             this.innerWidth = this.width - this.margin.left - this.margin.right;
             this.innerHeight = this.height - this.margin.top - this.margin.bottom;
 
-            const xMax = d3.max(data, d => d.MENTIONS) || 10;
+            // Year Selector - dropdown
+            this.year = 2025; // default year
+            const years = Array.from(new Set(data.map(d => d.YEAR))).sort();
+            const container = this.svg.node()?.parentElement;
+            if (container) {
+                const yearSelector = d3.select(container)
+                    .append('select')
+                    .attr('id', 'year-selector')
+                    .style('margin-top', '10px')
+                    .on('change', (event) => {
+                        this.selectYear(+event.target.value);
+                    });
+                yearSelector.selectAll('option')
+                    .data(years)
+                    .enter()
+                    .append('option')
+                    .attr('value', d => d)
+                    .property('selected', d => d === this.year)
+                    .text(d => d);
+
+                // Center the year selector
+                yearSelector.style('display', 'block')
+                    .style('margin-left', 'auto')
+                    .style('margin-right', 'auto');
+
+                // Change style of dropdown options and year selector
+                yearSelector.selectAll('option')
+                    .style('background-color', '#5a6c7d')
+                    .style('color', '#f3f4f6')
+                    .style('font-size', '14px')
+                    .style('font-weight', '500')
+                    .on('mouseover', function() {
+                        d3.select(this).attr('fill', '#4a5c6d');
+                    })
+                    .on('mouseout', function() {
+                        d3.select(this).attr('fill', '#5a6c7d');
+                    });
+                yearSelector
+                    .style('background-color', '#5a6c7d')
+                    .style('color', '#f3f4f6')
+                    .style('font-size', '14px')
+                    .style('font-weight', '500')
+                    .style('border', '1px solid #374151')
+                    .style('border-radius', '4px')
+                    .style('padding', '4px 8px')
+                    .on('mouseover', function() {
+                        d3.select(this).attr('fill', '#4a5c6d');
+                    })
+                    .on('mouseout', function() {
+                        d3.select(this).attr('fill', '#5a6c7d');
+                    });
+            }
+        };
+
+        if (this.data && typeof this.data.then === 'function') {
+            this.data.then(data => setup(data));
+        } else {
+            setup(this.data || []);
+        }
+    }
+
+    selectYear(year) {
+        this.year = year;
+        this.draw();
+    }
+
+    processDataByYear(data, year) {
+        return data.filter(d => d.YEAR === year);
+    }
+
+    draw() {
+        if (!this.g) return;
+        this.title.text("Mentions vs Fatalities");
+        this.data.then(data => {
+            // Get data for the selected year
+            const yearData = this.processDataByYear(data, this.year);
+
+            // Set up scales
+            const xMax = d3.max(yearData, d => d.MENTIONS) || 10;
             this.xScale = d3.scaleSymlog()
                 .clamp(true)
                 .range([0, this.innerWidth])
                 .domain([1, xMax]);
 
-            const yMax = d3.max(data, d => d.FATALITIES) || 1;
+            const yMax = d3.max(yearData, d => d.FATALITIES) || 1;
             this.yScale = d3.scaleSymlog()
                 .clamp(true)
                 .range([this.innerHeight, 0])
@@ -96,22 +174,10 @@ export default class ScatterPlot extends ScrollyChart {
                 .style('font-size', Math.min(this.width / 30, 16) + 'px')
                 .style('font-weight', '500')
                 .text('Number of Fatalities');
-        };
-
-        if (this.data && typeof this.data.then === 'function') {
-            this.data.then(data => setup(data));
-        } else {
-            setup(this.data || []);
-        }
-    }
-
-    draw() {
-        if (!this.g) return;
-        this.title.text("Mentions vs Fatalities (2025)");
-        this.data.then(data => {
+            
             // Draw points
             this.g.selectAll('.scatter-point')
-                .data(data)
+                .data(yearData)
                 .enter()
                 .append('circle')
                     .attr('class', 'scatter-point')
@@ -147,7 +213,7 @@ export default class ScatterPlot extends ScrollyChart {
                     }
                 });
 
-                if (this.specialCoutries.size > 0) {
+                if (this.specialCountries.size > 0) {
                     this.drawSpecialCountries();
                 }
         });
@@ -156,7 +222,7 @@ export default class ScatterPlot extends ScrollyChart {
     drawSpecialCountries() {
         // Highlight special countries, bring them to front and add a label
         this.g.selectAll('.scatter-point')
-            .filter(d => this.specialCoutries.has(d.COUNTRY))
+            .filter(d => this.specialCountries.has(d.COUNTRY))
             .attr('fill', '#ff4d4d')
             .attr('opacity', 1)
             .attr('r', this.width < 640 ? 6 : 8)
