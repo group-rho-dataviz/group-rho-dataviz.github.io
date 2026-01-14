@@ -13,7 +13,7 @@ export default class ScatterPlot extends ScrollyChart {
         super.init();
 
         // Countries to highlight
-        this.specialCoutries = new Set(['Ukraine', 'India', 'Pakistan', 'Afghanistan', 'Palestine', 'United States', 'China', 'Russia', 'Israel']);
+        this.specialCoutries = new Set(['Ukraine', 'India', 'Pakistan', 'Afghanistan', 'Palestine', 'United States', 'Russia', 'Israel']);
 
         const setup = (data) => {
             this.margin = { 
