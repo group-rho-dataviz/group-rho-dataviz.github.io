@@ -19,7 +19,7 @@ export default class ScatterPlot extends ScrollyChart {
             this.margin = { 
                 top: 60,  
                 right: 40,
-                bottom: 50,
+                bottom: 100,
                 left: 50 
             };
 
@@ -31,13 +31,32 @@ export default class ScatterPlot extends ScrollyChart {
             const years = Array.from(new Set(data.map(d => d.YEAR))).sort();
             const container = this.svg.node()?.parentElement;
             if (container) {
-                const yearSelector = d3.select(container)
-                    .append('select')
+                // append the year selector inside the SVG at the bottom using a foreignObject
+                const selectorWidth = 220;
+                d3.select(this.svg.node()).selectAll('#year-selector-fo').remove();
+                const fo = d3.select(this.svg.node())
+                    .append('foreignObject')
+                    .attr('id', 'year-selector-fo')
+                    .attr('width', selectorWidth)
+                    .attr('height', 40)
+                    .attr('x', (this.width - selectorWidth) / 2)
+                    .attr('y', this.height - this.margin.bottom / 2)
+                    .style('overflow', 'visible');
+
+                const foDiv = fo.append('xhtml:div')
+                    .style('width', selectorWidth + 'px')
+                    .style('height', '100%')
+                    .style('display', 'flex')
+                    .style('align-items', 'center')
+                    .style('justify-content', 'center');
+
+                const yearSelector = foDiv.append('select')
                     .attr('id', 'year-selector')
-                    .style('margin-top', '10px')
+                    .style('margin-top', '5px')
                     .on('change', (event) => {
                         this.selectYear(+event.target.value);
                     });
+
                 yearSelector.selectAll('option')
                     .data(years)
                     .enter()
@@ -46,31 +65,26 @@ export default class ScatterPlot extends ScrollyChart {
                     .property('selected', d => d === this.year)
                     .text(d => d);
 
-                // Center the year selector
-                yearSelector.style('display', 'block')
-                    .style('margin-left', 'auto')
-                    .style('margin-right', 'auto');
-
-                // Change style of dropdown options and year selector
-                yearSelector.selectAll('option')
-                    .style('background-color', '#5a6c7d')
-                    .style('color', '#f3f4f6')
-                    .style('font-size', '14px')
-                    .style('font-weight', '500')
-                    .on('mouseover', function() {
-                        d3.select(this).attr('fill', '#4a5c6d');
-                    })
-                    .on('mouseout', function() {
-                        d3.select(this).attr('fill', '#5a6c7d');
-                    });
-                yearSelector
-                    .style('background-color', '#5a6c7d')
+                // Centering and styling (kept similar to previous)
+                yearSelector.style('background-color', '#5a6c7d')
                     .style('color', '#f3f4f6')
                     .style('font-size', '14px')
                     .style('font-weight', '500')
                     .style('border', '1px solid #374151')
                     .style('border-radius', '4px')
                     .style('padding', '4px 8px')
+                    .on('mouseover', function() {
+                        d3.select(this).attr('fill', '#4a5c6d');
+                    })
+                    .on('mouseout', function() {
+                        d3.select(this).attr('fill', '#5a6c7d');
+                    });
+
+                yearSelector.selectAll('option')
+                    .style('background-color', '#5a6c7d')
+                    .style('color', '#f3f4f6')
+                    .style('font-size', '14px')
+                    .style('font-weight', '500')
                     .on('mouseover', function() {
                         d3.select(this).attr('fill', '#4a5c6d');
                     })
@@ -155,23 +169,23 @@ export default class ScatterPlot extends ScrollyChart {
             this.svg.append('text')
                 .attr('class', 'x')
                 .attr('x', this.margin.left + this.innerWidth / 2)
-                .attr('y', this.height - 10)
+                .attr('y', this.height - this.margin.bottom / 1.7)
                 .attr('text-anchor', 'middle')
                 .attr('fill', '#9ca3af')
                 .style('font-family', 'Inter, sans-serif')
-                .style('font-size', Math.min(this.width / 30, 16) + 'px')
+                .style('font-size', Math.min(this.width / 25, 16) + 'px')
                 .style('font-weight', '500')
-                .text('Number of Mentions in News Articles');
+                .text('Number of Mentions');
 
             this.svg.append('text')
                 .attr('class', 'y')
                 .attr('x', -(this.margin.top + this.innerHeight / 2))
-                .attr('y', 15)
+                .attr('y', this.margin.left / 3)
                 .attr('transform', 'rotate(-90)')
                 .attr('text-anchor', 'middle')
                 .attr('fill', '#9ca3af')
                 .style('font-family', 'Inter, sans-serif')
-                .style('font-size', Math.min(this.width / 30, 16) + 'px')
+                .style('font-size', Math.min(this.width / 25, 16) + 'px')
                 .style('font-weight', '500')
                 .text('Number of Fatalities');
             
