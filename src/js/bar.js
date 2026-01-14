@@ -10,10 +10,9 @@ export default class BarChart extends ScrollyChart {
         
         // Muted colors for conflict data
         this.clusterColors = {
-            //'Low': '#7da87b',
-            'Low': '#d08c60',
-            'Medium': '#cb6c3d',
-            'High': '#9d4a33'
+            'Low': '#cfa08a',
+            'Medium': '#b8613c',
+            'High': '#8f2f1f'
         };
     }
 

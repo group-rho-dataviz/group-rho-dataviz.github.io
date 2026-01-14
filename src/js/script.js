@@ -1,33 +1,10 @@
 import WaffleChart from "./waffle.js";
 import BarChart from "./bar.js";
 import ScatterPlot from "./scatter.js";
-//import Choropleth from "./choropleth.js";
-import Choropleth from "./choropleth_flags.js";
+import Choropleth from "./choropleth.js";
+//import Choropleth from "./choropleth_flags.js";
 
 
-// ===== DATA =====
-/* const data = {
-    regions: [
-        { name: 'Middle East', events: 1247, coverage: 89, fatalities: 89234, color: '#ef4444' },
-        { name: 'Sub-Saharan Africa', events: 2103, coverage: 18, fatalities: 176500, color: '#f97316' },
-        { name: 'South Asia', events: 834, coverage: 38, fatalities: 23456, color: '#fbbf24' },
-        { name: 'East Asia', events: 456, coverage: 42, fatalities: 12300, color: '#10b981' },
-        { name: 'Americas', events: 678, coverage: 28, fatalities: 18900, color: '#3b82f6' },
-        { name: 'Europe', events: 234, coverage: 97, fatalities: 8900, color: '#6b7280' }
-    ],
-    conflicts: [
-        { name: 'Syria', fatalities: 610000, coverage: 92, x: 0.58, y: 0.35 },
-        { name: 'Yemen', fatalities: 377000, coverage: 45, x: 0.62, y: 0.42 },
-        { name: 'DRC', fatalities: 1200000, coverage: 18, x: 0.52, y: 0.52 },
-        { name: 'Ukraine', fatalities: 186000, coverage: 97, x: 0.53, y: 0.28 },
-        { name: 'Myanmar', fatalities: 155000, coverage: 42, x: 0.72, y: 0.45 },
-        { name: 'Sudan', fatalities: 350000, coverage: 12, x: 0.55, y: 0.48 },
-        { name: 'Iraq', fatalities: 459000, coverage: 88, x: 0.60, y: 0.38 },
-        { name: 'Afghanistan', fatalities: 212000, coverage: 76, x: 0.65, y: 0.38 },
-        { name: 'Nigeria', fatalities: 350000, coverage: 31, x: 0.48, y: 0.48 },
-        { name: 'Somalia', fatalities: 600000, coverage: 28, x: 0.58, y: 0.52 }
-    ]
-}; */
 // ===== TOOLTIP =====
 // Add tooltip
 let tooltip = d3.select('body').append('div')
@@ -46,6 +23,7 @@ let tooltip = d3.select('body').append('div')
 
 // ===== DATA =====
 const waffleData = d3.csv('data/processed/waffle_chart_data.csv', d3.autoType);
+const waffleDataDetailed = d3.csv('data/processed/waffle_chart_data_detailed.csv', d3.autoType);
 const barChartData = d3.csv('data/processed/bar_chart.csv', d3.autoType);
 const scatterData = d3.csv('data/processed/scatter_plot.csv', d3.autoType);
 const choroplethData = d3.csv('data/processed/top_three_media_mentions_by_country_week_material_conflict.csv', d3.autoType);
@@ -55,69 +33,158 @@ const geoData = await d3.json('src/json/world.json');
 
 // ===== INITIALIZE =====
 const waffleColors = ['lightgray', '#ff4d4d'];
+const waffleColorsDetailed = ['#393939', '#cfa08a', '#b8613c', '#8f2f1f'];
 
-// Desktop charts - each step gets its own chart instance
-let desktopCharts = [];
+// Desktop charts - store chart constructors, not instances
+let desktopChartConfigs = [];
 let currentDesktopChart = null;
+let currentStepIndex = -1;
 let isTransitioning = false;
+
+// I want to set the footnote text dynamically. 
+// Each chart will have its own footnote. Many are shared. Each footnote also has the href link to the data source.
+let desktopFootnote = document.getElementById('desktop-footnote');
+const footnotes = [
+    'Data source: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline">ACLED</a>',
+    'Data source: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline">ACLED</a>',
+    'Data source: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline">ACLED</a>',
+    'Data sources: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline">ACLED</a> and <a href="https://gdeltproject.org/" target="_blank" rel="noopener noreferrer" class="underline">GDELT</a>',
+    'Data source: <a href="https://gdeltproject.org/" target="_blank" rel="noopener noreferrer" class="underline">GDELT</a>'
+];
+
+// Update footnote when switching charts
+function updateDesktopFootnote(stepIndex) {
+    if (stepIndex >= 0 && stepIndex < footnotes.length) {
+        desktopFootnote.innerHTML = footnotes[stepIndex];
+    } else {
+        desktopFootnote.innerHTML = '';
+    }
+}
+
+// Call initially
+updateDesktopFootnote(0);
 
 // Mobile charts - one per step, each with its own SVG
 const mobileCharts = [
     new WaffleChart('mobile-chart-0', waffleData, tooltip, waffleColors),
-    new BarChart('mobile-chart-1', barChartData, tooltip, true),
-    new ScatterPlot('mobile-chart-2', scatterData, tooltip),
-    new Choropleth('mobile-chart-3', choroplethData, tooltip, geoData)
+    new WaffleChart('mobile-chart-1', waffleDataDetailed, tooltip, waffleColorsDetailed),
+    new BarChart('mobile-chart-2', barChartData, tooltip, true),
+    new ScatterPlot('mobile-chart-3', scatterData, tooltip),
+    new Choropleth('mobile-chart-4', choroplethData, tooltip, geoData)
 ];
 
-// Initialize desktop charts after a brief delay to ensure DOM is ready
+// Store chart configurations instead of creating all instances at once
 setTimeout(() => {
-    desktopCharts = [
-        new WaffleChart('desktop-chart', waffleData, tooltip, waffleColors),
-        new BarChart('desktop-chart', barChartData, tooltip, false),
-        new ScatterPlot('desktop-chart', scatterData, tooltip),
-        new Choropleth('desktop-chart', choroplethData, tooltip, geoData)
+    desktopChartConfigs = [
+        { type: WaffleChart, params: ['desktop-chart', waffleData, tooltip, waffleColors] },
+        { type: WaffleChart, params: ['desktop-chart', waffleDataDetailed, tooltip, waffleColorsDetailed] },
+        { type: BarChart, params: ['desktop-chart', barChartData, tooltip, false] },
+        { type: ScatterPlot, params: ['desktop-chart', scatterData, tooltip] },
+        { type: Choropleth, params: ['desktop-chart', choroplethData, tooltip, geoData] }
     ];
     
-    // Set initial desktop chart
-    currentDesktopChart = desktopCharts[0];
+    // Initialize only the first chart
+    const svg = d3.select('#desktop-chart');
+    svg.selectAll('*').remove(); // Clear any existing content
+    
+    // Create first chart instance
+    const firstConfig = desktopChartConfigs[0];
+    currentDesktopChart = new firstConfig.type(...firstConfig.params);
+    currentStepIndex = 0;
     
     // Initial render
-    if (currentDesktopChart && currentDesktopChart.g) {
-        currentDesktopChart.draw();
-    }
+    setTimeout(() => {
+        if (currentDesktopChart && currentDesktopChart.g) {
+            currentDesktopChart.draw();
+        }
+    }, 50);
 }, 100);
 
-// Function to smoothly transition between desktop charts
-function transitionToChart(newChart) {
-    if (isTransitioning || !currentDesktopChart || !newChart) return;
-    if (currentDesktopChart === newChart) return;
+// Function to create a chart instance from config
+function createChartInstance(stepIndex) {
+    if (!desktopChartConfigs.length || stepIndex < 0 || stepIndex >= desktopChartConfigs.length) {
+        return null;
+    }
     
-    isTransitioning = true;
+    const config = desktopChartConfigs[stepIndex];
+    return new config.type(...config.params);
+}
+
+// Function to switch charts (with or without animation)
+function switchToChart(newStepIndex, animate = true) {
+    if (!desktopChartConfigs.length || newStepIndex < 0 || newStepIndex >= desktopChartConfigs.length) return;
+    
+    // If transitioning, cancel and jump directly
+    if (isTransitioning) {
+        isTransitioning = false;
+        const svg = d3.select('#desktop-chart');
+        svg.interrupt(); // Stop any ongoing transitions
+    }
+    
+    // If same chart, do nothing
+    if (currentStepIndex === newStepIndex) {
+        return;
+    }
+    
+    // Update footnote
+    updateDesktopFootnote(newStepIndex);
+    
+    // Calculate distance to determine if we should animate
+    const stepDistance = Math.abs(newStepIndex - currentStepIndex);
+    const shouldAnimate = animate && stepDistance === 1; // Only animate for adjacent steps
+    
     const svg = d3.select('#desktop-chart');
     
-    // Fade out current chart
-    svg.transition()
-        .duration(300)
-        .style('opacity', 0)
-        .on('end', () => {
-            // Switch to new chart
-            currentDesktopChart = newChart;
-            currentDesktopChart.init();
-            
-            // Draw new chart (but keep it invisible initially)
-            if (currentDesktopChart.g) {
+    if (shouldAnimate) {
+        // Smooth transition for adjacent steps
+        isTransitioning = true;
+        
+        svg.transition()
+            .duration(200)
+            .style('opacity', 0)
+            .on('end', () => {
+                // CRITICAL: Completely clear the SVG and all nested elements
+                svg.selectAll('*').remove();
                 svg.style('opacity', 0);
-                currentDesktopChart.draw();
                 
-                // Fade in new chart
-                svg.transition()
-                    .duration(400)
-                    .style('opacity', 1)
-                    .on('end', () => {
-                        isTransitioning = false;
-                    });
-            }
-        });
+                // Destroy old chart and create new one
+                currentDesktopChart = createChartInstance(newStepIndex);
+                currentStepIndex = newStepIndex;
+                
+                // Draw new chart
+                if (currentDesktopChart && currentDesktopChart.g) {
+                    currentDesktopChart.draw();
+                    
+                    // Fade in
+                    svg.transition()
+                        .duration(300)
+                        .style('opacity', 1)
+                        .on('end', () => {
+                            isTransitioning = false;
+                        });
+                } else {
+                    svg.style('opacity', 1);
+                    isTransitioning = false;
+                }
+            });
+    } else {
+        // Instant switch for non-adjacent steps or when animation disabled
+        isTransitioning = false;
+        
+        // CRITICAL: Completely clear the SVG
+        svg.interrupt();
+        svg.selectAll('*').remove();
+        svg.style('opacity', 1);
+        
+        // Destroy old chart and create new one
+        currentDesktopChart = createChartInstance(newStepIndex);
+        currentStepIndex = newStepIndex;
+        
+        // Draw immediately
+        if (currentDesktopChart && currentDesktopChart.g) {
+            currentDesktopChart.draw();
+        }
+    }
 }
 
 // ===== SCROLL OBSERVER =====
@@ -127,18 +194,16 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         const stepEl = entry.target;
         const stepContent = stepEl.querySelector('.step-content');
+        const mobileChartWrapper = stepEl.querySelector('.mobile-chart-wrapper');
         
         if (entry.isIntersecting) {
             stepContent?.classList.add('is-active');
+            mobileChartWrapper?.classList.add('is-active');
             
             const step = parseInt(stepEl.dataset.step);
-            if (step !== currentStep && desktopCharts.length > 0) {
+            if (step !== currentStep && desktopChartConfigs.length > 0) {
                 currentStep = step;
-                
-                // Update desktop chart with smooth transition
-                if (desktopCharts[step]) {
-                    transitionToChart(desktopCharts[step]);
-                }
+                switchToChart(step, true);
             }
         } else {
             stepContent?.classList.remove('is-active');
@@ -168,7 +233,14 @@ window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
         // Reinitialize and redraw current desktop chart
-        if (currentDesktopChart && desktopCharts.length > 0) {
+        if (currentDesktopChart && desktopChartConfigs.length > 0) {
+            isTransitioning = false;
+            
+            const svg = d3.select('#desktop-chart');
+            svg.interrupt();
+            svg.selectAll('*').remove(); // Clear everything
+            svg.style('opacity', 1);
+            
             currentDesktopChart.init();
             if (currentDesktopChart.g) {
                 currentDesktopChart.draw();

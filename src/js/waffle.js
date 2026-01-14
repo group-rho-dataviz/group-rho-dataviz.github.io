@@ -68,7 +68,12 @@ export default class WaffleChart extends ScrollyChart {
                         `<div style="display:flex;align-items:center;gap:8px;">
                             <div style="width:12px;height:12px;background:${d.color};border-radius:2px;flex:0 0 12px;"></div>
                             <div style="line-height:1;">
-                                <strong>${d.category == 'in_conflict' ? 'In Conflict' : 'Not in Conflict'}</strong><br/>
+                                <strong>${
+                                    d.category == 'low' ? 'Low Number of Fatalities' :
+                                    d.category == 'medium' ? 'Medium Number of Fatalities' :
+                                    d.category == 'high' ? 'High Number of Fatalities' :
+                                    d.category == 'in_conflict' ? 'In Conflict' : 'Not in Conflict'
+                                }</strong><br/>
                                 <span style="font-size:12px;color:#ddd;">${percent}%</span>
                             </div>
                         </div>`
