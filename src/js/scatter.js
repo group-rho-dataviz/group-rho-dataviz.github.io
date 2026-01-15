@@ -205,7 +205,39 @@ export default class ScatterPlot extends ScrollyChart {
                     this.g.selectAll('.scatter-point')
                         .attr('opacity', p => (p === d ? 0.9 : 0.1));
                     this.g.selectAll('.point-label').remove();
+                    /* TOOLTIP LINES REMOVED FOR NOW
+                    // draw previous years for this country (as a line on the scatter plot)
+                    const countryData = data.filter(p => p.COUNTRY === d.COUNTRY && p.YEAR <= this.year);
+                    console.log("countryData", countryData);
+                    if (countryData.length > 0) {
+                        const lineGenerator = d3.line()
+                            .x(p => this.xScale(p.MENTIONS))
+                            .y(p => this.yScale(p.FATALITIES));
+                        this.g.append('path')
+                            .datum(countryData)
+                            .attr('class', 'country-line')
+                            .attr('d', lineGenerator)
+                            .attr('fill', 'none')
+                            .attr('stroke', '#f3f4f6')
+                            .attr('stroke-width', 2)
+                            .attr('opacity', 0.8);
+                        // add labels for each year point
+                        this.g.selectAll('.country-point-label')
+                            .data(countryData)
+                            .enter()
+                            .append('text')
+                            .attr('class', 'country-point-label')
+                            .attr('x', p => this.xScale(p.MENTIONS))
+                            .attr('y', p => this.yScale(p.FATALITIES) - 10)
+                            .attr('text-anchor', 'middle')
+                            .attr('font-size', this.width < 640 ? '10px' : '12px')
+                            .attr('font-weight', '500')
+                            .attr('fill', 'red')
+                            .text(p => p.YEAR);
+                    }
+                    */
                     if (this.tooltip) {
+                        // show tooltip
                         this.tooltip
                             .style('opacity', 1)
                             .html(`<strong>Country:</strong> ${d.COUNTRY}<br><strong>Mentions:</strong> ${d.MENTIONS}<br><strong>Fatalities:</strong> ${d.FATALITIES}`)
@@ -222,6 +254,11 @@ export default class ScatterPlot extends ScrollyChart {
                         .attr('opacity', 0.75);
                     this.g.selectAll('.point-label').remove();
                     this.drawSpecialCountries();
+                    /* TOOLTIP LINES REMOVED FOR NOW
+                    // remove country line
+                    this.g.selectAll('.country-line').remove();
+                    this.g.selectAll('.country-point-label').remove();
+                    */
                     if (this.tooltip) {
                         this.tooltip.style('opacity', 0);
                     }
@@ -230,6 +267,41 @@ export default class ScatterPlot extends ScrollyChart {
                 if (this.specialCountries.size > 0) {
                     this.drawSpecialCountries();
                 }
+
+            // If year is 2025, add circle highlighting countries with more than 1k fatalities but less than 100k mentions
+            if (this.year === 2025) {
+                const radiusX = this.xScale(100000);
+                const radiusY = this.yScale(1000);
+                console.log("Drawing highlight ellipse with radii:", radiusX, radiusY);
+                this.g.append('ellipse')
+                    .attr('cx', this.xScale(1000) + (radiusX - this.xScale(1000)) / 2)
+                    .attr('cy', this.yScale(20000) + (radiusY - this.yScale(20000)) / 2)
+                    .attr('rx', (radiusX - this.xScale(1000)) / 2)
+                    .attr('ry', (radiusY - this.yScale(20000)) / 2)
+                    .attr('fill', 'none')
+                    .attr('stroke', '#f1c503')
+                    .attr('stroke-width', 3)
+                    .attr('stroke-dasharray', '6,4')
+                    .attr('opacity', 0.8);
+                // Add label for the highlighted area shifted to the top left
+                const labelX = this.xScale(20);
+                const labelY = this.yScale(30000);
+                const label = this.g.append('text')
+                    .attr('x', labelX)
+                    .attr('y', labelY)
+                    .attr('text-anchor', 'start')
+                    .attr('font-size', this.width < 640 ? '12px' : '14px')
+                    .attr('font-weight', '600')
+                    .attr('fill', '#f1c503');
+                label.append('tspan')
+                    .attr('x', labelX)
+                    .attr('dy', '0em')
+                    .text('High Fatalities,');
+                label.append('tspan')
+                    .attr('x', labelX)
+                    .attr('dy', '1.4em')
+                    .text('Low Mentions');
+            }
         });
     }
 

@@ -4,6 +4,9 @@ Problem
         More talked about countries by events (also "Mention Count")
     - Waffle Chart
         Top talked about countries account for TOT% of the total news
+    - Scatter plot
+        Add circle of interesting countries in 2025
+        Add progress line in tooltip representation
 
 Evidence
     "Some examples of less known conflicts "
