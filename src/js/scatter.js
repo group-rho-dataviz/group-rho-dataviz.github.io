@@ -48,7 +48,11 @@ export default class ScatterPlot extends ScrollyChart {
     }
 
     draw(showLowFatalities = true) {
+        // Clear previous drawings
+        this.g.selectAll("*").remove();
+
         if (!this.g) return;
+
         this.title.text("Mentions vs Fatalities");
         this.data.then(data => {
             // Get data for the selected year
@@ -111,7 +115,7 @@ export default class ScatterPlot extends ScrollyChart {
             this.svg.append('text')
                 .attr('class', 'x')
                 .attr('x', this.margin.left + this.innerWidth / 2)
-                .attr('y', this.height - this.margin.bottom / 1.7)
+                .attr('y', this.height - this.margin.bottom / 3)
                 .attr('text-anchor', 'middle')
                 .attr('fill', '#9ca3af')
                 .style('font-family', 'Inter, sans-serif')
@@ -260,6 +264,11 @@ export default class ScatterPlot extends ScrollyChart {
                         this.tooltip.style('opacity', 0);
                     }
                 });
+
+            // Collapse trajectory when clicking elsewhere on the SVG (points stopPropagation so won't trigger)
+            this.svg.on('click', () => {
+                this.collapseTrajectory();
+            });
         });
     }
 
