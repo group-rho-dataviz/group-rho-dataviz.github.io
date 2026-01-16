@@ -196,26 +196,27 @@
                     </div>
 
                     <!-- Step 4 -->
-                    <div class="min-h-screen flex items-center py-12" data-step="4">
-                        <div class="w-full">
-                            <div class="step-content max-w-xl">
-                                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-6 leading-tight">
-                                    The Forgotten Crises
-                                </h2>
-                                <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                                    The Democratic Republic of Congo has lost over <span class="bg-red-500 text-white px-2 py-1 font-bold">1.2 million people</span> to conflict since 2015—yet receives just 18% of the coverage that Ukraine does.
-                                </p>
-                                <p class="text-lg sm:text-xl text-gray-300 leading-relaxed">
-                                    In Sudan, Yemen, and Myanmar, violence continues while cameras turn away.
-                                </p>
-                            </div>
-
-                            <!-- Mobile Chart 4 -->
-                            <div class="mobile-chart-wrapper mt-8 bg-gray-800 rounded-xl p-6 chart-width-limiter" style="min-height: 400px;">
-                                <svg id="mobile-chart-4" class="w-full h-full"></svg>
+                    <!--
+                        <div class="min-h-screen flex items-center py-12" data-step="4">
+                            <div class="w-full">
+                                <div class="step-content max-w-xl">
+                                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-6 leading-tight">
+                                        The Forgotten Crises
+                                    </h2>
+                                    <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
+                                        The Democratic Republic of Congo has lost over <span class="bg-red-500 text-white px-2 py-1 font-bold">1.2 million people</span> to conflict since 2015—yet receives just 18% of the coverage that Ukraine does.
+                                    </p>
+                                    <p class="text-lg sm:text-xl text-gray-300 leading-relaxed">
+                                        In Sudan, Yemen, and Myanmar, violence continues while cameras turn away.
+                                    </p>
+                                </div>
+                            
+                                <div class="mobile-chart-wrapper mt-8 bg-gray-800 rounded-xl p-6 chart-width-limiter" style="min-height: 400px;">
+                                    <svg id="mobile-chart-4" class="w-full h-full"></svg>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    -->
                 </div>
 
                 <!-- DESKTOP/TABLET: Sticky Visualization (hidden on mobile) -->
@@ -234,45 +235,211 @@
         </div>
     </section>
 
+
+    <!-- MAP SECTION -->
+    <section id="map" class="min-h-screen bg-gray-900 py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-3">Global Coverage Map</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight">Where the World Watches</h2>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Explore how media attention flows across borders and shifts over time.
+                </p>
+            </div>
+
+            <!-- Main Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6" style="max-height: 750px;">
+                <!-- Left Panel - Statistics -->
+                <div class="lg:col-span-3 space-y-4 overflow-y-auto" style="max-height: 750px;">
+                    <!-- Mentions Intensity Legend -->
+                    <div class="bg-gray-800 rounded-xl shadow-xl p-4 border border-gray-700">
+                        <h3 class="text-white font-sans font-semibold text-base mb-3">Mentions Intensity</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-blue-400 flex-shrink-0"></div>
+                                <span class="text-gray-300 text-xs font-sans">North America</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-cyan-400 flex-shrink-0"></div>
+                                <span class="text-gray-300 text-xs font-sans">South America</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-green-400 flex-shrink-0"></div>
+                                <span class="text-gray-300 text-xs font-sans">Europe</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-red-400 flex-shrink-0"></div>
+                                <span class="text-gray-300 text-xs font-sans">Africa</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-yellow-400 flex-shrink-0"></div>
+                                <span class="text-gray-300 text-xs font-sans">Asia</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-orange-400 flex-shrink-0"></div>
+                                <span class="text-gray-300 text-xs font-sans">Oceania</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Countries This Week -->
+                    <div class="bg-gray-800 rounded-xl shadow-xl p-4 border border-gray-700">
+                        <h3 class="text-white font-sans font-semibold text-base mb-3">Most Mentioned Country for the Week</h3>
+                        <div class="space-y-2">
+                            <!-- Rank 1 -->
+                            <div class="bg-gradient-to-r from-yellow-500/20 to-transparent rounded-lg p-3 border border-yellow-500/30 relative overflow-hidden">
+                                <div class="absolute top-1 right-1">
+                                    <div class="bg-yellow-500 text-gray-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs">
+                                        🥇
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <div class="bg-yellow-500 text-gray-900 rounded px-1.5 py-0.5 font-bold text-xs font-sans">1</div>
+                                    <div class="flex-1">
+                                        <div class="text-white font-semibold text-sm mb-0.5">Country A</div>
+                                        <div class="text-gray-400 text-xs font-sans">2500 Mentions</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rank 2 -->
+                            <div class="bg-gradient-to-r from-gray-400/20 to-transparent rounded-lg p-3 border border-gray-400/30 relative overflow-hidden">
+                                <div class="absolute top-1 right-1">
+                                    <div class="bg-gray-400 text-gray-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs">
+                                        🥈
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <div class="bg-gray-400 text-gray-900 rounded px-1.5 py-0.5 font-bold text-xs font-sans">2</div>
+                                    <div class="flex-1">
+                                        <div class="text-white font-semibold text-sm mb-0.5">Country B</div>
+                                        <div class="text-gray-400 text-xs font-sans">1800 Mentions</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rank 3 -->
+                            <div class="bg-gradient-to-r from-orange-600/20 to-transparent rounded-lg p-3 border border-orange-600/30 relative overflow-hidden">
+                                <div class="absolute top-1 right-1">
+                                    <div class="bg-orange-600 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs">
+                                        🥉
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <div class="bg-orange-600 text-white rounded px-1.5 py-0.5 font-bold text-xs font-sans">3</div>
+                                    <div class="flex-1">
+                                        <div class="text-white font-semibold text-sm mb-0.5">Country C</div>
+                                        <div class="text-gray-400 text-xs font-sans">1200 Mentions</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Panel - Map/Chord Toggle -->
+                <div class="lg:col-span-6" style="max-height: 750px;">
+                    <div class="relative bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 overflow-hidden h-full flex flex-col">                        <!-- Toggle Button -->
+                        <button id="view-toggle-button" class="absolute top-4 right-4 z-10 bg-gray-700 hover:bg-gray-600 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition-all duration-300 border-2 border-gray-600 hover:border-gray-500 hover:scale-110" title="Switch view">
+                            <!-- Map icon (shown when chord is active) -->
+                            <svg id="map-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <!-- Network/connection icon (shown when map is active) -->
+                            <svg id="chord-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                            </svg>
+                        </button>
+
+                        <div class="relative p-6 sm:p-8 flex-1" style="min-height: 0;">
+                            <div class="text-gray-400 font-sans text-sm font-medium min-w-[100px] text-left">
+                                <span id="week-display">Week 1</span>
+                            </div>
+
+                            <!-- Choropleth Map -->
+                            <div id="choropleth-container" class="h-full">
+                                <svg id="choropleth-map" class="w-full h-full"></svg>
+                            </div>
+                            <!-- Chord Diagram (hidden initially) -->
+                            <div id="chord-container" class="h-full hidden">
+                                <svg id="chord-diagram" class="w-full h-full"></svg>
+                            </div>
+                        </div>
+                        
+                        <!-- Timeline Controls -->
+                        <div class="bg-gray-750 border-t border-gray-700 p-4 flex-shrink-0">
+                            <div class="flex items-center gap-4">
+                                <button id="play-button" class="min-w-[110px] justify-center bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-6 py-2 font-sans font-semibold text-sm transition-all duration-200 flex items-center gap-2 shadow-lg hover:shadow-xl flex-shrink-0">
+                                    <svg id="play-icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                                    </svg>
+                                    
+                                    <svg id="pause-icon" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M5 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1H6a1 1 0 01-1-1V4z"/>
+                                        <path d="M11 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                                    </svg>
+
+                                    <span id="play-text">Play</span>
+                                </button>
+                                <div class="flex-1">
+                                    <input type="range" id="week-slider" class="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-blue-500" min="0" max="100" value="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel - Trends -->
+                <div class="lg:col-span-3" style="max-height: 750px;">
+                    <div class="bg-gray-800 rounded-xl shadow-xl p-4 border border-gray-700 h-full flex flex-col" style="min-height: 0;">
+                        <h3 class="text-white font-sans font-semibold text-base mb-3 flex-shrink-0">Weekly Mentions Trend</h3>
+                        <div class="relative flex-1" style="min-height: 0;">
+                            <svg id="trend-chart" class="w-full h-full"></svg>
+                            
+                            <!-- Legend for trend lines -->
+                            <div class="absolute bottom-0 left-0 right-0 flex flex-wrap gap-2 justify-center pt-3 border-t border-gray-700 mt-3">
+                                <div class="flex items-center gap-1">
+                                    <div class="w-5 h-0.5 bg-yellow-400 rounded"></div>
+                                    <span class="text-gray-400 text-xs font-sans">1</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <div class="w-5 h-0.5 bg-gray-400 rounded"></div>
+                                    <span class="text-gray-400 text-xs font-sans">2</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <div class="w-5 h-0.5 bg-orange-400 rounded"></div>
+                                    <span class="text-gray-400 text-xs font-sans">3</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <div class="w-5 h-0.5 bg-cyan-400 rounded"></div>
+                                    <span class="text-gray-400 text-xs font-sans">4</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <div class="w-5 h-0.5 bg-red-400 rounded"></div>
+                                    <span class="text-gray-400 text-xs font-sans">5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Sources -->
+            <div class="mt-8 text-center">
+                <p class="text-xs text-gray-500 font-sans">
+                    Data sources: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-400 transition">ACLED</a> and <a href="https://gdeltproject.org/" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-400 transition">GDELT</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- TRANSITION -->
     <section class="h-64 bg-gradient-to-b from-gray-900 via-gray-600 to-gray-50 flex items-center justify-center text-center px-4">
         <p class="text-xl sm:text-2xl text-gray-400 italic font-light max-w-2xl">
             Behind every statistic is a human story
         </p>
-    </section>
-
-    <!-- MAP SECTION -->
-    <section id="map" class="min-h-screen bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-4">Global Coverage Map</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-6">Where the World Watches</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    Bubble size represents conflict fatalities. Color intensity shows media coverage. The disconnect is stark.
-                </p>
-            </div>
-
-            <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 lg:p-12">
-                <div class="w-full" style="aspect-ratio: 2/1; min-height: 400px;">
-                    <svg id="map-viz" class="w-full h-full"></svg>
-                </div>
-                
-                <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm font-sans">
-                    <div class="flex items-center gap-2">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <span class="text-gray-600">High Coverage (80%+)</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-3 h-3 rounded-full bg-orange-500"></div>
-                        <span class="text-gray-600">Medium (40-80%)</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <div class="w-3 h-3 rounded-full bg-gray-400"></div>
-                        <span class="text-gray-600">Low (&lt;40%)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- STORIES SECTION -->
@@ -349,416 +516,5 @@
         </div>
     </footer>
 
-    <script>
-        // TO BE REMOVED START
-/*
-        // ===== DATA =====
-        const data = {
-            regions: [
-                { name: 'Middle East', events: 1247, coverage: 89, fatalities: 89234, color: '#ef4444' },
-                { name: 'Sub-Saharan Africa', events: 2103, coverage: 18, fatalities: 176500, color: '#f97316' },
-                { name: 'South Asia', events: 834, coverage: 38, fatalities: 23456, color: '#fbbf24' },
-                { name: 'East Asia', events: 456, coverage: 42, fatalities: 12300, color: '#10b981' },
-                { name: 'Americas', events: 678, coverage: 28, fatalities: 18900, color: '#3b82f6' },
-                { name: 'Europe', events: 234, coverage: 97, fatalities: 8900, color: '#6b7280' }
-            ],
-            conflicts: [
-                { name: 'Syria', fatalities: 610000, coverage: 92, x: 0.58, y: 0.35 },
-                { name: 'Yemen', fatalities: 377000, coverage: 45, x: 0.62, y: 0.42 },
-                { name: 'DRC', fatalities: 1200000, coverage: 18, x: 0.52, y: 0.52 },
-                { name: 'Ukraine', fatalities: 186000, coverage: 97, x: 0.53, y: 0.28 },
-                { name: 'Myanmar', fatalities: 155000, coverage: 42, x: 0.72, y: 0.45 },
-                { name: 'Sudan', fatalities: 350000, coverage: 12, x: 0.55, y: 0.48 },
-                { name: 'Iraq', fatalities: 459000, coverage: 88, x: 0.60, y: 0.38 },
-                { name: 'Afghanistan', fatalities: 212000, coverage: 76, x: 0.65, y: 0.38 },
-                { name: 'Nigeria', fatalities: 350000, coverage: 31, x: 0.48, y: 0.48 },
-                { name: 'Somalia', fatalities: 600000, coverage: 28, x: 0.58, y: 0.52 }
-            ]
-        };
-
-        // ===== CHART CLASS =====
-        class ScrollyChart {
-            constructor(svgId) {
-                this.svg = d3.select(`#${svgId}`);
-                if (this.svg.empty()) return;
-                
-                this.margin = { top: 60, right: 40, bottom: 80, left: 80 };
-                this.init();
-            }
-
-            init() {
-                const container = this.svg.node()?.parentElement;
-                if (!container) return;
-
-                const bbox = container.getBoundingClientRect();
-                this.width = bbox.width;
-                this.height = bbox.height;
-                this.innerWidth = this.width - this.margin.left - this.margin.right;
-                this.innerHeight = this.height - this.margin.top - this.margin.bottom;
-
-                this.svg.attr('viewBox', `0 0 ${this.width} ${this.height}`);
-                this.svg.selectAll('*').remove();
-                
-                this.g = this.svg.append('g')
-                    .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
-
-                this.xScale = d3.scaleBand().range([0, this.innerWidth]).padding(0.2);
-                this.yScale = d3.scaleLinear().range([this.innerHeight, 0]);
-
-                this.xAxisG = this.g.append('g')
-                    .attr('transform', `translate(0,${this.innerHeight})`);
-
-                this.yAxisG = this.g.append('g');
-
-                this.title = this.svg.append('text')
-                    .attr('x', this.width / 2)
-                    .attr('y', 35)
-                    .attr('text-anchor', 'middle')
-                    .attr('fill', '#f3f4f6')
-                    .style('font-family', 'Inter, sans-serif')
-                    .style('font-size', '16px')
-                    .style('font-weight', '600');
-            }
-
-            drawStep0() {
-                if (!this.g) return;
-                this.g.selectAll('.bar, .region-label').remove();
-                this.title.text('Conflict Events by Region (2024)');
-
-                this.xScale.domain(data.regions.map(d => d.name));
-                this.yScale.domain([0, d3.max(data.regions, d => d.events) * 1.15]);
-
-                this.g.selectAll('.bar')
-                    .data(data.regions)
-                    .join('rect')
-                    .attr('class', 'bar')
-                    .attr('x', d => this.xScale(d.name))
-                    .attr('width', this.xScale.bandwidth())
-                    .attr('y', this.innerHeight)
-                    .attr('height', 0)
-                    .attr('fill', d => d.color)
-                    .attr('opacity', 0.85)
-                    .transition()
-                    .duration(800)
-                    .attr('y', d => this.yScale(d.events))
-                    .attr('height', d => this.innerHeight - this.yScale(d.events));
-
-                this.updateAxes();
-            }
-
-            drawStep1() {
-                if (!this.g) return;
-                this.g.selectAll('.bar, .region-label').remove();
-                this.title.text('Events (gray) vs Coverage (color)');
-
-                this.xScale.domain(data.regions.map(d => d.name));
-                this.yScale.domain([0, 100]);
-
-                const barWidth = this.xScale.bandwidth() / 2.5;
-
-                this.g.selectAll('.bar-events')
-                    .data(data.regions)
-                    .join('rect')
-                    .attr('class', 'bar')
-                    .attr('x', d => this.xScale(d.name))
-                    .attr('width', barWidth)
-                    .attr('y', this.innerHeight)
-                    .attr('height', 0)
-                    .attr('fill', '#6b7280')
-                    .attr('opacity', 0.5)
-                    .transition()
-                    .duration(800)
-                    .attr('y', d => this.yScale((d.events / 2103) * 100))
-                    .attr('height', d => this.innerHeight - this.yScale((d.events / 2103) * 100));
-
-                this.g.selectAll('.bar-coverage')
-                    .data(data.regions)
-                    .join('rect')
-                    .attr('class', 'bar')
-                    .attr('x', d => this.xScale(d.name) + barWidth * 1.3)
-                    .attr('width', barWidth)
-                    .attr('y', this.innerHeight)
-                    .attr('height', 0)
-                    .attr('fill', d => d.color)
-                    .attr('opacity', 0.85)
-                    .transition()
-                    .duration(800)
-                    .delay(200)
-                    .attr('y', d => this.yScale(d.coverage))
-                    .attr('height', d => this.innerHeight - this.yScale(d.coverage));
-
-                this.updateAxes();
-            }
-
-            drawStep2() {
-                if (!this.g) return;
-                this.g.selectAll('.bar, .region-label').remove();
-                this.title.text('Media Coverage Score (0-100)');
-
-                const sorted = [...data.regions].sort((a, b) => a.coverage - b.coverage);
-
-                this.xScale.domain(sorted.map(d => d.name));
-                this.yScale.domain([0, 100]);
-
-                this.g.selectAll('.bar')
-                    .data(sorted)
-                    .join('rect')
-                    .attr('class', 'bar')
-                    .attr('x', d => this.xScale(d.name))
-                    .attr('width', this.xScale.bandwidth())
-                    .attr('y', this.innerHeight)
-                    .attr('height', 0)
-                    .attr('fill', d => d.coverage < 50 ? '#ef4444' : '#10b981')
-                    .attr('opacity', 0.85)
-                    .transition()
-                    .duration(800)
-                    .attr('y', d => this.yScale(d.coverage))
-                    .attr('height', d => this.innerHeight - this.yScale(d.coverage));
-
-                this.updateAxes();
-            }
-
-            drawStep3() {
-                if (!this.g) return;
-                this.g.selectAll('.bar, .region-label').remove();
-                this.title.text('Fatalities (red) vs Coverage (gray)');
-
-                this.xScale.domain(data.regions.map(d => d.name));
-                
-                const maxFatalities = d3.max(data.regions, d => d.fatalities);
-                this.yScale.domain([0, maxFatalities * 1.1]);
-
-                const barWidth = this.xScale.bandwidth() / 2.5;
-
-                this.g.selectAll('.bar-fatalities')
-                    .data(data.regions)
-                    .join('rect')
-                    .attr('class', 'bar')
-                    .attr('x', d => this.xScale(d.name))
-                    .attr('width', barWidth)
-                    .attr('y', this.innerHeight)
-                    .attr('height', 0)
-                    .attr('fill', '#ef4444')
-                    .attr('opacity', 0.7)
-                    .transition()
-                    .duration(800)
-                    .attr('y', d => this.yScale(d.fatalities))
-                    .attr('height', d => this.innerHeight - this.yScale(d.fatalities));
-
-                this.g.selectAll('.bar-coverage-scaled')
-                    .data(data.regions)
-                    .join('rect')
-                    .attr('class', 'bar')
-                    .attr('x', d => this.xScale(d.name) + barWidth * 1.3)
-                    .attr('width', barWidth)
-                    .attr('y', this.innerHeight)
-                    .attr('height', 0)
-                    .attr('fill', '#6b7280')
-                    .attr('opacity', 0.5)
-                    .transition()
-                    .duration(800)
-                    .delay(200)
-                    .attr('y', d => this.yScale((d.coverage / 100) * maxFatalities))
-                    .attr('height', d => this.innerHeight - this.yScale((d.coverage / 100) * maxFatalities));
-
-                this.updateAxes();
-            }
-
-            updateAxes() {
-                if (!this.xAxisG || !this.yAxisG) return;
-
-                this.xAxisG
-                    .transition()
-                    .duration(800)
-                    .call(d3.axisBottom(this.xScale))
-                    .selectAll('text')
-                    .attr('fill', '#9ca3af')
-                    .style('font-size', '11px')
-                    .attr('transform', 'rotate(-15)')
-                    .style('text-anchor', 'end');
-
-                this.yAxisG
-                    .transition()
-                    .duration(800)
-                    .call(d3.axisLeft(this.yScale).ticks(5))
-                    .selectAll('text')
-                    .attr('fill', '#9ca3af')
-                    .style('font-size', '11px');
-
-                this.xAxisG.selectAll('line, path').attr('stroke', '#374151');
-                this.yAxisG.selectAll('line, path').attr('stroke', '#374151');
-            }
-        }
-
-        // ===== MAP =====
-        class ConflictMap {
-            constructor(svgId) {
-                this.svg = d3.select(`#${svgId}`);
-                if (this.svg.empty()) return;
-                this.init();
-            }
-
-            init() {
-                const container = this.svg.node()?.parentElement;
-                if (!container) return;
-
-                const bbox = container.getBoundingClientRect();
-                this.width = bbox.width;
-                this.height = bbox.height;
-
-                this.svg.attr('viewBox', `0 0 ${this.width} ${this.height}`);
-                this.svg.selectAll('*').remove();
-
-                this.svg.append('rect')
-                    .attr('width', this.width)
-                    .attr('height', this.height)
-                    .attr('fill', '#f9fafb');
-
-                const continents = [
-                    { x: 0.5, y: 0.5, rx: 0.08, ry: 0.15 },
-                    { x: 0.52, y: 0.25, rx: 0.08, ry: 0.08 },
-                    { x: 0.68, y: 0.35, rx: 0.15, ry: 0.12 },
-                    { x: 0.25, y: 0.45, rx: 0.10, ry: 0.18 }
-                ];
-
-                continents.forEach(c => {
-                    this.svg.append('ellipse')
-                        .attr('cx', c.x * this.width)
-                        .attr('cy', c.y * this.height)
-                        .attr('rx', c.rx * this.width)
-                        .attr('ry', c.ry * this.height)
-                        .attr('fill', '#e5e7eb')
-                        .attr('opacity', 0.4);
-                });
-
-                const radiusScale = d3.scaleSqrt()
-                    .domain([0, d3.max(data.conflicts, d => d.fatalities)])
-                    .range([12, 70]);
-
-                const colorScale = (coverage) => {
-                    if (coverage >= 80) return '#ef4444';
-                    if (coverage >= 40) return '#f97316';
-                    return '#9ca3af';
-                };
-
-                const bubbles = this.svg.selectAll('.conflict-bubble')
-                    .data(data.conflicts)
-                    .join('g')
-                    .attr('transform', d => `translate(${d.x * this.width},${d.y * this.height})`);
-
-                bubbles.append('circle')
-                    .attr('r', 0)
-                    .attr('fill', d => colorScale(d.coverage))
-                    .attr('opacity', 0.7)
-                    .attr('stroke', '#fff')
-                    .attr('stroke-width', 2)
-                    .transition()
-                    .duration(1000)
-                    .delay((d, i) => i * 100)
-                    .attr('r', d => radiusScale(d.fatalities));
-
-                bubbles.append('text')
-                    .attr('text-anchor', 'middle')
-                    .attr('dy', 4)
-                    .attr('fill', '#fff')
-                    .style('font-family', 'Inter, sans-serif')
-                    .style('font-size', d => radiusScale(d.fatalities) > 30 ? '12px' : '10px')
-                    .style('font-weight', '600')
-                    .text(d => d.name);
-            }
-        }
-
-        // ===== INITIALIZE =====
-        // Desktop chart (one sticky instance)
-        const desktopChart = new ScrollyChart('desktop-chart');
-        
-        // Mobile charts (one per step)
-        const mobileCharts = [
-            new ScrollyChart('mobile-chart-0'),
-            new ScrollyChart('mobile-chart-1'),
-            new ScrollyChart('mobile-chart-2'),
-            new ScrollyChart('mobile-chart-3')
-        ];
-
-        const map = new ConflictMap('map-viz');
-
-        // ===== SCROLL OBSERVER =====
-        let currentStep = -1;
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const stepEl = entry.target;
-                const stepContent = stepEl.querySelector('.step-content');
-                
-                if (entry.isIntersecting) {
-                    stepContent?.classList.add('is-active');
-                    
-                    const step = parseInt(stepEl.dataset.step);
-                    if (step !== currentStep) {
-                        currentStep = step;
-                        
-                        // Update desktop chart
-                        if (desktopChart.g) {
-                            switch(step) {
-                                case 0: desktopChart.drawStep0(); break;
-                                case 1: desktopChart.drawStep1(); break;
-                                case 2: desktopChart.drawStep2(); break;
-                                case 3: desktopChart.drawStep3(); break;
-                            }
-                        }
-                    }
-                } else {
-                    stepContent?.classList.remove('is-active');
-                }
-            });
-        }, {
-            root: null,
-            rootMargin: '-40% 0px -40% 0px',
-            threshold: 0
-        });
-
-        document.querySelectorAll('[data-step]').forEach(el => observer.observe(el));
-
-        // ===== INITIAL RENDER =====
-        setTimeout(() => {
-            // Desktop
-            if (desktopChart.g) desktopChart.drawStep0();
-            
-            // Mobile (render all charts immediately)
-            if (mobileCharts[0]?.g) mobileCharts[0].drawStep0();
-            if (mobileCharts[1]?.g) mobileCharts[1].drawStep1();
-            if (mobileCharts[2]?.g) mobileCharts[2].drawStep2();
-            if (mobileCharts[3]?.g) mobileCharts[3].drawStep3();
-        }, 500);
-
-        // ===== RESIZE =====
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                desktopChart.init();
-                mobileCharts.forEach(c => c.init());
-                map.init();
-                
-                // Redraw current state
-                if (desktopChart.g) {
-                    switch(currentStep) {
-                        case 0: desktopChart.drawStep0(); break;
-                        case 1: desktopChart.drawStep1(); break;
-                        case 2: desktopChart.drawStep2(); break;
-                        case 3: desktopChart.drawStep3(); break;
-                    }
-                }
-                
-                // Redraw mobile charts
-                if (mobileCharts[0]?.g) mobileCharts[0].drawStep0();
-                if (mobileCharts[1]?.g) mobileCharts[1].drawStep1();
-                if (mobileCharts[2]?.g) mobileCharts[2].drawStep2();
-                if (mobileCharts[3]?.g) mobileCharts[3].drawStep3();
-            }, 250);
-        });
-*/
-        // TO BE REMOVED END
-    </script>
 </body>
 </html>

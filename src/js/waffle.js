@@ -19,17 +19,19 @@ export default class WaffleChart extends ScrollyChart {
         const unitPadding = 2;
 
         const unitsData = [];
+        const unitsAbsoluteData = [];
         this.data.then(data => {
             let unitIndex = 0;
             data.forEach((d, i) => {
                 const numUnits = Math.round((d.value / d3.sum(data, dd => dd.value)) * totalUnits);
                 for (let j = 0; j < numUnits; j++) {
                     unitsData.push({ category: d.category, color: this.colors[i % this.colors.length] });
+                    unitsAbsoluteData.push({ category: d.category, absolute: d.absolute });
                     unitIndex++;
                 }
             });
 
-            this.renderUnits(unitsData, unitSize, unitPadding, unitsPerRow);
+            this.renderUnits(unitsData, unitsAbsoluteData, unitSize, unitPadding, unitsPerRow);
         });
 
         // resize the SVG to fit the waffle chart
@@ -44,7 +46,7 @@ export default class WaffleChart extends ScrollyChart {
             .text("Percentage of Countries in Conflict");
     }
 
-    renderUnits(unitsData, unitSize, unitPadding, unitsPerRow) {
+    renderUnits(unitsData, unitsAbsoluteData, unitSize, unitPadding, unitsPerRow) {
         if (!this.g || !this.tooltip || unitSize <= 0) return;
 
         this.g.selectAll('.waffle-unit')
@@ -74,7 +76,8 @@ export default class WaffleChart extends ScrollyChart {
                                     d.category == 'high' ? 'High Number of Fatalities' :
                                     d.category == 'in_conflict' ? 'In Conflict' : 'Not in Conflict'
                                 }</strong><br/>
-                                <span style="font-size:12px;color:#ddd;">${percent}%</span>
+                                <span style="font-size:12px;color:#ddd;">${percent}%</span><br/>
+                                <span style="font-size:12px;color:#ddd;">${unitsAbsoluteData.find(u => u.category === d.category).absolute} countries</span>
                             </div>
                         </div>`
                     );

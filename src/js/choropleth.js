@@ -22,22 +22,24 @@ export default class Choropleth extends ScrollyChart {
         ];
     }
 
-    async init() {
+async init() {
         const container = this.svg.node()?.parentElement;
         if (!container) return;
 
         const bbox = container.getBoundingClientRect();
         this.width = bbox.width;
+        this.height = bbox.height;
         
+        /*
         // Adjust margins for mobile
         const isMobile = this.width < 640;
-        this.height = isMobile ? Math.max(bbox.height, 450) : Math.max(bbox.height, 550);
+        const isTablet = this.width >= 640 && this.width < 1024;
 
         this.margin = { 
-            top: isMobile ? 70 : 60,
-            right: isMobile ? 20 : 30, 
-            bottom: isMobile ? 90 : 100,
-            left: isMobile ? 20 : 30
+            top: isMobile ? 55 : 150,
+            right: 20, 
+            bottom: isMobile ? 75 : 80,
+            left: 20
         };
         
         this.innerWidth = this.width - this.margin.left - this.margin.right;
@@ -49,37 +51,40 @@ export default class Choropleth extends ScrollyChart {
         this.g = this.svg.append('g')
             .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
 
-        // Set up projection
+        // Set up projection - proper centering and scaling
+        const scale = isMobile ? this.innerWidth / 6.8 : (isTablet ? this.innerWidth / 6.3 : this.innerWidth / 10.2);
         this.projection = d3.geoMercator()
-            .scale(isMobile ? this.innerWidth / 6.5 : this.innerWidth / 6)
-            .translate([this.innerWidth / 2, this.innerHeight / 1.5]);
+            .scale(scale)
+            .center([15, 25])  // Center on Europe/Africa for better global view
+            .translate([this.innerWidth / 2, this.innerHeight / 2]);
 
         this.path = d3.geoPath().projection(this.projection);
 
-        // Title
+        // Title - clean and readable
         this.title = this.svg.append('text')
             .attr('x', this.width / 2)
-            .attr('y', this.margin.top / 2.5)
+            .attr('y', 22)
             .attr('text-anchor', 'middle')
             .attr('fill', '#f3f4f6')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', Math.min(this.width / 22, 22) + 'px')
+            .style('font-size', isMobile ? '15px' : (isTablet ? '17px' : '19px'))
             .style('font-weight', '600')
+            .style('letter-spacing', '-0.02em')
             .text('Media Coverage of Conflicts by Country');
 
         // Week display
         this.weekText = this.svg.append('text')
             .attr('x', this.width / 2)
-            .attr('y', this.margin.top / 1.5)
+            .attr('y', 40)
             .attr('text-anchor', 'middle')
             .attr('fill', '#9ca3af')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', Math.max(this.width / 40, 11) + 'px')
-            .style('font-weight', '500');
+            .style('font-size', isMobile ? '11px' : '12px')
+            .style('font-weight', '400');
 
         // Controls container
-        const controlsY = this.height - this.margin.bottom + (isMobile ? 25 : 30);
-        
+        const controlsY = this.height - this.margin.bottom + 22;
+
         // Play/Pause button
         this.playButton = this.svg.append('g')
             .attr('class', 'play-button-group')
@@ -139,6 +144,26 @@ export default class Choropleth extends ScrollyChart {
 
         this.sliderWidth = sliderWidth;
         this.setupSliderInteraction();
+        */
+        this.margin = { top: 10, right: 10, bottom: 10, left: 10 };
+        this.innerWidth = this.width - this.margin.left - this.margin.right;
+        this.innerHeight = this.height - this.margin.top - this.margin.bottom;
+
+        this.svg.attr('viewBox', `0 0 ${this.width} ${this.height}`);
+        this.svg.selectAll('*').remove();
+        
+        this.g = this.svg.append('g')
+            .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
+
+        // Set up projection
+        const scale = this.innerWidth / 10.2;
+        this.projection = d3.geoMercator()
+            .scale(scale)
+            .center([15, 25])
+            .translate([this.innerWidth / 2, this.innerHeight / 2]);
+
+        this.path = d3.geoPath().projection(this.projection);
+
     }
 
     setupSliderInteraction() {
@@ -249,20 +274,23 @@ export default class Choropleth extends ScrollyChart {
         const week = this.weeks[weekIndex];
         const weekData = this.processedData.get(week);
 
-        // Update week display
-        const date = new Date(week);
-        this.weekText.text(`Week of ${date.toLocaleDateString('en-US', { 
-            month: 'short', 
-            day: 'numeric', 
-            year: 'numeric' 
-        })}`);
+        // Update HTML week display (external to SVG)
+        const weekDisplay = document.getElementById('week-display');
+        if (weekDisplay) {
+            const date = new Date(week);
+            weekDisplay.textContent = `Week of ${date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                year: 'numeric'
+            })}`;
+        }
 
-        // Update slider position
-        const sliderX = (weekIndex / (this.weeks.length - 1)) * this.sliderWidth;
-        this.sliderHandle
-            .transition()
-            .duration(100)
-            .attr('cx', sliderX);
+        // Update HTML slider position (external to SVG)
+        const weekSlider = document.getElementById('week-slider');
+        if (weekSlider) {
+            weekSlider.max = this.weeks.length - 1;
+            weekSlider.value = weekIndex;
+        }
 
         // Update country colors based on which conflict country they covered most
         if (this.countries) {
@@ -333,7 +361,16 @@ export default class Choropleth extends ScrollyChart {
 
     play() {
         this.isPlaying = true;
-        this.playButtonText.text('⏸ Pause');
+        const playButton = document.getElementById('play-button');
+        if (playButton) {
+            playButton.innerHTML = `
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1H6a1 1 0 01-1-1V4z"/>
+                    <path d="M11 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                </svg>                
+                Pause
+            `;
+        }
         
         this.playInterval = setInterval(() => {
             if (this.currentWeekIndex < this.weeks.length - 1) {
@@ -347,7 +384,16 @@ export default class Choropleth extends ScrollyChart {
 
     pause() {
         this.isPlaying = false;
-        this.playButtonText.text('▶ Play');
+        const playButton = document.getElementById('play-button');
+        if (playButton) {
+            playButton.innerHTML = `
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                </svg>
+                Play
+            `;
+        }
+
         if (this.playInterval) {
             clearInterval(this.playInterval);
             this.playInterval = null;

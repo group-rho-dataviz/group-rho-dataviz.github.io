@@ -3,6 +3,7 @@ import BarChart from "./bar.js";
 import ScatterPlot from "./scatter.js";
 import Choropleth from "./choropleth.js";
 //import Choropleth from "./choropleth_flags.js";
+import ChordChart from "./chord_chart.js";
 
 
 // ===== TOOLTIP =====
@@ -25,8 +26,11 @@ let tooltip = d3.select('body').append('div')
 const waffleData = d3.csv('data/processed/waffle_chart_data.csv', d3.autoType);
 const waffleDataDetailed = d3.csv('data/processed/waffle_chart_data_detailed.csv', d3.autoType);
 const barChartData = d3.csv('data/processed/bar_chart.csv', d3.autoType);
-const scatterData = d3.csv('data/processed/scatter_plot.csv', d3.autoType);
-const choroplethData = d3.csv('data/processed/top_three_media_mentions_by_country_week_material_conflict.csv', d3.autoType);
+//const scatterData = d3.csv('data/processed/scatter_plot.csv', d3.autoType);
+const scatterData = d3.csv('data/processed/scatter_plot_material_conflict.csv', d3.autoType);
+//const choroplethData = d3.csv('data/processed/top_three_media_mentions_by_country_week_material_conflict.csv', d3.autoType);
+const choroplethData = d3.csv('data/processed/choropleth_top_1_material_conflict.csv', d3.autoType);
+const chordData = d3.csv('data/processed/chord_top_5_material_conflict.csv', d3.autoType);
 
 // ===== JSON =====
 const geoData = await d3.json('src/json/world.json');
@@ -49,7 +53,7 @@ const footnotes = [
     'Data source: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline">ACLED</a>',
     'Data source: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline">ACLED</a>',
     'Data sources: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline">ACLED</a> and <a href="https://gdeltproject.org/" target="_blank" rel="noopener noreferrer" class="underline">GDELT</a>',
-    'Data source: <a href="https://gdeltproject.org/" target="_blank" rel="noopener noreferrer" class="underline">GDELT</a>'
+    //'Data source: <a href="https://gdeltproject.org/" target="_blank" rel="noopener noreferrer" class="underline">GDELT</a>'
 ];
 
 // Update footnote when switching charts
@@ -70,7 +74,7 @@ const mobileCharts = [
     new WaffleChart('mobile-chart-1', waffleDataDetailed, tooltip, waffleColorsDetailed),
     new BarChart('mobile-chart-2', barChartData, tooltip, true),
     new ScatterPlot('mobile-chart-3', scatterData, tooltip),
-    new Choropleth('mobile-chart-4', choroplethData, tooltip, geoData)
+    //new Choropleth('mobile-chart-4', choroplethData, tooltip, geoData)
 ];
 
 // Store chart configurations instead of creating all instances at once
@@ -80,7 +84,7 @@ setTimeout(() => {
         { type: WaffleChart, params: ['desktop-chart', waffleDataDetailed, tooltip, waffleColorsDetailed] },
         { type: BarChart, params: ['desktop-chart', barChartData, tooltip, false] },
         { type: ScatterPlot, params: ['desktop-chart', scatterData, tooltip] },
-        { type: Choropleth, params: ['desktop-chart', choroplethData, tooltip, geoData] }
+        //{ type: Choropleth, params: ['desktop-chart', choroplethData, tooltip, geoData] }
     ];
     
     // Initialize only the first chart
@@ -99,6 +103,95 @@ setTimeout(() => {
         }
     }, 50);
 }, 100);
+
+// Create the chord chart instance separately
+const chordDiagram = new ChordChart('chord-diagram', chordData, tooltip);
+
+// Draw the chord diagram in its SVG
+setTimeout(() => {
+    if (chordDiagram && chordDiagram.g) {
+        chordDiagram.draw();
+    }
+}, 500);
+    
+
+// Create the choropleth map instance separately
+const choroplethMap = new Choropleth('choropleth-map', choroplethData, tooltip, geoData);
+
+// Wait for map to initialize
+setTimeout(() => {
+    if (choroplethMap && choroplethMap.g) {
+        choroplethMap.draw();
+        
+        // Connect play button - controls BOTH visualizations
+        document.getElementById('play-button')?.addEventListener('click', () => {
+            const currentView = getCurrentView(); // Helper function below
+            
+            if (currentView === 'map') {
+                choroplethMap.togglePlay();
+            } else {
+                chordDiagram.togglePlay();
+            }
+        });
+        
+        // Connect slider - controls BOTH visualizations
+        document.getElementById('week-slider')?.addEventListener('input', (e) => {
+            const weekIndex = parseInt(e.target.value);
+            const currentView = getCurrentView();
+            
+            if (currentView === 'map') {
+                choroplethMap.pause();
+                choroplethMap.setWeek(weekIndex);
+            } else {
+                chordDiagram.pause();
+                chordDiagram.setWeek(weekIndex);
+            }
+        });
+    }
+}, 500);
+
+// ===== HELPER FUNCTION TO GET CURRENT VIEW =====
+function getCurrentView() {
+    const choroplethContainer = document.getElementById('choropleth-container');
+    return choroplethContainer?.classList.contains('hidden') ? 'chord' : 'map';
+}
+
+// ===== UPDATE THE VIEW TOGGLE BUTTON =====
+// This needs to sync the timeline when switching views
+document.getElementById('view-toggle-button')?.addEventListener('click', function() {
+    const mapIcon = document.getElementById('map-icon');
+    const chordIcon = document.getElementById('chord-icon');
+    const choroplethContainer = document.getElementById('choropleth-container');
+    const chordContainer = document.getElementById('chord-container');
+    
+    if (getCurrentView() === 'map') {
+        // Switch to chord
+        choroplethContainer.classList.add('hidden');
+        chordContainer.classList.remove('hidden');
+        mapIcon.classList.remove('hidden');
+        chordIcon.classList.add('hidden');
+        
+        // Pause any playing animation
+        choroplethMap.pause();
+        
+        // Sync chord to current week
+        chordDiagram.setWeek(choroplethMap.currentWeekIndex);
+        
+    } else {
+        // Switch to map
+        choroplethContainer.classList.remove('hidden');
+        chordContainer.classList.add('hidden');
+        mapIcon.classList.add('hidden');
+        chordIcon.classList.remove('hidden');
+        
+        // Pause any playing animation
+        chordDiagram.pause();
+        
+        // Sync map to current week
+        choroplethMap.setWeek(chordDiagram.currentWeekIndex);
+    }
+});
+
 
 // Function to create a chart instance from config
 function createChartInstance(stepIndex) {
@@ -256,5 +349,22 @@ window.addEventListener('resize', () => {
                 }
             }
         });
+
+        // Reinitialize and redraw choropleth map
+        if (choroplethMap) {
+            choroplethMap.init();
+            if (choroplethMap.g) {
+                choroplethMap.draw();
+            }
+        }
+        
+        // Reinitialize and redraw chord diagram
+        if (chordDiagram) {
+            chordDiagram.init();
+            if (chordDiagram.g) {
+                chordDiagram.draw();
+            }
+        }
+
     }, 250);
 });

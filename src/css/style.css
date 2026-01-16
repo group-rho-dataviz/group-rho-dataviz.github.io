@@ -141,3 +141,71 @@
 }
 
 
+/* Dashboard Styles */
+/* Custom styles for better visual hierarchy */
+.bg-gray-750 {
+    background-color: #2d3748;
+}
+
+/* Slider styling */
+#week-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #3b82f6;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#week-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #3b82f6;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover effects for cards */
+.bg-gray-800:hover {
+    border-color: #4b5563;
+    transition: border-color 0.2s ease;
+}
+
+/* Animation for rank cards */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.bg-gradient-to-r {
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Scrollbar styling for left panel */
+.lg\:col-span-3::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lg\:col-span-3::-webkit-scrollbar-track {
+    background: #1f2937;
+    border-radius: 3px;
+}
+
+.lg\:col-span-3::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 3px;
+}
+
+.lg\:col-span-3::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
