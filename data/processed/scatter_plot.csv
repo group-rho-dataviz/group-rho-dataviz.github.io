@@ -1,1665 +1,1788 @@
 COUNTRY,YEAR,MENTIONS,FATALITIES
-Afghanistan,2017,1072037,36360
-Afghanistan,2018,969765,42991
-Afghanistan,2019,608526,41419
-Afghanistan,2020,414241,30977
-Afghanistan,2021,991360,42425
-Afghanistan,2022,302434,4152
-Afghanistan,2023,245809,1152
-Afghanistan,2024,158012,1362
-Afghanistan,2025,199831,886
-Albania,2018,202131,1
-Albania,2019,64671,0
-Albania,2020,29783,0
-Albania,2021,29752,1
-Albania,2022,35977,0
-Albania,2023,63936,1
-Albania,2024,65128,1
-Albania,2025,46196,0
-Algeria,2015,109693,154
-Algeria,2016,126987,129
-Algeria,2017,78984,145
-Algeria,2018,64137,66
-Algeria,2019,117106,22
-Algeria,2020,46578,33
-Algeria,2021,53557,25
-Algeria,2022,30352,27
-Algeria,2023,32317,13
-Algeria,2024,29375,35
-Algeria,2025,32348,32
-American Samoa,2021,165,0
-American Samoa,2022,504,0
-American Samoa,2025,301,0
-Andorra,2020,1910,0
-Andorra,2021,2139,0
-Andorra,2022,1070,0
-Andorra,2023,1015,0
-Andorra,2024,1422,0
-Andorra,2025,1601,0
-Angola,2015,46223,23
-Angola,2016,84109,115
-Angola,2017,67475,67
-Angola,2018,38849,41
-Angola,2019,14994,24
-Angola,2020,14775,74
-Angola,2021,7205,150
-Angola,2022,6768,107
-Angola,2023,6526,66
-Angola,2024,7662,98
-Angola,2025,6759,191
-Anguilla,2018,455,0
-Anguilla,2019,3216,0
-Anguilla,2020,343,0
-Anguilla,2021,180,0
+Afghanistan,2017,1069744,36360
+Afghanistan,2018,967731,42991
+Afghanistan,2019,606170,41419
+Afghanistan,2020,411984,30977
+Afghanistan,2021,989289,42425
+Afghanistan,2022,299983,4152
+Afghanistan,2023,243249,1152
+Afghanistan,2024,155502,1362
+Afghanistan,2025,199146,886
+Albania,2018,200996,1
+Albania,2019,63672,0
+Albania,2020,29056,0
+Albania,2021,29161,1
+Albania,2022,35250,0
+Albania,2023,63018,1
+Albania,2024,64283,1
+Albania,2025,45672,0
+Algeria,2015,106761,154
+Algeria,2016,123427,129
+Algeria,2017,76929,145
+Algeria,2018,61933,66
+Algeria,2019,114015,22
+Algeria,2020,44314,33
+Algeria,2021,51222,25
+Algeria,2022,28805,27
+Algeria,2023,30536,13
+Algeria,2024,27761,35
+Algeria,2025,31048,32
+American Samoa,2021,159,0
+American Samoa,2022,487,0
+American Samoa,2025,316,0
+Andorra,2020,1812,0
+Andorra,2021,2043,0
+Andorra,2022,1027,0
+Andorra,2023,963,0
+Andorra,2024,1351,0
+Andorra,2025,1574,0
+Angola,2015,44261,23
+Angola,2016,82061,115
+Angola,2017,65915,67
+Angola,2018,37282,41
+Angola,2019,13780,24
+Angola,2020,13266,74
+Angola,2021,6191,150
+Angola,2022,6048,107
+Angola,2023,5749,66
+Angola,2024,6841,98
+Angola,2025,6163,191
+Anguilla,2018,437,0
+Anguilla,2019,3211,0
+Anguilla,2020,334,0
+Anguilla,2021,175,0
 Anguilla,2022,59,0
-Anguilla,2023,101,0
-Anguilla,2024,280,0
-Antarctica,2021,1448,0
-Antarctica,2022,1101,0
-Antarctica,2023,4329,0
-Antarctica,2024,2466,0
-Antigua and Barbuda,2018,4691,0
-Antigua and Barbuda,2019,2598,0
-Antigua and Barbuda,2020,1297,2
-Antigua and Barbuda,2021,3857,0
-Antigua and Barbuda,2022,1685,0
-Antigua and Barbuda,2023,2584,1
-Antigua and Barbuda,2024,2457,3
-Antigua and Barbuda,2025,1744,1
-Argentina,2018,240514,27
-Argentina,2019,152548,24
-Argentina,2020,130976,24
-Argentina,2021,109012,19
-Argentina,2022,101572,16
-Argentina,2023,113327,7
-Argentina,2024,149748,3
-Argentina,2025,121758,5
-Armenia,2018,145678,6
-Armenia,2019,79835,2
-Armenia,2020,202996,27
-Armenia,2021,88661,24
-Armenia,2022,71495,210
-Armenia,2023,138935,24
-Armenia,2024,71658,4
-Armenia,2025,57910,2
-Aruba,2018,1291,0
-Aruba,2019,1311,0
-Aruba,2020,688,0
-Aruba,2021,817,0
-Aruba,2022,301,0
-Aruba,2023,2891,0
-Aruba,2024,851,0
-Aruba,2025,283,1
-Australia,2021,589457,0
-Australia,2022,312589,7
-Australia,2023,963386,0
-Australia,2024,1180586,0
-Australia,2025,1027587,0
-Austria,2020,76772,6
-Austria,2021,74514,0
-Austria,2022,47878,0
-Austria,2023,54623,0
-Austria,2024,66925,0
-Austria,2025,53395,2
-Azerbaijan,2018,71529,47
-Azerbaijan,2019,47823,14
-Azerbaijan,2020,180527,7057
-Azerbaijan,2021,62943,33
-Azerbaijan,2022,70272,68
-Azerbaijan,2023,157033,570
-Azerbaijan,2024,89440,2
-Azerbaijan,2025,61626,6
-Bahamas,2018,22953,0
-Bahamas,2019,47906,0
-Bahamas,2020,21173,4
-Bahamas,2021,12635,2
-Bahamas,2022,25541,0
-Bahamas,2023,19840,0
-Bahamas,2024,16885,0
-Bahamas,2025,15197,0
-Bahrain,2016,144452,4
-Bahrain,2017,148153,17
-Bahrain,2018,54349,0
-Bahrain,2019,44282,1
-Bahrain,2020,28650,0
-Bahrain,2021,14394,0
-Bahrain,2022,10221,0
-Bahrain,2023,13724,0
-Bahrain,2024,10089,0
-Bahrain,2025,5689,0
-Bangladesh,2015,352982,502
-Bangladesh,2016,798982,421
-Bangladesh,2017,450357,226
-Bangladesh,2018,330547,268
-Bangladesh,2019,220141,391
-Bangladesh,2020,128138,279
-Bangladesh,2021,131925,356
-Bangladesh,2022,104440,308
-Bangladesh,2023,136273,328
-Bangladesh,2024,271781,1907
-Bangladesh,2025,222916,351
-Barbados,2018,7708,0
-Barbados,2019,6965,0
-Barbados,2020,5712,2
-Barbados,2021,9008,0
-Barbados,2022,4814,0
-Barbados,2023,4737,0
-Barbados,2024,5739,0
-Belarus,2018,67420,0
-Belarus,2019,57566,0
-Belarus,2020,319668,6
-Belarus,2021,271439,5
-Belarus,2022,141916,4
-Belarus,2023,130317,2
-Belarus,2024,74944,2
-Belarus,2025,59751,2
-Belgium,2020,136059,0
-Belgium,2021,131612,2
-Belgium,2022,99421,3
-Belgium,2023,114215,4
-Belgium,2024,105527,0
-Belgium,2025,102852,0
-Belize,2018,14248,91
-Belize,2019,9922,104
-Belize,2020,5760,75
-Belize,2021,6276,67
-Belize,2022,4481,48
-Belize,2023,8102,38
-Belize,2024,9805,23
-Belize,2025,14183,31
-Benin,2015,17851,3
-Benin,2016,18255,22
-Benin,2017,14761,15
-Benin,2018,10871,31
-Benin,2019,12136,37
-Benin,2020,11532,64
-Benin,2021,11484,93
-Benin,2022,7431,168
-Benin,2023,8491,226
-Benin,2024,10016,275
-Benin,2025,8244,421
-Bermuda,2018,6863,0
-Bermuda,2019,6315,0
-Bermuda,2020,4560,0
-Bermuda,2021,3205,0
-Bermuda,2022,3453,0
-Bermuda,2023,3831,0
-Bermuda,2024,4074,0
-Bermuda,2025,4125,0
-Bhutan,2020,3079,0
-Bhutan,2021,2519,0
-Bhutan,2022,1034,0
-Bhutan,2024,2313,0
-Bolivia,2018,72481,26
-Bolivia,2019,131456,36
-Bolivia,2020,45847,1
-Bolivia,2021,39669,8
-Bolivia,2022,31615,11
-Bolivia,2023,35897,15
-Bolivia,2024,52279,19
-Bolivia,2025,24628,37
-Bosnia and Herzegovina,2018,24632,1
-Bosnia and Herzegovina,2019,21295,1
-Bosnia and Herzegovina,2020,12376,0
-Bosnia and Herzegovina,2021,14220,0
-Bosnia and Herzegovina,2022,8803,1
-Bosnia and Herzegovina,2023,11371,0
-Bosnia and Herzegovina,2024,14859,2
-Bosnia and Herzegovina,2025,11458,0
-Botswana,2015,11799,0
-Botswana,2016,18260,1
-Botswana,2017,14557,0
-Botswana,2018,13929,2
-Botswana,2019,16965,0
-Botswana,2020,8412,7
-Botswana,2021,6544,1
-Botswana,2022,3224,4
-Botswana,2023,3312,7
-Botswana,2024,4029,2
-Botswana,2025,2368,4
-Brazil,2018,549230,7371
-Brazil,2019,499356,5756
-Brazil,2020,332707,5685
-Brazil,2021,296859,6357
-Brazil,2022,215066,7745
-Brazil,2023,293101,8401
-Brazil,2024,264122,7492
-Brazil,2025,283939,7367
-British Indian Ocean Territory,2018,73,0
-British Indian Ocean Territory,2019,434,0
-British Indian Ocean Territory,2021,92,0
-British Virgin Islands,2018,891,0
-British Virgin Islands,2019,471,0
-British Virgin Islands,2020,326,0
-British Virgin Islands,2021,882,0
-British Virgin Islands,2022,1330,0
-British Virgin Islands,2023,291,0
-British Virgin Islands,2024,462,0
-British Virgin Islands,2025,160,0
-Brunei,2020,19089,0
-Brunei,2021,20989,0
-Brunei,2023,14334,0
-Bulgaria,2018,123651,0
-Bulgaria,2019,65697,0
-Bulgaria,2020,59185,0
-Bulgaria,2021,46149,0
-Bulgaria,2022,54491,0
-Bulgaria,2023,60326,0
-Bulgaria,2024,53354,0
-Bulgaria,2025,49341,1
-Burkina Faso,2015,126313,23
-Burkina Faso,2016,119825,81
-Burkina Faso,2017,65171,117
-Burkina Faso,2018,74606,303
-Burkina Faso,2019,56904,2220
-Burkina Faso,2020,22590,2299
-Burkina Faso,2021,25220,2360
-Burkina Faso,2022,35927,4234
-Burkina Faso,2023,29223,8499
-Burkina Faso,2024,17279,7487
-Burkina Faso,2025,9775,4964
-Burundi,2015,186623,1109
-Burundi,2016,73357,452
-Burundi,2017,31467,285
-Burundi,2018,23310,327
-Burundi,2019,12882,305
-Burundi,2020,14393,330
-Burundi,2021,7048,305
-Burundi,2022,5636,261
-Burundi,2023,5185,178
-Burundi,2024,3484,168
-Burundi,2025,5153,202
-Cambodia,2015,66396,6
-Cambodia,2016,96181,3
-Cambodia,2017,86424,2
-Cambodia,2018,98446,13
-Cambodia,2019,38152,5
-Cambodia,2020,25202,4
-Cambodia,2021,18967,2
-Cambodia,2022,31571,1
-Cambodia,2023,28458,0
-Cambodia,2024,21514,0
-Cambodia,2025,80961,0
-Cameroon,2015,90257,1439
-Cameroon,2016,66289,721
-Cameroon,2017,60442,739
-Cameroon,2018,70223,1664
-Cameroon,2019,48224,1302
-Cameroon,2020,35908,1761
-Cameroon,2021,23632,1566
-Cameroon,2022,14935,1632
-Cameroon,2023,16152,2145
-Cameroon,2024,9376,2314
-Cameroon,2025,12681,1628
-Canada,2021,598331,8
-Canada,2022,495140,0
-Canada,2023,908670,4
-Canada,2024,857639,0
-Canada,2025,712999,0
-Cape Verde,2020,1668,0
-Cape Verde,2021,6341,0
-Cape Verde,2022,946,0
-Cape Verde,2023,970,0
-Cape Verde,2024,750,0
-Cape Verde,2025,691,0
-Cayman Islands,2018,2740,0
-Cayman Islands,2019,1700,0
-Cayman Islands,2020,1988,0
-Cayman Islands,2021,1044,0
-Cayman Islands,2022,612,0
-Cayman Islands,2024,1736,0
-Cayman Islands,2025,1439,0
-Central African Republic,2015,54469,525
-Central African Republic,2016,45349,739
-Central African Republic,2017,41855,1832
-Central African Republic,2018,35368,1171
-Central African Republic,2019,11048,596
-Central African Republic,2020,12179,449
-Central African Republic,2021,12667,1716
-Central African Republic,2022,6121,967
-Central African Republic,2023,8421,618
-Central African Republic,2024,3660,758
-Central African Republic,2025,2616,944
-Chad,2015,94266,429
-Chad,2016,56837,45
-Chad,2017,53394,296
-Chad,2018,43401,259
-Chad,2019,25664,565
-Chad,2020,28453,727
-Chad,2021,38837,831
-Chad,2022,21602,748
-Chad,2023,34950,301
-Chad,2024,26443,561
-Chad,2025,14102,304
-China,2018,1587094,42
-China,2019,1723226,15
-China,2020,1970485,9
-China,2021,1151420,13
-China,2022,910086,6
-China,2023,1106569,9
-China,2024,842392,11
-China,2025,779478,1
-Christmas Island,2021,431,0
-Christmas Island,2022,150,0
-Colombia,2018,261449,1501
-Colombia,2019,228837,1428
-Colombia,2020,139249,1768
-Colombia,2021,163217,2115
-Colombia,2022,99406,2303
-Colombia,2023,123556,2015
-Colombia,2024,125933,1757
-Colombia,2025,200741,2178
-Comoros,2020,487,2
-Comoros,2021,566,0
-Comoros,2022,1038,2
-Comoros,2023,1439,1
-Comoros,2024,1603,3
-Comoros,2025,317,2
-Cook Islands,2021,289,0
-Cook Islands,2024,950,0
-Cook Islands,2025,1161,0
-Costa Rica,2018,15341,2
-Costa Rica,2019,14460,10
-Costa Rica,2020,7914,9
-Costa Rica,2021,5951,4
-Costa Rica,2022,5851,2
-Costa Rica,2023,9982,3
-Costa Rica,2024,5925,15
-Costa Rica,2025,8440,5
-Croatia,2018,86742,0
-Croatia,2019,67069,3
-Croatia,2020,46616,0
-Croatia,2021,41754,0
-Croatia,2022,39275,0
-Croatia,2023,49695,0
-Croatia,2024,49771,0
-Croatia,2025,44944,0
-Cuba,2018,119043,0
-Cuba,2019,117437,2
-Cuba,2020,67539,3
-Cuba,2021,117696,1
-Cuba,2022,69830,2
-Cuba,2023,60416,6
-Cuba,2024,54750,3
-Cuba,2025,66801,5
-Cyprus,2018,59546,0
-Cyprus,2019,56319,1
-Cyprus,2020,43819,0
-Cyprus,2021,28739,0
-Cyprus,2022,16146,1
-Cyprus,2023,37361,0
-Cyprus,2024,40082,0
-Cyprus,2025,24597,1
-Denmark,2020,53713,1
-Denmark,2021,60091,0
-Denmark,2022,46396,0
-Denmark,2023,58985,0
-Denmark,2024,58038,0
-Denmark,2025,80803,0
-Djibouti,2015,24175,27
-Djibouti,2016,29260,0
-Djibouti,2017,23008,0
-Djibouti,2018,20762,0
-Djibouti,2019,11029,4
-Djibouti,2020,6069,0
-Djibouti,2021,5028,5
-Djibouti,2022,3986,7
-Djibouti,2023,38065,17
-Djibouti,2024,88428,1
-Dominica,2018,4243,0
-Dominica,2019,3642,1
-Dominica,2020,2885,0
-Dominica,2021,4981,0
-Dominica,2022,2347,0
-Dominica,2023,2347,0
-Dominica,2024,4650,0
-Dominica,2025,2605,0
-Dominican Republic,2018,18542,21
-Dominican Republic,2019,26619,18
-Dominican Republic,2020,8390,10
-Dominican Republic,2021,8324,3
-Dominican Republic,2022,8697,24
-Dominican Republic,2023,7307,14
-Dominican Republic,2024,11132,13
-Dominican Republic,2025,16036,23
-Ecuador,2018,90281,14
-Ecuador,2019,111742,11
-Ecuador,2020,27064,19
-Ecuador,2021,38491,5
-Ecuador,2022,25863,40
-Ecuador,2023,70794,2807
-Ecuador,2024,89899,2879
-Ecuador,2025,46455,3853
-Egypt,2015,1225982,2840
-Egypt,2016,1118340,1721
-Egypt,2017,1053426,1544
-Egypt,2018,565317,1114
-Egypt,2019,370810,1003
-Egypt,2020,230975,626
-Egypt,2021,174023,264
-Egypt,2022,132249,274
-Egypt,2023,327529,28
-Egypt,2024,353038,18
-Egypt,2025,195140,52
-El Salvador,2018,77746,962
-El Salvador,2019,67510,895
-El Salvador,2020,32341,388
-El Salvador,2021,27491,435
-El Salvador,2022,23625,285
-El Salvador,2023,21528,58
-El Salvador,2024,25503,21
-El Salvador,2025,137660,9
-Equatorial Guinea,2015,1932,0
-Equatorial Guinea,2016,4974,0
-Equatorial Guinea,2017,5744,5
-Equatorial Guinea,2018,7502,4
-Equatorial Guinea,2019,2364,1
-Equatorial Guinea,2020,2382,0
-Equatorial Guinea,2021,2444,1
-Equatorial Guinea,2022,1588,4
-Equatorial Guinea,2023,1255,0
-Equatorial Guinea,2024,1186,0
-Eritrea,2015,25683,3
-Eritrea,2016,26341,37
-Eritrea,2017,12749,1
-Eritrea,2018,27895,1
-Eritrea,2019,10916,0
-Eritrea,2020,15621,1
-Eritrea,2021,23818,0
-Eritrea,2022,8760,0
-Eritrea,2023,12775,1
-Eritrea,2024,4535,0
-Estonia,2020,17556,0
-Estonia,2021,18334,1
-Estonia,2022,25936,0
-Estonia,2023,22710,0
-Estonia,2024,19307,0
-Estonia,2025,26359,0
-Ethiopia,2015,80510,811
-Ethiopia,2016,118363,2515
-Ethiopia,2017,55355,1355
-Ethiopia,2018,98512,1579
-Ethiopia,2019,115562,670
-Ethiopia,2020,103772,4364
-Ethiopia,2021,153307,8546
-Ethiopia,2022,62084,6440
-Ethiopia,2023,44706,3750
-Ethiopia,2024,33663,7545
-Ethiopia,2025,29598,5940
+Anguilla,2023,98,0
+Anguilla,2024,273,0
+Antarctica,2021,1334,0
+Antarctica,2022,998,0
+Antarctica,2023,4145,0
+Antarctica,2024,2288,0
+Antigua and Barbuda,2018,4607,0
+Antigua and Barbuda,2019,2514,0
+Antigua and Barbuda,2020,1249,2
+Antigua and Barbuda,2021,3802,0
+Antigua and Barbuda,2022,1661,0
+Antigua and Barbuda,2023,2538,1
+Antigua and Barbuda,2024,2376,3
+Antigua and Barbuda,2025,1727,1
+Argentina,2018,238242,27
+Argentina,2019,150869,24
+Argentina,2020,129016,24
+Argentina,2021,107359,19
+Argentina,2022,99806,16
+Argentina,2023,111510,7
+Argentina,2024,147732,3
+Argentina,2025,122042,5
+Armenia,2018,144639,6
+Armenia,2019,78988,2
+Armenia,2020,201949,27
+Armenia,2021,87643,24
+Armenia,2022,70579,210
+Armenia,2023,137740,24
+Armenia,2024,70595,4
+Armenia,2025,57447,2
+Aruba,2018,1166,0
+Aruba,2019,1222,0
+Aruba,2020,602,0
+Aruba,2021,732,0
+Aruba,2022,262,0
+Aruba,2023,2828,0
+Aruba,2024,799,0
+Aruba,2025,704,1
+Australia,2021,586908,0
+Australia,2022,310142,7
+Australia,2023,960882,0
+Australia,2024,1178176,0
+Australia,2025,1037669,0
+Austria,2020,74794,6
+Austria,2021,72477,0
+Austria,2022,46109,0
+Austria,2023,52925,0
+Austria,2024,65196,0
+Austria,2025,52286,2
+Azerbaijan,2018,70808,47
+Azerbaijan,2019,47339,14
+Azerbaijan,2020,179646,7057
+Azerbaijan,2021,61952,33
+Azerbaijan,2022,69431,68
+Azerbaijan,2023,155774,570
+Azerbaijan,2024,87947,2
+Azerbaijan,2025,61131,6
+Bahamas,2018,22676,0
+Bahamas,2019,47421,0
+Bahamas,2020,20886,4
+Bahamas,2021,12476,2
+Bahamas,2022,25252,0
+Bahamas,2023,19508,0
+Bahamas,2024,16583,0
+Bahamas,2025,15054,0
+Bahrain,2016,143401,4
+Bahrain,2017,147009,17
+Bahrain,2018,53499,0
+Bahrain,2019,43603,1
+Bahrain,2020,28009,0
+Bahrain,2021,13861,0
+Bahrain,2022,9870,0
+Bahrain,2023,13094,0
+Bahrain,2024,9572,0
+Bahrain,2025,5539,0
+Bailiwick of Guernsey,2020,1394,0
+Bailiwick of Guernsey,2021,1572,0
+Bailiwick of Guernsey,2022,769,0
+Bailiwick of Guernsey,2024,1342,0
+Bailiwick of Guernsey,2025,1522,0
+Bailiwick of Jersey,2020,26709,0
+Bailiwick of Jersey,2021,28365,0
+Bailiwick of Jersey,2025,15587,0
+Bangladesh,2015,351704,502
+Bangladesh,2016,797305,421
+Bangladesh,2017,448551,226
+Bangladesh,2018,328915,268
+Bangladesh,2019,218602,391
+Bangladesh,2020,127006,279
+Bangladesh,2021,130934,356
+Bangladesh,2022,103625,308
+Bangladesh,2023,135254,328
+Bangladesh,2024,270581,1907
+Bangladesh,2025,228193,351
+Barbados,2018,7470,0
+Barbados,2019,6624,0
+Barbados,2020,5440,2
+Barbados,2021,8732,0
+Barbados,2022,4694,0
+Barbados,2023,4540,0
+Barbados,2024,5338,0
+Belarus,2018,66398,0
+Belarus,2019,56595,0
+Belarus,2020,318441,6
+Belarus,2021,269918,5
+Belarus,2022,140273,4
+Belarus,2023,128666,2
+Belarus,2024,73620,2
+Belarus,2025,59941,2
+Belgium,2020,133383,0
+Belgium,2021,129261,2
+Belgium,2022,97226,3
+Belgium,2023,111978,4
+Belgium,2024,103282,0
+Belgium,2025,101552,0
+Belize,2018,13996,91
+Belize,2019,9748,104
+Belize,2020,5635,75
+Belize,2021,6145,67
+Belize,2022,4370,48
+Belize,2023,7963,38
+Belize,2024,9661,23
+Belize,2025,14971,31
+Benin,2015,17250,3
+Benin,2016,17674,22
+Benin,2017,14448,15
+Benin,2018,10556,31
+Benin,2019,11765,37
+Benin,2020,11086,64
+Benin,2021,10935,93
+Benin,2022,7152,168
+Benin,2023,8228,226
+Benin,2024,9683,275
+Benin,2025,7832,421
+Bermuda,2018,6712,0
+Bermuda,2019,6200,0
+Bermuda,2020,4483,0
+Bermuda,2021,3134,0
+Bermuda,2022,3388,0
+Bermuda,2023,3774,0
+Bermuda,2024,4019,0
+Bermuda,2025,4108,0
+Bhutan,2020,2945,0
+Bhutan,2021,2398,0
+Bhutan,2022,987,0
+Bhutan,2024,2187,0
+Bolivia,2018,71094,26
+Bolivia,2019,130191,36
+Bolivia,2020,44471,1
+Bolivia,2021,38467,8
+Bolivia,2022,30739,11
+Bolivia,2023,34856,15
+Bolivia,2024,51245,19
+Bolivia,2025,23984,37
+Bosnia and Herzegovina,2018,23800,1
+Bosnia and Herzegovina,2019,20641,1
+Bosnia and Herzegovina,2020,11913,0
+Bosnia and Herzegovina,2021,13772,0
+Bosnia and Herzegovina,2022,8366,1
+Bosnia and Herzegovina,2023,10978,0
+Bosnia and Herzegovina,2024,14379,2
+Bosnia and Herzegovina,2025,11022,0
+Botswana,2015,9719,0
+Botswana,2016,15949,1
+Botswana,2017,13933,0
+Botswana,2018,12978,2
+Botswana,2019,15561,0
+Botswana,2020,7179,7
+Botswana,2021,5815,1
+Botswana,2022,2986,4
+Botswana,2023,3074,7
+Botswana,2024,3695,2
+Botswana,2025,2180,4
+Brazil,2018,546039,7371
+Brazil,2019,497318,5756
+Brazil,2020,330268,5685
+Brazil,2021,294133,6357
+Brazil,2022,212522,7745
+Brazil,2023,290469,8401
+Brazil,2024,261384,7492
+Brazil,2025,285262,7367
+British Indian Ocean Territory,2018,70,0
+British Indian Ocean Territory,2019,419,0
+British Indian Ocean Territory,2021,91,0
+British Virgin Islands,2018,826,0
+British Virgin Islands,2019,400,0
+British Virgin Islands,2020,288,0
+British Virgin Islands,2021,826,0
+British Virgin Islands,2022,1296,0
+British Virgin Islands,2023,262,0
+British Virgin Islands,2024,432,0
+British Virgin Islands,2025,191,0
+Brunei,2020,18566,0
+Brunei,2021,20373,0
+Brunei,2023,13862,0
+Bulgaria,2018,122375,0
+Bulgaria,2019,64653,0
+Bulgaria,2020,58205,0
+Bulgaria,2021,45204,0
+Bulgaria,2022,53602,0
+Bulgaria,2023,59492,0
+Bulgaria,2024,52460,0
+Bulgaria,2025,48879,1
+Burkina Faso,2015,124383,23
+Burkina Faso,2016,117639,81
+Burkina Faso,2017,63381,117
+Burkina Faso,2018,72962,303
+Burkina Faso,2019,54918,2220
+Burkina Faso,2020,21218,2299
+Burkina Faso,2021,23549,2360
+Burkina Faso,2022,34138,4234
+Burkina Faso,2023,27550,8499
+Burkina Faso,2024,16094,7487
+Burkina Faso,2025,9066,4964
+Burundi,2015,181957,1109
+Burundi,2016,70267,452
+Burundi,2017,28879,285
+Burundi,2018,21927,327
+Burundi,2019,11903,305
+Burundi,2020,13249,330
+Burundi,2021,6222,305
+Burundi,2022,5104,261
+Burundi,2023,4608,178
+Burundi,2024,3148,168
+Burundi,2025,4777,202
+Cambodia,2015,65395,6
+Cambodia,2016,95103,3
+Cambodia,2017,85263,2
+Cambodia,2018,97308,13
+Cambodia,2019,37356,5
+Cambodia,2020,24570,4
+Cambodia,2021,18391,2
+Cambodia,2022,30950,1
+Cambodia,2023,27770,0
+Cambodia,2024,20834,0
+Cambodia,2025,80748,0
+Cameroon,2015,87168,1439
+Cameroon,2016,63275,721
+Cameroon,2017,57405,739
+Cameroon,2018,67424,1664
+Cameroon,2019,45362,1302
+Cameroon,2020,33074,1761
+Cameroon,2021,21592,1566
+Cameroon,2022,13346,1632
+Cameroon,2023,14754,2145
+Cameroon,2024,8327,2314
+Cameroon,2025,11648,1628
+Canada,2021,595333,8
+Canada,2022,492495,0
+Canada,2023,905609,4
+Canada,2024,854713,0
+Canada,2025,715274,0
+Cape Verde,2020,1470,0
+Cape Verde,2021,6063,0
+Cape Verde,2022,851,0
+Cape Verde,2023,870,0
+Cape Verde,2024,647,0
+Cape Verde,2025,608,0
+Caribbean Netherlands,2019,6,0
+Caribbean Netherlands,2020,6,0
+Caribbean Netherlands,2022,6,0
+Caribbean Netherlands,2024,6,0
+Cayman Islands,2018,2676,0
+Cayman Islands,2019,1640,0
+Cayman Islands,2020,1903,0
+Cayman Islands,2021,1009,0
+Cayman Islands,2022,586,0
+Cayman Islands,2024,1698,0
+Cayman Islands,2025,1417,0
+Central African Republic,2015,52644,525
+Central African Republic,2016,43786,739
+Central African Republic,2017,40411,1832
+Central African Republic,2018,34165,1171
+Central African Republic,2019,10379,596
+Central African Republic,2020,11572,449
+Central African Republic,2021,11711,1716
+Central African Republic,2022,5656,967
+Central African Republic,2023,7902,618
+Central African Republic,2024,3438,758
+Central African Republic,2025,2397,944
+Chad,2015,91582,429
+Chad,2016,55189,45
+Chad,2017,52213,296
+Chad,2018,42295,259
+Chad,2019,24773,565
+Chad,2020,27646,727
+Chad,2021,37096,831
+Chad,2022,20550,748
+Chad,2023,33744,301
+Chad,2024,25311,561
+Chad,2025,13516,304
+Chile,2018,207336,5
+Chile,2019,144223,44
+Chile,2020,71419,26
+Chile,2021,69858,20
+Chile,2022,52676,22
+Chile,2023,38431,19
+Chile,2024,32415,49
+Chile,2025,31226,12
+China,2018,1584502,42
+China,2019,1720958,15
+China,2020,1967207,9
+China,2021,1148358,13
+China,2022,907037,6
+China,2023,1103959,9
+China,2024,839878,11
+China,2025,791171,1
+Christmas Island,2021,385,0
+Christmas Island,2022,130,0
+Colombia,2018,258532,1501
+Colombia,2019,227114,1428
+Colombia,2020,136956,1768
+Colombia,2021,160725,2115
+Colombia,2022,97269,2303
+Colombia,2023,121308,2015
+Colombia,2024,123888,1757
+Colombia,2025,202830,2178
+Comoros,2020,407,2
+Comoros,2021,483,0
+Comoros,2022,924,2
+Comoros,2023,1367,1
+Comoros,2024,1496,3
+Comoros,2025,277,2
+Cook Islands,2021,191,0
+Cook Islands,2024,860,0
+Cook Islands,2025,1108,0
+Costa Rica,2018,14726,2
+Costa Rica,2019,13981,10
+Costa Rica,2020,7586,9
+Costa Rica,2021,5628,4
+Costa Rica,2022,5600,2
+Costa Rica,2023,9749,3
+Costa Rica,2024,5717,15
+Costa Rica,2025,8319,5
+Croatia,2018,85388,0
+Croatia,2019,65973,3
+Croatia,2020,45527,0
+Croatia,2021,40810,0
+Croatia,2022,38413,0
+Croatia,2023,48845,0
+Croatia,2024,48684,0
+Croatia,2025,44646,0
+Cuba,2018,116630,0
+Cuba,2019,115241,2
+Cuba,2020,65571,3
+Cuba,2021,115706,1
+Cuba,2022,68138,2
+Cuba,2023,58675,6
+Cuba,2024,52732,3
+Cuba,2025,67757,5
+Cyprus,2018,58617,0
+Cyprus,2019,55218,1
+Cyprus,2020,42930,0
+Cyprus,2021,27988,0
+Cyprus,2022,15629,1
+Cyprus,2023,36716,0
+Cyprus,2024,39207,0
+Cyprus,2025,24794,1
+Czech Republic,2020,59664,0
+Czech Republic,2021,59316,1
+Czech Republic,2022,40903,0
+Czech Republic,2023,68846,0
+Czech Republic,2024,53073,0
+Czech Republic,2025,35120,0
+Democratic Republic of Congo,2015,17954,1791
+Democratic Republic of Congo,2016,53232,1740
+Democratic Republic of Congo,2017,30150,3211
+Democratic Republic of Congo,2018,41480,3225
+Democratic Republic of Congo,2019,21248,3813
+Democratic Republic of Congo,2020,9079,6173
+Democratic Republic of Congo,2021,10159,7704
+Democratic Republic of Congo,2022,13710,8074
+Democratic Republic of Congo,2023,12708,5505
+Democratic Republic of Congo,2024,11302,5500
+Democratic Republic of Congo,2025,16387,7069
+Denmark,2020,51755,1
+Denmark,2021,58002,0
+Denmark,2022,44640,0
+Denmark,2023,56912,0
+Denmark,2024,56098,0
+Denmark,2025,79692,0
+Djibouti,2015,23377,27
+Djibouti,2016,28472,0
+Djibouti,2017,22347,0
+Djibouti,2018,19962,0
+Djibouti,2019,10674,4
+Djibouti,2020,5683,0
+Djibouti,2021,4701,5
+Djibouti,2022,3775,7
+Djibouti,2023,37551,17
+Djibouti,2024,87207,1
+Dominica,2018,3863,0
+Dominica,2019,3259,1
+Dominica,2020,2577,0
+Dominica,2021,4654,0
+Dominica,2022,2126,0
+Dominica,2023,2072,0
+Dominica,2024,4255,0
+Dominica,2025,2269,0
+Dominican Republic,2018,17983,21
+Dominican Republic,2019,26257,18
+Dominican Republic,2020,8164,10
+Dominican Republic,2021,8022,3
+Dominican Republic,2022,8445,24
+Dominican Republic,2023,7051,14
+Dominican Republic,2024,10823,13
+Dominican Republic,2025,15944,23
+East Timor,2020,1811,0
+East Timor,2021,4391,2
+East Timor,2022,2943,2
+East Timor,2023,2113,0
+East Timor,2024,3210,0
+East Timor,2025,2118,0
+Ecuador,2018,88438,14
+Ecuador,2019,110368,11
+Ecuador,2020,25968,19
+Ecuador,2021,37274,5
+Ecuador,2022,24717,40
+Ecuador,2023,69364,2807
+Ecuador,2024,88451,2879
+Ecuador,2025,45612,3853
+Egypt,2015,1219981,2840
+Egypt,2016,1112626,1721
+Egypt,2017,1050187,1544
+Egypt,2018,561954,1114
+Egypt,2019,367081,1003
+Egypt,2020,227349,626
+Egypt,2021,170470,264
+Egypt,2022,129515,274
+Egypt,2023,324361,28
+Egypt,2024,349645,18
+Egypt,2025,193364,52
+El Salvador,2018,76254,962
+El Salvador,2019,66312,895
+El Salvador,2020,31466,388
+El Salvador,2021,26555,435
+El Salvador,2022,22815,285
+El Salvador,2023,20562,58
+El Salvador,2024,24616,21
+El Salvador,2025,137164,9
+Equatorial Guinea,2015,1705,0
+Equatorial Guinea,2016,4652,0
+Equatorial Guinea,2017,5397,5
+Equatorial Guinea,2018,7087,4
+Equatorial Guinea,2019,2057,1
+Equatorial Guinea,2020,2091,0
+Equatorial Guinea,2021,2163,1
+Equatorial Guinea,2022,1372,4
+Equatorial Guinea,2023,1129,0
+Equatorial Guinea,2024,1051,0
+Eritrea,2015,24705,3
+Eritrea,2016,25106,37
+Eritrea,2017,11974,1
+Eritrea,2018,26624,1
+Eritrea,2019,10310,0
+Eritrea,2020,15008,1
+Eritrea,2021,22313,0
+Eritrea,2022,8217,0
+Eritrea,2023,12214,1
+Eritrea,2024,4073,0
+Estonia,2020,16957,0
+Estonia,2021,17709,1
+Estonia,2022,25030,0
+Estonia,2023,21862,0
+Estonia,2024,18339,0
+Estonia,2025,25483,0
+Ethiopia,2015,76691,811
+Ethiopia,2016,114102,2515
+Ethiopia,2017,52394,1355
+Ethiopia,2018,94647,1579
+Ethiopia,2019,112146,670
+Ethiopia,2020,99613,4364
+Ethiopia,2021,147214,8546
+Ethiopia,2022,58252,6440
+Ethiopia,2023,41366,3750
+Ethiopia,2024,30354,7545
+Ethiopia,2025,26986,5940
 Falkland Islands,2018,63,0
 Falkland Islands,2019,14,0
 Falkland Islands,2020,51,0
 Falkland Islands,2021,40,0
-Falkland Islands,2025,259,0
-Faroe Islands,2020,69,0
-Faroe Islands,2021,3326,0
-Faroe Islands,2023,455,0
-Faroe Islands,2024,92,0
-Faroe Islands,2025,103,0
-Fiji,2021,10513,0
-Fiji,2022,9674,0
-Fiji,2023,7162,0
-Fiji,2024,7909,0
-Fiji,2025,6665,0
-Finland,2020,37479,1
-Finland,2021,36866,1
-Finland,2022,72506,0
-Finland,2023,70182,0
-Finland,2024,60653,0
-Finland,2025,41563,0
-France,2020,834827,8
-France,2021,720144,4
-France,2022,510506,14
-France,2023,739927,5
-France,2024,667153,11
-France,2025,574239,10
-French Guiana,2018,280,0
-French Guiana,2019,119,0
-French Guiana,2020,262,0
-French Guiana,2021,90,0
-French Guiana,2022,179,0
-French Guiana,2023,1750,2
-French Guiana,2024,141,1
-French Guiana,2025,123,0
-French Polynesia,2021,1970,0
-French Polynesia,2022,205,0
-French Polynesia,2023,214,0
-French Polynesia,2024,243,0
-French Polynesia,2025,115,0
-Gabon,2015,4763,0
-Gabon,2016,33496,7
-Gabon,2017,8733,0
-Gabon,2018,8455,0
-Gabon,2019,8126,6
-Gabon,2020,2418,4
-Gabon,2021,2416,4
-Gabon,2022,1990,0
-Gabon,2023,10477,2
-Gabon,2024,1905,1
-Gabon,2025,2054,1
-Gambia,2015,27443,0
-Gambia,2016,54032,4
-Gambia,2017,64364,6
-Gambia,2018,24241,3
-Gambia,2019,21775,2
-Gambia,2020,14266,3
-Gambia,2021,9038,1
-Gambia,2022,9438,4
-Gambia,2023,15674,2
-Gambia,2024,15544,1
-Gambia,2025,11216,0
-Georgia,2018,24724,3
-Georgia,2019,36466,3
-Georgia,2020,16779,1
-Georgia,2021,18162,0
-Georgia,2022,9668,0
-Georgia,2023,20660,2
-Georgia,2024,55888,1
-Georgia,2025,17858,0
-Germany,2020,703801,14
-Germany,2021,568809,9
-Germany,2022,508187,1
-Germany,2023,582487,8
-Germany,2024,622147,17
-Germany,2025,467788,7
-Ghana,2015,133387,32
-Ghana,2016,167011,42
-Ghana,2017,146694,89
-Ghana,2018,152136,23
-Ghana,2019,120581,43
-Ghana,2020,111873,69
-Ghana,2021,103081,51
-Ghana,2022,57212,120
-Ghana,2023,74017,177
-Ghana,2024,100607,148
-Ghana,2025,85783,260
-Gibraltar,2020,4180,0
-Gibraltar,2021,3438,0
-Gibraltar,2022,3030,0
-Gibraltar,2023,4573,0
-Gibraltar,2025,1844,0
-Greece,2018,424132,10
-Greece,2019,245153,7
-Greece,2020,247688,6
-Greece,2021,188730,7
-Greece,2022,153535,10
-Greece,2023,245084,6
-Greece,2024,210266,2
-Greece,2025,166794,6
-Greenland,2020,2639,0
-Greenland,2021,2165,0
-Greenland,2022,1946,0
-Greenland,2023,2318,0
-Greenland,2024,5744,0
-Greenland,2025,33883,0
-Grenada,2018,3641,0
-Grenada,2019,3382,0
-Grenada,2020,2636,0
-Grenada,2021,2882,0
-Grenada,2023,2339,0
-Grenada,2025,3151,0
-Guadeloupe,2018,10907,1
-Guadeloupe,2019,8494,0
-Guadeloupe,2020,5797,1
-Guadeloupe,2021,9632,0
-Guadeloupe,2022,6532,0
-Guadeloupe,2023,5836,0
-Guadeloupe,2024,5908,0
-Guadeloupe,2025,5054,0
-Guam,2021,5221,0
-Guam,2022,5379,0
-Guam,2023,5975,0
-Guam,2024,5343,0
-Guam,2025,4534,0
-Guatemala,2018,133331,800
-Guatemala,2019,72852,1115
-Guatemala,2020,40046,573
-Guatemala,2021,34658,673
-Guatemala,2022,16404,744
-Guatemala,2023,36032,850
-Guatemala,2024,33470,285
-Guatemala,2025,28549,461
-Guinea,2015,42933,34
-Guinea,2016,29097,4
-Guinea,2017,24845,47
-Guinea,2018,25231,40
-Guinea,2019,22362,46
-Guinea,2020,19587,146
-Guinea,2021,23590,28
-Guinea,2022,15624,40
-Guinea,2023,14312,72
-Guinea,2024,12228,64
-Guinea,2025,10236,30
-Guyana,2018,17582,1
-Guyana,2019,13375,2
-Guyana,2020,10226,6
-Guyana,2021,5910,1
-Guyana,2022,4762,0
-Guyana,2023,22798,1
-Guyana,2024,12628,2
-Guyana,2025,12550,10
-Haiti,2018,68908,295
-Haiti,2019,38384,488
-Haiti,2020,24828,717
-Haiti,2021,161630,820
-Haiti,2022,46765,1637
-Haiti,2023,59894,2518
-Haiti,2024,137653,3050
-Haiti,2025,46484,2624
-Honduras,2018,116331,793
-Honduras,2019,71351,1016
-Honduras,2020,27018,727
-Honduras,2021,34967,710
-Honduras,2022,28657,694
-Honduras,2023,26998,656
-Honduras,2024,28849,492
-Honduras,2025,31129,522
-Hungary,2020,59756,0
-Hungary,2021,58472,0
-Hungary,2022,64067,0
-Hungary,2023,84208,0
-Hungary,2024,92014,0
-Hungary,2025,89530,1
-Iceland,2020,8218,3
-Iceland,2021,7831,0
-Iceland,2022,5525,0
-Iceland,2023,10458,0
-Iceland,2024,11925,0
-Iceland,2025,8919,0
-India,2016,2272923,1653
-India,2017,1782412,1397
-India,2018,1684281,2119
-India,2019,1713005,1505
-India,2020,1191043,1326
-India,2021,893068,1020
-India,2022,752324,885
-India,2023,1199096,1197
-India,2024,1254322,1204
-India,2025,1154061,1115
-Indonesia,2015,479412,103
-Indonesia,2016,625995,52
-Indonesia,2017,474656,53
-Indonesia,2018,395799,174
-Indonesia,2019,332579,202
-Indonesia,2020,232910,134
-Indonesia,2021,224158,138
-Indonesia,2022,159168,266
-Indonesia,2023,201267,218
-Indonesia,2024,182978,163
-Indonesia,2025,154692,247
-Iran,2016,1334084,264
-Iran,2017,1373501,175
-Iran,2018,1481537,246
-Iran,2019,1693942,466
-Iran,2020,1171084,400
-Iran,2021,471755,188
-Iran,2022,563442,718
-Iran,2023,570123,198
-Iran,2024,1117114,354
-Iran,2025,475034,711
-Iraq,2016,2037193,56032
-Iraq,2017,1416212,31913
-Iraq,2018,541068,5241
-Iraq,2019,712886,3490
-Iraq,2020,514725,2680
-Iraq,2021,262398,2597
-Iraq,2022,155592,2093
-Iraq,2023,186385,1387
-Iraq,2024,206088,1033
-Iraq,2025,82621,556
-Ireland,2020,206028,0
-Ireland,2021,201633,0
-Ireland,2022,198360,0
-Ireland,2023,277698,0
-Ireland,2024,296484,0
-Ireland,2025,234968,0
-Isle of Man,2020,526,0
-Isle of Man,2021,70,0
-Isle of Man,2024,48,0
+Falkland Islands,2025,439,0
+Faroe Islands,2020,58,0
+Faroe Islands,2021,3291,0
+Faroe Islands,2023,427,0
+Faroe Islands,2024,62,0
+Faroe Islands,2025,75,0
+Fiji,2021,10316,0
+Fiji,2022,9413,0
+Fiji,2023,6995,0
+Fiji,2024,7724,0
+Fiji,2025,6610,0
+Finland,2020,36144,1
+Finland,2021,35721,1
+Finland,2022,70874,0
+Finland,2023,68496,0
+Finland,2024,59038,0
+Finland,2025,40674,0
+France,2020,831092,8
+France,2021,715454,4
+France,2022,506549,14
+France,2023,736277,5
+France,2024,663774,11
+France,2025,578157,10
+French Guiana,2018,242,0
+French Guiana,2019,104,0
+French Guiana,2020,259,0
+French Guiana,2021,86,0
+French Guiana,2022,170,0
+French Guiana,2023,1724,2
+French Guiana,2024,131,1
+French Guiana,2025,107,0
+French Polynesia,2021,1870,0
+French Polynesia,2022,151,0
+French Polynesia,2023,170,0
+French Polynesia,2024,199,0
+French Polynesia,2025,75,0
+Gabon,2015,4437,0
+Gabon,2016,32567,7
+Gabon,2017,8194,0
+Gabon,2018,8081,0
+Gabon,2019,7670,6
+Gabon,2020,2176,4
+Gabon,2021,2226,4
+Gabon,2022,1789,0
+Gabon,2023,9926,2
+Gabon,2024,1763,1
+Gabon,2025,1847,1
+Gambia,2015,24524,0
+Gambia,2016,51307,4
+Gambia,2017,61792,6
+Gambia,2018,22961,3
+Gambia,2019,19837,2
+Gambia,2020,12038,3
+Gambia,2021,6654,1
+Gambia,2022,8005,4
+Gambia,2023,15177,2
+Gambia,2024,14840,1
+Gambia,2025,10657,0
+Georgia,2018,24260,3
+Georgia,2019,36061,3
+Georgia,2020,16549,1
+Georgia,2021,17791,0
+Georgia,2022,9314,0
+Georgia,2023,20205,2
+Georgia,2024,55114,1
+Georgia,2025,17530,0
+Germany,2020,701262,14
+Germany,2021,565918,9
+Germany,2022,505567,1
+Germany,2023,580018,8
+Germany,2024,619799,17
+Germany,2025,469513,7
+Ghana,2015,130680,32
+Ghana,2016,164183,42
+Ghana,2017,145051,89
+Ghana,2018,149993,23
+Ghana,2019,117531,43
+Ghana,2020,108763,69
+Ghana,2021,101078,51
+Ghana,2022,54354,120
+Ghana,2023,72285,177
+Ghana,2024,99094,148
+Ghana,2025,85182,260
+Gibraltar,2020,4092,0
+Gibraltar,2021,3335,0
+Gibraltar,2022,2964,0
+Gibraltar,2023,4449,0
+Gibraltar,2025,1913,0
+Greece,2018,421831,10
+Greece,2019,242746,7
+Greece,2020,245394,6
+Greece,2021,186526,7
+Greece,2022,151758,10
+Greece,2023,242972,6
+Greece,2024,208197,2
+Greece,2025,166692,6
+Greenland,2020,2327,0
+Greenland,2021,1896,0
+Greenland,2022,1738,0
+Greenland,2023,2069,0
+Greenland,2024,5316,0
+Greenland,2025,33299,0
+Grenada,2018,3427,0
+Grenada,2019,3198,0
+Grenada,2020,2472,0
+Grenada,2021,2729,0
+Grenada,2023,2185,0
+Grenada,2025,3111,0
+Guadeloupe,2018,10438,1
+Guadeloupe,2019,8169,0
+Guadeloupe,2020,5546,1
+Guadeloupe,2021,9244,0
+Guadeloupe,2022,6261,0
+Guadeloupe,2023,5629,0
+Guadeloupe,2024,5729,0
+Guadeloupe,2025,4919,0
+Guam,2021,5147,0
+Guam,2022,5298,0
+Guam,2023,5879,0
+Guam,2024,5233,0
+Guam,2025,4569,0
+Guatemala,2018,131408,800
+Guatemala,2019,71600,1115
+Guatemala,2020,39097,573
+Guatemala,2021,33591,673
+Guatemala,2022,15831,744
+Guatemala,2023,34953,850
+Guatemala,2024,32686,285
+Guatemala,2025,27959,461
+Guinea,2015,41190,34
+Guinea,2016,27795,4
+Guinea,2017,23669,47
+Guinea,2018,23987,40
+Guinea,2019,21097,46
+Guinea,2020,18398,146
+Guinea,2021,22270,28
+Guinea,2022,14630,40
+Guinea,2023,13371,72
+Guinea,2024,11314,64
+Guinea,2025,9735,30
+Guinea-Bissau,2015,2895,1
+Guinea-Bissau,2016,3179,0
+Guinea-Bissau,2017,2456,0
+Guinea-Bissau,2018,1468,0
+Guinea-Bissau,2019,2160,1
+Guinea-Bissau,2020,1569,8
+Guinea-Bissau,2021,777,0
+Guinea-Bissau,2022,2261,12
+Guinea-Bissau,2023,2731,5
+Guinea-Bissau,2024,701,9
+Guinea-Bissau,2025,2751,0
+Guyana,2018,17341,1
+Guyana,2019,13058,2
+Guyana,2020,9942,6
+Guyana,2021,5722,1
+Guyana,2022,4645,0
+Guyana,2023,22342,1
+Guyana,2024,12204,2
+Guyana,2025,12731,10
+Haiti,2018,67743,295
+Haiti,2019,37519,488
+Haiti,2020,24180,717
+Haiti,2021,160285,820
+Haiti,2022,45861,1637
+Haiti,2023,58531,2518
+Haiti,2024,135838,3050
+Haiti,2025,45629,2624
+Honduras,2018,114645,793
+Honduras,2019,70240,1016
+Honduras,2020,26243,727
+Honduras,2021,34224,710
+Honduras,2022,28054,694
+Honduras,2023,26147,656
+Honduras,2024,28169,492
+Honduras,2025,31569,522
+Hungary,2020,58177,0
+Hungary,2021,56949,0
+Hungary,2022,62598,0
+Hungary,2023,82668,0
+Hungary,2024,90395,0
+Hungary,2025,88433,1
+Iceland,2020,7773,3
+Iceland,2021,7456,0
+Iceland,2022,5170,0
+Iceland,2023,9898,0
+Iceland,2024,11430,0
+Iceland,2025,8677,0
+India,2016,2269972,1653
+India,2017,1779367,1397
+India,2018,1681455,2119
+India,2019,1710179,1505
+India,2020,1188305,1326
+India,2021,889999,1020
+India,2022,749882,885
+India,2023,1196603,1197
+India,2024,1251819,1204
+India,2025,1166926,1115
+Indonesia,2015,477672,103
+Indonesia,2016,624157,52
+Indonesia,2017,472663,53
+Indonesia,2018,393881,174
+Indonesia,2019,330786,202
+Indonesia,2020,231544,134
+Indonesia,2021,222623,138
+Indonesia,2022,157777,266
+Indonesia,2023,199663,218
+Indonesia,2024,181444,163
+Indonesia,2025,154664,247
+Iran,2016,1331501,264
+Iran,2017,1370885,175
+Iran,2018,1479359,246
+Iran,2019,1692036,466
+Iran,2020,1168565,400
+Iran,2021,469079,188
+Iran,2022,561227,718
+Iran,2023,567694,198
+Iran,2024,1114776,354
+Iran,2025,492672,711
+Iraq,2016,2035290,56032
+Iraq,2017,1414239,31913
+Iraq,2018,538467,5241
+Iraq,2019,710503,3490
+Iraq,2020,512309,2680
+Iraq,2021,260014,2597
+Iraq,2022,153252,2093
+Iraq,2023,183860,1387
+Iraq,2024,203693,1033
+Iraq,2025,81928,556
+Ireland,2020,203922,0
+Ireland,2021,199472,0
+Ireland,2022,196847,0
+Ireland,2023,275722,0
+Ireland,2024,294475,0
+Ireland,2025,235654,0
+Isle of Man,2020,512,0
+Isle of Man,2021,68,0
+Isle of Man,2024,46,0
 Isle of Man,2025,58,0
-Israel,2016,3231691,16
-Israel,2017,3563646,11
-Israel,2018,4452622,7
-Israel,2019,2707228,11
-Israel,2020,1253155,1
-Israel,2021,1780931,25
-Israel,2022,1014646,31
-Israel,2023,5774152,1772
-Israel,2024,7107152,99
-Israel,2025,4031347,47
-Italy,2020,508694,0
-Italy,2021,375632,1
-Italy,2022,257500,1
-Italy,2023,397743,0
-Italy,2024,398786,0
-Italy,2025,385660,0
-Jamaica,2018,43477,224
-Jamaica,2019,37797,281
-Jamaica,2020,35075,265
-Jamaica,2021,32198,301
-Jamaica,2022,26536,387
-Jamaica,2023,25509,423
-Jamaica,2024,27341,346
-Jamaica,2025,26307,268
-Japan,2018,424810,0
-Japan,2019,448344,0
-Japan,2020,283748,0
-Japan,2021,229933,0
-Japan,2022,248119,1
-Japan,2023,289564,0
-Japan,2024,223451,0
-Japan,2025,188780,0
-Jordan,2016,254403,65
-Jordan,2017,247714,35
-Jordan,2018,166256,20
-Jordan,2019,109239,25
-Jordan,2020,80207,11
-Jordan,2021,58819,9
-Jordan,2022,40251,14
-Jordan,2023,100372,7
-Jordan,2024,116418,3
-Jordan,2025,69576,9
-Kazakhstan,2018,42528,3
-Kazakhstan,2019,43618,7
-Kazakhstan,2020,32490,21
-Kazakhstan,2021,16668,3
-Kazakhstan,2022,64607,226
-Kazakhstan,2023,25021,4
-Kazakhstan,2024,26957,5
-Kazakhstan,2025,12989,5
-Kenya,2015,359014,505
-Kenya,2016,325699,227
-Kenya,2017,322831,740
-Kenya,2018,203035,459
-Kenya,2019,174383,340
-Kenya,2020,111977,355
-Kenya,2021,72991,484
-Kenya,2022,72444,686
-Kenya,2023,120687,1011
-Kenya,2024,141579,782
-Kenya,2025,90339,916
-Kiribati,2021,903,0
-Kosovo,2018,89231,4
-Kosovo,2019,28996,0
-Kosovo,2020,17034,0
-Kosovo,2021,16360,0
-Kosovo,2022,25233,0
-Kosovo,2023,72925,5
-Kosovo,2024,38652,0
-Kosovo,2025,24883,1
-Kuwait,2016,106305,0
-Kuwait,2017,72395,0
-Kuwait,2018,56446,0
-Kuwait,2019,26311,0
-Kuwait,2020,27239,1
-Kuwait,2021,19487,0
-Kuwait,2022,13339,0
-Kuwait,2023,16644,0
-Kuwait,2024,15589,0
-Kyrgyzstan,2018,16989,4
-Kyrgyzstan,2019,26963,8
-Kyrgyzstan,2020,30376,2
-Kyrgyzstan,2021,20811,32
-Kyrgyzstan,2022,16104,68
-Kyrgyzstan,2023,10627,2
-Kyrgyzstan,2024,10870,1
-Kyrgyzstan,2025,6609,5
-Laos,2015,5338,5
-Laos,2016,30145,9
-Laos,2017,10285,4
-Laos,2018,10130,0
-Laos,2019,7229,1
-Laos,2020,5707,2
-Laos,2021,4378,1
-Laos,2022,3469,0
-Laos,2023,6090,0
-Laos,2024,8529,0
-Laos,2025,5012,5
-Latvia,2020,17762,0
-Latvia,2021,19370,0
-Latvia,2022,23589,0
-Latvia,2023,20000,0
-Latvia,2024,16881,1
-Latvia,2025,15242,3
-Lebanon,2016,319407,219
-Lebanon,2017,359792,385
-Lebanon,2018,204832,32
-Lebanon,2019,209771,22
-Lebanon,2020,240906,48
-Lebanon,2021,134203,42
-Lebanon,2022,72639,43
-Lebanon,2023,245360,267
-Lebanon,2024,746244,4050
-Lebanon,2025,157951,399
-Lesotho,2015,6796,4
-Lesotho,2016,6288,4
-Lesotho,2017,8820,4
-Lesotho,2018,6599,0
-Lesotho,2019,5546,6
-Lesotho,2020,15480,6
-Lesotho,2021,5755,9
-Lesotho,2022,4388,14
-Lesotho,2023,5603,12
-Lesotho,2024,3035,3
-Lesotho,2025,8130,0
-Liberia,2015,28552,4
-Liberia,2016,34970,8
-Liberia,2017,27113,7
-Liberia,2018,21348,3
-Liberia,2019,17971,11
-Liberia,2020,20325,2
-Liberia,2021,15680,7
-Liberia,2022,13959,11
-Liberia,2023,24325,9
-Liberia,2024,21656,6
-Liberia,2025,18806,22
-Libya,2015,445401,3081
-Libya,2016,509210,3328
-Libya,2017,319414,1707
-Libya,2018,202073,1226
-Libya,2019,261666,2294
-Libya,2020,188553,1562
-Libya,2021,79659,115
-Libya,2022,54141,159
-Libya,2023,59494,95
-Libya,2024,28107,160
-Libya,2025,41479,275
-Lithuania,2020,53487,0
-Lithuania,2021,70380,0
-Lithuania,2022,55807,0
-Lithuania,2023,52623,0
-Lithuania,2024,47992,1
-Lithuania,2025,44324,0
-Luxembourg,2020,12627,0
-Luxembourg,2021,13358,0
-Luxembourg,2022,9975,0
-Luxembourg,2023,9716,0
-Luxembourg,2024,8300,0
-Luxembourg,2025,6201,0
-Madagascar,2015,9106,192
-Madagascar,2016,10388,177
-Madagascar,2017,8687,210
-Madagascar,2018,11937,142
-Madagascar,2019,8439,351
-Madagascar,2020,6588,358
-Madagascar,2021,6072,303
-Madagascar,2022,4448,364
-Madagascar,2023,4468,512
-Madagascar,2024,3158,471
-Madagascar,2025,14730,263
-Malawi,2015,17770,12
-Malawi,2016,34110,23
-Malawi,2017,24355,19
-Malawi,2018,23265,16
-Malawi,2019,27231,27
-Malawi,2020,17420,60
-Malawi,2021,13761,44
-Malawi,2022,11513,40
-Malawi,2023,11847,53
-Malawi,2024,12359,50
-Malawi,2025,13373,42
-Malaysia,2018,212334,14
-Malaysia,2019,136892,15
-Malaysia,2020,112538,2
-Malaysia,2021,71864,13
-Malaysia,2022,55459,4
-Malaysia,2023,60492,0
-Malaysia,2024,53726,3
-Malaysia,2025,50256,3
-Maldives,2020,5745,0
-Maldives,2021,5579,0
-Maldives,2022,4976,0
-Maldives,2023,3497,0
-Maldives,2024,7774,1
-Maldives,2025,5344,0
-Mali,2015,190831,434
-Mali,2016,162253,320
-Mali,2017,127756,946
-Mali,2018,121041,1739
-Mali,2019,102599,1873
-Mali,2020,99505,2852
-Mali,2021,83157,1909
-Mali,2022,88917,4858
-Mali,2023,52325,4329
-Mali,2024,31837,4019
-Mali,2025,23291,3715
-Malta,2020,23337,0
-Malta,2021,26302,0
-Malta,2022,23571,0
-Malta,2023,18035,0
-Malta,2024,20130,0
-Malta,2025,15765,2
-Marshall Islands,2021,1450,0
-Marshall Islands,2023,1232,0
-Marshall Islands,2024,1135,0
-Martinique,2018,2899,0
-Martinique,2019,2322,0
-Martinique,2020,1509,0
-Martinique,2021,3798,0
-Martinique,2022,2057,0
-Martinique,2023,925,0
-Martinique,2024,1423,1
-Martinique,2025,350,0
-Mauritania,2015,19798,1
-Mauritania,2016,22778,0
-Mauritania,2017,20320,2
-Mauritania,2018,18551,3
-Mauritania,2019,9800,3
-Mauritania,2020,6032,4
-Mauritania,2021,4941,1
-Mauritania,2022,3686,6
-Mauritania,2023,4622,9
-Mauritania,2024,4213,7
-Mauritania,2025,3269,0
-Mauritius,2020,22369,2
-Mauritius,2021,16025,2
-Mauritius,2022,12872,3
-Mauritius,2023,17133,2
-Mauritius,2024,19478,2
-Mauritius,2025,16250,0
-Mayotte,2020,712,0
-Mayotte,2021,744,1
-Mayotte,2022,698,3
-Mayotte,2023,1545,0
-Mayotte,2024,2372,1
-Mayotte,2025,1197,0
-Mexico,2018,1020086,9595
-Mexico,2019,976902,9243
-Mexico,2020,452762,8383
-Mexico,2021,415381,8264
-Mexico,2022,356296,7836
-Mexico,2023,493038,7271
-Mexico,2024,500698,8345
-Mexico,2025,443374,7857
-Micronesia,2021,1834,0
-Moldova,2018,52388,0
-Moldova,2019,36621,0
-Moldova,2020,27897,0
-Moldova,2021,26140,0
-Moldova,2022,46744,0
-Moldova,2023,53537,1
-Moldova,2024,52044,0
-Moldova,2025,46982,0
-Monaco,2020,4070,0
-Monaco,2021,5274,0
-Monaco,2022,3605,0
-Monaco,2023,3563,0
-Monaco,2024,3521,0
-Monaco,2025,2281,0
-Mongolia,2018,8554,1
-Mongolia,2019,8796,0
-Mongolia,2020,9208,0
-Mongolia,2021,4542,0
-Mongolia,2022,3899,0
-Mongolia,2023,6467,0
-Mongolia,2024,8003,0
-Mongolia,2025,3562,0
-Montenegro,2018,20434,2
-Montenegro,2019,10656,0
-Montenegro,2020,8818,0
-Montenegro,2021,6387,0
-Montenegro,2022,6077,0
-Montenegro,2023,7410,1
-Montenegro,2024,9789,0
-Montenegro,2025,6566,0
-Montserrat,2018,1787,0
-Montserrat,2019,970,0
-Montserrat,2020,656,0
-Montserrat,2021,771,0
-Montserrat,2022,580,0
-Morocco,2015,214227,4
-Morocco,2016,204890,6
-Morocco,2017,174452,4
-Morocco,2018,116473,7
-Morocco,2019,72433,6
-Morocco,2020,50068,4
-Morocco,2021,64712,47
-Morocco,2022,49678,56
-Morocco,2023,51133,38
-Morocco,2024,38143,42
-Morocco,2025,34856,54
-Mozambique,2015,29266,48
-Mozambique,2016,32240,105
-Mozambique,2017,16915,129
-Mozambique,2018,21011,212
-Mozambique,2019,29423,680
-Mozambique,2020,19638,1773
-Mozambique,2021,25344,1830
-Mozambique,2022,9202,925
-Mozambique,2023,9814,309
-Mozambique,2024,19281,674
-Mozambique,2025,9849,665
-Myanmar,2015,115246,1287
-Myanmar,2016,99690,613
-Myanmar,2017,217179,1407
-Myanmar,2018,131749,261
-Myanmar,2019,61567,1646
-Myanmar,2020,27078,692
-Myanmar,2021,329621,11666
-Myanmar,2022,71395,23477
-Myanmar,2023,57386,21309
-Myanmar,2024,35509,20010
-Myanmar,2025,23416,14409
-Namibia,2015,25552,4
-Namibia,2016,18646,0
-Namibia,2017,17199,2
-Namibia,2018,18161,1
-Namibia,2019,17245,2
-Namibia,2020,8731,0
-Namibia,2021,10898,2
-Namibia,2022,4809,3
-Namibia,2023,7806,4
-Namibia,2024,10931,6
-Namibia,2025,9300,1
-Nauru,2021,424,0
-Nepal,2015,142303,51
-Nepal,2016,99362,8
-Nepal,2017,53791,19
-Nepal,2018,53963,19
-Nepal,2019,50235,48
-Nepal,2020,33636,37
-Nepal,2021,25830,10
-Nepal,2022,24797,15
-Nepal,2023,51283,7
-Nepal,2024,41267,7
-Nepal,2025,76196,81
-Netherlands,2020,112543,1
-Netherlands,2021,132847,1
-Netherlands,2022,85994,0
-Netherlands,2023,117817,0
-Netherlands,2024,117995,1
-Netherlands,2025,87944,1
-New Caledonia,2021,2911,0
-New Caledonia,2022,344,0
-New Caledonia,2023,817,0
-New Caledonia,2024,8865,19
-New Caledonia,2025,852,0
-New Zealand,2021,105005,1
-New Zealand,2022,76321,0
-New Zealand,2023,96278,0
-New Zealand,2024,87134,0
-New Zealand,2025,90283,0
-Nicaragua,2018,203153,356
-Nicaragua,2019,75731,29
-Nicaragua,2020,23973,28
-Nicaragua,2021,52498,35
-Nicaragua,2022,38232,7
-Nicaragua,2023,39033,13
-Nicaragua,2024,23975,16
-Nicaragua,2025,11634,7
-Niger,2015,67854,984
-Niger,2016,59081,367
-Niger,2017,72097,240
-Niger,2018,53185,506
-Niger,2019,38649,729
-Niger,2020,28621,1126
-Niger,2021,39367,1498
-Niger,2022,14548,1017
-Niger,2023,104160,1156
-Niger,2024,29979,1864
-Niger,2025,19696,1865
-Nigeria,2015,985035,11109
-Nigeria,2016,1018773,4894
-Nigeria,2017,883291,4941
-Nigeria,2018,865184,6159
-Nigeria,2019,659911,5943
-Nigeria,2020,575657,8488
-Nigeria,2021,544362,10965
-Nigeria,2022,401511,10942
-Nigeria,2023,514261,8709
-Nigeria,2024,486972,9897
-Nigeria,2025,446535,11512
-Niue,2021,21,0
-Norfolk Island,2021,27,0
-North Korea,2018,565612,0
-North Korea,2019,330075,12
-North Korea,2020,101526,11
-North Korea,2021,89144,13
-North Korea,2022,172844,34
-North Korea,2023,175538,12
-North Korea,2024,163016,30
-North Korea,2025,69677,1
-North Macedonia,2018,249474,1
-North Macedonia,2019,81309,0
-North Macedonia,2020,21092,0
-North Macedonia,2021,19546,0
-North Macedonia,2022,17195,0
-North Macedonia,2023,35770,0
-North Macedonia,2024,39011,0
-North Macedonia,2025,29169,0
-Northern Mariana Islands,2024,1972,0
-Northern Mariana Islands,2025,41,0
-Norway,2020,62762,1
-Norway,2021,68597,0
-Norway,2022,68222,2
-Norway,2023,66730,0
-Norway,2024,71943,0
-Norway,2025,48779,1
-Oman,2016,38111,0
-Oman,2017,29168,0
-Oman,2018,27795,0
-Oman,2019,22975,0
-Oman,2020,17411,0
-Oman,2021,10342,2
-Oman,2023,7751,0
-Oman,2024,8950,10
-Pakistan,2015,1089314,4493
-Pakistan,2016,1565807,2211
-Pakistan,2017,1039316,1719
-Pakistan,2018,918805,1223
-Pakistan,2019,883076,1148
-Pakistan,2020,479003,934
-Pakistan,2021,434332,1405
-Pakistan,2022,450560,1770
-Pakistan,2023,603882,2309
-Pakistan,2024,507842,3086
-Pakistan,2025,573714,5025
-Palau,2021,1673,0
-Palau,2025,1772,0
-Palestine,2016,407086,164
-Palestine,2017,420467,116
-Palestine,2018,536014,403
-Palestine,2019,337307,182
-Palestine,2020,155734,52
-Palestine,2021,114566,393
-Palestine,2022,128091,225
-Palestine,2023,490939,22910
-Palestine,2024,487051,30416
-Palestine,2025,241707,16833
-Panama,2018,71031,2
-Panama,2019,38206,2
-Panama,2020,23827,4
-Panama,2021,18049,5
-Panama,2022,17916,2
-Panama,2023,20682,7
-Panama,2024,22253,4
-Panama,2025,34420,2
-Papua New Guinea,2021,3729,241
-Papua New Guinea,2022,3065,254
-Papua New Guinea,2023,6202,349
-Papua New Guinea,2024,14109,324
-Papua New Guinea,2025,4426,131
-Paraguay,2018,28047,6
-Paraguay,2019,21096,25
-Paraguay,2020,14286,18
-Paraguay,2021,13291,43
-Paraguay,2022,11233,35
-Paraguay,2023,13373,11
-Paraguay,2024,13441,6
-Paraguay,2025,10568,0
-Peru,2018,179750,19
-Peru,2019,127606,32
-Peru,2020,82673,45
-Peru,2021,74123,25
-Peru,2022,96569,48
-Peru,2023,128774,82
-Peru,2024,70100,43
-Peru,2025,73263,46
-Philippines,2016,832661,4532
-Philippines,2017,935522,4356
-Philippines,2018,367931,2118
-Philippines,2019,271794,1731
-Philippines,2020,201129,1502
-Philippines,2021,142683,1182
-Philippines,2022,120314,927
-Philippines,2023,174624,858
-Philippines,2024,153432,651
-Philippines,2025,128611,506
-Poland,2020,192915,0
-Poland,2021,245708,1
-Poland,2022,221526,0
-Poland,2023,219516,1
-Poland,2024,197862,1
-Poland,2025,204994,0
-Portugal,2020,64468,2
-Portugal,2021,62548,0
-Portugal,2022,50749,0
-Portugal,2023,67245,0
-Portugal,2024,60788,1
-Portugal,2025,62708,0
-Puerto Rico,2018,45170,123
-Puerto Rico,2019,67043,150
-Puerto Rico,2020,25631,118
-Puerto Rico,2021,18261,180
-Puerto Rico,2022,15778,212
-Puerto Rico,2023,10733,198
-Puerto Rico,2024,13177,206
-Puerto Rico,2025,8967,158
-Qatar,2016,82713,0
-Qatar,2017,435332,0
-Qatar,2018,117658,0
-Qatar,2019,72217,0
-Qatar,2020,44045,0
-Qatar,2021,46398,0
-Qatar,2022,28871,0
-Qatar,2023,49886,0
-Qatar,2025,82838,6
-Romania,2018,314407,0
-Romania,2019,212615,1
-Romania,2020,115642,3
-Romania,2021,91952,0
-Romania,2022,78770,0
-Romania,2023,143501,1
-Romania,2024,134876,0
-Romania,2025,129572,0
-Russia,2018,3910576,121
-Russia,2019,2237099,46
-Russia,2020,1518335,56
-Russia,2021,1632787,26
-Russia,2022,5332775,97
-Russia,2023,3619247,227
-Russia,2024,3060850,4803
-Russia,2025,2357578,1797
-Rwanda,2015,72142,4
-Rwanda,2016,69667,8
-Rwanda,2017,55083,4
-Rwanda,2018,49757,49
-Rwanda,2019,40228,85
-Rwanda,2020,35586,63
-Rwanda,2021,32496,31
-Rwanda,2022,57472,16
-Rwanda,2023,54115,8
-Rwanda,2024,54401,11
-Rwanda,2025,55290,19
-Saint Kitts and Nevis,2018,148,1
-Saint Kitts and Nevis,2019,467,0
-Saint Kitts and Nevis,2020,364,0
-Saint Kitts and Nevis,2021,405,0
-Saint Kitts and Nevis,2025,122,0
-Saint Lucia,2018,1660,0
-Saint Lucia,2019,1698,0
-Saint Lucia,2020,784,0
-Saint Lucia,2021,673,0
-Saint Lucia,2022,744,0
-Saint Lucia,2023,696,0
-Saint Lucia,2024,509,1
-Saint Lucia,2025,584,0
+Israel,2016,3228392,16
+Israel,2017,3560361,11
+Israel,2018,4449792,7
+Israel,2019,2705265,11
+Israel,2020,1250671,1
+Israel,2021,1777331,25
+Israel,2022,1011514,31
+Israel,2023,5770340,1772
+Israel,2024,7102629,99
+Israel,2025,4057000,47
+Italy,2020,506004,0
+Italy,2021,372759,1
+Italy,2022,254977,1
+Italy,2023,395062,0
+Italy,2024,396111,0
+Italy,2025,387158,0
+Ivory Coast,2015,41442,24
+Ivory Coast,2016,50217,89
+Ivory Coast,2017,36706,43
+Ivory Coast,2018,14693,16
+Ivory Coast,2019,16095,46
+Ivory Coast,2020,17495,151
+Ivory Coast,2021,11669,46
+Ivory Coast,2022,8682,48
+Ivory Coast,2023,5170,27
+Ivory Coast,2024,4875,20
+Ivory Coast,2025,7305,36
+Jamaica,2018,42970,224
+Jamaica,2019,37358,281
+Jamaica,2020,34679,265
+Jamaica,2021,31845,301
+Jamaica,2022,26255,387
+Jamaica,2023,25243,423
+Jamaica,2024,26985,346
+Jamaica,2025,26292,268
+Japan,2018,422128,0
+Japan,2019,445568,0
+Japan,2020,280852,0
+Japan,2021,226963,0
+Japan,2022,245349,1
+Japan,2023,286756,0
+Japan,2024,220573,0
+Japan,2025,188995,0
+Jordan,2016,252011,65
+Jordan,2017,245310,35
+Jordan,2018,164098,20
+Jordan,2019,107599,25
+Jordan,2020,78592,11
+Jordan,2021,57447,9
+Jordan,2022,39203,14
+Jordan,2023,98662,7
+Jordan,2024,114189,3
+Jordan,2025,68363,9
+Kazakhstan,2018,41691,3
+Kazakhstan,2019,42827,7
+Kazakhstan,2020,31913,21
+Kazakhstan,2021,16242,3
+Kazakhstan,2022,63751,226
+Kazakhstan,2023,24356,4
+Kazakhstan,2024,26196,5
+Kazakhstan,2025,12569,5
+Kenya,2015,341948,505
+Kenya,2016,309164,227
+Kenya,2017,307078,740
+Kenya,2018,187024,459
+Kenya,2019,159741,340
+Kenya,2020,97164,355
+Kenya,2021,58587,484
+Kenya,2022,66597,686
+Kenya,2023,114665,1011
+Kenya,2024,135303,782
+Kenya,2025,85001,916
+Kiribati,2021,850,0
+Kosovo,2018,88292,4
+Kosovo,2019,28255,0
+Kosovo,2020,16477,0
+Kosovo,2021,15880,0
+Kosovo,2022,24577,0
+Kosovo,2023,72162,5
+Kosovo,2024,38045,0
+Kosovo,2025,24689,1
+Kuwait,2016,104609,0
+Kuwait,2017,71180,0
+Kuwait,2018,55386,0
+Kuwait,2019,25697,0
+Kuwait,2020,26498,1
+Kuwait,2021,19070,0
+Kuwait,2022,13026,0
+Kuwait,2023,16198,0
+Kuwait,2024,15072,0
+Kyrgyzstan,2018,16731,4
+Kyrgyzstan,2019,26662,8
+Kyrgyzstan,2020,30023,2
+Kyrgyzstan,2021,20520,32
+Kyrgyzstan,2022,15777,68
+Kyrgyzstan,2023,10364,2
+Kyrgyzstan,2024,10511,1
+Kyrgyzstan,2025,6440,5
+Laos,2015,4980,5
+Laos,2016,29497,9
+Laos,2017,9834,4
+Laos,2018,9622,0
+Laos,2019,6827,1
+Laos,2020,5349,2
+Laos,2021,3988,1
+Laos,2022,3157,0
+Laos,2023,5757,0
+Laos,2024,8107,0
+Laos,2025,4683,5
+Latvia,2020,17234,0
+Latvia,2021,18705,0
+Latvia,2022,22776,0
+Latvia,2023,19278,0
+Latvia,2024,16139,1
+Latvia,2025,14737,3
+Lebanon,2016,316967,219
+Lebanon,2017,357308,385
+Lebanon,2018,202572,32
+Lebanon,2019,207659,22
+Lebanon,2020,238910,48
+Lebanon,2021,132465,42
+Lebanon,2022,71302,43
+Lebanon,2023,243492,267
+Lebanon,2024,743620,4050
+Lebanon,2025,156524,399
+Lesotho,2015,6535,4
+Lesotho,2016,6057,4
+Lesotho,2017,8223,4
+Lesotho,2018,6191,0
+Lesotho,2019,5096,6
+Lesotho,2020,14315,6
+Lesotho,2021,5351,9
+Lesotho,2022,4182,14
+Lesotho,2023,5502,12
+Lesotho,2024,2745,3
+Lesotho,2025,7481,0
+Liberia,2015,22815,4
+Liberia,2016,29383,8
+Liberia,2017,21245,7
+Liberia,2018,18784,3
+Liberia,2019,14509,11
+Liberia,2020,13058,2
+Liberia,2021,10968,7
+Liberia,2022,9285,11
+Liberia,2023,20544,9
+Liberia,2024,17558,6
+Liberia,2025,13811,22
+Libya,2015,442240,3081
+Libya,2016,505693,3328
+Libya,2017,315925,1707
+Libya,2018,198754,1226
+Libya,2019,258275,2294
+Libya,2020,185640,1562
+Libya,2021,77342,115
+Libya,2022,52680,159
+Libya,2023,57802,95
+Libya,2024,26789,160
+Libya,2025,40276,275
+Liechtenstein,2020,764,0
+Liechtenstein,2021,534,0
+Liechtenstein,2022,654,0
+Liechtenstein,2024,547,0
+Lithuania,2020,52486,0
+Lithuania,2021,69062,0
+Lithuania,2022,54642,0
+Lithuania,2023,51554,0
+Lithuania,2024,46910,1
+Lithuania,2025,43529,0
+Luxembourg,2020,11875,0
+Luxembourg,2021,12505,0
+Luxembourg,2022,9329,0
+Luxembourg,2023,8964,0
+Luxembourg,2024,7485,0
+Luxembourg,2025,5614,0
+Madagascar,2015,8020,192
+Madagascar,2016,9191,177
+Madagascar,2017,7471,210
+Madagascar,2018,10805,142
+Madagascar,2019,7658,351
+Madagascar,2020,5400,358
+Madagascar,2021,4740,303
+Madagascar,2022,3310,364
+Madagascar,2023,3749,512
+Madagascar,2024,2498,471
+Madagascar,2025,13833,263
+Malawi,2015,14858,12
+Malawi,2016,29775,23
+Malawi,2017,21918,19
+Malawi,2018,20813,16
+Malawi,2019,24505,27
+Malawi,2020,14110,60
+Malawi,2021,11958,44
+Malawi,2022,10584,40
+Malawi,2023,11121,53
+Malawi,2024,11670,50
+Malawi,2025,12662,42
+Malaysia,2018,210533,14
+Malaysia,2019,135257,15
+Malaysia,2020,111338,2
+Malaysia,2021,70780,13
+Malaysia,2022,54493,4
+Malaysia,2023,59236,0
+Malaysia,2024,52524,3
+Malaysia,2025,49584,3
+Maldives,2020,5452,0
+Maldives,2021,5325,0
+Maldives,2022,4742,0
+Maldives,2023,3289,0
+Maldives,2024,7468,1
+Maldives,2025,5198,0
+Mali,2015,188488,434
+Mali,2016,159491,320
+Mali,2017,125361,946
+Mali,2018,118710,1739
+Mali,2019,100293,1873
+Mali,2020,96987,2852
+Mali,2021,80401,1909
+Mali,2022,85686,4858
+Mali,2023,50074,4329
+Mali,2024,30246,4019
+Mali,2025,22280,3715
+Malta,2020,22693,0
+Malta,2021,25731,0
+Malta,2022,23043,0
+Malta,2023,17528,0
+Malta,2024,19682,0
+Malta,2025,15441,2
+Marshall Islands,2021,1379,0
+Marshall Islands,2023,1151,0
+Marshall Islands,2024,1091,0
+Martinique,2018,2740,0
+Martinique,2019,2180,0
+Martinique,2020,1408,0
+Martinique,2021,3619,0
+Martinique,2022,1956,0
+Martinique,2023,879,0
+Martinique,2024,1364,1
+Martinique,2025,336,0
+Mauritania,2015,19252,1
+Mauritania,2016,21861,0
+Mauritania,2017,19641,2
+Mauritania,2018,17776,3
+Mauritania,2019,9275,3
+Mauritania,2020,5636,4
+Mauritania,2021,4628,1
+Mauritania,2022,3538,6
+Mauritania,2023,4382,9
+Mauritania,2024,3996,7
+Mauritania,2025,3090,0
+Mauritius,2020,20677,2
+Mauritius,2021,14375,2
+Mauritius,2022,11408,3
+Mauritius,2023,16076,2
+Mauritius,2024,18430,2
+Mauritius,2025,15502,0
+Mayotte,2020,709,0
+Mayotte,2021,732,1
+Mayotte,2022,694,3
+Mayotte,2023,1509,0
+Mayotte,2024,2315,1
+Mayotte,2025,1180,0
+Mexico,2018,1017034,9595
+Mexico,2019,974909,9243
+Mexico,2020,450148,8383
+Mexico,2021,412986,8264
+Mexico,2022,353755,7836
+Mexico,2023,490584,7271
+Mexico,2024,498036,8345
+Mexico,2025,446924,7857
+Micronesia,2021,1804,0
+Moldova,2018,51953,0
+Moldova,2019,36265,0
+Moldova,2020,27601,0
+Moldova,2021,25814,0
+Moldova,2022,45957,0
+Moldova,2023,52665,1
+Moldova,2024,51059,0
+Moldova,2025,46681,0
+Monaco,2020,3799,0
+Monaco,2021,4985,0
+Monaco,2022,3436,0
+Monaco,2023,3331,0
+Monaco,2024,3336,0
+Monaco,2025,2134,0
+Mongolia,2018,8065,1
+Mongolia,2019,8404,0
+Mongolia,2020,8852,0
+Mongolia,2021,4345,0
+Mongolia,2022,3678,0
+Mongolia,2023,6205,0
+Mongolia,2024,7620,0
+Mongolia,2025,3377,0
+Montenegro,2018,19616,2
+Montenegro,2019,9858,0
+Montenegro,2020,8199,0
+Montenegro,2021,5944,0
+Montenegro,2022,5535,0
+Montenegro,2023,6818,1
+Montenegro,2024,9176,0
+Montenegro,2025,6145,0
+Montserrat,2018,1757,0
+Montserrat,2019,920,0
+Montserrat,2020,606,0
+Montserrat,2021,755,0
+Montserrat,2022,570,0
+Morocco,2015,210989,4
+Morocco,2016,201437,6
+Morocco,2017,171358,4
+Morocco,2018,113513,7
+Morocco,2019,70007,6
+Morocco,2020,47464,4
+Morocco,2021,61242,47
+Morocco,2022,47171,56
+Morocco,2023,48890,38
+Morocco,2024,36326,42
+Morocco,2025,33782,54
+Mozambique,2015,26901,48
+Mozambique,2016,29587,105
+Mozambique,2017,15423,129
+Mozambique,2018,18868,212
+Mozambique,2019,26580,680
+Mozambique,2020,17141,1773
+Mozambique,2021,22408,1830
+Mozambique,2022,7982,925
+Mozambique,2023,8572,309
+Mozambique,2024,17623,674
+Mozambique,2025,9030,665
+Myanmar,2015,114021,1287
+Myanmar,2016,98314,613
+Myanmar,2017,215604,1407
+Myanmar,2018,130229,261
+Myanmar,2019,60591,1646
+Myanmar,2020,26382,692
+Myanmar,2021,328306,11666
+Myanmar,2022,70526,23477
+Myanmar,2023,56443,21309
+Myanmar,2024,34735,20010
+Myanmar,2025,22791,14409
+Namibia,2015,19753,4
+Namibia,2016,14033,0
+Namibia,2017,13857,2
+Namibia,2018,14368,1
+Namibia,2019,13985,2
+Namibia,2020,4929,0
+Namibia,2021,6601,2
+Namibia,2022,3421,3
+Namibia,2023,7029,4
+Namibia,2024,9647,6
+Namibia,2025,7755,1
+Nauru,2021,339,0
+Nepal,2015,140952,51
+Nepal,2016,98104,8
+Nepal,2017,52667,19
+Nepal,2018,53095,19
+Nepal,2019,49370,48
+Nepal,2020,33001,37
+Nepal,2021,25388,10
+Nepal,2022,24464,15
+Nepal,2023,50591,7
+Nepal,2024,40674,7
+Nepal,2025,76145,81
+Netherlands,2020,110236,1
+Netherlands,2021,130456,1
+Netherlands,2022,83779,0
+Netherlands,2023,115438,0
+Netherlands,2024,115594,1
+Netherlands,2025,87421,1
+New Caledonia,2021,2819,0
+New Caledonia,2022,280,0
+New Caledonia,2023,717,0
+New Caledonia,2024,8650,19
+New Caledonia,2025,722,0
+New Zealand,2021,103538,1
+New Zealand,2022,75264,0
+New Zealand,2023,95030,0
+New Zealand,2024,85889,0
+New Zealand,2025,89844,0
+Nicaragua,2018,201639,356
+Nicaragua,2019,74753,29
+Nicaragua,2020,23219,28
+Nicaragua,2021,51554,35
+Nicaragua,2022,37351,7
+Nicaragua,2023,37865,13
+Nicaragua,2024,22824,16
+Nicaragua,2025,11204,7
+Niger,2015,65793,984
+Niger,2016,57110,367
+Niger,2017,70652,240
+Niger,2018,51887,506
+Niger,2019,37283,729
+Niger,2020,27298,1126
+Niger,2021,37476,1498
+Niger,2022,13806,1017
+Niger,2023,102014,1156
+Niger,2024,28405,1864
+Niger,2025,18917,1865
+Nigeria,2015,940385,11109
+Nigeria,2016,975850,4894
+Nigeria,2017,854378,4941
+Nigeria,2018,832613,6159
+Nigeria,2019,633443,5943
+Nigeria,2020,543933,8488
+Nigeria,2021,510399,10965
+Nigeria,2022,378886,10942
+Nigeria,2023,497565,8709
+Nigeria,2024,469307,9897
+Nigeria,2025,433911,11512
+Niue,2021,15,0
+Norfolk Island,2021,23,0
+North Korea,2018,563255,0
+North Korea,2019,327590,12
+North Korea,2020,99673,11
+North Korea,2021,87504,13
+North Korea,2022,170701,34
+North Korea,2023,173514,12
+North Korea,2024,160808,30
+North Korea,2025,69001,1
+North Macedonia,2018,248430,1
+North Macedonia,2019,80615,0
+North Macedonia,2020,20624,0
+North Macedonia,2021,19076,0
+North Macedonia,2022,16793,0
+North Macedonia,2023,35397,0
+North Macedonia,2024,38583,0
+North Macedonia,2025,29180,0
+Northern Mariana Islands,2024,1945,0
+Northern Mariana Islands,2025,40,0
+Norway,2020,60702,1
+Norway,2021,66485,0
+Norway,2022,66231,2
+Norway,2023,64544,0
+Norway,2024,69906,0
+Norway,2025,47512,1
+Oman,2016,37397,0
+Oman,2017,28509,0
+Oman,2018,27167,0
+Oman,2019,22373,0
+Oman,2020,16997,0
+Oman,2021,9930,2
+Oman,2023,7369,0
+Oman,2024,8560,10
+Pakistan,2015,1087304,4493
+Pakistan,2016,1563478,2211
+Pakistan,2017,1036906,1719
+Pakistan,2018,916642,1223
+Pakistan,2019,880757,1148
+Pakistan,2020,476982,934
+Pakistan,2021,432273,1405
+Pakistan,2022,448506,1770
+Pakistan,2023,601785,2309
+Pakistan,2024,505699,3086
+Pakistan,2025,576883,5025
+Palau,2021,1502,0
+Palau,2025,1660,0
+Palestine,2016,404214,164
+Palestine,2017,417851,116
+Palestine,2018,532641,403
+Palestine,2019,335075,182
+Palestine,2020,153872,52
+Palestine,2021,112534,393
+Palestine,2022,126155,225
+Palestine,2023,487965,22910
+Palestine,2024,483489,30416
+Palestine,2025,240420,16833
+Panama,2018,69525,2
+Panama,2019,36929,2
+Panama,2020,22887,4
+Panama,2021,17300,5
+Panama,2022,17407,2
+Panama,2023,19747,7
+Panama,2024,21066,4
+Panama,2025,35224,2
+Papua New Guinea,2021,3525,241
+Papua New Guinea,2022,2883,254
+Papua New Guinea,2023,5997,349
+Papua New Guinea,2024,13807,324
+Papua New Guinea,2025,4255,131
+Paraguay,2018,27073,6
+Paraguay,2019,20157,25
+Paraguay,2020,13600,18
+Paraguay,2021,12648,43
+Paraguay,2022,10674,35
+Paraguay,2023,12731,11
+Paraguay,2024,12857,6
+Paraguay,2025,10181,0
+Peru,2018,178058,19
+Peru,2019,126197,32
+Peru,2020,81113,45
+Peru,2021,72804,25
+Peru,2022,95012,48
+Peru,2023,126721,82
+Peru,2024,68570,43
+Peru,2025,72667,46
+Philippines,2016,830622,4532
+Philippines,2017,933228,4356
+Philippines,2018,365924,2118
+Philippines,2019,270018,1731
+Philippines,2020,199617,1502
+Philippines,2021,141242,1182
+Philippines,2022,119139,927
+Philippines,2023,172935,858
+Philippines,2024,151602,651
+Philippines,2025,128275,506
+Pitcairn,2021,107,0
+Poland,2020,190767,0
+Poland,2021,243818,1
+Poland,2022,219476,0
+Poland,2023,217459,1
+Poland,2024,195979,1
+Poland,2025,204761,0
+Portugal,2020,62650,2
+Portugal,2021,60771,0
+Portugal,2022,49235,0
+Portugal,2023,65433,0
+Portugal,2024,58990,1
+Portugal,2025,61571,0
+Puerto Rico,2018,44663,123
+Puerto Rico,2019,66516,150
+Puerto Rico,2020,25337,118
+Puerto Rico,2021,18026,180
+Puerto Rico,2022,15588,212
+Puerto Rico,2023,10631,198
+Puerto Rico,2024,12976,206
+Puerto Rico,2025,9216,158
+Qatar,2016,80726,0
+Qatar,2017,433039,0
+Qatar,2018,115957,0
+Qatar,2019,70645,0
+Qatar,2020,42478,0
+Qatar,2021,44799,0
+Qatar,2022,27692,0
+Qatar,2023,48400,0
+Qatar,2025,81212,6
+Republic of Congo,2015,48839,4
+Republic of Congo,2016,82575,78
+Republic of Congo,2017,68153,21
+Republic of Congo,2018,76826,28
+Republic of Congo,2019,48290,2
+Republic of Congo,2020,19476,1
+Republic of Congo,2021,20807,10
+Republic of Congo,2022,23391,19
+Republic of Congo,2023,24740,6
+Republic of Congo,2024,19965,1
+Republic of Congo,2025,27742,17
+Reunion,2020,2446,0
+Reunion,2021,2173,0
+Reunion,2022,1589,0
+Reunion,2023,2262,0
+Reunion,2024,3008,0
+Reunion,2025,2811,0
+Romania,2018,312638,0
+Romania,2019,210858,1
+Romania,2020,114307,3
+Romania,2021,90595,0
+Romania,2022,77326,0
+Romania,2023,141943,1
+Romania,2024,133431,0
+Romania,2025,129005,0
+Russia,2018,3908669,121
+Russia,2019,2235350,46
+Russia,2020,1516373,56
+Russia,2021,1630633,26
+Russia,2022,5329905,97
+Russia,2023,3617120,227
+Russia,2024,3058682,4803
+Russia,2025,2388289,1797
+Rwanda,2015,67216,4
+Rwanda,2016,64451,8
+Rwanda,2017,51928,4
+Rwanda,2018,46997,49
+Rwanda,2019,36407,85
+Rwanda,2020,32267,63
+Rwanda,2021,29454,31
+Rwanda,2022,53722,16
+Rwanda,2023,50809,8
+Rwanda,2024,50844,11
+Rwanda,2025,51121,19
+"Saint Helena, Ascension and Tristan da Cunha",2020,269,0
+"Saint Helena, Ascension and Tristan da Cunha",2021,27,0
+Saint Kitts and Nevis,2018,141,1
+Saint Kitts and Nevis,2019,464,0
+Saint Kitts and Nevis,2020,363,0
+Saint Kitts and Nevis,2021,399,0
+Saint Kitts and Nevis,2025,121,0
+Saint Lucia,2018,1537,0
+Saint Lucia,2019,1577,0
+Saint Lucia,2020,645,0
+Saint Lucia,2021,552,0
+Saint Lucia,2022,634,0
+Saint Lucia,2023,675,0
+Saint Lucia,2024,477,1
+Saint Lucia,2025,573,0
 Saint Pierre and Miquelon,2021,15,0
 Saint Pierre and Miquelon,2024,8,0
-Saint Vincent and the Grenadines,2018,2196,0
-Saint Vincent and the Grenadines,2019,2208,0
-Saint Vincent and the Grenadines,2020,1709,2
-Saint Vincent and the Grenadines,2021,3104,0
-Saint Vincent and the Grenadines,2022,1314,0
-Saint Vincent and the Grenadines,2023,2985,0
-Saint Vincent and the Grenadines,2024,3946,0
-Samoa,2021,2594,0
-Samoa,2023,2415,0
-Samoa,2024,6532,0
-San Marino,2020,144,0
-San Marino,2021,478,0
+Saint Vincent and the Grenadines,2018,2094,0
+Saint Vincent and the Grenadines,2019,2105,0
+Saint Vincent and the Grenadines,2020,1614,2
+Saint Vincent and the Grenadines,2021,3004,0
+Saint Vincent and the Grenadines,2022,1264,0
+Saint Vincent and the Grenadines,2023,2821,0
+Saint Vincent and the Grenadines,2024,3669,0
+Saint-Martin,2018,289,0
+Saint-Martin,2019,155,0
+Saint-Martin,2020,93,0
+Saint-Martin,2021,101,0
+Saint-Martin,2022,190,0
+Saint-Martin,2023,64,0
+Saint-Martin,2024,71,0
+Saint-Martin,2025,63,0
+Samoa,2021,2459,0
+Samoa,2023,2272,0
+Samoa,2024,6322,0
+San Marino,2020,142,0
+San Marino,2021,438,0
 San Marino,2022,146,0
-San Marino,2023,149,0
-San Marino,2024,187,0
-San Marino,2025,126,0
-Sao Tome and Principe,2020,261,0
-Sao Tome and Principe,2021,172,1
-Sao Tome and Principe,2022,274,5
-Sao Tome and Principe,2023,457,0
-Sao Tome and Principe,2024,160,0
-Sao Tome and Principe,2025,216,0
-Saudi Arabia,2015,1008883,878
-Saudi Arabia,2016,1394534,1215
-Saudi Arabia,2017,719642,1430
-Saudi Arabia,2018,1076349,1514
-Saudi Arabia,2019,599354,1006
-Saudi Arabia,2020,217793,54
-Saudi Arabia,2021,171882,20
-Saudi Arabia,2022,122022,6
-Saudi Arabia,2023,142572,193
-Saudi Arabia,2024,90949,5
-Saudi Arabia,2025,91116,1
-Serbia,2018,145513,5
-Serbia,2019,63007,1
-Serbia,2020,47734,0
-Serbia,2021,44413,1
-Serbia,2022,50269,0
-Serbia,2023,99686,0
-Serbia,2024,74392,3
-Serbia,2025,61575,1
-Seychelles,2020,2214,0
-Seychelles,2021,2797,0
-Seychelles,2022,1849,0
-Seychelles,2023,1958,0
-Seychelles,2024,1553,2
-Sierra Leone,2015,24845,2
-Sierra Leone,2016,20603,7
-Sierra Leone,2017,15174,5
-Sierra Leone,2018,15428,10
-Sierra Leone,2019,8999,13
-Sierra Leone,2020,6505,31
-Sierra Leone,2021,4838,2
-Sierra Leone,2022,3190,24
-Sierra Leone,2023,12444,32
-Sierra Leone,2024,6179,4
-Sierra Leone,2025,2446,6
-Singapore,2020,86368,0
-Singapore,2021,63469,0
-Singapore,2022,50098,0
-Singapore,2023,80072,0
-Singapore,2024,67037,0
-Singapore,2025,49040,0
-Slovakia,2020,21394,0
-Slovakia,2021,17208,0
-Slovakia,2022,16115,2
-Slovakia,2023,20195,0
-Slovakia,2024,49078,1
-Slovakia,2025,21567,0
-Slovenia,2020,12705,0
-Slovenia,2021,14076,0
-Slovenia,2022,8442,0
-Slovenia,2023,11042,0
-Slovenia,2024,12511,0
-Slovenia,2025,11191,0
-Solomon Islands,2021,8690,5
-Solomon Islands,2022,7305,1
-Solomon Islands,2023,2625,1
-Somalia,2015,267641,4136
-Somalia,2016,330623,5938
-Somalia,2017,330329,6076
-Somalia,2018,164157,5752
-Somalia,2019,119657,5029
-Somalia,2020,60856,3479
-Somalia,2021,57284,3398
-Somalia,2022,51310,6599
-Somalia,2023,48074,9154
-Somalia,2024,41844,5557
-Somalia,2025,42120,9366
-South Africa,2015,435347,211
-South Africa,2016,552099,139
-South Africa,2017,462587,117
-South Africa,2018,403473,114
-South Africa,2019,336000,198
-South Africa,2020,255609,183
-South Africa,2021,308246,329
-South Africa,2022,209251,292
-South Africa,2023,258013,315
-South Africa,2024,232642,283
-South Africa,2025,198663,153
-South Korea,2018,424283,0
-South Korea,2019,308293,0
-South Korea,2020,242389,0
-South Korea,2021,171402,0
-South Korea,2022,212969,0
-South Korea,2023,267435,0
-South Korea,2024,325899,0
-South Korea,2025,220761,0
-South Sudan,2015,87360,3567
-South Sudan,2016,144128,3686
-South Sudan,2017,85858,4859
-South Sudan,2018,51930,1716
-South Sudan,2019,19622,1801
-South Sudan,2020,15453,2455
-South Sudan,2021,12495,3725
-South Sudan,2022,12141,3719
-South Sudan,2023,16395,2943
-South Sudan,2024,14827,2317
-South Sudan,2025,31666,3070
-Spain,2020,449102,0
-Spain,2021,394779,4
-Spain,2022,233986,0
-Spain,2023,311629,0
-Spain,2024,399588,1
-Spain,2025,329717,2
-Sri Lanka,2015,111027,9
-Sri Lanka,2016,97520,4
-Sri Lanka,2017,93370,2
-Sri Lanka,2018,135851,26
-Sri Lanka,2019,302253,304
-Sri Lanka,2020,63208,34
-Sri Lanka,2021,61997,5
-Sri Lanka,2022,108922,12
-Sri Lanka,2023,41715,7
-Sri Lanka,2024,43155,5
-Sri Lanka,2025,35386,8
-Sudan,2015,186287,3496
-Sudan,2016,237562,3904
-Sudan,2017,178537,1304
-Sudan,2018,132139,1054
-Sudan,2019,293720,773
-Sudan,2020,96444,959
-Sudan,2021,135084,1657
-Sudan,2022,73114,2139
-Sudan,2023,374689,17011
-Sudan,2024,111922,16641
-Sudan,2025,148466,17510
-Suriname,2018,2994,1
-Suriname,2019,5424,7
-Suriname,2020,3015,1
-Suriname,2021,2349,1
-Suriname,2022,1793,0
-Suriname,2023,2528,2
-Suriname,2024,3736,0
-Suriname,2025,2375,0
-Sweden,2020,164033,1
-Sweden,2021,114982,0
-Sweden,2022,127918,0
-Sweden,2023,343107,0
-Sweden,2024,313382,0
-Sweden,2025,276522,1
-Switzerland,2020,129781,0
-Switzerland,2021,98550,0
-Switzerland,2022,90648,2
-Switzerland,2023,95640,0
-Switzerland,2024,105675,0
-Switzerland,2025,84656,0
-Syria,2017,2931065,54122
-Syria,2018,2507732,30210
-Syria,2019,1120987,15592
-Syria,2020,425516,8447
-Syria,2021,224230,6108
-Syria,2022,202777,6091
-Syria,2023,277600,6297
-Syria,2024,451249,7116
-Syria,2025,337728,7779
-Taiwan,2018,96696,0
-Taiwan,2019,66514,0
-Taiwan,2020,84781,0
-Taiwan,2021,99645,0
-Taiwan,2022,132514,0
-Taiwan,2023,116708,0
-Taiwan,2024,102221,0
-Taiwan,2025,64921,0
-Tajikistan,2018,20778,64
-Tajikistan,2019,14127,66
-Tajikistan,2020,8384,2
-Tajikistan,2021,17016,20
-Tajikistan,2022,11525,71
-Tajikistan,2023,5781,6
-Tajikistan,2024,10424,0
-Tajikistan,2025,4336,10
-Tanzania,2015,50387,35
-Tanzania,2016,66200,46
-Tanzania,2017,54379,280
-Tanzania,2018,49667,41
-Tanzania,2019,25888,42
-Tanzania,2020,25899,51
-Tanzania,2021,17771,44
-Tanzania,2022,8694,39
-Tanzania,2023,13432,23
-Tanzania,2024,9783,34
-Tanzania,2025,23124,118
-Thailand,2015,298750,246
-Thailand,2016,248334,253
-Thailand,2017,161681,162
-Thailand,2018,143254,117
-Thailand,2019,127970,174
-Thailand,2020,141410,101
-Thailand,2021,112389,66
-Thailand,2022,61503,43
-Thailand,2023,91447,57
-Thailand,2024,86647,50
-Thailand,2025,147945,85
-Togo,2015,9810,8
-Togo,2016,11424,5
-Togo,2017,22792,44
-Togo,2018,14059,6
-Togo,2019,6181,9
-Togo,2020,4060,14
-Togo,2021,3541,4
-Togo,2022,4381,78
-Togo,2023,2932,98
-Togo,2024,3480,153
-Togo,2025,2631,29
-Tokelau,2021,7,0
-Tonga,2021,1520,0
-Tonga,2024,1990,0
-Trinidad and Tobago,2018,19807,243
-Trinidad and Tobago,2019,15303,181
-Trinidad and Tobago,2020,11213,162
-Trinidad and Tobago,2021,12360,186
-Trinidad and Tobago,2022,9903,285
-Trinidad and Tobago,2023,13656,333
-Trinidad and Tobago,2024,14577,329
-Trinidad and Tobago,2025,18791,170
-Tunisia,2015,350224,161
-Tunisia,2016,229180,120
-Tunisia,2017,111631,27
-Tunisia,2018,89520,34
-Tunisia,2019,60712,30
-Tunisia,2020,42212,15
-Tunisia,2021,61796,19
-Tunisia,2022,36325,1
-Tunisia,2023,52226,9
-Tunisia,2024,32385,3
-Tunisia,2025,22606,2
-Turkey,2016,3783815,4484
-Turkey,2017,1911828,2658
-Turkey,2018,1601262,983
-Turkey,2019,1261123,559
-Turkey,2020,700783,359
-Turkey,2021,387635,213
-Turkey,2022,376691,199
-Turkey,2023,414843,144
-Turkey,2024,340912,55
-Turkey,2025,368848,6
-Turkmenistan,2018,9253,25
-Turkmenistan,2019,8599,8
-Turkmenistan,2020,5635,1
-Turkmenistan,2021,4624,0
-Turkmenistan,2022,2493,0
-Turkmenistan,2023,3176,1
-Turkmenistan,2025,2660,0
+San Marino,2023,140,0
+San Marino,2024,176,0
+San Marino,2025,112,0
+Sao Tome and Principe,2020,215,0
+Sao Tome and Principe,2021,124,1
+Sao Tome and Principe,2022,231,5
+Sao Tome and Principe,2023,382,0
+Sao Tome and Principe,2024,122,0
+Sao Tome and Principe,2025,173,0
+Saudi Arabia,2015,1006078,878
+Saudi Arabia,2016,1391322,1215
+Saudi Arabia,2017,716671,1430
+Saudi Arabia,2018,1073848,1514
+Saudi Arabia,2019,596742,1006
+Saudi Arabia,2020,215304,54
+Saudi Arabia,2021,169514,20
+Saudi Arabia,2022,119875,6
+Saudi Arabia,2023,139686,193
+Saudi Arabia,2024,88377,5
+Saudi Arabia,2025,92662,1
+Senegal,2015,43746,1
+Senegal,2016,58418,18
+Senegal,2017,53114,1
+Senegal,2018,40249,29
+Senegal,2019,16848,4
+Senegal,2020,16309,3
+Senegal,2021,20318,24
+Senegal,2022,14265,22
+Senegal,2023,34414,48
+Senegal,2024,28473,19
+Senegal,2025,10675,6
+Serbia,2018,308398,5
+Serbia,2019,133720,1
+Serbia,2020,92590,0
+Serbia,2021,91881,1
+Serbia,2022,101672,0
+Serbia,2023,217689,0
+Serbia,2024,146644,3
+Serbia,2025,124813,1
+Seychelles,2020,1989,0
+Seychelles,2021,2565,0
+Seychelles,2022,1758,0
+Seychelles,2023,1865,0
+Seychelles,2024,1453,2
+Sierra Leone,2015,23463,2
+Sierra Leone,2016,19624,7
+Sierra Leone,2017,14656,5
+Sierra Leone,2018,14768,10
+Sierra Leone,2019,8425,13
+Sierra Leone,2020,5677,31
+Sierra Leone,2021,4196,2
+Sierra Leone,2022,2741,24
+Sierra Leone,2023,11913,32
+Sierra Leone,2024,5895,4
+Sierra Leone,2025,2293,6
+Singapore,2020,67417,0
+Singapore,2021,40291,0
+Singapore,2022,33244,0
+Singapore,2023,42244,0
+Singapore,2024,35251,0
+Singapore,2025,36514,0
+Slovakia,2020,20592,0
+Slovakia,2021,16378,0
+Slovakia,2022,15211,2
+Slovakia,2023,19452,0
+Slovakia,2024,48157,1
+Slovakia,2025,20910,0
+Slovenia,2020,11986,0
+Slovenia,2021,13262,0
+Slovenia,2022,7818,0
+Slovenia,2023,10437,0
+Slovenia,2024,11817,0
+Slovenia,2025,10605,0
+Solomon Islands,2021,8557,5
+Solomon Islands,2022,7069,1
+Solomon Islands,2023,2522,1
+Somalia,2015,262758,4136
+Somalia,2016,323452,5938
+Somalia,2017,323906,6076
+Somalia,2018,159545,5752
+Somalia,2019,114670,5029
+Somalia,2020,56532,3479
+Somalia,2021,53524,3398
+Somalia,2022,48226,6599
+Somalia,2023,45244,9154
+Somalia,2024,38730,5557
+Somalia,2025,42505,9366
+South Africa,2015,419172,211
+South Africa,2016,534870,139
+South Africa,2017,443148,117
+South Africa,2018,387686,114
+South Africa,2019,319623,198
+South Africa,2020,243335,183
+South Africa,2021,298905,329
+South Africa,2022,203131,292
+South Africa,2023,250683,315
+South Africa,2024,225813,283
+South Africa,2025,191978,153
+South Korea,2018,421553,0
+South Korea,2019,305620,0
+South Korea,2020,239997,0
+South Korea,2021,169165,0
+South Korea,2022,210560,0
+South Korea,2023,265082,0
+South Korea,2024,323529,0
+South Korea,2025,221416,0
+South Sudan,2015,85318,3567
+South Sudan,2016,141029,3686
+South Sudan,2017,83759,4859
+South Sudan,2018,50430,1716
+South Sudan,2019,18745,1801
+South Sudan,2020,14634,2455
+South Sudan,2021,11631,3725
+South Sudan,2022,11555,3719
+South Sudan,2023,15750,2943
+South Sudan,2024,14330,2317
+South Sudan,2025,30783,3070
+Spain,2020,446536,0
+Spain,2021,391790,4
+Spain,2022,230980,0
+Spain,2023,308919,0
+Spain,2024,397065,1
+Spain,2025,331150,2
+Sri Lanka,2015,110225,9
+Sri Lanka,2016,96599,4
+Sri Lanka,2017,92441,2
+Sri Lanka,2018,135071,26
+Sri Lanka,2019,301242,304
+Sri Lanka,2020,62534,34
+Sri Lanka,2021,61396,5
+Sri Lanka,2022,108112,12
+Sri Lanka,2023,41252,7
+Sri Lanka,2024,42642,5
+Sri Lanka,2025,35410,8
+Sudan,2015,179789,3496
+Sudan,2016,228839,3904
+Sudan,2017,170867,1304
+Sudan,2018,126143,1054
+Sudan,2019,285708,773
+Sudan,2020,90206,959
+Sudan,2021,128918,1657
+Sudan,2022,68051,2139
+Sudan,2023,367675,17011
+Sudan,2024,106202,16641
+Sudan,2025,143286,17510
+Suriname,2018,2853,1
+Suriname,2019,5244,7
+Suriname,2020,2860,1
+Suriname,2021,2233,1
+Suriname,2022,1684,0
+Suriname,2023,2394,2
+Suriname,2024,3588,0
+Suriname,2025,2325,0
+Sweden,2020,161616,1
+Sweden,2021,112295,0
+Sweden,2022,125495,0
+Sweden,2023,341206,0
+Sweden,2024,311333,0
+Sweden,2025,277721,1
+Switzerland,2020,126859,0
+Switzerland,2021,95574,0
+Switzerland,2022,88129,2
+Switzerland,2023,92930,0
+Switzerland,2024,102757,0
+Switzerland,2025,86461,0
+Syria,2017,2928484,54122
+Syria,2018,2505674,30210
+Syria,2019,1119127,15592
+Syria,2020,422936,8447
+Syria,2021,221480,6108
+Syria,2022,200304,6091
+Syria,2023,274848,6297
+Syria,2024,448515,7116
+Syria,2025,339012,7779
+Taiwan,2018,94844,0
+Taiwan,2019,64773,0
+Taiwan,2020,83110,0
+Taiwan,2021,97706,0
+Taiwan,2022,130513,0
+Taiwan,2023,114643,0
+Taiwan,2024,99969,0
+Taiwan,2025,66845,0
+Tajikistan,2018,20435,64
+Tajikistan,2019,13780,66
+Tajikistan,2020,8150,2
+Tajikistan,2021,16540,20
+Tajikistan,2022,11203,71
+Tajikistan,2023,5554,6
+Tajikistan,2024,10124,0
+Tajikistan,2025,4266,10
+Tanzania,2015,45212,35
+Tanzania,2016,57626,46
+Tanzania,2017,48693,280
+Tanzania,2018,45489,41
+Tanzania,2019,22674,42
+Tanzania,2020,21673,51
+Tanzania,2021,14480,44
+Tanzania,2022,7350,39
+Tanzania,2023,12096,23
+Tanzania,2024,8778,34
+Tanzania,2025,21635,118
+Thailand,2015,297054,246
+Thailand,2016,246448,253
+Thailand,2017,159686,162
+Thailand,2018,141239,117
+Thailand,2019,125889,174
+Thailand,2020,139833,101
+Thailand,2021,110879,66
+Thailand,2022,60304,43
+Thailand,2023,89676,57
+Thailand,2024,84826,50
+Thailand,2025,147155,85
+Togo,2015,9463,8
+Togo,2016,11034,5
+Togo,2017,22074,44
+Togo,2018,13353,6
+Togo,2019,5789,9
+Togo,2020,3650,14
+Togo,2021,3239,4
+Togo,2022,4081,78
+Togo,2023,2780,98
+Togo,2024,3248,153
+Togo,2025,2388,29
+Tokelau,2021,6,0
+Tonga,2021,1388,0
+Tonga,2024,1836,0
+Trinidad and Tobago,2018,19211,243
+Trinidad and Tobago,2019,14859,181
+Trinidad and Tobago,2020,10817,162
+Trinidad and Tobago,2021,11989,186
+Trinidad and Tobago,2022,9655,285
+Trinidad and Tobago,2023,13515,333
+Trinidad and Tobago,2024,14424,329
+Trinidad and Tobago,2025,18771,170
+Tunisia,2015,346735,161
+Tunisia,2016,225885,120
+Tunisia,2017,109040,27
+Tunisia,2018,86800,34
+Tunisia,2019,58498,30
+Tunisia,2020,40137,15
+Tunisia,2021,58366,19
+Tunisia,2022,34115,1
+Tunisia,2023,49739,9
+Tunisia,2024,30759,3
+Tunisia,2025,21196,2
+Turkey,2016,3781182,4484
+Turkey,2017,1909697,2658
+Turkey,2018,1599360,983
+Turkey,2019,1258897,559
+Turkey,2020,698412,359
+Turkey,2021,385016,213
+Turkey,2022,374319,199
+Turkey,2023,412348,144
+Turkey,2024,338115,55
+Turkey,2025,371173,6
+Turkmenistan,2018,8990,25
+Turkmenistan,2019,8423,8
+Turkmenistan,2020,5437,1
+Turkmenistan,2021,4483,0
+Turkmenistan,2022,2372,0
+Turkmenistan,2023,3073,1
+Turkmenistan,2025,2589,0
 Turks and Caicos Islands,2018,665,0
 Turks and Caicos Islands,2019,498,0
 Turks and Caicos Islands,2020,404,0
 Turks and Caicos Islands,2021,186,0
-Tuvalu,2021,140,0
-Uganda,2015,92838,29
-Uganda,2016,166779,278
-Uganda,2017,103047,66
-Uganda,2018,105484,146
-Uganda,2019,69458,162
-Uganda,2020,54009,297
-Uganda,2021,58237,500
-Uganda,2022,32706,363
-Uganda,2023,58320,367
-Uganda,2024,38389,243
-Uganda,2025,38311,191
-Ukraine,2018,1047692,884
-Ukraine,2019,1141097,398
-Ukraine,2020,632849,121
-Ukraine,2021,539661,149
-Ukraine,2022,4170213,40573
-Ukraine,2023,2876916,39762
-Ukraine,2024,2214029,73570
-Ukraine,2025,1927656,73018
-United Arab Emirates,2017,169465,0
-United Arab Emirates,2018,110466,0
-United Arab Emirates,2019,98394,0
-United Arab Emirates,2020,77863,2
-United Arab Emirates,2021,60295,0
-United Arab Emirates,2022,50364,3
-United Arab Emirates,2023,64900,0
-United Arab Emirates,2024,55753,1
-United Arab Emirates,2025,41833,0
-United Kingdom,2020,2271078,5
-United Kingdom,2021,2102291,5
-United Kingdom,2022,1650136,0
-United Kingdom,2023,2064918,1
-United Kingdom,2024,2061484,0
-United Kingdom,2025,1757990,3
-United States,2020,16420759,74
-United States,2021,13276880,87
-United States,2022,9899459,98
-United States,2023,12520477,66
-United States,2024,12062253,33
-United States,2025,11110004,50
-Uruguay,2018,26944,0
-Uruguay,2019,26644,3
-Uruguay,2020,16995,2
-Uruguay,2021,12184,0
-Uruguay,2022,10425,1
-Uruguay,2023,10772,1
-Uruguay,2024,13191,0
-Uruguay,2025,9397,0
-Uzbekistan,2018,21895,2
-Uzbekistan,2019,14063,3
-Uzbekistan,2020,12787,4
-Uzbekistan,2021,13856,4
-Uzbekistan,2022,9730,29
-Uzbekistan,2023,16357,3
-Uzbekistan,2024,10582,2
-Uzbekistan,2025,7903,5
-Vanuatu,2021,1041,0
-Vanuatu,2022,673,1
-Vanuatu,2023,2244,0
-Vanuatu,2024,1780,0
-Vatican City,2020,4394,0
-Vatican City,2021,6936,0
-Vatican City,2022,3610,0
-Vatican City,2023,7072,0
-Vatican City,2024,5535,0
-Venezuela,2018,427411,3047
-Venezuela,2019,704636,3262
-Venezuela,2020,208389,2557
-Venezuela,2021,140560,1710
-Venezuela,2022,96402,1074
-Venezuela,2023,120407,783
-Venezuela,2024,260753,566
-Venezuela,2025,384123,424
-Vietnam,2015,136525,3
-Vietnam,2016,222587,2
-Vietnam,2017,202835,3
-Vietnam,2018,220341,3
-Vietnam,2019,167344,1
-Vietnam,2020,92541,4
-Vietnam,2021,67619,0
-Vietnam,2022,46149,0
-Vietnam,2023,121969,11
-Vietnam,2024,75471,1
-Vietnam,2025,56671,0
+Tuvalu,2021,110,0
+Uganda,2015,83051,29
+Uganda,2016,148855,278
+Uganda,2017,91737,66
+Uganda,2018,97081,146
+Uganda,2019,61549,162
+Uganda,2020,47627,297
+Uganda,2021,51037,500
+Uganda,2022,29430,363
+Uganda,2023,54425,367
+Uganda,2024,34609,243
+Uganda,2025,33582,191
+Ukraine,2018,1045735,884
+Ukraine,2019,1139025,398
+Ukraine,2020,630993,121
+Ukraine,2021,537673,149
+Ukraine,2022,4167907,40573
+Ukraine,2023,2875268,39762
+Ukraine,2024,2212055,73570
+Ukraine,2025,1957967,73018
+United Arab Emirates,2017,167263,0
+United Arab Emirates,2018,108362,0
+United Arab Emirates,2019,96372,0
+United Arab Emirates,2020,76132,2
+United Arab Emirates,2021,58573,0
+United Arab Emirates,2022,48984,3
+United Arab Emirates,2023,63080,0
+United Arab Emirates,2024,53927,1
+United Arab Emirates,2025,40949,0
+United Kingdom,2020,2268085,5
+United Kingdom,2021,2098708,5
+United Kingdom,2022,1647057,0
+United Kingdom,2023,2061983,1
+United Kingdom,2024,2058477,0
+United Kingdom,2025,1772908,3
+United States,2020,16416480,74
+United States,2021,13272503,87
+United States,2022,9896049,98
+United States,2023,12518116,66
+United States,2024,12059771,33
+United States,2025,11266064,50
+Uruguay,2018,25940,0
+Uruguay,2019,25633,3
+Uruguay,2020,16300,2
+Uruguay,2021,11604,0
+Uruguay,2022,10023,1
+Uruguay,2023,10145,1
+Uruguay,2024,12418,0
+Uruguay,2025,10588,0
+Uzbekistan,2018,21284,2
+Uzbekistan,2019,13663,3
+Uzbekistan,2020,12439,4
+Uzbekistan,2021,13358,4
+Uzbekistan,2022,9318,29
+Uzbekistan,2023,15909,3
+Uzbekistan,2024,10055,2
+Uzbekistan,2025,7578,5
+Vanuatu,2021,919,0
+Vanuatu,2022,555,1
+Vanuatu,2023,2078,0
+Vanuatu,2024,1635,0
+Vatican City,2020,4208,0
+Vatican City,2021,6746,0
+Vatican City,2022,3491,0
+Vatican City,2023,6792,0
+Vatican City,2024,5260,0
+Venezuela,2018,424508,3047
+Venezuela,2019,702919,3262
+Venezuela,2020,206082,2557
+Venezuela,2021,138491,1710
+Venezuela,2022,94695,1074
+Venezuela,2023,118582,783
+Venezuela,2024,258252,566
+Venezuela,2025,471175,424
+Vietnam,2015,134846,3
+Vietnam,2016,220559,2
+Vietnam,2017,200761,3
+Vietnam,2018,218448,3
+Vietnam,2019,165211,1
+Vietnam,2020,90917,4
+Vietnam,2021,66311,0
+Vietnam,2022,45004,0
+Vietnam,2023,120570,11
+Vietnam,2024,73935,1
+Vietnam,2025,55884,0
+"Virgin Islands, U.S.",2018,2819,0
+"Virgin Islands, U.S.",2019,3892,0
+"Virgin Islands, U.S.",2020,2612,0
+"Virgin Islands, U.S.",2021,3992,0
 Wallis and Futuna,2021,6,0
-Yemen,2015,910040,17466
-Yemen,2016,663304,15648
-Yemen,2017,661632,17634
-Yemen,2018,407886,34247
-Yemen,2019,197800,27858
-Yemen,2020,94656,19723
-Yemen,2021,102370,18368
-Yemen,2022,65464,6596
-Yemen,2023,69934,2664
-Yemen,2024,159930,3007
-Yemen,2025,116861,2784
-Zambia,2015,29960,8
-Zambia,2016,42108,6
-Zambia,2017,40177,2
-Zambia,2018,30815,17
-Zambia,2019,18837,11
-Zambia,2020,14906,40
-Zambia,2021,10993,16
-Zambia,2022,9931,12
-Zambia,2023,10980,15
-Zambia,2024,8666,10
-Zambia,2025,7193,17
-Zimbabwe,2015,189878,19
-Zimbabwe,2016,199443,7
-Zimbabwe,2017,230017,9
-Zimbabwe,2018,226579,27
-Zimbabwe,2019,133186,42
-Zimbabwe,2020,85741,21
-Zimbabwe,2021,52589,22
-Zimbabwe,2022,39207,33
-Zimbabwe,2023,64651,40
-Zimbabwe,2024,60163,18
-Zimbabwe,2025,40386,7
+Yemen,2015,907441,17466
+Yemen,2016,660700,15648
+Yemen,2017,658898,17634
+Yemen,2018,405451,34247
+Yemen,2019,195564,27858
+Yemen,2020,92900,19723
+Yemen,2021,100707,18368
+Yemen,2022,64235,6596
+Yemen,2023,68606,2664
+Yemen,2024,158061,3007
+Yemen,2025,119511,2784
+Zambia,2015,25663,8
+Zambia,2016,38862,6
+Zambia,2017,38085,2
+Zambia,2018,29542,17
+Zambia,2019,18093,11
+Zambia,2020,14324,40
+Zambia,2021,10221,16
+Zambia,2022,9441,12
+Zambia,2023,10465,15
+Zambia,2024,8108,10
+Zambia,2025,6857,17
+Zimbabwe,2015,178446,19
+Zimbabwe,2016,187029,7
+Zimbabwe,2017,220406,9
+Zimbabwe,2018,217382,27
+Zimbabwe,2019,125577,42
+Zimbabwe,2020,76615,21
+Zimbabwe,2021,44806,22
+Zimbabwe,2022,35679,33
+Zimbabwe,2023,61919,40
+Zimbabwe,2024,56851,18
+Zimbabwe,2025,37227,7
+eSwatini,2015,6217,3
+eSwatini,2016,5646,0
+eSwatini,2017,3037,0
+eSwatini,2018,3632,0
+eSwatini,2019,2699,3
+eSwatini,2020,1614,6
+eSwatini,2021,4681,46
+eSwatini,2022,1824,33
+eSwatini,2023,3094,32
+eSwatini,2024,1635,10
+eSwatini,2025,1706,2
