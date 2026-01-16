@@ -32,8 +32,8 @@ const choroplethData = d3.csv('data/processed/top_three_media_mentions_by_countr
 const geoData = await d3.json('src/json/world.json');
 
 // ===== INITIALIZE =====
-const waffleColors = ['lightgray', '#ff4d4d'];
-const waffleColorsDetailed = ['#393939', '#cfa08a', '#b8613c', '#8f2f1f'];
+const waffleColors = ['#505050', '#d22700'];
+const waffleColorsDetailed = ['#505050', '#cfa08a', '#b8613c', '#8f2f1f'];
 
 // Desktop charts - store chart constructors, not instances
 let desktopChartConfigs = [];
