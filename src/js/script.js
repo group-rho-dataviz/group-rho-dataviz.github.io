@@ -1,6 +1,6 @@
 import WaffleChart from "./waffle.js";
 import BarChart from "./bar.js";
-import ScatterPlot from "./scatter.js";
+import LineScatterChart from "./line_scatter.js";
 import Choropleth from "./choropleth.js";
 //import Choropleth from "./choropleth_flags.js";
 import ChordChart from "./chord_chart.js";
@@ -36,8 +36,8 @@ const chordData = d3.csv('data/processed/chord_top_5_material_conflict.csv', d3.
 const geoData = await d3.json('src/json/world.json');
 
 // ===== INITIALIZE =====
-const waffleColors = ['lightgray', '#ff4d4d'];
-const waffleColorsDetailed = ['#393939', '#cfa08a', '#b8613c', '#8f2f1f'];
+const waffleColors = ['#505050', '#d22700'];
+const waffleColorsDetailed = ['#505050', '#cfa08a', '#b8613c', '#8f2f1f'];
 
 // Desktop charts - store chart constructors, not instances
 let desktopChartConfigs = [];
@@ -73,7 +73,7 @@ const mobileCharts = [
     new WaffleChart('mobile-chart-0', waffleData, tooltip, waffleColors),
     new WaffleChart('mobile-chart-1', waffleDataDetailed, tooltip, waffleColorsDetailed),
     new BarChart('mobile-chart-2', barChartData, tooltip, true),
-    new ScatterPlot('mobile-chart-3', scatterData, tooltip),
+    new LineScatterChart('mobile-chart-3', scatterData, tooltip),
     //new Choropleth('mobile-chart-4', choroplethData, tooltip, geoData)
 ];
 
@@ -83,7 +83,7 @@ setTimeout(() => {
         { type: WaffleChart, params: ['desktop-chart', waffleData, tooltip, waffleColors] },
         { type: WaffleChart, params: ['desktop-chart', waffleDataDetailed, tooltip, waffleColorsDetailed] },
         { type: BarChart, params: ['desktop-chart', barChartData, tooltip, false] },
-        { type: ScatterPlot, params: ['desktop-chart', scatterData, tooltip] },
+        { type: LineScatterChart, params: ['desktop-chart', scatterData, tooltip] },
         //{ type: Choropleth, params: ['desktop-chart', choroplethData, tooltip, geoData] }
     ];
     
