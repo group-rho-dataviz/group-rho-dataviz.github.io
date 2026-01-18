@@ -166,15 +166,15 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
     
     if (getCurrentView() === 'map') {
         // Switch to chord
-        choroplethContainer.classList.add('hidden');
         chordContainer.classList.remove('hidden');
+        choroplethContainer.classList.add('hidden');
         mapIcon.classList.remove('hidden');
         chordIcon.classList.add('hidden');
         
-        // Pause any playing animation
+        // Pause map animation
         choroplethMap.pause();
         
-        // Sync chord to current week
+        // Sync chord to current week (no need to reinitialize)
         chordDiagram.setWeek(choroplethMap.currentWeekIndex);
         
     } else {
@@ -184,14 +184,13 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
         mapIcon.classList.add('hidden');
         chordIcon.classList.remove('hidden');
         
-        // Pause any playing animation
+        // Pause chord animation
         chordDiagram.pause();
         
-        // Sync map to current week
+        // Sync map to current week (no need to reinitialize)
         choroplethMap.setWeek(chordDiagram.currentWeekIndex);
     }
 });
-
 
 // Function to create a chart instance from config
 function createChartInstance(stepIndex) {

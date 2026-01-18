@@ -30,121 +30,6 @@ async init() {
         this.width = bbox.width;
         this.height = bbox.height;
         
-        /*
-        // Adjust margins for mobile
-        const isMobile = this.width < 640;
-        const isTablet = this.width >= 640 && this.width < 1024;
-
-        this.margin = { 
-            top: isMobile ? 55 : 150,
-            right: 20, 
-            bottom: isMobile ? 75 : 80,
-            left: 20
-        };
-        
-        this.innerWidth = this.width - this.margin.left - this.margin.right;
-        this.innerHeight = this.height - this.margin.top - this.margin.bottom;
-
-        this.svg.attr('viewBox', `0 0 ${this.width} ${this.height}`);
-        this.svg.selectAll('*').remove();
-        
-        this.g = this.svg.append('g')
-            .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
-
-        // Set up projection - proper centering and scaling
-        const scale = isMobile ? this.innerWidth / 6.8 : (isTablet ? this.innerWidth / 6.3 : this.innerWidth / 10.2);
-        this.projection = d3.geoMercator()
-            .scale(scale)
-            .center([15, 25])  // Center on Europe/Africa for better global view
-            .translate([this.innerWidth / 2, this.innerHeight / 2]);
-
-        this.path = d3.geoPath().projection(this.projection);
-
-        // Title - clean and readable
-        this.title = this.svg.append('text')
-            .attr('x', this.width / 2)
-            .attr('y', 22)
-            .attr('text-anchor', 'middle')
-            .attr('fill', '#f3f4f6')
-            .style('font-family', 'Inter, sans-serif')
-            .style('font-size', isMobile ? '15px' : (isTablet ? '17px' : '19px'))
-            .style('font-weight', '600')
-            .style('letter-spacing', '-0.02em')
-            .text('Media Coverage of Conflicts by Country');
-
-        // Week display
-        this.weekText = this.svg.append('text')
-            .attr('x', this.width / 2)
-            .attr('y', 40)
-            .attr('text-anchor', 'middle')
-            .attr('fill', '#9ca3af')
-            .style('font-family', 'Inter, sans-serif')
-            .style('font-size', isMobile ? '11px' : '12px')
-            .style('font-weight', '400');
-
-        // Controls container
-        const controlsY = this.height - this.margin.bottom + 22;
-
-        // Play/Pause button
-        this.playButton = this.svg.append('g')
-            .attr('class', 'play-button-group')
-            .style('cursor', 'pointer')
-            .attr('transform', `translate(${this.width / 2 - 40}, ${controlsY})`)
-            .on('click', () => this.togglePlay());
-        
-        this.playButton.append('rect')
-            .attr('width', 80)
-            .attr('height', 32)
-            .attr('rx', 5)
-            .attr('fill', '#5a6c7d')
-            .on('mouseover', function() {
-                d3.select(this).attr('fill', '#4a5c6d');
-            })
-            .on('mouseout', function() {
-                d3.select(this).attr('fill', '#5a6c7d');
-            });
-        
-        this.playButtonText = this.playButton.append('text')
-            .attr('x', 40)
-            .attr('y', 20)
-            .attr('text-anchor', 'middle')
-            .attr('fill', 'white')
-            .style('font-size', '14px')
-            .style('font-weight', '500')
-            .style('pointer-events', 'none')
-            .text('▶ Play');
-
-        // Timeline slider
-        const sliderWidth = isMobile ? this.width * 0.7 : Math.min(400, this.width * 0.6);
-        const sliderX = this.width / 2 - sliderWidth / 2;
-        const sliderY = controlsY + (isMobile ? 50 : 48);
-
-        this.sliderGroup = this.svg.append('g')
-            .attr('class', 'slider-group')
-            .attr('transform', `translate(${sliderX}, ${sliderY})`);
-
-        // Slider track
-        this.sliderGroup.append('line')
-            .attr('class', 'slider-track')
-            .attr('x1', 0)
-            .attr('x2', sliderWidth)
-            .attr('stroke', '#374151')
-            .attr('stroke-width', 4)
-            .attr('stroke-linecap', 'round');
-
-        // Slider handle
-        this.sliderHandle = this.sliderGroup.append('circle')
-            .attr('class', 'slider-handle')
-            .attr('cx', 0)
-            .attr('r', 8)
-            .attr('fill', '#5a6c7d')
-            .attr('stroke', '#f3f4f6')
-            .attr('stroke-width', 2)
-            .style('cursor', 'pointer');
-
-        this.sliderWidth = sliderWidth;
-        this.setupSliderInteraction();
-        */
         this.margin = { top: 10, right: 10, bottom: 10, left: 10 };
         this.innerWidth = this.width - this.margin.left - this.margin.right;
         this.innerHeight = this.height - this.margin.top - this.margin.bottom;
@@ -155,15 +40,14 @@ async init() {
         this.g = this.svg.append('g')
             .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
 
-        // Set up projection
-        const scale = this.innerWidth / 10.2;
+        // Set up projection - responsive scaling
+        const scale = Math.min(this.innerWidth / 6, this.innerHeight / 3.2);
         this.projection = d3.geoMercator()
             .scale(scale)
             .center([15, 25])
-            .translate([this.innerWidth / 2, this.innerHeight / 2]);
+            .translate([this.innerWidth / 2 + 22, this.innerHeight / 2 + 52]);
 
         this.path = d3.geoPath().projection(this.projection);
-
     }
 
     setupSliderInteraction() {

@@ -17,14 +17,25 @@ export default class ChordChart extends ScrollyChart {
 
         const bbox = container.getBoundingClientRect();
         this.width = bbox.width;
-        this.height = Math.max(bbox.height, 600);
+        this.height = bbox.height;
+
+        // If container is hidden/collapsed, use reasonable defaults
+        if (this.width === 0 || this.height === 0) {
+            // Try to get dimensions from parent's parent (the relative container)
+            const grandparent = container.parentElement;
+            if (grandparent) {
+                const gpBox = grandparent.getBoundingClientRect();
+                this.width = gpBox.width;
+                this.height = gpBox.height;
+            }
+        }
 
         // Minimal margins for chord diagram
         this.margin = { 
-            top: 80,
-            right: 20, 
-            bottom: 60,
-            left: 20 
+            top: 10,
+            right: 10, 
+            bottom: 10,
+            left: 10 
         };
         
         this.innerWidth = this.width - this.margin.left - this.margin.right;
@@ -35,54 +46,6 @@ export default class ChordChart extends ScrollyChart {
         
         this.g = this.svg.append('g')
             .attr('transform', `translate(${this.width / 2},${this.height / 2})`);
-
-        // Title
-        this.title = this.svg.append('text')
-            .attr('x', this.width / 2)
-            .attr('y', 30)
-            .attr('text-anchor', 'middle')
-            .attr('fill', '#f3f4f6')
-            .style('font-family', 'Inter, sans-serif')
-            .style('font-size', Math.min(this.width / 25, 20) + 'px')
-            .style('font-weight', '600')
-            .text('Media Coverage Flow');
-
-        // Subtitle
-        this.subtitle = this.svg.append('text')
-            .attr('x', this.width / 2)
-            .attr('y', 52)
-            .attr('text-anchor', 'middle')
-            .attr('fill', '#9ca3af')
-            .style('font-family', 'Inter, sans-serif')
-            .style('font-size', Math.min(this.width / 35, 13) + 'px')
-            .style('font-style', 'italic');
-
-        // Legend
-        this.legendGroup = this.svg.append('g')
-            .attr('transform', `translate(20, ${this.height - 40})`);
-
-        const legendData = [
-            { label: 'Media Countries', color: '#3b82f6' },
-            { label: 'Conflict Countries', color: '#ef4444' }
-        ];
-
-        legendData.forEach((d, i) => {
-            const lg = this.legendGroup.append('g')
-                .attr('transform', `translate(${i * 150}, 0)`);
-
-            lg.append('circle')
-                .attr('r', 6)
-                .attr('fill', d.color)
-                .attr('opacity', 0.8);
-
-            lg.append('text')
-                .attr('x', 12)
-                .attr('y', 4)
-                .attr('fill', '#9ca3af')
-                .style('font-family', 'Inter, sans-serif')
-                .style('font-size', '11px')
-                .text(d.label);
-        });
     }
 
     async draw() {
@@ -146,16 +109,14 @@ export default class ChordChart extends ScrollyChart {
         // Update current week index
         this.currentWeekIndex = this.allWeeks.indexOf(week);
 
-        // Update subtitle with week
-        const weekDate = new Date(week);
-        this.subtitle.text(`Week of ${weekDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`);
-
         // Update HTML week display (external to SVG)
         const weekDisplay = document.getElementById('week-display');
         if (weekDisplay) {
+            const weekDate = new Date(week);
             weekDisplay.textContent = `Week of ${weekDate.toLocaleDateString('en-US', { 
                 month: 'short', 
-                day: 'numeric'
+                day: 'numeric',
+                year: 'numeric'
             })}`;
         }
 
@@ -168,8 +129,8 @@ export default class ChordChart extends ScrollyChart {
         
         const { matrix, countries, conflictCountries, mediaCountries } = data;
 
-        // Calculate radius based on available space
-        const radius = Math.min(this.innerWidth, this.innerHeight) / 2 - 100;
+        // Calculate radius based on available space - use more of the container
+        const radius = Math.min(this.innerWidth, this.innerHeight) / 3;
         
         // Create chord layout
         const chord = d3.chord()
@@ -296,13 +257,13 @@ export default class ChordChart extends ScrollyChart {
             .attr('dy', '.35em')
             .attr('transform', d => `
                 rotate(${(d.angle * 180 / Math.PI - 90)})
-                translate(${radius + 35})
+                translate(${radius + 25})
                 ${d.angle > Math.PI ? 'rotate(180)' : ''}
             `)
             .attr('text-anchor', d => d.angle > Math.PI ? 'end' : 'start')
             .attr('fill', '#f3f4f6')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', '10px')
+            .style('font-size', '9px')
             .style('font-weight', '500')
             .style('opacity', 0)
             .text(d => {
@@ -385,5 +346,4 @@ export default class ChordChart extends ScrollyChart {
             this.playInterval = null;
         }
     }
-
 }
