@@ -184,7 +184,6 @@ export default class ScatterPlot extends ScrollyChart {
                     .attr('opacity', 0.75);
             
             // Draw special (red) points after gray points with staggered animation
-            console.log("Drawing countries:", specialData);
             const specialPoints = this.g.selectAll('.scatter-point-special')
                 .data(specialData)
                 .enter()
@@ -605,6 +604,7 @@ export default class ScatterPlot extends ScrollyChart {
             // Year label with background
             const labelGroup = trajectoryGroup.append('g')
                 .attr('class', 'trajectory-label-group')
+                .attr('pointer-events', 'none')
                 .attr('opacity', 0);
             
             const label = labelGroup.append('text')
