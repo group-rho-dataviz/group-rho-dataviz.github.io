@@ -1,10 +1,12 @@
 import ScrollyChart from './scrolly_chart.js';
 
 export default class WaffleChart extends ScrollyChart {
-    constructor(svgId, data, tooltip, colors=d3.schemeTableau10) {
+    constructor(svgId, data, tooltip) {
         // data is expected to be a Promise that resolves to an array of objects
         super(svgId, data, tooltip);
-        this.colors = colors;
+        this.colors = ['#505050', '#d22700'];
+        this.colorsDetailed =  ['#505050', '#cfa08a', '#b8613c', '#8f2f1f'];
+        this.selectedDetailed = false;
 
         // Title specific to WaffleChart
         this.title.text("Percentage of Countries in Conflict");
@@ -18,20 +20,73 @@ export default class WaffleChart extends ScrollyChart {
         const unitSize = Math.min(this.innerWidth / unitsPerRow, this.innerHeight / (totalUnits / unitsPerRow));
         const unitPadding = 2;
 
+        const category_to_index = {
+            'not_in_conflict': 0,
+            'low': 1,
+            'medium': 2,
+            'high': 3,
+            'in_conflict': 1
+        };
+
+        // ensure we have a CSS transition for waffle units so color/opacity changes animate
+        if (!this._waffleStyleAdded) {
+            this._waffleStyleAdded = true;
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = `
+            .waffle-unit {
+                transition: fill 600ms ease, opacity 300ms ease;
+                will-change: fill, opacity;
+            }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // mark whether we should animate this draw (used implicitly by CSS transitions when properties change)
+        if (this._lastSelectedDetailed === undefined) this._lastSelectedDetailed = this.selectedDetailed;
+        this._detailToggled = (this._lastSelectedDetailed !== this.selectedDetailed);
+        this._lastSelectedDetailed = this.selectedDetailed;
+
         const unitsData = [];
-        const unitsAbsoluteData = [];
         this.data.then(data => {
-            let unitIndex = 0;
             data.forEach((d, i) => {
                 const numUnits = Math.round((d.value / d3.sum(data, dd => dd.value)) * totalUnits);
                 for (let j = 0; j < numUnits; j++) {
-                    unitsData.push({ category: d.category, color: this.colors[i % this.colors.length] });
-                    unitsAbsoluteData.push({ category: d.category, absolute: d.absolute });
-                    unitIndex++;
+                    const absolute = this.selectedDetailed ? d.absolute : (d.category === 'not_in_conflict' ? d.absolute : d3.sum(data, dd => dd.category !== 'not_in_conflict' ? dd.absolute : 0));
+                    const percent = absolute / d3.sum(data, dd => dd.absolute) * 100;
+                    const category = this.selectedDetailed ? d.category : (d.category === 'not_in_conflict' ? 'not_in_conflict' : 'in_conflict');
+                    const color = this.selectedDetailed ? this.colorsDetailed[category_to_index[category] % this.colorsDetailed.length] : this.colors[category_to_index[category] % this.colors.length];
+                    if (i === 0 && j === 0 && !this._subtitleAdded) {
+                        this._subtitleAdded = true;
+                        // add subtitle centered in the SVG using percentage x
+                        this.subtitle = this.svg.append('text')
+                            .attr('class', 'subtitle')
+                            .attr('x', '50%')
+                            .attr('text-anchor', 'middle')
+                            .attr('y', this.margin.top * 3/4)
+                            .attr('fill', '#9ca3af')
+                            .style('font-family', 'Inter, sans-serif')
+                            .style('font-size', Math.max(this.width / 35, 8) + 'px')
+                            .style('font-style', 'italic')
+                            .text('Click to see details');
+
+                        // toggle detail view on svg click and redraw
+                        this.svg.on('click', () => {
+                            this.selectedDetailed = !this.selectedDetailed;
+                            this.draw();
+                        });
+                    }
+
+                    unitsData.push({
+                        category: category,
+                        color: color,
+                        absolute: absolute,
+                        percent: percent.toFixed(1)
+                    });
                 }
             });
 
-            this.renderUnits(unitsData, unitsAbsoluteData, unitSize, unitPadding, unitsPerRow);
+            this.renderUnits(unitsData, unitSize, unitPadding, unitsPerRow);
         });
 
         // resize the SVG to fit the waffle chart
@@ -46,7 +101,7 @@ export default class WaffleChart extends ScrollyChart {
             .text("Percentage of Countries in Conflict");
     }
 
-    renderUnits(unitsData, unitsAbsoluteData, unitSize, unitPadding, unitsPerRow) {
+    renderUnits(unitsData, unitSize, unitPadding, unitsPerRow) {
         if (!this.g || !this.tooltip || unitSize <= 0) return;
 
         this.g.selectAll('.waffle-unit')
@@ -55,15 +110,13 @@ export default class WaffleChart extends ScrollyChart {
             .attr('class', 'waffle-unit')
             .attr('width', unitSize - unitPadding)
             .attr('height', unitSize - unitPadding)
-            .attr('x', (d, i) => (i % unitsPerRow) * unitSize)
+            .attr('x', (d, i) => (unitsPerRow - 1 - i % unitsPerRow) * unitSize)
             .attr('y', (d, i) => Math.floor(i / unitsPerRow) * unitSize)
             .attr('rx', unitSize * 0.1)
             .attr('ry', unitSize * 0.1)
             .attr('fill', d => d.color)
             .attr('opacity', 0.85)
             .on('mouseover', (event, d) => {
-                const count = unitsData.filter(u => u.category === d.category).length;
-                const percent = unitsData.length ? ((count / unitsData.length) * 100).toFixed(1) : '0.0';
                 this.tooltip
                     .style('opacity', 1)
                     .html(
@@ -76,8 +129,8 @@ export default class WaffleChart extends ScrollyChart {
                                     d.category == 'high' ? 'High Number of Fatalities' :
                                     d.category == 'in_conflict' ? 'In Conflict' : 'Not in Conflict'
                                 }</strong><br/>
-                                <span style="font-size:12px;color:#ddd;">${percent}%</span><br/>
-                                <span style="font-size:12px;color:#ddd;">${unitsAbsoluteData.find(u => u.category === d.category).absolute} countries</span>
+                                <span style="font-size:12px;color:#ddd;">${d.percent}%</span><br/>
+                                <span style="font-size:12px;color:#ddd;">${d.absolute} countries</span>
                             </div>
                         </div>`
                     );

@@ -1,3 +1,5 @@
 category,value,absolute
-not_in_conflict,70,172
-in_conflict,30,73
+not_in_conflict,72,175
+low,8,20
+medium,11,27
+high,9,23
