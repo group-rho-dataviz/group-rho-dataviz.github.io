@@ -5,6 +5,20 @@ export default class ScatterPlot extends ScrollyChart {
     // and number of fatalities in a given country for a given year.
     constructor(svgId, data, tooltip = null) {
         super(svgId, data, tooltip);
+
+        // Countries to highlight + colors (map country -> color)
+        this.specialCountries = new Map([
+            ['Ukraine', '#ff4d4d'],
+            ['India', '#ff4d4d'],
+            ['Pakistan', '#ff4d4d'],
+            ['Afghanistan', '#ff4d4d'],
+            ['Palestine', '#ff4d4d'],
+            ['United States', '#ff4d4d'],
+            ['Russia', '#ff4d4d'],
+            ['Israel', '#ff4d4d'],
+            ['Myanmar', '#f1c503'],
+            ['Burkina Faso', '#f1c503'],
+        ]);
         
         this.title.text("Mentions vs Fatalities");
         this.selectedCountry = null; // Track clicked country
@@ -13,9 +27,6 @@ export default class ScatterPlot extends ScrollyChart {
     init() {
         super.init();
 
-        // Countries to highlight
-        this.specialCountries = new Set(['Ukraine', 'India', 'Pakistan', 'Afghanistan', 'Palestine', 'United States', 'Russia', 'Israel']);
-        
         // Fixed year to 2025
         this.year = 2025;
 
@@ -147,10 +158,10 @@ export default class ScatterPlot extends ScrollyChart {
             const specialRadius = isMobile ? 6 : 8;
             
             // Animation timings
-            const grayPointDelay = 15; // ms between each gray point
-            const grayDuration = 400; // duration for each gray point
-            const specialPointDelay = 100; // ms between special points
-            const specialDuration = 500;
+            const grayPointDelay = 5; // ms between each gray point
+            const grayDuration = 300; // duration for each gray point
+            const specialPointDelay = 50; // ms between special points
+            const specialDuration = 100;
             const totalGrayTime = grayData.length * grayPointDelay;
             const totalSpecialTime = specialData.length * specialPointDelay;
             
@@ -181,7 +192,9 @@ export default class ScatterPlot extends ScrollyChart {
                     .attr('cx', d => this.xScale(d.MENTIONS))
                     .attr('cy', d => this.yScale(d.FATALITIES))
                     .attr('r', 0)
-                    .attr('fill', '#ff4d4d')
+                    .attr('fill', d => {
+                        return this.specialCountries.get(d.COUNTRY) || '#ff4d4d';
+                    })
                     .attr('opacity', 0);
             
             specialPoints
@@ -208,6 +221,7 @@ export default class ScatterPlot extends ScrollyChart {
                         .attr('font-weight', '600')
                         .attr('fill', '#f3f4f6')
                         .attr('opacity', 0)
+                        .attr('pointer-events', 'none')
                         .text(d.COUNTRY)
                         .transition()
                         .duration(300)
@@ -416,7 +430,9 @@ export default class ScatterPlot extends ScrollyChart {
         // Highlight special countries without animation (for hover restore)
         this.g.selectAll('.scatter-point')
             .filter(d => this.specialCountries.has(d.COUNTRY))
-            .attr('fill', '#ff4d4d')
+            .attr('fill', d => {
+                return this.specialCountries.get(d.COUNTRY) || '#ff4d4d';
+            })
             .attr('opacity', 1)
             .attr('r', specialRadius)
             .raise()
@@ -430,6 +446,7 @@ export default class ScatterPlot extends ScrollyChart {
                     .attr('font-size', isMobile ? '10px' : '12px')
                     .attr('font-weight', '600')
                     .attr('fill', '#f3f4f6')
+                    .attr('pointer-events', 'none')
                     .text(d.COUNTRY);
             });
     }
@@ -559,7 +576,23 @@ export default class ScatterPlot extends ScrollyChart {
                 .attr('fill', d.YEAR === 2025 ? '#a78bfa' : '#60a5fa')
                 .attr('stroke', '#1f2937')
                 .attr('stroke-width', 2)
-                .attr('opacity', 0);
+                .attr('opacity', 0)
+                .on('mouseover', (event) => {
+                    if (this.tooltip) {
+                        this.tooltip.style('opacity', 1)
+                            .html(`<strong>Country:</strong> ${d.COUNTRY}<br><strong>Year:</strong> ${d.YEAR}<br><strong>Mentions:</strong> ${d.MENTIONS}<br><strong>Fatalities:</strong> ${d.FATALITIES}`)
+                            .style('left', (event.pageX + 10) + 'px')
+                            .style('top', (event.pageY - 28) + 'px');
+                    }
+                })
+                .on('mousemove', (event) => {
+                    this.positionTooltip(event);
+                })
+                .on('mouseout', () => {
+                    if (this.tooltip) {
+                        this.tooltip.style('opacity', 0);
+                    }
+                });
             
             marker.transition()
                 .delay(delay)
@@ -571,6 +604,7 @@ export default class ScatterPlot extends ScrollyChart {
             // Year label with background
             const labelGroup = trajectoryGroup.append('g')
                 .attr('class', 'trajectory-label-group')
+                .attr('pointer-events', 'none')
                 .attr('opacity', 0);
             
             const label = labelGroup.append('text')
