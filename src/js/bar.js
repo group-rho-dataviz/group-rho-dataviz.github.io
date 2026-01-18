@@ -1,12 +1,11 @@
 import ScrollyChart from './scrolly_chart.js';
 
 export default class BarChart extends ScrollyChart {
-    constructor(svgId, data, tooltip, colors = d3.schemeTableau10, isMobile = false) {
+    constructor(svgId, data, tooltip, colors = d3.schemeTableau10) {
         super(svgId, data, tooltip);
         this.colors = colors;
         this.currentView = 'clusters';
         this.selectedCluster = null;
-        this.isMobile = isMobile;
         
         // Muted colors for conflict data
         this.clusterColors = {
@@ -24,14 +23,13 @@ export default class BarChart extends ScrollyChart {
         this.width = bbox.width;
         
         // Adjust margins for mobile
-        const isMobile = this.width < 640;
-        this.height = isMobile ? Math.max(bbox.height, 500) : Math.max(bbox.height, 550);
+        this.height = Math.max(bbox.height, 550);
 
         this.margin = { 
-            top: isMobile ? 100 : 50,  // Extra space for back button on mobile
-            right: isMobile ? 20 : 30, 
-            bottom: isMobile ? 60 : 80,  // More space for range labels
-            left: isMobile ? 50 : 70 
+            top: 100,  // Extra space for back button on mobile
+            right: 20, 
+            bottom: 60,  // More space for range labels
+            left: 50 
         };
         
         this.innerWidth = this.width - this.margin.left - this.margin.right;
@@ -65,7 +63,7 @@ export default class BarChart extends ScrollyChart {
         this.yAxisLabel = this.svg.append('text')
             .attr('transform', 'rotate(-90)')
             .attr('x', -(this.margin.top + this.innerHeight / 2))
-            .attr('y', isMobile ? 15 : 20)
+            .attr('y', this.margin.left / 4)
             .attr('text-anchor', 'middle')
             .attr('fill', '#9ca3af')
             .style('font-family', 'Inter, sans-serif')
@@ -80,45 +78,9 @@ export default class BarChart extends ScrollyChart {
             .attr('fill', '#9ca3af')
             .style('font-family', 'Inter, sans-serif')
             .style('font-size', Math.max(this.width / 35, 8) + 'px')
-            .style('font-style', 'italic')
-            .style('opacity', 0);
-        
-        // Back button as SVG element (positioned below title on mobile)
-        this.backButton = this.svg.append('g')
-            .attr('class', 'back-button-group')
-            .style('cursor', 'pointer')
-            .style('opacity', 0)
-            .style('pointer-events', 'none')
-            .on('click', () => this.showClusters());
-        
-        const buttonWidth = isMobile ? 70 : 80;
+            .style('font-style', 'italic');
 
-        const buttonX = this.width - buttonWidth;
-        const buttonY = this.margin.top / 20;
-        
-        this.backButton.append('rect')
-            .attr('x', buttonX)
-            .attr('y', buttonY)
-            .attr('width', buttonWidth)
-            .attr('height', 28)
-            .attr('rx', 5)
-            .attr('fill', '#5a6c7d')
-            .on('mouseover', function() {
-                d3.select(this).attr('fill', '#4a5c6d');
-            })
-            .on('mouseout', function() {
-                d3.select(this).attr('fill', '#5a6c7d');
-            });
-        
-        this.backButton.append('text')
-            .attr('x', buttonX + (isMobile ? 35 : 40))
-            .attr('y', buttonY + 18)
-            .attr('text-anchor', 'middle')
-            .attr('fill', 'white')
-            .style('font-size', '13px')
-            .style('font-weight', '500')
-            .style('pointer-events', 'none')
-            .text('← Back');
+        this.svg.on('click', () => this.currentView === 'clusters' ? null : this.showClusters());
     }
 
     updateAxes() {
@@ -252,15 +214,8 @@ export default class BarChart extends ScrollyChart {
 
     showClusters() {
         this.currentView = 'clusters';
-        const isMobile = this.width < 640;
-        
-        // Hide back button
-        this.backButton
-            .transition()
-            .duration(300)
-            .style('opacity', 0)
-            .on('end', () => this.backButton.style('pointer-events', 'none'));
-        
+        this.selectedCluster = null;
+
         // Update title
         this.title
             .transition()
@@ -272,12 +227,11 @@ export default class BarChart extends ScrollyChart {
             .duration(300)
             .text('Number of Countries');
             
-        // Show hint text
+        // Change hint text
         this.hintText
             .text('Click a bar to see details')
             .transition()
-            .duration(300)
-            .style('opacity', 1);
+            .duration(300);
         
         // Update scales
         this.xScale.domain(this.clusterData.map(d => d.cluster));
@@ -311,7 +265,7 @@ export default class BarChart extends ScrollyChart {
         
         // Update
         bars.merge(barsEnter)
-            .on('click', (event, d) => this.showCountries(d.cluster))
+            .on('click', (event, d) => { event.stopPropagation(); this.showCountries(d.cluster); })
             .on('mouseover', (event, d) => {
                 d3.select(event.currentTarget).style('opacity', 0.8);
                 this.tooltip
@@ -350,13 +304,6 @@ export default class BarChart extends ScrollyChart {
         // Remove range labels
         this.g.selectAll('.range-label').remove();
         
-        // Show back button
-        this.backButton
-            .style('pointer-events', 'all')
-            .transition()
-            .duration(300)
-            .style('opacity', 1);
-        
         // Update title (shorter for mobile)
         const titleText = isMobile 
             ? `${cluster} Cluster Fatalities` 
@@ -374,9 +321,9 @@ export default class BarChart extends ScrollyChart {
         
         // Hide hint text
         this.hintText
+            .text('Click again to go back')
             .transition()
-            .duration(300)
-            .style('opacity', 0);
+            .duration(300);
         
         const countries = this.countryData[cluster];
         const totalFatalities = d3.sum(countries, d => d.fatalities);
