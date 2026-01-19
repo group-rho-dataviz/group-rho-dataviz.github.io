@@ -248,7 +248,7 @@ export default class ChordChart extends ScrollyChart {
         `;
 
         // Only show top countries detail for self-loops (same continent)
-        if (d.source.index === d.target.index && detail && detail.top_countries_detail) {
+        if (detail && detail.top_countries_detail) {
             try {
                 const topCountries = JSON.parse(detail.top_countries_detail);
                 tooltipHtml += '<br/><br/><strong>Top countries:</strong><br/>';
