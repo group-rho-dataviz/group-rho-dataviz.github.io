@@ -35,7 +35,8 @@ export default class RacingLineChart extends ScrollyChart {
         this.width = bbox.width;
         this.height = bbox.height;
 
-        this.margin = { top: 40, right: 120, bottom: 50, left: 70 };
+        // Adjusted margins for better visibility
+        this.margin = { top: 40, right: 150, bottom: 60, left: 80 };
         this.innerWidth = this.width - this.margin.left - this.margin.right;
         this.innerHeight = this.height - this.margin.top - this.margin.bottom;
 
@@ -44,17 +45,6 @@ export default class RacingLineChart extends ScrollyChart {
         
         this.g = this.svg.append('g')
             .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
-
-        // Title
-        this.svg.append('text')
-            .attr('x', this.width / 2)
-            .attr('y', 25)
-            .attr('text-anchor', 'middle')
-            .attr('fill', '#f3f4f6')
-            .style('font-family', 'Inter, sans-serif')
-            .style('font-size', '16px')
-            .style('font-weight', '600')
-            .text('Weekly Mentions Race');
     }
 
     async draw() {
@@ -69,9 +59,17 @@ export default class RacingLineChart extends ScrollyChart {
     }
 
     processData(rawData) {
-        // Group by week
+        // Group by week and sort chronologically
         const weekGroups = d3.group(rawData, d => d.mention_week);
-        this.allWeeks = Array.from(weekGroups.keys()).sort();
+        
+        // Convert weeks to Date objects and sort them properly
+        this.allWeeks = Array.from(weekGroups.keys())
+            .map(week => ({
+                dateString: week,
+                dateObject: new Date(week)
+            }))
+            .sort((a, b) => a.dateObject - b.dateObject)
+            .map(w => w.dateString);
         
         // For each week, store the data
         weekGroups.forEach((records, week) => {
@@ -99,7 +97,6 @@ export default class RacingLineChart extends ScrollyChart {
                     week: week,
                     weekIndex: weekIndex,
                     mentions: record.material_conflict_mentions || 0
-                    //mentions: record.material_conflict_unique_events || 0
                 });
             });
         });
@@ -118,6 +115,7 @@ export default class RacingLineChart extends ScrollyChart {
                 }
             });
             
+            // Sort by weekIndex to maintain chronological order
             countryData.values.sort((a, b) => a.weekIndex - b.weekIndex);
         });
         
@@ -146,7 +144,7 @@ export default class RacingLineChart extends ScrollyChart {
             .domain([0, maxMentions * 1.15])
             .range([this.innerHeight, 0]);
         
-        // Line generator
+        // Line generator with smoother curve
         this.line = d3.line()
             .x((d, i) => this.xScale(i))
             .y(d => this.yScale(d.mentions))
@@ -177,7 +175,7 @@ export default class RacingLineChart extends ScrollyChart {
         
         // Y-axis
         const yAxis = d3.axisLeft(this.yScale)
-            .ticks(5)
+            .ticks(6)
             .tickFormat(d => {
                 if (d >= 1000) return (d/1000).toFixed(0) + 'k';
                 return d.toLocaleString();
@@ -190,19 +188,20 @@ export default class RacingLineChart extends ScrollyChart {
             .call(g => g.selectAll('.tick text')
                 .attr('fill', '#9ca3af')
                 .style('font-family', 'Inter, sans-serif')
-                .style('font-size', '10px')
+                .style('font-size', '11px')
             );
         
         // Y-axis label
         staticGroup.append('text')
             .attr('transform', 'rotate(-90)')
             .attr('x', -this.innerHeight / 2)
-            .attr('y', -45)
+            .attr('y', -55)
             .attr('text-anchor', 'middle')
             .attr('fill', '#9ca3af')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', '11px')
-            .text('Mentions');
+            .style('font-size', '12px')
+            .style('font-weight', '500')
+            .text('Material Conflict Mentions');
     }
 
     updateChart() {
@@ -220,14 +219,20 @@ export default class RacingLineChart extends ScrollyChart {
             };
         });
         
-        // Update X-axis
+        // Update X-axis with better date formatting
         this.g.selectAll('.x-axis').remove();
         
         const xAxis = d3.axisBottom(this.xScale)
-            .tickValues([0, visibleWeeks.length - 1])
-            .tickFormat((d, i) => {
-                const date = new Date(visibleWeeks[i === 0 ? 0 : visibleWeeks.length - 1]);
-                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            .tickValues([0, Math.floor((visibleWeeks.length - 1) / 2), visibleWeeks.length - 1])
+            .tickFormat((d) => {
+                const weekIndex = Math.floor(d);
+                if (weekIndex < 0 || weekIndex >= visibleWeeks.length) return '';
+                const date = new Date(visibleWeeks[weekIndex]);
+                return date.toLocaleDateString('en-US', { 
+                    year: '2-digit',
+                    month: 'short', 
+                    day: 'numeric' 
+                });
             });
         
         this.g.append('g')
@@ -242,7 +247,20 @@ export default class RacingLineChart extends ScrollyChart {
                 .style('font-size', '10px')
             );
         
-        // Update or create lines
+        // X-axis label
+        this.g.selectAll('.x-label').remove();
+        this.g.append('text')
+            .attr('class', 'x-label')
+            .attr('x', this.innerWidth / 2)
+            .attr('y', this.innerHeight + 45)
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#9ca3af')
+            .style('font-family', 'Inter, sans-serif')
+            .style('font-size', '11px')
+            .style('font-weight', '500')
+            .text('Week');
+        
+        // Update or create lines with better visibility
         const lines = this.g.selectAll('.country-line')
             .data(windowData, d => d.name);
         
@@ -255,12 +273,14 @@ export default class RacingLineChart extends ScrollyChart {
             .attr('class', 'country-line')
             .attr('fill', 'none')
             .attr('stroke', d => this.continentColors[d.continent] || '#6b7280')
-            .attr('stroke-width', 2.5)
-            .attr('opacity', 0.8)
+            .attr('stroke-width', 3)
+            .attr('opacity', 0.9)
+            .attr('stroke-linejoin', 'round')
+            .attr('stroke-linecap', 'round')
             .merge(lines)
             .attr('d', d => this.line(d.visibleValues));
         
-        // Update dots
+        // Update dots - larger for better visibility
         const dots = this.g.selectAll('.end-dot')
             .data(windowData, d => d.name);
         
@@ -269,15 +289,15 @@ export default class RacingLineChart extends ScrollyChart {
         dots.enter()
             .append('circle')
             .attr('class', 'end-dot')
-            .attr('r', 6)
+            .attr('r', 7)
             .attr('fill', d => this.continentColors[d.continent] || '#6b7280')
             .attr('stroke', '#1f2937')
-            .attr('stroke-width', 2)
+            .attr('stroke-width', 2.5)
             .merge(dots)
             .attr('cx', this.xScale(visibleWeeks.length - 1))
             .attr('cy', d => this.yScale(d.visibleValues[d.visibleValues.length - 1].mentions));
         
-        // Update labels
+        // Update labels with better positioning
         const labels = this.g.selectAll('.end-label')
             .data(windowData, d => d.name);
         
@@ -289,12 +309,12 @@ export default class RacingLineChart extends ScrollyChart {
             .attr('dy', '0.35em')
             .attr('fill', d => this.continentColors[d.continent] || '#6b7280')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', '10px')
+            .style('font-size', '11px')
             .style('font-weight', '600')
             .merge(labels)
-            .attr('x', this.xScale(visibleWeeks.length - 1) + 10)
+            .attr('x', this.xScale(visibleWeeks.length - 1) + 12)
             .attr('y', d => this.yScale(d.visibleValues[d.visibleValues.length - 1].mentions))
-            .text(d => d.name.length > 12 ? d.name.substring(0, 10) + '...' : d.name);
+            .text(d => d.name.length > 15 ? d.name.substring(0, 13) + '...' : d.name);
     }
 
     setWeek(index) {
@@ -306,16 +326,6 @@ export default class RacingLineChart extends ScrollyChart {
 
     play() {
         this.isPlaying = true;
-        const playButton = document.getElementById('play-button');
-        if (playButton) {
-            playButton.innerHTML = `
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M5 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1H6a1 1 0 01-1-1V4z"/>
-                    <path d="M11 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
-                </svg>                
-                Pause
-            `;
-        }
         
         this.playInterval = setInterval(() => {
             if (this.currentWeekIndex < this.allWeeks.length - 1) {
@@ -328,15 +338,6 @@ export default class RacingLineChart extends ScrollyChart {
 
     pause() {
         this.isPlaying = false;
-        const playButton = document.getElementById('play-button');
-        if (playButton) {
-            playButton.innerHTML = `
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
-                </svg>
-                Play
-            `;
-        }
         if (this.playInterval) {
             clearInterval(this.playInterval);
             this.playInterval = null;

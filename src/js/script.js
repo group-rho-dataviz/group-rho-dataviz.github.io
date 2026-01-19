@@ -132,7 +132,19 @@ function syncTop5ToWeek(weekIndex, source) {
     updateTop5Countries(weekData);
 }
 
-// Initialize all map section visualizations once
+// ===== SHARED ANIMATION STATE =====
+let isAnimationPlaying = false;
+
+// Helper to update play button appearance
+function updatePlayButtonUI() {
+    const playButton = document.getElementById('play-button');
+    if (playButton) {
+        playButton.textContent = isAnimationPlaying ? '⏸' : '▶';
+        playButton.setAttribute('aria-label', isAnimationPlaying ? 'Pause' : 'Play');
+    }
+}
+
+// ===== INITIALIZATION =====
 let visualizationsInitialized = false;
 
 setTimeout(async () => {
@@ -173,30 +185,46 @@ setTimeout(async () => {
         // Initial render of top 5 for week 0
         syncTop5ToWeek(0, 'map');
         
-        // Connect play button
+        // Connect play button - single source of truth for play/pause state
         document.getElementById('play-button')?.addEventListener('click', () => {
+            // Toggle the shared state
+            isAnimationPlaying = !isAnimationPlaying;
+            
             const currentView = getCurrentView();
             
-            if (currentView === 'map') {
-                choroplethMap.togglePlay();
+            if (isAnimationPlaying) {
+                // Start playing
+                if (currentView === 'map') {
+                    choroplethMap.play();
+                } else {
+                    chordDiagram.play();
+                }
+                racingChart.play();
             } else {
-                chordDiagram.togglePlay();
+                // Pause
+                choroplethMap.pause();
+                chordDiagram.pause();
+                racingChart.pause();
             }
-            racingChart.togglePlay();
+            
+            updatePlayButtonUI();
         });
         
-        // Connect slider - this is the single source of truth
+        // Connect slider - this is the single source of truth for week position
         document.getElementById('week-slider')?.addEventListener('input', (e) => {
             const weekIndex = parseInt(e.target.value);
             const currentView = getCurrentView();
             
-            if (currentView === 'map') {
-                choroplethMap.pause();
-                choroplethMap.setWeek(weekIndex);
-            } else {
-                chordDiagram.pause();
-                chordDiagram.setWeek(weekIndex);
-            }
+            // Always pause when manually scrubbing
+            isAnimationPlaying = false;
+            updatePlayButtonUI();
+            
+            // Update all visualizations
+            choroplethMap.pause();
+            choroplethMap.setWeek(weekIndex);
+            
+            chordDiagram.pause();
+            chordDiagram.setWeek(weekIndex);
             
             racingChart.pause();
             racingChart.setWeek(weekIndex);
@@ -204,6 +232,9 @@ setTimeout(async () => {
             // Update top 5 based on current view
             syncTop5ToWeek(weekIndex, currentView);
         });
+        
+        // Initialize play button UI
+        updatePlayButtonUI();
     }
 }, 500);
 
@@ -221,31 +252,48 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
     const chordContainer = document.getElementById('chord-container');
     
     if (getCurrentView() === 'map') {
-        // Switch to chord
+        // Switch to chord view
         chordContainer.classList.remove('hidden');
         choroplethContainer.classList.add('hidden');
         mapIcon.classList.remove('hidden');
         chordIcon.classList.add('hidden');
         
-        //choroplethMap.pause();
-        chordDiagram.setWeek(choroplethMap.currentWeekIndex);
-        chordDiagram.play();
-        // Sync top 5 to chord's current week
-        syncTop5ToWeek(chordDiagram.currentWeekIndex, 'chord');
+        // Sync week position from map to chord
+        const currentWeek = choroplethMap.currentWeekIndex;
+        chordDiagram.setWeek(currentWeek);
+        
+        // Preserve animation state - only play if it was already playing
+        if (isAnimationPlaying) {
+            choroplethMap.pause(); // Pause the hidden one
+            chordDiagram.play();   // Continue playing the visible one
+        } else {
+            chordDiagram.pause();  // Keep paused if it was paused
+        }
+        
+        // Sync top 5 to current week
+        syncTop5ToWeek(currentWeek, 'chord');
         
     } else {
-        // Switch to map
+        // Switch to map view
         choroplethContainer.classList.remove('hidden');
         chordContainer.classList.add('hidden');
         mapIcon.classList.add('hidden');
         chordIcon.classList.remove('hidden');
         
-        //chordDiagram.pause();
-        choroplethMap.setWeek(chordDiagram.currentWeekIndex);
-        choroplethMap.play();
+        // Sync week position from chord to map
+        const currentWeek = chordDiagram.currentWeekIndex;
+        choroplethMap.setWeek(currentWeek);
         
-        // Sync top 5 to map's current week
-        syncTop5ToWeek(choroplethMap.currentWeekIndex, 'map');
+        // Preserve animation state - only play if it was already playing
+        if (isAnimationPlaying) {
+            chordDiagram.pause();    // Pause the hidden one
+            choroplethMap.play();     // Continue playing the visible one
+        } else {
+            choroplethMap.pause();   // Keep paused if it was paused
+        }
+        
+        // Sync top 5 to current week
+        syncTop5ToWeek(currentWeek, 'map');
     }
 });
 
