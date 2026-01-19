@@ -1,9 +1,8 @@
 import ScrollyChart from './scrolly_chart.js';
 
 export default class Choropleth extends ScrollyChart {
-    constructor(svgId, data, tooltip, geoData, colors = d3.schemeTableau10) {
+    constructor(svgId, data, tooltip, geoData, colors = {}) {
         super(svgId, data, tooltip);
-        this.colors = colors;
         this.currentWeekIndex = 0;
         this.weeks = [];
         this.processedData = null;
@@ -11,18 +10,15 @@ export default class Choropleth extends ScrollyChart {
         this.isPlaying = false;
         this.playInterval = null;
         this.hoveredCountry = null; // Track currently hovered country
+        this.weekChangeCallback = null; 
         
-        // Color mapping for conflict countries
+        // Color mappings for continents are defined in src/json/continent_colors.json as {"Name": "HexColor"}
+        // So we should read that file and use those colors for consistency
         this.conflictCountryColors = new Map();
-        this.colorPalette = [
-            '#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16',
-            '#22c55e', '#10b981', '#14b8a6', '#06b6d4', '#0ea5e9',
-            '#3b82f6', '#6366f1', '#8b5cf6', '#a855f7', '#d946ef',
-            '#ec4899', '#f43f5e', '#fb923c', '#fbbf24', '#a3e635'
-        ];
+        this.colorPalette = colors;
     }
 
-async init() {
+    async init() {
         const container = this.svg.node()?.parentElement;
         if (!container) return;
 
@@ -91,15 +87,17 @@ async init() {
 
     processData(rawData) {
         // Get all unique conflict countries and assign colors
+        const uniqueConflictContinents = Array.from(new Set(rawData.map(d => d.conflict_continent)));
         const uniqueConflictCountries = Array.from(new Set(rawData.map(d => d.conflict_country_name)));
-        uniqueConflictCountries.forEach((country, i) => {
-            this.conflictCountryColors.set(country, this.colorPalette[i % this.colorPalette.length]);
+        uniqueConflictContinents.forEach((continent, i) => {
+            this.conflictCountryColors.set(continent, this.colorPalette[continent]);
         });
         
         // Group by week and media country
         const grouped = d3.group(rawData, 
             d => d.mention_week,
-            d => d.media_country
+            d => d.media_country,
+            d => d.media_continent
         );
         
         // Get sorted weeks (convert to Date for proper sorting)
@@ -113,18 +111,21 @@ async init() {
         grouped.forEach((mediaCountries, week) => {
             const weekData = new Map();
             mediaCountries.forEach((countries, mediaCountry) => {
-                // Get the top covered country for this media country
-                const topCountry = countries.reduce((max, curr) => 
-                    curr.material_conflict_mentions > max.material_conflict_mentions ? curr : max
-                );
-                weekData.set(mediaCountry, topCountry);
+                countries.forEach((data, mediaContinent) => {
+                    // Get the top covered country for this media country and continent
+                    const topCountry = data.reduce((max, curr) => 
+                        curr.material_conflict_mentions > max.material_conflict_mentions ? curr : max
+                    );
+                    weekData.set(`${mediaCountry}`, topCountry);
+                });
             });
             this.processedData.set(week, weekData);
         });
+
     }
 
-    getColorForCountry(conflictCountryName) {
-        return this.conflictCountryColors.get(conflictCountryName) || '#6b7280';
+    getColorForCountry(conflictContinent) {
+        return this.conflictCountryColors.get(conflictContinent) || '#6b7280';
     }
 
     drawMap() {
@@ -185,7 +186,7 @@ async init() {
                     const countryName = d.properties.name;
                     const data = weekData?.get(countryName);
                     if (!data) return '#2d3748';
-                    return this.getColorForCountry(data.conflict_country_name);
+                    return this.getColorForCountry(data.conflict_continent);
                 });
         }
         
@@ -193,6 +194,12 @@ async init() {
         if (this.hoveredCountry) {
             this.updateTooltipContent(this.hoveredCountry);
         }
+
+        // At the end, trigger callback if it exists
+        if (this.weekChangeCallback) {
+            this.weekChangeCallback(weekIndex);
+        }
+
     }
 
     updateTooltipContent(countryName) {
@@ -204,7 +211,7 @@ async init() {
             this.tooltip
                 .html(`
                     <strong>${countryName}</strong><br/>
-                    <span style="display: inline-block; width: 10px; height: 10px; background-color: ${this.getColorForCountry(data.conflict_country_name)}; border-radius: 2px; margin-right: 4px;"></span>
+                    <span style="display: inline-block; width: 10px; height: 10px; background-color: ${this.getColorForCountry(data.conflict_continent)}; border-radius: 2px; margin-right: 4px;"></span>
                     Top covered: ${data.conflict_country_name}<br/>
                     Mentions: ${data.material_conflict_mentions.toLocaleString()}<br/>
                     Events: ${data.material_conflict_unique_events.toLocaleString()}
@@ -288,5 +295,13 @@ async init() {
         if (index >= 0 && index < this.weeks.length) {
             this.updateMap(index);
         }
+    }
+
+    onWeekChange(callback) {
+        this.weekChangeCallback = callback;
+    }
+
+    getCurrentWeek() {
+        return this.weeks[this.currentWeekIndex];
     }
 }
