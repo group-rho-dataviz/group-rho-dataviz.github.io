@@ -9,7 +9,7 @@ export default class WaffleChart extends ScrollyChart {
         this.selectedDetailed = false;
 
         // Title specific to WaffleChart
-        this.title.text("Percentage of Countries in Conflict");
+        this.title.text("Percentage of Countries in Conflict (2025)");
     }
 
     draw() {
@@ -98,7 +98,7 @@ export default class WaffleChart extends ScrollyChart {
         this.title
             .attr('x', this.width / 2)
             .attr('y', this.margin.top / 2)
-            .text("Percentage of Countries in Conflict");
+            .text("Percentage of Countries in Conflict (2025)");
     }
 
     renderUnits(unitsData, unitSize, unitPadding, unitsPerRow) {
