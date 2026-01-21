@@ -377,7 +377,7 @@ export default class BarChart extends ScrollyChart {
             .attr('width', this.xScale.bandwidth())
             .attr('y', this.innerHeight)
             .attr('height', 0)
-            .style('cursor', 'default');
+            .style('cursor', 'pointer');
         
         // Update
         bars.merge(barsEnter)

@@ -116,6 +116,7 @@ export default class WaffleChart extends ScrollyChart {
             .attr('ry', unitSize * 0.1)
             .attr('fill', d => d.color)
             .attr('opacity', 0.85)
+            .style('cursor', 'pointer')
             .on('mouseover', (event, d) => {
                 this.tooltip
                     .style('opacity', 1)

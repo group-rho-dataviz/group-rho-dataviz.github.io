@@ -46,7 +46,6 @@ let desktopFootnote = document.getElementById('desktop-footnote');
 const footnotes = [
     'Data source: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline">ACLED</a>',
     'Data source: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline">ACLED</a>',
-    'Data source: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline">ACLED</a>',
     'Data sources: <a href="https://acleddata.com/" target="_blank" rel="noopener noreferrer" class="underline">ACLED</a> and <a href="https://gdeltproject.org/" target="_blank" rel="noopener noreferrer" class="underline">GDELT</a>',
 ];
 
@@ -139,7 +138,7 @@ let isAnimationPlaying = false;
 function updatePlayButtonUI() {
     const playButton = document.getElementById('play-button');
     if (playButton) {
-        playButton.textContent = isAnimationPlaying ? '⏸' : '▶';
+        playButton.innerHTML = isAnimationPlaying ? '<svg id="pause-icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1H6a1 1 0 01-1-1V4z"/><path d="M11 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>' : '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>';
         playButton.setAttribute('aria-label', isAnimationPlaying ? 'Pause' : 'Play');
     }
 }
@@ -469,3 +468,27 @@ window.addEventListener('resize', () => {
 
     }, 250);
 });
+
+
+// ===== SCROLL TO TOP BUTTON =====
+// Scroll to top button
+const scrollTopBtn = document.getElementById('scrollTop');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        scrollTopBtn.style.opacity = '1';
+        scrollTopBtn.style.pointerEvents = 'auto';
+    } else {
+        scrollTopBtn.style.opacity = '0';
+        scrollTopBtn.style.pointerEvents = 'none';
+    }
+});
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+scrollTopBtn.addEventListener('click', scrollToTop);
