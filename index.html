@@ -449,65 +449,94 @@
         </p>
     </section>
 
-    <!-- STORIES SECTION -->
+    <!-- STORIES / INSIGHTS SECTION -->
     <section id="stories" class="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-4">Human Stories</span>
+            <div class="text-center mb-12">
+                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-4">Human Stories & Insights</span>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-6">Voices from the Silence</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    While cameras turn away, millions endure. These are the stories that rarely make headlines.
+                    While cameras turn away, millions endure. Below we highlight two under-covered crises — Myanmar and Burkina Faso — with contextual charts: a distribution of media tone and a timeline of fatalities with annotated events.
                 </p>
             </div>
 
             <div class="grid gap-8 md:grid-cols-2">
-                <article class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                    <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=800&h=600&fit=crop" alt="Darfur" class="w-full h-64 object-cover">
+                <!-- Myanmar Card -->
+                <article class="bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1200&h=600&fit=crop" alt="Myanmar" class="w-full h-56 object-cover">
                     <div class="p-8">
-                        <div class="font-sans text-xs font-semibold tracking-wider uppercase text-red-500 mb-3">Darfur, Sudan</div>
-                        <h3 class="text-2xl font-bold mb-4">Three Weeks to Safety</h3>
-                        <p class="text-gray-600 text-lg leading-relaxed mb-6">
-                            At 19, Amira walked 200 miles through hostile territory with her infant daughter. Today, she teaches other refugees to read.
-                        </p>
-                        <div class="font-sans text-sm text-gray-500">December 2024</div>
-                    </div>
-                </article>
-
-                <article class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&h=600&fit=crop" alt="Yemen" class="w-full h-64 object-cover">
-                    <div class="p-8">
-                        <div class="font-sans text-xs font-semibold tracking-wider uppercase text-red-500 mb-3">Sana'a, Yemen</div>
-                        <h3 class="text-2xl font-bold mb-4">The Doctor Who Stayed</h3>
-                        <p class="text-gray-600 text-lg leading-relaxed mb-6">
-                            Dr. Mohamed runs the only functioning hospital in his district. Without medicine, without power—but never without hope.
-                        </p>
-                        <div class="font-sans text-sm text-gray-500">November 2024</div>
-                    </div>
-                </article>
-
-                <article class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                    <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800&h=600&fit=crop" alt="Myanmar" class="w-full h-64 object-cover">
-                    <div class="p-8">
-                        <div class="font-sans text-xs font-semibold tracking-wider uppercase text-red-500 mb-3">Rakhine, Myanmar</div>
+                        <div class="font-sans text-xs font-semibold tracking-wider uppercase text-red-500 mb-3">Rakhine & Beyond — Myanmar</div>
                         <h3 class="text-2xl font-bold mb-4">Seven Years Without a Home</h3>
                         <p class="text-gray-600 text-lg leading-relaxed mb-6">
-                            Fatima was 12 when she fled. Now a mother herself, she still waits for a chance to return to a village that no longer exists.
+                            A long-running crisis with chronic underreporting. Below: how the press talks about Myanmar (tone distribution) and how fatalities evolved over time with key events annotated.
                         </p>
-                        <div class="font-sans text-sm text-gray-500">October 2024</div>
+
+                        <!-- Tone: Histogram / Boxplot -->
+                        <div class="mobile-chart-wrapper mb-6 bg-gray-800 rounded-xl p-4 chart-width-limiter">
+                            <div class="text-sm text-gray-300 mb-2 font-sans">Media Tone Distribution (Histogram / Boxplot)</div>
+                            <svg id="myanmar-tone" class="w-full h-48"></svg>
+                        </div>
+
+                        <!-- Fatalities: Line chart with annotations -->
+                        <div class="mobile-chart-wrapper mb-4 bg-gray-800 rounded-xl p-4 chart-width-limiter">
+                            <div class="text-sm text-gray-300 mb-2 font-sans">Fatalities Over Time (with annotations)</div>
+                            <svg id="myanmar-fatalities" class="w-full h-56"></svg>
+
+                            <div class="mt-3 text-xs text-gray-400 font-sans">
+                                <strong>Annotations:</strong>
+                                <ul id="myanmar-annotations" class="list-disc list-inside mt-1">
+                                    <!-- JS can populate timeline events here -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="text-xs text-gray-500 mt-3">
+                            Data: GDELT / ACLED. <a href="#methodology" class="underline">Methodology</a>
+                        </div>
                     </div>
                 </article>
 
-                <article class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop" alt="Congo" class="w-full h-64 object-cover">
+                <!-- Burkina Faso Card -->
+                <article class="bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=1200&h=600&fit=crop" alt="Burkina Faso" class="w-full h-56 object-cover">
                     <div class="p-8">
-                        <div class="font-sans text-xs font-semibold tracking-wider uppercase text-red-500 mb-3">Goma, DR Congo</div>
-                        <h3 class="text-2xl font-bold mb-4">Building Peace in a War Zone</h3>
+                        <div class="font-sans text-xs font-semibold tracking-wider uppercase text-red-500 mb-3">Burkina Faso</div>
+                        <h3 class="text-2xl font-bold mb-4">Escalation in the Sahel</h3>
                         <p class="text-gray-600 text-lg leading-relaxed mb-6">
-                            Jean-Pierre lost his family to conflict. Today, he mediates between armed groups, believing dialogue can end the cycle.
+                            A growing humanitarian crisis that rarely dominates global headlines. Below: tone distribution for Burkina Faso coverage and a fatalities timeline with contextual notes.
                         </p>
-                        <div class="font-sans text-sm text-gray-500">September 2024</div>
+
+                        <!-- Tone: Histogram / Boxplot -->
+                        <div class="mobile-chart-wrapper mb-6 bg-gray-800 rounded-xl p-4 chart-width-limiter">
+                            <div class="text-sm text-gray-300 mb-2 font-sans">Media Tone Distribution (Histogram / Boxplot)</div>
+                            <svg id="burkina-tone" class="w-full h-48"></svg>
+                        </div>
+
+                        <!-- Fatalities: Line chart with annotations -->
+                        <div class="mobile-chart-wrapper mb-4 bg-gray-800 rounded-xl p-4 chart-width-limiter">
+                            <div class="text-sm text-gray-300 mb-2 font-sans">Fatalities Over Time (with annotations)</div>
+                            <svg id="burkina-fatalities" class="w-full h-56"></svg>
+
+                            <div class="mt-3 text-xs text-gray-400 font-sans">
+                                <strong>Annotations:</strong>
+                                <ul id="burkina-annotations" class="list-disc list-inside mt-1">
+                                    <!-- JS can populate timeline events here -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="text-xs text-gray-500 mt-3">
+                            Data: GDELT / ACLED. <a href="#methodology" class="underline">Methodology</a>
+                        </div>
                     </div>
                 </article>
+            </div>
+
+            <!-- Small guidance / call-to-action -->
+            <div class="mt-10 text-center">
+                <p class="text-sm text-gray-500 max-w-2xl mx-auto leading-relaxed">
+                    Use the interactive controls (hover, brush) to explore distributions and zoom timelines. Click events to reveal sources and reportage excerpts.
+                </p>
             </div>
         </div>
     </section>
