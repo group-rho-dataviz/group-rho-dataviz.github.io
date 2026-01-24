@@ -642,6 +642,7 @@ export default class ScatterPlot extends ScrollyChart {
                 .attr('transform', `translate(${this.xScale(lastPoint.MENTIONS)},${this.yScale(lastPoint.FATALITIES)}) rotate(${angle})`)
                 .attr('fill', '#a78bfa')
                 .attr('opacity', 0)
+                .attr('pointer-events', 'none')
                 .transition()
                 .delay(2000)
                 .duration(400)
