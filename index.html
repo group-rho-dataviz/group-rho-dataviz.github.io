@@ -471,22 +471,27 @@
                             A long-running crisis with chronic underreporting. Below: how the press talks about Myanmar (tone distribution) and how fatalities evolved over time with key events annotated.
                         </p>
 
-                        <!-- Tone: Histogram / Boxplot -->
+                        <!-- Mobile Tone: Histogram / Boxplot -->
                         <div class="mobile-chart-wrapper mb-6 bg-gray-800 rounded-xl p-4 chart-width-limiter">
                             <div class="text-sm text-gray-300 mb-2 font-sans">Media Tone Distribution (Histogram / Boxplot)</div>
                             <svg id="myanmar-tone" class="w-full h-48"></svg>
                         </div>
 
-                        <!-- Fatalities: Line chart with annotations -->
+                        <!-- Mobile Fatalities: Line chart with annotations -->
                         <div class="mobile-chart-wrapper mb-4 bg-gray-800 rounded-xl p-4 chart-width-limiter">
                             <div class="text-sm text-gray-300 mb-2 font-sans">Fatalities Over Time (with annotations)</div>
                             <svg id="myanmar-fatalities" class="w-full h-56"></svg>
+                        </div>
 
-                            <div class="mt-3 text-xs text-gray-400 font-sans">
-                                <strong>Annotations:</strong>
-                                <ul id="myanmar-annotations" class="list-disc list-inside mt-1">
-                                    <!-- JS can populate timeline events here -->
-                                </ul>
+                        <!-- Desktop charts: visible on lg+ only, hidden on mobile -->
+                        <div class="hidden lg:flex lg:gap-6 lg:items-start lg:mt-6">
+                            <div class="bg-gray-800 rounded-xl p-4 flex-1">
+                                <div class="text-sm text-gray-300 mb-2 font-sans">Media Tone Distribution (Desktop)</div>
+                                <svg id="myanmar-tone-desktop" class="w-full" style="height:240px;"></svg>
+                            </div>
+                            <div class="bg-gray-800 rounded-xl p-4 flex-1">
+                                <div class="text-sm text-gray-300 mb-2 font-sans">Fatalities Over Time (Desktop)</div>
+                                <svg id="myanmar-fatalities-desktop" class="w-full" style="height:240px;"></svg>
                             </div>
                         </div>
 
@@ -506,22 +511,27 @@
                             A growing humanitarian crisis that rarely dominates global headlines. Below: tone distribution for Burkina Faso coverage and a fatalities timeline with contextual notes.
                         </p>
 
-                        <!-- Tone: Histogram / Boxplot -->
+                        <!-- Mobile Tone: Histogram / Boxplot -->
                         <div class="mobile-chart-wrapper mb-6 bg-gray-800 rounded-xl p-4 chart-width-limiter">
                             <div class="text-sm text-gray-300 mb-2 font-sans">Media Tone Distribution (Histogram / Boxplot)</div>
                             <svg id="burkina-tone" class="w-full h-48"></svg>
                         </div>
 
-                        <!-- Fatalities: Line chart with annotations -->
+                        <!-- Mobile Fatalities: Line chart with annotations -->
                         <div class="mobile-chart-wrapper mb-4 bg-gray-800 rounded-xl p-4 chart-width-limiter">
                             <div class="text-sm text-gray-300 mb-2 font-sans">Fatalities Over Time (with annotations)</div>
                             <svg id="burkina-fatalities" class="w-full h-56"></svg>
+                        </div>
 
-                            <div class="mt-3 text-xs text-gray-400 font-sans">
-                                <strong>Annotations:</strong>
-                                <ul id="burkina-annotations" class="list-disc list-inside mt-1">
-                                    <!-- JS can populate timeline events here -->
-                                </ul>
+                        <!-- Desktop charts: visible on lg+ only, hidden on mobile -->
+                        <div class="hidden lg:flex lg:gap-6 lg:items-start lg:mt-6">
+                            <div class="bg-gray-800 rounded-xl p-4 flex-1">
+                                <div class="text-sm text-gray-300 mb-2 font-sans">Media Tone Distribution (Desktop)</div>
+                                <svg id="burkina-tone-desktop" class="w-full" style="height:240px;"></svg>
+                            </div>
+                            <div class="bg-gray-800 rounded-xl p-4 flex-1">
+                                <div class="text-sm text-gray-300 mb-2 font-sans">Fatalities Over Time (Desktop)</div>
+                                <svg id="burkina-fatalities-desktop" class="w-full" style="height:240px;"></svg>
                             </div>
                         </div>
 
