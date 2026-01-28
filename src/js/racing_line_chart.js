@@ -35,8 +35,8 @@ export default class RacingLineChart extends ScrollyChart {
         this.width = bbox.width;
         this.height = bbox.height;
 
-        // Adjusted margins for better visibility
-        this.margin = { top: 40, right: 150, bottom: 60, left: 80 };
+        // Adjusted margins - reduced left and bottom since we're removing axis labels
+        this.margin = { top: 40, right: 150, bottom: 40, left: 60 };
         this.innerWidth = this.width - this.margin.left - this.margin.right;
         this.innerHeight = this.height - this.margin.top - this.margin.bottom;
 
@@ -52,7 +52,8 @@ export default class RacingLineChart extends ScrollyChart {
         this.processData(rawData);
         
         if (this.allWeeks.length > 0) {
-            this.currentWeekIndex = Math.min(this.windowSize - 1, this.allWeeks.length - 1);
+            // Start at the first week (index 0) instead of windowSize - 1
+            this.currentWeekIndex = 0;
             this.setupChart();
             this.updateChart();
         }
@@ -117,11 +118,18 @@ export default class RacingLineChart extends ScrollyChart {
             
             // Sort by weekIndex to maintain chronological order
             countryData.values.sort((a, b) => a.weekIndex - b.weekIndex);
+            
+            // Calculate cumulative sum
+            let cumulativeSum = 0;
+            countryData.values.forEach(v => {
+                cumulativeSum += v.mentions;
+                v.cumulativeMentions = cumulativeSum;
+            });
         });
         
-        // Determine top N countries by total mentions
+        // Determine top N countries by total mentions (cumulative sum at the end)
         const countryTotals = Array.from(this.countriesData.entries()).map(([name, data]) => {
-            const total = d3.sum(data.values, v => v.mentions);
+            const total = data.values[data.values.length - 1].cumulativeMentions;
             return { name, total, data };
         });
         
@@ -130,9 +138,9 @@ export default class RacingLineChart extends ScrollyChart {
     }
 
     setupChart() {
-        // Calculate the maximum mentions across ALL data to keep scale consistent
-        const maxMentions = d3.max(this.topCountries, d => 
-            d3.max(d.values, v => v.mentions)
+        // Calculate the maximum cumulative mentions across ALL data to keep scale consistent
+        const maxCumulative = d3.max(this.topCountries, d => 
+            d3.max(d.values, v => v.cumulativeMentions)
         ) || 100;
         
         // Create scales that will be reused
@@ -140,14 +148,17 @@ export default class RacingLineChart extends ScrollyChart {
             .domain([0, this.windowSize - 1])
             .range([0, this.innerWidth]);
         
-        this.yScale = d3.scaleLinear()
-            .domain([0, maxMentions * 1.15])
-            .range([this.innerHeight, 0]);
+        // Use logarithmic scale for y-axis to better show cumulative growth
+        // Add 1 to avoid log(0) issues
+        this.yScale = d3.scaleLog()
+            .domain([1, maxCumulative * 1.15])
+            .range([this.innerHeight, 0])
+            .clamp(true);
         
         // Line generator with smoother curve
         this.line = d3.line()
             .x((d, i) => this.xScale(i))
-            .y(d => this.yScale(d.mentions))
+            .y(d => this.yScale(Math.max(1, d.cumulativeMentions))) // Ensure minimum value of 1 for log scale
             .curve(d3.curveMonotoneX);
         
         // Draw static elements (axes, grid)
@@ -166,6 +177,7 @@ export default class RacingLineChart extends ScrollyChart {
             .call(d3.axisLeft(this.yScale)
                 .tickSize(-this.innerWidth)
                 .tickFormat('')
+                .ticks(5, "~s")
             )
             .call(g => g.select('.domain').remove())
             .call(g => g.selectAll('.tick line')
@@ -173,12 +185,13 @@ export default class RacingLineChart extends ScrollyChart {
                 .attr('stroke-opacity', 0.3)
             );
         
-        // Y-axis
+        // Y-axis with better formatting for log scale
         const yAxis = d3.axisLeft(this.yScale)
-            .ticks(6)
+            .ticks(5, "~s")
             .tickFormat(d => {
                 if (d >= 1000) return (d/1000).toFixed(0) + 'k';
-                return d.toLocaleString();
+                if (d >= 100) return d.toFixed(0);
+                return d.toFixed(0);
             });
         
         staticGroup.append('g')
@@ -191,23 +204,13 @@ export default class RacingLineChart extends ScrollyChart {
                 .style('font-size', '11px')
             );
         
-        // Y-axis label
-        staticGroup.append('text')
-            .attr('transform', 'rotate(-90)')
-            .attr('x', -this.innerHeight / 2)
-            .attr('y', -55)
-            .attr('text-anchor', 'middle')
-            .attr('fill', '#9ca3af')
-            .style('font-family', 'Inter, sans-serif')
-            .style('font-size', '12px')
-            .style('font-weight', '500')
-            .text('Material Conflict Mentions');
+        // Removed Y-axis label as requested
     }
 
     updateChart() {
-        // Calculate window bounds
-        const startIdx = Math.max(0, this.currentWeekIndex - this.windowSize + 1);
+        // Calculate window bounds - start from 0 if we're at the beginning
         const endIdx = this.currentWeekIndex;
+        const startIdx = Math.max(0, endIdx - this.windowSize + 1);
         const visibleWeeks = this.allWeeks.slice(startIdx, endIdx + 1);
         
         // Get data for visible window
@@ -247,18 +250,7 @@ export default class RacingLineChart extends ScrollyChart {
                 .style('font-size', '10px')
             );
         
-        // X-axis label
-        this.g.selectAll('.x-label').remove();
-        this.g.append('text')
-            .attr('class', 'x-label')
-            .attr('x', this.innerWidth / 2)
-            .attr('y', this.innerHeight + 45)
-            .attr('text-anchor', 'middle')
-            .attr('fill', '#9ca3af')
-            .style('font-family', 'Inter, sans-serif')
-            .style('font-size', '11px')
-            .style('font-weight', '500')
-            .text('Week');
+        // Removed X-axis label as requested
         
         // Update or create lines with better visibility
         const lines = this.g.selectAll('.country-line')
@@ -286,6 +278,8 @@ export default class RacingLineChart extends ScrollyChart {
         
         dots.exit().remove();
         
+        const lastVisibleIndex = visibleWeeks.length - 1;
+        
         dots.enter()
             .append('circle')
             .attr('class', 'end-dot')
@@ -294,8 +288,11 @@ export default class RacingLineChart extends ScrollyChart {
             .attr('stroke', '#1f2937')
             .attr('stroke-width', 2.5)
             .merge(dots)
-            .attr('cx', this.xScale(visibleWeeks.length - 1))
-            .attr('cy', d => this.yScale(d.visibleValues[d.visibleValues.length - 1].mentions));
+            .attr('cx', this.xScale(lastVisibleIndex))
+            .attr('cy', d => {
+                const cumulative = d.visibleValues[d.visibleValues.length - 1].cumulativeMentions;
+                return this.yScale(Math.max(1, cumulative));
+            });
         
         // Update labels with better positioning
         const labels = this.g.selectAll('.end-label')
@@ -312,8 +309,11 @@ export default class RacingLineChart extends ScrollyChart {
             .style('font-size', '11px')
             .style('font-weight', '600')
             .merge(labels)
-            .attr('x', this.xScale(visibleWeeks.length - 1) + 12)
-            .attr('y', d => this.yScale(d.visibleValues[d.visibleValues.length - 1].mentions))
+            .attr('x', this.xScale(lastVisibleIndex) + 12)
+            .attr('y', d => {
+                const cumulative = d.visibleValues[d.visibleValues.length - 1].cumulativeMentions;
+                return this.yScale(Math.max(1, cumulative));
+            })
             .text(d => d.name.length > 15 ? d.name.substring(0, 13) + '...' : d.name);
     }
 

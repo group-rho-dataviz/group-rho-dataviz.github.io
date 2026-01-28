@@ -1,3 +1,5 @@
+// TO DO: TOGGLE FOR WEIGHTED / UNWEIGHTED MENTIONS
+
 // Track previous week's rankings
 let previousRankings = new Map();
 
@@ -5,7 +7,7 @@ export default function updateTop5Countries(weekData) {
     // Get top 5 for current week and sort
     const top5 = weekData
         .sort((a, b) => b.material_conflict_mentions - a.material_conflict_mentions)
-        .slice(0, 5);
+        .slice(0, 25);
     
     // Create current rankings map
     const currentRankings = new Map();

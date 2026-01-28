@@ -4,7 +4,9 @@ import ScatterPlot from "./scatter.js";
 import Choropleth from "./choropleth.js";
 import ChordChart from "./chord_chart.js";
 import RacingLineChart from "./racing_line_chart.js";
+import RacingBarChart from "./racing_bar_chart.js";
 import updateTop5Countries from "./weekly_top_5.js";
+
 
 // ===== TOOLTIP =====
 let tooltip = d3.select('body').append('div')
@@ -27,12 +29,13 @@ const barChartData = d3.csv('data/processed/bar_chart.csv', d3.autoType);
 const scatterData = d3.csv('data/processed/scatter_plot_material_conflict.csv', d3.autoType);
 const choroplethData = d3.csv('data/processed/choropleth_top_1_material_conflict.csv', d3.autoType);
 const chordData = d3.csv('data/processed/chord_continent_data.csv', d3.autoType);
-const top5Data = d3.csv('data/processed/weekly_top_5_material_conflict.csv', d3.autoType);
+const top5Data = d3.csv('data/processed/weekly_top_25_material_conflict.csv', d3.autoType);
 const racingData = d3.csv('data/processed/racing_line_chart.csv', d3.autoType);
 
 // ===== JSON =====
 const geoData = await d3.json('src/json/world.json');
 const continentColors = await d3.json('src/json/continent_colors.json');
+const fips = await d3.json('src/json/fips.json');
 
 // ===== SCROLL TO TOP BUTTON =====
 const scrollTopBtn = document.getElementById('scrollTop');
@@ -122,7 +125,8 @@ setTimeout(() => {
 // ===== MAP SECTION VISUALIZATIONS =====
 const chordDiagram = new ChordChart('chord-diagram', chordData, tooltip, continentColors);
 const choroplethMap = new Choropleth('choropleth-map', choroplethData, tooltip, geoData, continentColors);
-const racingChart = new RacingLineChart('racing-chart', racingData, tooltip);
+const racingChart = new RacingBarChart('racing-chart', racingData, tooltip, fips);
+
 
 // Load top 5 data early
 let allTop5Data = null;
