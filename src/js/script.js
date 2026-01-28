@@ -34,6 +34,37 @@ const racingData = d3.csv('data/processed/racing_line_chart.csv', d3.autoType);
 const geoData = await d3.json('src/json/world.json');
 const continentColors = await d3.json('src/json/continent_colors.json');
 
+// ===== SCROLL TO TOP BUTTON =====
+const scrollTopBtn = document.getElementById('scrollTop');
+
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        scrollTopBtn.style.visibility = 'visible';
+        scrollTopBtn.style.opacity = '1';
+        scrollTopBtn.style.pointerEvents = 'auto';
+    } else {
+        scrollTopBtn.style.opacity = '0';
+        scrollTopBtn.style.pointerEvents = 'none';
+        // Delay hiding to allow fade out transition
+        setTimeout(() => {
+            if (window.pageYOffset <= 300) {
+                scrollTopBtn.style.visibility = 'hidden';
+            }
+        }, 300); // Match your transition duration
+    }
+});
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+scrollTopBtn.addEventListener('click', scrollToTop);
+
+
 // ===== INITIALIZE =====
 // Desktop charts
 let desktopChartConfigs = [];
@@ -470,25 +501,3 @@ window.addEventListener('resize', () => {
 });
 
 
-// ===== SCROLL TO TOP BUTTON =====
-// Scroll to top button
-const scrollTopBtn = document.getElementById('scrollTop');
-
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        scrollTopBtn.style.opacity = '1';
-        scrollTopBtn.style.pointerEvents = 'auto';
-    } else {
-        scrollTopBtn.style.opacity = '0';
-        scrollTopBtn.style.pointerEvents = 'none';
-    }
-});
-
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
-
-scrollTopBtn.addEventListener('click', scrollToTop);
