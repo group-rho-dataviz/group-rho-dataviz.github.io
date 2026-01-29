@@ -71,10 +71,18 @@
             <!-- Introductory Paragraph -->
             <div class="prose prose-lg mb-12">
                 <p class="text-gray-700 text-lg leading-relaxed mb-6">
-                    Our investigation into global media coverage patterns combines multiple data sources to reveal disparities in how conflicts are reported. We analyzed over 2.5 million news articles from the GDELT Project, cross-referenced with fatality data from ACLED's conflict database, spanning January 2024 through December 2025.
+                    Our investigation into global media coverage patterns combines multiple data sources to understand if global media attention aligns with the severity of conflicts. We analyzed the enormous database provided by the GDELT Project, cross-referenced with fatality data from ACLED's conflict database.
                 </p>
                 <p class="text-gray-700 text-lg leading-relaxed">
-                    The methodology involves several key steps: data extraction, normalization, sentiment analysis, and statistical comparison. Below, we detail the technical implementation of our data pipeline and analytical framework.
+                    The methodology involves two key steps: data extraction by means of browsing the ACLED website and querying the GDELT database through Google BigQuery, data cleaning using Python Notebooks and Pandas. Below, we detail the technical implementation of our data pipeline and analytical framework.
+                </p>
+            </div>
+
+            <h2 class="sm:text-4xl lg:text-4xl font-black mb-8 leading-tight text-gray-900">GDELT Data Extraction</h2>
+            <div class="prose prose-lg mb-12">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                The procedure we followed to extract and analyze data from the GDELT database involved querying the dataset using SQL on Google BigQuery. The initial step was to generate a lookup table as described by 
+                <a href="https://blog.gdeltproject.org/mapping-the-media-a-geographic-lookup-of-gdelts-sources-2015-2021/" class="underline">an article on the GDELT website</a>.
                 </p>
             </div>
             
@@ -88,24 +96,37 @@
                                 <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                                 <div class="w-3 h-3 rounded-full bg-green-500"></div>
                             </div>
-                            <span class="text-gray-400 text-xs font-mono ml-3">query.sql</span>
+                            <span class="text-gray-400 text-xs font-mono ml-3">lookup.sql</span>
                         </div>
                     </div>
-                    <div class="p-6 bg-gray-800">
-                        <pre class="code-block text-gray-100 overflow-x-auto"><code><span class="sql-comment">-- Extract media coverage data with aggregated metrics</span>
-<span class="sql-keyword">SELECT</span> 
-    country_name,
-    <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> article_id) <span class="sql-keyword">AS</span> total_mentions,
-    <span class="sql-function">AVG</span>(sentiment_score) <span class="sql-keyword">AS</span> avg_sentiment,
-    <span class="sql-function">PERCENTILE_CONT</span>(<span class="sql-number">0.5</span>) <span class="sql-keyword">WITHIN GROUP</span> 
-        (<span class="sql-keyword">ORDER BY</span> sentiment_score) <span class="sql-keyword">AS</span> median_sentiment,
-    <span class="sql-function">DATE_TRUNC</span>(<span class="sql-string">'week'</span>, publication_date) <span class="sql-keyword">AS</span> week
-<span class="sql-keyword">FROM</span> gdelt_articles
-<span class="sql-keyword">WHERE</span> 
-    publication_date <span class="sql-keyword">BETWEEN</span> <span class="sql-string">'2024-01-01'</span> <span class="sql-keyword">AND</span> <span class="sql-string">'2025-12-31'</span>
-    <span class="sql-keyword">AND</span> conflict_related <span class="sql-keyword">=</span> <span class="sql-keyword">TRUE</span>
-<span class="sql-keyword">GROUP BY</span> country_name, week
-<span class="sql-keyword">ORDER BY</span> total_mentions <span class="sql-keyword">DESC</span>;</code></pre>
+                    <div class="p-6 bg-gray-800">                        
+<pre class="code-block text-gray-100 overflow-x-auto"><code><span class="sql-comment">-- Extract lookup table for domain to country mapping</span>
+<span class="sql-keyword">CREATE OR REPLACE TABLE</span> gdelt-dataviz-project.gdelt_agg.domain_lookup <span class="sql-keyword">AS</span>
+<span class="sql-keyword">SELECT</span> domain, topcountry.countrycode <span class="sql-keyword">AS</span> MediaCountryCode
+<span class="sql-keyword">FROM</span> (
+    <span class="sql-keyword">SELECT</span> 
+        domain, 
+        <span class="sql-comment">-- We take the strict Top 1 result from the array</span>
+        <span class="sql-function">ARRAY_AGG</span>(<span class="sql-function">STRUCT</span>(countrycode, cnt) <span class="sql-keyword">ORDER BY</span> cnt <span class="sql-keyword">DESC LIMIT 1</span>)[<span class="sql-keyword">OFFSET(0)</span>]
+            <span class="sql-keyword">AS</span> topcountry 
+    <span class="sql-keyword">FROM</span> (
+        <span class="sql-keyword">SELECT</span> 
+            <span class="sql-comment">-- OFFICIAL GDELT REGEX: Extracts the clean country code</span>
+            <span class="sql-function">REGEXP_EXTRACT</span>(location, <span class="sql-string">r'^[1-5]#.*?#(.*?)#'</span>) <span class="sql-keyword">AS</span> countrycode, 
+            <span class="sql-comment">-- Clean the domain</span>
+            <span class="sql-function">IFNULL</span>(<span class="sql-function">NET.REG_DOMAIN</span>(DocumentIdentifier), <span class="sql-string">'unknown'</span>) <span class="sql-keyword">AS</span> domain, 
+            <span class="sql-comment">-- Exact Count</span>
+            <span class="sql-function">COUNT</span>(1) <span class="sql-keyword">AS</span> cnt 
+        <span class="sql-keyword">FROM</span> <span class="sql-string">`gdelt-bq.gdeltv2.gkg_partitioned`</span>, 
+            <span class="sql-comment">-- OFFICIAL GDELT UNNEST: Explodes the list of locations</span>
+            <span class="sql-function">UNNEST</span>(<span class="sql-function">SPLIT</span>(V2Locations, <span class="sql-string">';'</span>)) <span class="sql-keyword">AS</span> location 
+        <span class="sql-keyword">WHERE</span> 
+            <span class="sql-function">LOWER</span>(DocumentIdentifier) <span class="sql-keyword">LIKE</span> <span class="sql-string">'%http%'</span>                 
+        <span class="sql-keyword">GROUP BY</span> countrycode, domain 
+        <span class="sql-keyword">HAVING</span> cnt > 5 <span class="sql-keyword">AND</span> countrycode <span class="sql-keyword">IS NOT NULL</span>
+    ) 
+    <span class="sql-keyword">GROUP BY</span> domain
+)</code></pre>
                     </div>
                 </div>
             </div>
@@ -113,12 +134,164 @@
             <!-- Text Section -->
             <div class="prose prose-lg mb-12">
                 <p class="text-gray-700 text-lg leading-relaxed mb-6">
-                    The query above extracts weekly aggregated metrics for each country, including total article mentions and sentiment distributions. We normalized coverage intensity by population and conflict severity to identify systematic biases in reporting patterns.
-                </p>
-                <p class="text-gray-700 text-lg leading-relaxed">
-                    After data extraction, we merged coverage metrics with fatality counts from ACLED. The resulting dataset contains 1,847 country-week observations across 58 conflict-affected nations. The table below shows a sample of our processed data:
+                    After creating the domain-to-country lookup table, we queried the GDELT database to aggregate media mentions weekly by grouping 
                 </p>
             </div>
+
+            <!-- SQL Code Block -->
+            <div class="mb-12">
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700">
+                    <div class="bg-gray-900 px-4 py-3 border-b border-gray-700">
+                        <div class="flex items-center gap-2">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-gray-400 text-xs font-mono ml-3">lookup.sql</span>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-gray-800">                        
+<pre class="code-block text-gray-100 overflow-x-auto"><code>
+    CREATE OR REPLACE TABLE gdelt-dataviz-project.gdelt_agg.weekly_media_conflict_reports AS
+
+SELECT
+  -- 1. TIME: Weekly Granularity
+  DATE_TRUNC(
+    DATE(PARSE_TIMESTAMP('%Y%m%d%H%M%S', CAST(m.MentionTimeDate AS STRING))), 
+    WEEK(MONDAY)
+  ) AS mention_week,
+
+  -- 2. LOCATION: WHERE the conflict is happening
+  e.ActionGeo_CountryCode AS conflict_country,
+
+  -- 3. ACTORS: WHO is involved in the conflict
+  IFNULL(e.Actor1CountryCode, 'UNK') AS actor1_country,
+  IFNULL(e.Actor2CountryCode, 'UNK') AS actor2_country,
+  -- If null keep it null
+  -- e.Actor1CountryCode AS actor1_country,
+  -- e.Actor2CountryCode AS actor2_country,
+
+  -- 4. MEDIA SOURCE: WHERE the media is reporting from
+  -- Uses the GDELT Lookup we created above
+  IFNULL(dlc_lookup.MediaCountryCode, 'UNK') AS media_country,
+  -- lookup.MediaCountryCode AS media_country,
+
+  -- 5. METRICS (Aggregated)
+  COUNT(*) AS mentions_count,
+  COUNT(DISTINCT m.GLOBALEVENTID) AS distinct_events,
+  COUNT(DISTINCT m.MentionSourceName) AS distinct_media_sources,
+
+  -- 6. METRICS: CLASS PROFILE (Volume vs Diversity)
+  -- Volume (Quanti Articoli)
+  COUNT(CASE WHEN e.QuadClass = 3 THEN 1 END) AS verbal_conflict_mentions,
+  COUNT(CASE WHEN e.QuadClass = 4 THEN 1 END) AS material_conflict_mentions,
+  -- Diversity (Quanti Eventi Unici)
+  COUNT(DISTINCT CASE WHEN e.QuadClass = 3 THEN m.GLOBALEVENTID END) AS verbal_conflict_unique_events,
+  COUNT(DISTINCT CASE WHEN e.QuadClass = 4 THEN m.GLOBALEVENTID END) AS material_conflict_unique_events,
+
+  -- 7. METRICS: ACTOR PROFILE (Chi partecipa?)
+  -- Qui usiamo la logica "INVOLVES": Ci interessa se la categoria è presente nell'evento (o come attore 1 o come 2)
+  
+  -- STATE (Gov, Mil, Police, ecc)
+  COUNT(CASE WHEN 
+      e.Actor1Type1Code IN ('GOV', 'MIL', 'COP', 'JUD', 'LEG', 'SPY') OR 
+      e.Actor2Type1Code IN ('GOV', 'MIL', 'COP', 'JUD', 'LEG', 'SPY') 
+  THEN 1 END) AS state_mentions,
+  
+  COUNT(DISTINCT CASE WHEN 
+      e.Actor1Type1Code IN ('GOV', 'MIL', 'COP', 'JUD', 'LEG', 'SPY') OR 
+      e.Actor2Type1Code IN ('GOV', 'MIL', 'COP', 'JUD', 'LEG', 'SPY') 
+  THEN m.GLOBALEVENTID END) AS state_unique_events,
+
+  -- INSURGENTS (Rebels, Separatists, etc)
+  COUNT(CASE WHEN 
+      e.Actor1Type1Code IN ('REB', 'INS', 'SEP', 'OPP', 'CRM') OR 
+      e.Actor2Type1Code IN ('REB', 'INS', 'SEP', 'OPP', 'CRM') 
+  THEN 1 END) AS insurgents_mentions,
+
+  COUNT(DISTINCT CASE WHEN 
+      e.Actor1Type1Code IN ('REB', 'INS', 'SEP', 'OPP', 'CRM') OR 
+      e.Actor2Type1Code IN ('REB', 'INS', 'SEP', 'OPP', 'CRM') 
+  THEN m.GLOBALEVENTID END) AS insurgents_unique_events,
+
+  -- CIVILIANS (The Victims usually)
+  COUNT(CASE WHEN 
+      e.Actor1Type1Code IN ('CVL', 'REF', 'ELI', 'BUS', 'EDU', 'LAB', 'MED', 'REL', 'AGR') OR 
+      e.Actor2Type1Code IN ('CVL', 'REF', 'ELI', 'BUS', 'EDU', 'LAB', 'MED', 'REL', 'AGR') 
+  THEN 1 END) AS civilians_mentions,
+
+  COUNT(DISTINCT CASE WHEN 
+      e.Actor1Type1Code IN ('CVL', 'REF', 'ELI', 'BUS', 'EDU', 'LAB', 'MED', 'REL', 'AGR') OR 
+      e.Actor2Type1Code IN ('CVL', 'REF', 'ELI', 'BUS', 'EDU', 'LAB', 'MED', 'REL', 'AGR') 
+  THEN m.GLOBALEVENTID END) AS civilians_unique_events,
+
+  -- INTERNATIONALS (NGO, IGO)
+  COUNT(CASE WHEN 
+      e.Actor1Type1Code IN ('IGO', 'NGO', 'MNC') OR 
+      e.Actor2Type1Code IN ('IGO', 'NGO', 'MNC') 
+  THEN 1 END) AS international_mentions,
+
+  COUNT(DISTINCT CASE WHEN 
+      e.Actor1Type1Code IN ('IGO', 'NGO', 'MNC') OR 
+      e.Actor2Type1Code IN ('IGO', 'NGO', 'MNC') 
+  THEN m.GLOBALEVENTID END) AS international_unique_events,
+
+  -- Sentiment Analysis
+  AVG(m.MentionDocTone) AS avg_tone,
+  STDDEV(m.MentionDocTone) AS stddev_tone,
+  APPROX_QUANTILES(m.MentionDocTone, 2)[OFFSET(1)] AS median_tone,
+
+  -- Impact (Weighted by mentions)
+  AVG(e.GoldsteinScale) AS avg_impact,
+  STDDEV(e.GoldsteinScale) AS stddev_impact,
+  APPROX_QUANTILES(e.GoldsteinScale, 2)[OFFSET(1)] AS median_impact,
+
+  -- Most mentioned article
+  ARRAY_AGG(
+    STRUCT(m.MentionIdentifier, e.NumMentions) 
+    ORDER BY e.NumMentions DESC LIMIT 1
+  )[OFFSET(0)].MentionIdentifier AS top_event_article_url,
+
+  -- Most impactful article
+  ARRAY_AGG(
+    STRUCT(m.MentionIdentifier, e.GoldsteinScale) 
+    ORDER BY e.GoldsteinScale ASC LIMIT 1
+  )[OFFSET(0)].MentionIdentifier AS most_impactful_event_article_url  
+
+
+FROM `gdelt-bq.gdeltv2.eventmentions_partitioned` m
+JOIN `gdelt-bq.gdeltv2.events_partitioned` e
+  ON m.GLOBALEVENTID = e.GLOBALEVENTID
+
+-- JOIN LOOKUP
+LEFT JOIN `gdelt-dataviz-project.gdelt_agg.lookup_table` dlc_lookup
+  ON NET.REG_DOMAIN(m.MentionIdentifier) = dlc_lookup.Domain
+
+WHERE
+  -- COST SAFETY - RECOMMENDED: Focus on recent years
+  m._PARTITIONTIME >= TIMESTAMP('2015-01-01')
+  AND e._PARTITIONTIME >= TIMESTAMP('2015-01-01')
+  
+-- FILTRI ANTI-RUMORE
+  AND e.QuadClass in (3,4)  -- Solo Material and Verbal Conflict (Fights, Assaults, Wars)
+
+  -- Filtro Attori (Solo attori rilevanti, esclude privati cittadini)
+  -- AND (
+  --     e.Actor1Type1Code IN ('GOV', 'MIL', 'REB', 'INS', 'COP')
+  --  OR e.Actor2Type1Code IN ('GOV', 'MIL', 'REB', 'INS', 'COP')
+  -- )
+
+  -- Filtro Geografico (Esclude eventi senza paese o generalisti)
+  AND e.ActionGeo_CountryCode IS NOT NULL
+
+GROUP BY 1, 2, 3, 4, 5
+HAVING mentions_count > 5
+</code></pre>
+                    </div>
+                </div>
+            </div>
+
             
             <!-- Table with Fade Effect -->
             <div class="mb-12 table-fade">
