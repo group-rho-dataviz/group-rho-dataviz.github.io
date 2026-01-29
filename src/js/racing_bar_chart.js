@@ -1,11 +1,11 @@
 import ScrollyChart from './scrolly_chart.js';
 
 export default class RacingBarChart extends ScrollyChart {
-    constructor(svgId, data, tooltip, fipsNames = null) {
+    constructor(svgId, data, tooltip, fipsNames = null, colors = {}) {
         super(svgId, data, tooltip);
-        this.allWeeks = [];
-        this.weekData = new Map();
         this.currentWeekIndex = 0;
+        this.allWeeks = [];
+        this.processedData = null; // TO KEEP
         this.isPlaying = false;
         this.playInterval = null;
         this.topN = 10; // Number of countries to show
@@ -13,18 +13,13 @@ export default class RacingBarChart extends ScrollyChart {
         this.hoveredBar = null; // Track currently hovered bar
         
         // Color mapping by continent
-        this.continentColors = {
-            'Africa': '#cd853f',
-            'Asia': '#f59e0b',
-            'Europe': '#3b82f6',
-            'North America': '#ef4444',
-            'South America': '#22c55e',
-            'Oceania': '#8b5cf6'
-        };
+        this.continentColors = colors;
         
         // Store scales for reuse
         this.xScale = null;
         this.yScale = null;
+        
+        // Store raw country data by week (not cumulative)
     }
 
     init() {
@@ -72,60 +67,41 @@ export default class RacingBarChart extends ScrollyChart {
             .sort((a, b) => a.dateObject - b.dateObject)
             .map(w => w.dateString);
         
+
+        this.processedData = new Map();
+
         // For each week, store the data
         weekGroups.forEach((records, week) => {
-            this.weekData.set(week, records);
-        });
-        
-        // Build cumulative data for all countries across all weeks
-        this.countriesData = new Map();
-        
-        this.allWeeks.forEach((week, weekIndex) => {
-            const records = this.weekData.get(week);
-            
+            const weekData = new Map();
+            // For each week since the first to week included
+            // Sum up mentions for each country to get cumulative values
             records.forEach(record => {
                 const country = record.conflict_country_name;
-                
-                if (!this.countriesData.has(country)) {
-                    this.countriesData.set(country, {
-                        name: country,
-                        continent: record.conflict_continent,
-                        values: []
-                    });
+                const continent = record.conflict_continent;
+                const mentions = record.material_conflict_mentions_weighted || 0;
+
+                // Getting data for that country for the previous week
+                // The week index in allWeeks
+                const weekIndex = this.allWeeks.indexOf(week);
+                let cumulativeMentions = mentions;
+                if (weekIndex > 0) {
+                    const previousWeek = this.allWeeks[weekIndex - 1];
+                    const previousWeekData = this.processedData.get(previousWeek);
+                    if (previousWeekData && previousWeekData.has(country)) {
+                        cumulativeMentions += previousWeekData.get(country).mentions;
+                    }
                 }
                 
-                this.countriesData.get(country).values.push({
-                    week: week,
-                    weekIndex: weekIndex,
-                    mentions: record.material_conflict_mentions_weighted || 0
+                weekData.set(country, {
+                    name: country,
+                    continent: continent,
+                    mentions: cumulativeMentions
                 });
+                
             });
+            this.processedData.set(week, weekData);
         });
         
-        // Fill in missing weeks with 0
-        this.countriesData.forEach(countryData => {
-            const existingWeeks = new Set(countryData.values.map(v => v.week));
-            
-            this.allWeeks.forEach((week, weekIndex) => {
-                if (!existingWeeks.has(week)) {
-                    countryData.values.push({
-                        week: week,
-                        weekIndex: weekIndex,
-                        mentions: 0
-                    });
-                }
-            });
-            
-            // Sort by weekIndex to maintain chronological order
-            countryData.values.sort((a, b) => a.weekIndex - b.weekIndex);
-            
-            // Calculate cumulative sum
-            let cumulativeSum = 0;
-            countryData.values.forEach(v => {
-                cumulativeSum += v.mentions;
-                v.cumulativeMentions = cumulativeSum;
-            });
-        });
     }
 
     setupChart() {
@@ -172,16 +148,15 @@ export default class RacingBarChart extends ScrollyChart {
             .style('opacity', 1);
     }
 
+
     updateChart() {
         const currentWeek = this.allWeeks[this.currentWeekIndex];
         
-        // Get all countries with their cumulative values at this week
-        const countriesAtWeek = Array.from(this.countriesData.entries()).map(([name, data]) => {
-            const valueAtWeek = data.values[this.currentWeekIndex];
+        const countriesAtWeek = Array.from(this.processedData.get(currentWeek).entries()).map(([name, data]) => {
             return {
                 name: name,
                 continent: data.continent,
-                value: valueAtWeek.cumulativeMentions,
+                value: data.mentions,
                 rank: 0
             };
         });
@@ -356,7 +331,8 @@ export default class RacingBarChart extends ScrollyChart {
             if (this.currentWeekIndex < this.allWeeks.length - 1) {
                 this.setWeek(this.currentWeekIndex + 1);
             } else {
-                this.pause();
+                // Loop back to start
+                this.setWeek(0);
             }
         }, 1000);
     }

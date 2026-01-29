@@ -216,6 +216,7 @@ export default class ChordChart extends ScrollyChart {
             });
 
         // Add continent labels
+        /*
         this.arcLabels = this.arcGroups
             .append('text')
             .each(d => { d.angle = (d.startAngle + d.endAngle) / 2; })
@@ -234,6 +235,7 @@ export default class ChordChart extends ScrollyChart {
                 const continent = continents[d.index];
                 return continent.length > 15 ? continent.substring(0, 12) + '...' : continent;
             });
+        */
     }
 
     updateRibbonTooltip(d, continents) {
@@ -364,6 +366,7 @@ export default class ChordChart extends ScrollyChart {
         }
 
         // Update label positions smoothly
+        /*
         this.arcLabels
             .data(arcData, d => d.index)
             .each(d => { d.angle = (d.startAngle + d.endAngle) / 2; })
@@ -377,6 +380,7 @@ export default class ChordChart extends ScrollyChart {
                 ${d.angle > Math.PI ? 'rotate(180)' : ''}
             `)
             .attr('text-anchor', d => d.angle > Math.PI ? 'end' : 'start');
+        */
     }
 
     updateWeekDisplay(week) {
@@ -384,6 +388,15 @@ export default class ChordChart extends ScrollyChart {
         if (weekDisplay) {
             const weekDate = new Date(week);
             weekDisplay.textContent = `Week of ${weekDate.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                year: 'numeric'
+            })}`;
+        }
+        const mobileWeekDisplay = document.getElementById('mobile-week-display');
+        if (mobileWeekDisplay) {
+            const weekDate = new Date(week);
+            mobileWeekDisplay.textContent = `Week of ${weekDate.toLocaleDateString('en-US', { 
                 month: 'short', 
                 day: 'numeric',
                 year: 'numeric'

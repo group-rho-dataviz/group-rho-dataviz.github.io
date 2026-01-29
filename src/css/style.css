@@ -225,3 +225,40 @@
 #chord-container svg {
     display: block;
 }
+
+
+/* Methodology Page Styles */
+.code-block {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+/* Custom syntax highlighting colors */
+.sql-keyword { color: #3ab8d7; font-weight: 600; }
+.sql-function { color: #8d71c2; }
+.sql-string { color: #08cd19; }
+.sql-number { color: #08cd19; }
+.sql-comment { color: #6a737d; font-style: italic; }
+
+.python-keyword { color: #3ab8d7; font-weight: 600; }
+.python-function { color: #8d71c2; }
+.python-string { color: #08cd19; }
+.python-number { color: #08cd19; }
+.python-comment { color: #6a737d; font-style: italic; }
+
+/* Fade effect for table */
+.table-fade {
+    position: relative;
+}
+
+.table-fade::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, rgba(249, 250, 251, 0), rgba(249, 250, 251, 0.95) 60%, rgba(249, 250, 251, 1));
+    pointer-events: none;
+}

@@ -125,7 +125,7 @@ setTimeout(() => {
 // ===== MAP SECTION VISUALIZATIONS =====
 const chordDiagram = new ChordChart('chord-diagram', chordData, tooltip, continentColors);
 const choroplethMap = new Choropleth('choropleth-map', choroplethData, tooltip, geoData, continentColors);
-const racingChart = new RacingBarChart('racing-chart', racingData, tooltip, fips);
+const racingChart = new RacingBarChart('racing-chart', racingData, tooltip, fips, continentColors);
 
 
 // Load top 5 data early
@@ -140,6 +140,28 @@ if (legendContainer && continentColors) {
         const continentName = item.querySelector('span')?.textContent.trim();
         const colorBox = item.querySelector('.w-6.h-6.rounded-full');
         
+        if (continentName && continentColors[continentName] && colorBox) {
+            colorBox.style.backgroundColor = continentColors[continentName];
+        }
+    });
+}
+
+const mobileLegendContainer = document.getElementById('mobile-choropleth-legend');
+if (mobileLegendContainer && continentColors) {
+    const mobileLegendItems = mobileLegendContainer.querySelectorAll('.flex.items-center.gap-1');
+    mobileLegendItems.forEach(item => {
+        let continentName = item.querySelector('span')?.textContent.trim();
+        const colorBox = item.querySelector('.w-5.h-5.rounded-full');
+        
+        switch(continentName){
+            case 'NA' : continentName = 'North America'; break;
+            case 'SA' : continentName = 'South America'; break;
+            case 'OC' : continentName = 'Oceania'; break;
+            case 'EU' : continentName = 'Europe'; break;
+            case 'AS' : continentName = 'Asia'; break;
+            case 'AF' : continentName = 'Africa'; break;
+        }
+
         if (continentName && continentColors[continentName] && colorBox) {
             colorBox.style.backgroundColor = continentColors[continentName];
         }
@@ -235,7 +257,7 @@ setTimeout(async () => {
                 }
                 racingChart.play();
             } else {
-                // Pause
+                // Pause all charts
                 choroplethMap.pause();
                 chordDiagram.pause();
                 racingChart.pause();
@@ -251,20 +273,22 @@ setTimeout(async () => {
             
             // Always pause when manually scrubbing
             isAnimationPlaying = false;
-            updatePlayButtonUI();
+            
+            // Pause all charts
+            choroplethMap.pause();
+            chordDiagram.pause();
+            racingChart.pause();
             
             // Update all visualizations
-            choroplethMap.pause();
             choroplethMap.setWeek(weekIndex);
-            
-            chordDiagram.pause();
             chordDiagram.setWeek(weekIndex);
-            
-            racingChart.pause();
             racingChart.setWeek(weekIndex);
             
             // Update top 5 based on current view
             syncTop5ToWeek(weekIndex, currentView);
+            
+            // Update button UI
+            updatePlayButtonUI();
         });
         
         // Initialize play button UI
@@ -330,6 +354,60 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
         syncTop5ToWeek(currentWeek, 'map');
     }
 });
+
+document.getElementById('mobile-view-toggle-button')?.addEventListener('click', function() {
+    const mapIcon = document.getElementById('mobile-map-icon');
+    const chordIcon = document.getElementById('mobile-chord-icon');
+    const choroplethContainer = document.getElementById('choropleth-container');
+    const chordContainer = document.getElementById('chord-container');
+    
+    if (getCurrentView() === 'map') {
+        // Switch to chord view
+        chordContainer.classList.remove('hidden');
+        choroplethContainer.classList.add('hidden');
+        mapIcon.classList.remove('hidden');
+        chordIcon.classList.add('hidden');
+        
+        // Sync week position from map to chord
+        const currentWeek = choroplethMap.currentWeekIndex;
+        chordDiagram.setWeek(currentWeek);
+        
+        // Preserve animation state - only play if it was already playing
+        if (isAnimationPlaying) {
+            choroplethMap.pause(); // Pause the hidden one
+            chordDiagram.play();   // Continue playing the visible one
+        } else {
+            chordDiagram.pause();  // Keep paused if it was paused
+        }
+        
+        // Sync top 5 to current week
+        syncTop5ToWeek(currentWeek, 'chord');
+        
+    } else {
+        // Switch to map view
+        choroplethContainer.classList.remove('hidden');
+        chordContainer.classList.add('hidden');
+        mapIcon.classList.add('hidden');
+        chordIcon.classList.remove('hidden');
+        
+        // Sync week position from chord to map
+        const currentWeek = chordDiagram.currentWeekIndex;
+        choroplethMap.setWeek(currentWeek);
+        
+        // Preserve animation state - only play if it was already playing
+        if (isAnimationPlaying) {
+            chordDiagram.pause();    // Pause the hidden one
+            choroplethMap.play();     // Continue playing the visible one
+        } else {
+            choroplethMap.pause();   // Keep paused if it was paused
+        }
+        
+        // Sync top 5 to current week
+        syncTop5ToWeek(currentWeek, 'map');
+    }
+});
+
+
 
 // ===== CHART SWITCHING =====
 function createChartInstance(stepIndex) {
@@ -503,5 +581,3 @@ window.addEventListener('resize', () => {
 
     }, 250);
 });
-
-

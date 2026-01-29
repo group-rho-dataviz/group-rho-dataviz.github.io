@@ -161,9 +161,18 @@ export default class Choropleth extends ScrollyChart {
 
         // Update HTML week display (external to SVG)
         const weekDisplay = document.getElementById('week-display');
+        const mobileWeekDisplay = document.getElementById('mobile-week-display');
         if (weekDisplay) {
             const date = new Date(week);
             weekDisplay.textContent = `Week of ${date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                year: 'numeric'
+            })}`;
+        }
+        if (mobileWeekDisplay) {
+            const date = new Date(week);
+            mobileWeekDisplay.textContent = `Week of ${date.toLocaleDateString('en-US', {
                 month: 'short', 
                 day: 'numeric',
                 year: 'numeric'
@@ -252,15 +261,6 @@ export default class Choropleth extends ScrollyChart {
 
     play() {
         this.isPlaying = true;
-        const playButton = document.getElementById('play-button');
-        if (playButton) {
-            playButton.innerHTML = `
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M5 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1H6a1 1 0 01-1-1V4z"/>
-                    <path d="M11 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
-                </svg>                
-            `;
-        }
         
         this.playInterval = setInterval(() => {
             if (this.currentWeekIndex < this.weeks.length - 1) {
@@ -274,14 +274,6 @@ export default class Choropleth extends ScrollyChart {
 
     pause() {
         this.isPlaying = false;
-        const playButton = document.getElementById('play-button');
-        if (playButton) {
-            playButton.innerHTML = `
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
-                </svg>
-            `;
-        }
 
         if (this.playInterval) {
             clearInterval(this.playInterval);

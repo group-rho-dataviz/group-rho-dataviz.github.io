@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Attention Gap | Media Coverage of Global Conflicts</title>
+      <link rel="icon" type="image/x-icon" href="src/images/favicon.png">
+
+
+    <link rel="stylesheet" href="src/css/style.css">
+    <script type="module" defer src="src/js/script.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="src/js/tailwind_config.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body class="bg-gray-50 font-serif text-gray-900 antialiased">
+
+    <!-- FIXED HEADER -->
+    <header role="banner" aria-label="Site header" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="font-sans text-sm font-bold tracking-wider uppercase">The Attention Gap</a>
+
+                <!-- Desktop nav -->
+                <nav role="navigation" aria-label="Primary" class="hidden md:flex gap-8 font-sans text-sm">
+                    <a href="index.html#data" class="text-gray-600 hover:text-gray-900 transition">The Problem</a>
+                    <a href="index.html#map" class="text-gray-600 hover:text-gray-900 transition">Coverage Map</a>
+                    <a href="index.html#stories" class="text-gray-600 hover:text-gray-900 transition">Stories</a>
+                </nav>
+
+                <!-- Mobile: hamburger -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        aria-controls="mobile-menu" aria-expanded="false"
+                        onclick="(function(btn){const menu=document.getElementById('mobile-menu'); const expanded = btn.getAttribute('aria-expanded') === 'true'; menu.classList.toggle('hidden'); btn.setAttribute('aria-expanded', String(!expanded));})(this)">
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu (hidden by default) -->
+            <div id="mobile-menu" class="hidden md:hidden mt-2">
+                <div class="px-2 pt-2 pb-3 space-y-1 font-sans">
+                    <a href="index.html#data" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">The Problem</a>
+                    <a href="index.html#map" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Coverage Map</a>
+                    <a href="index.html#stories" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Stories</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="py-16 px-4 sm:px-6 lg:px-8 mt-10">
+        <article class="max-w-2xl mx-auto">
+            
+            <!-- Title -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-8 leading-tight text-gray-900">
+                Methodology
+            </h1>
+            
+            <!-- Introductory Paragraph -->
+            <div class="prose prose-lg mb-12">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    Our investigation into global media coverage patterns combines multiple data sources to reveal disparities in how conflicts are reported. We analyzed over 2.5 million news articles from the GDELT Project, cross-referenced with fatality data from ACLED's conflict database, spanning January 2024 through December 2025.
+                </p>
+                <p class="text-gray-700 text-lg leading-relaxed">
+                    The methodology involves several key steps: data extraction, normalization, sentiment analysis, and statistical comparison. Below, we detail the technical implementation of our data pipeline and analytical framework.
+                </p>
+            </div>
+            
+            <!-- SQL Code Block -->
+            <div class="mb-12">
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700">
+                    <div class="bg-gray-900 px-4 py-3 border-b border-gray-700">
+                        <div class="flex items-center gap-2">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-gray-400 text-xs font-mono ml-3">query.sql</span>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-gray-800">
+                        <pre class="code-block text-gray-100 overflow-x-auto"><code><span class="sql-comment">-- Extract media coverage data with aggregated metrics</span>
+<span class="sql-keyword">SELECT</span> 
+    country_name,
+    <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> article_id) <span class="sql-keyword">AS</span> total_mentions,
+    <span class="sql-function">AVG</span>(sentiment_score) <span class="sql-keyword">AS</span> avg_sentiment,
+    <span class="sql-function">PERCENTILE_CONT</span>(<span class="sql-number">0.5</span>) <span class="sql-keyword">WITHIN GROUP</span> 
+        (<span class="sql-keyword">ORDER BY</span> sentiment_score) <span class="sql-keyword">AS</span> median_sentiment,
+    <span class="sql-function">DATE_TRUNC</span>(<span class="sql-string">'week'</span>, publication_date) <span class="sql-keyword">AS</span> week
+<span class="sql-keyword">FROM</span> gdelt_articles
+<span class="sql-keyword">WHERE</span> 
+    publication_date <span class="sql-keyword">BETWEEN</span> <span class="sql-string">'2024-01-01'</span> <span class="sql-keyword">AND</span> <span class="sql-string">'2025-12-31'</span>
+    <span class="sql-keyword">AND</span> conflict_related <span class="sql-keyword">=</span> <span class="sql-keyword">TRUE</span>
+<span class="sql-keyword">GROUP BY</span> country_name, week
+<span class="sql-keyword">ORDER BY</span> total_mentions <span class="sql-keyword">DESC</span>;</code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Text Section -->
+            <div class="prose prose-lg mb-12">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    The query above extracts weekly aggregated metrics for each country, including total article mentions and sentiment distributions. We normalized coverage intensity by population and conflict severity to identify systematic biases in reporting patterns.
+                </p>
+                <p class="text-gray-700 text-lg leading-relaxed">
+                    After data extraction, we merged coverage metrics with fatality counts from ACLED. The resulting dataset contains 1,847 country-week observations across 58 conflict-affected nations. The table below shows a sample of our processed data:
+                </p>
+            </div>
+            
+            <!-- Table with Fade Effect -->
+            <div class="mb-12 table-fade">
+                <div class="overflow-hidden rounded-xl border border-gray-200 shadow-lg">
+                    <table class="min-w-full divide-y divide-gray-200 bg-white">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">Country</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">Week</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">Mentions</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">Fatalities</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">Sentiment</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Ukraine</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">2024-W23</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">15,842</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1,247</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-0.42</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Palestine</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">2024-W23</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">12,394</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">856</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-0.38</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Myanmar</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">2024-W23</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1,203</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">724</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-0.28</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Sudan</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">2024-W23</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">892</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1,582</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-0.51</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Burkina Faso</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">2024-W23</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">347</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">412</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-0.33</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Text Section -->
+            <div class="prose prose-lg mb-12">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    Notice the stark disparity: Sudan recorded more fatalities than Ukraine in this sample week, yet received less than 6% of the media coverage. This pattern persists across our entire dataset, revealing systematic underreporting of conflicts in Africa and Southeast Asia.
+                </p>
+                <p class="text-gray-700 text-lg leading-relaxed">
+                    To quantify these disparities, we developed a coverage-to-casualty ratio and applied statistical clustering to identify patterns. The Python implementation below demonstrates our analytical approach:
+                </p>
+            </div>
+            
+            <!-- Python Code Block -->
+            <div class="mb-16">
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700">
+                    <div class="bg-gray-900 px-4 py-3 border-b border-gray-700">
+                        <div class="flex items-center gap-2">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-gray-400 text-xs font-mono ml-3">analysis.py</span>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-gray-800">
+                        <pre class="code-block text-gray-100 overflow-x-auto"><code><span class="python-keyword">import</span> pandas <span class="python-keyword">as</span> pd
+<span class="python-keyword">import</span> numpy <span class="python-keyword">as</span> np
+<span class="python-keyword">from</span> sklearn.preprocessing <span class="python-keyword">import</span> StandardScaler
+<span class="python-keyword">from</span> sklearn.cluster <span class="python-keyword">import</span> KMeans
+
+<span class="python-comment"># Load processed data</span>
+df = pd.<span class="python-function">read_csv</span>(<span class="python-string">'coverage_fatalities.csv'</span>)
+
+<span class="python-comment"># Calculate coverage-to-casualty ratio</span>
+df[<span class="python-string">'coverage_ratio'</span>] = df[<span class="python-string">'mentions'</span>] / (df[<span class="python-string">'fatalities'</span>] + <span class="python-number">1</span>)
+
+<span class="python-comment"># Normalize by population (per 100k inhabitants)</span>
+df[<span class="python-string">'normalized_coverage'</span>] = (
+    df[<span class="python-string">'mentions'</span>] / df[<span class="python-string">'population'</span>]
+) * <span class="python-number">100000</span>
+
+<span class="python-comment"># Apply log transformation to handle skewness</span>
+df[<span class="python-string">'log_mentions'</span>] = np.<span class="python-function">log1p</span>(df[<span class="python-string">'mentions'</span>])
+df[<span class="python-string">'log_fatalities'</span>] = np.<span class="python-function">log1p</span>(df[<span class="python-string">'fatalities'</span>])
+
+<span class="python-comment"># Standardize features for clustering</span>
+scaler = <span class="python-function">StandardScaler</span>()
+features = df[[<span class="python-string">'log_mentions'</span>, <span class="python-string">'log_fatalities'</span>, <span class="python-string">'avg_sentiment'</span>]]
+X_scaled = scaler.<span class="python-function">fit_transform</span>(features)
+
+<span class="python-comment"># Cluster countries into coverage patterns</span>
+kmeans = <span class="python-function">KMeans</span>(n_clusters=<span class="python-number">4</span>, random_state=<span class="python-number">42</span>)
+df[<span class="python-string">'cluster'</span>] = kmeans.<span class="python-function">fit_predict</span>(X_scaled)
+
+<span class="python-comment"># Export results</span>
+df.<span class="python-function">to_csv</span>(<span class="python-string">'analyzed_coverage_patterns.csv'</span>, index=<span class="python-keyword">False</span>)</code></pre>
+                    </div>
+                </div>
+            </div>
+            
+        </article>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-20 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+                <!-- Brand Section -->
+                <div class="flex flex-col items-start md:items-center md:col-span-1">
+                    <h3 class="font-sans text-2xl font-bold mb-4 text-white">The Attention Gap</h3>
+                    <img src="src/images/logos/logo_UniGe_WHITE.svg" alt="University of Geneva" class="w-28 mb-4">
+                </div>
+
+                <!-- Description Section -->
+                <div class="md:col-span-2">
+                    <p class="text-gray-300 text-base leading-relaxed mb-6">
+                        A data visualization investigation exploring the disparity in global media coverage of armed conflicts. Data from ACLED, Media Cloud, GDELT and global news APIs.
+                    </p>
+                    <a href="methodology.html" class="inline-block font-sans font-semibold text-blue-400 hover:text-blue-300 transition duration-200 underline underline-offset-4">
+                        View Methodology →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-gray-800 pt-8"></div>
+
+            <!-- Bottom Section -->
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="font-sans text-sm text-gray-500">© 2025-2026 The Group Rho</p>
+                <nav class="flex gap-6 text-sm">
+                    <a href="index.html#data" class="text-gray-400 hover:text-white transition">The Problem</a>
+                    <a href="index.html#map" class="text-gray-400 hover:text-white transition">Coverage Map</a>
+                    <a href="index.html#stories" class="text-gray-400 hover:text-white transition">Stories</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" 
+            class="fixed bottom-8 right-8 bg-gradient-to-r from-red-500 to-orange-500 text-white p-3 rounded-full shadow-lg pointer-events-none transition-opacity hover:bg-brand-blue"
+            style="opacity: 0; pointer-events: none; visibility: hidden;">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+
+
+</body>
+</html>

@@ -22,47 +22,88 @@ export default function updateTop5Countries(weekData) {
         
         if (data) {
             // Update country name
-            const nameEl = document.querySelector(`.country-name-${position}`);
-            if (nameEl) {
-                nameEl.textContent = data.conflict_country_name;
+            const nameEls = document.querySelectorAll(`.country-name-${position}`);
+            if (nameEls) {
+                nameEls.forEach(el => {
+                    el.textContent = data.conflict_country_name;
+                });
             }
+
+            // Update mobile country name
+            const mobileNameEls = document.querySelectorAll(`.mobile-country-name-${position}`);
+            if (mobileNameEls) {
+                mobileNameEls.forEach(el => {
+                    if (data.conflict_country_name == 'United States') {
+                        el.textContent = 'U.S.';
+                    } 
+                    else if (data.conflict_country_name == 'United Kingdom') {
+                        el.textContent = 'U.K.';
+                    } 
+                    else {    
+                        el.textContent = data.conflict_country_name;
+                    }
+                });
+            }
+
             
             // Update mentions count
-            const mentionsEl = document.querySelector(`.mentions-count-${position}`);
-            if (mentionsEl) {
-                mentionsEl.textContent = `${data.material_conflict_mentions.toLocaleString()} Mentions`;
+            const mentionsEls = document.querySelectorAll(`.mentions-count-${position}`);
+            if (mentionsEls) {
+                mentionsEls.forEach(el => {
+                    el.textContent = `${data.material_conflict_mentions.toLocaleString()}`;
+                });
             }
             
             // Update rank change indicator
-            const rankChangeEl = document.querySelector(`.rank-change-${position}`);
-            if (rankChangeEl) {
+            const rankChangeEls = document.querySelectorAll(`.rank-change-${position}`);
+            if (rankChangeEls) {
                 const currentRank = position;
                 const previousRank = previousRankings.get(data.conflict_country_name);
                 
                 if (previousRank === undefined) {
                     // New entry
-                    rankChangeEl.innerHTML = '<span class="text-green-400">↑ NEW</span>';
+                    rankChangeEls.forEach(el => {
+                        el.innerHTML = '<span class="text-green-400">↑ NEW</span>';
+                    });
                 } else if (previousRank < currentRank) {
                     // Moved down
-                    rankChangeEl.innerHTML = `<span class="text-red-400">↓ (${previousRank})</span>`;
+                    rankChangeEls.forEach(el => {
+                        el.innerHTML = `<span class="text-red-400">↓ (${previousRank})</span>`;
+                    });
                 } else if (previousRank > currentRank) {
                     // Moved up
-                    rankChangeEl.innerHTML = `<span class="text-green-400">↑ (${previousRank})</span>`;
+                    rankChangeEls.forEach(el => {
+                        el.innerHTML = `<span class="text-green-400">↑ (${previousRank})</span>`;
+                    });
                 } else {
                     // Same position
-                    rankChangeEl.innerHTML = `<span class="text-blue-400">− (${previousRank})</span>`;
+                    rankChangeEls.forEach(el => {
+                        el.innerHTML = `<span class="text-blue-400">− (${previousRank})</span>`;
+                    });
                 }
             }
         } else {
             // No data for this position - show placeholder
-            const nameEl = document.querySelector(`.country-name-${position}`);
-            if (nameEl) nameEl.textContent = '—';
+            const nameEls = document.querySelectorAll(`.country-name-${position}`);
+            if (nameEls) {
+                nameEls.forEach(el => {
+                    el.textContent = '—';
+                });
+            }
             
-            const mentionsEl = document.querySelector(`.mentions-count-${position}`);
-            if (mentionsEl) mentionsEl.textContent = '— Mentions';
+            const mentionsEls = document.querySelectorAll(`.mentions-count-${position}`);
+            if (mentionsEls) {
+                mentionsEls.forEach(el => {
+                    el.textContent = '— Mentions';
+                });
+            }
             
-            const rankChangeEl = document.querySelector(`.rank-change-${position}`);
-            if (rankChangeEl) rankChangeEl.innerHTML = '';
+            const rankChangeEls = document.querySelectorAll(`.rank-change-${position}`);
+            if (rankChangeEls) {
+                rankChangeEls.forEach(el => {
+                    el.innerHTML = '';
+                });
+            }
         }
     }
     
