@@ -30,7 +30,7 @@ const scatterData = d3.csv('data/processed/scatter_plot_material_conflict.csv', 
 const choroplethData = d3.csv('data/processed/choropleth_top_1_material_conflict.csv', d3.autoType);
 const chordData = d3.csv('data/processed/chord_continent_data.csv', d3.autoType);
 const top5Data = d3.csv('data/processed/weekly_top_25_material_conflict.csv', d3.autoType);
-const racingData = d3.csv('data/processed/racing_line_chart.csv', d3.autoType);
+const racingData = d3.csv('data/processed/racing_bar_chart.csv', d3.autoType);
 
 // ===== JSON =====
 const geoData = await d3.json('src/json/world.json');

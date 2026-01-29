@@ -75,29 +75,12 @@ export default class RacingBarChart extends ScrollyChart {
             const weekData = new Map();
             // For each week since the first to week included
             // Sum up mentions for each country to get cumulative values
-            records.forEach(record => {
-                const country = record.conflict_country_name;
-                const continent = record.conflict_continent;
-                const mentions = record.material_conflict_mentions_weighted || 0;
-
-                // Getting data for that country for the previous week
-                // The week index in allWeeks
-                const weekIndex = this.allWeeks.indexOf(week);
-                let cumulativeMentions = mentions;
-                if (weekIndex > 0) {
-                    const previousWeek = this.allWeeks[weekIndex - 1];
-                    const previousWeekData = this.processedData.get(previousWeek);
-                    if (previousWeekData && previousWeekData.has(country)) {
-                        cumulativeMentions += previousWeekData.get(country).mentions;
-                    }
-                }
-                
-                weekData.set(country, {
-                    name: country,
-                    continent: continent,
-                    mentions: cumulativeMentions
+            records.forEach(record => {                
+                weekData.set(record.conflict_country_name, {
+                    name: record.conflict_country_name,
+                    continent: record.conflict_continent,
+                    mentions: record.material_conflict_mentions_weighted || 0
                 });
-                
             });
             this.processedData.set(week, weekData);
         });
