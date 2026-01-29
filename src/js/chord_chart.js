@@ -44,7 +44,7 @@ export default class ChordChart extends ScrollyChart {
         this.svg.selectAll('*').remove();
         
         this.g = this.svg.append('g')
-            .attr('transform', `translate(${this.width / 2},${this.height / 2})`);
+            .attr('transform', `translate(${this.width / 2},${this.height / 1.85})`);
     }
 
     async draw() {

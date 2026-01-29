@@ -383,7 +383,7 @@
                             </svg>
                             <!-- Network/connection icon (shown when map is active) -->
                             <svg id="chord-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12.956 21.777a8.688 8.688 0 0 1 .84.932 10.123 10.123 0 0 1-8.736-3.106 8.561 8.561 0 0 1 1.239-.192A9.251 9.251 0 0 0 12.5 21.8c.154 0 .304-.016.456-.023zM10.37 3.456a8.585 8.585 0 0 0 .584-1.127A10.319 10.319 0 0 0 3.44 7.603a8.642 8.642 0 0 0 1.26-.148 9.318 9.318 0 0 1 5.672-4zm11.478 4.748a8.546 8.546 0 0 0-.407 1.77A9.256 9.256 0 0 1 21.8 12.5a9.352 9.352 0 0 1-.055.992 8.57 8.57 0 0 0 .697 1.656 10.104 10.104 0 0 0-.593-6.944zm-.702 7.697a10.14 10.14 0 0 0 .648 1.007 10.335 10.335 0 0 1-6.383 5.466 10.194 10.194 0 0 0-.65-.864 9.214 9.214 0 0 0 1.657-.588 11.68 11.68 0 0 0-12.271-4.359 9.301 9.301 0 0 0 .919 1.502 10.035 10.035 0 0 0-1.053.26 10.208 10.208 0 0 1-1.23-9.21c.072 0 .143.01.216.01.29 0 .576-.02.86-.044a9.202 9.202 0 0 0-.494 1.7 11.805 11.805 0 0 0 10.6-7.454A9.284 9.284 0 0 0 12.5 3.2c-.103 0-.204.012-.306.016a10.042 10.042 0 0 0 .403-1.01 10.286 10.286 0 0 1 8.312 4.366 10.046 10.046 0 0 0-.466 1.116 9.344 9.344 0 0 0-1.18-1.553 11.727 11.727 0 0 0 .985 11.498 9.28 9.28 0 0 0 .899-1.732zm-1.522 2.565A12.68 12.68 0 0 1 18.503 5.41a9.277 9.277 0 0 0-3.55-1.87 12.806 12.806 0 0 1-11.717 8.248 9.322 9.322 0 0 0-.036.712 9.237 9.237 0 0 0 .555 3.133 12.676 12.676 0 0 1 13.554 4.812 9.362 9.362 0 0 0 2.316-1.98z"/></svg>                            
                             </svg>
                         </button>
 
@@ -533,14 +533,20 @@
         </div>
     </section>
 
-    <!-- TRANSITION -->
-    <section class="h-64 bg-gradient-to-b from-gray-900 via-gray-600 to-gray-50 flex items-center justify-center text-center px-4">
-        <p class="text-xl sm:text-2xl text-gray-400 italic font-light max-w-2xl">
-            Behind every statistic is a human story
-        </p>
+
+    <!-- TRANSITION SECTION -->
+    <section class="relative w-full h-[50vh] min-h-[500px] bg-fixed bg-cover bg-center" 
+        style="background-image: linear-gradient(to bottom, rgb(17, 24, 39), rgba(0,0,0,0)), url('src/images/myanmar/Myanmar-February-2021-military-coup-Numbers-of-people-gather-to-protest-against-a-military-coup-in-Mandalay-Myanmar-February-22-2.webp'); background-blend-mode: overlay;">
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-gray-900 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-gray-50 via-gray-50/50 to-transparent"></div>
+        <div class="absolute inset-0 flex items-center justify-center px-4">
+            <p class="text-2xl sm:text-3xl md:text-4xl text-white font-serif italic font-light tracking-wide text-center drop-shadow-md">
+                Behind every statistic is a human story
+            </p>
+        </div>
     </section>
 
-    <!-- STORIES / INSIGHTS SECTION -->
+    <!-- STORIES SECTION -->
     <section id="stories" class="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12">
@@ -551,7 +557,18 @@
                 </p>
             </div>
 
-            <div class="grid gap-8 md:grid-cols-2">
+            <figure class="w-full mb-16 relative group">
+                <div class="aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-sm bg-gray-100 shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2000&auto=format&fit=crop" 
+                         alt="Displaced families in Rakhine State, Myanmar" 
+                         class="w-full h-full object-cover transform transition duration-700 group-hover:scale-105">
+                </div>
+                <figcaption class="mt-3 text-xs sm:text-sm text-gray-500 font-sans border-l-2 border-gray-300 pl-3 italic">
+                    Displaced families in Rakhine State, Myanmar. Photo: [Photographer Name]
+                </figcaption>
+            </figure>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 mb-16 items-end">
                 <!-- Myanmar Card -->
                 <article class="bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-2">
                     <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1200&h=600&fit=crop" alt="Myanmar" class="w-full h-56 object-cover">
@@ -631,17 +648,21 @@
                         </div>
                     </div>
                 </article>
+            
             </div>
-
             <!-- Small guidance / call-to-action -->
             <div class="mt-10 text-center">
                 <p class="text-sm text-gray-500 max-w-2xl mx-auto leading-relaxed">
                     Use the interactive controls (hover, brush) to explore distributions and zoom timelines. Click events to reveal sources and reportage excerpts.
                 </p>
             </div>
+
+
         </div>
     </section>
 
+
+    
     <!-- FOOTER -->
     <footer class="bg-gray-900 text-white py-20 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
         <div class="max-w-6xl mx-auto">
