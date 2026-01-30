@@ -139,11 +139,6 @@ export default class WaffleChart extends ScrollyChart {
                         </div>`
                     );
             })
-            .on('pointerdown', (event) => {
-                if (event.pointerType === 'touch' || event.pointerType === 'pen') {
-                    this.tooltip.style('opacity', 0);
-                }
-            })
             .on('pointermove', (event) => {
                 if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
                 this.positionTooltip(event);

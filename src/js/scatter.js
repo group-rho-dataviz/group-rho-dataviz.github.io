@@ -245,7 +245,9 @@ export default class ScatterPlot extends ScrollyChart {
                     event.stopPropagation();
                     this.toggleCountryTrajectory(d, data);
                 })
-                .on('mouseover', (event, d) => {
+                .on('pointerover', (event, d) => {
+                    if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
+
                     // Don't dim points if trajectory is showing
                     if (!this.selectedCountry) {
                         this.g.selectAll('.scatter-point')
@@ -261,10 +263,13 @@ export default class ScatterPlot extends ScrollyChart {
                             .style('top', (event.pageY - 28) + 'px');
                     }
                 })
-                .on('mousemove', (event) => {
+                .on('pointermove', (event) => {
+                    if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
                     this.positionTooltip(event);
                 })
-                .on('mouseout', () => {
+                .on('pointerout', (event) => {
+                    if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
+
                     if (!this.selectedCountry) {
                         this.g.selectAll('.scatter-point-gray')
                             .attr('opacity', 0.75);
@@ -577,7 +582,8 @@ export default class ScatterPlot extends ScrollyChart {
                 .attr('stroke', '#1f2937')
                 .attr('stroke-width', 2)
                 .attr('opacity', 0)
-                .on('mouseover', (event) => {
+                .on('pointerover', (event) => {
+                    if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
                     if (this.tooltip) {
                         this.tooltip.style('opacity', 1)
                             .html(`<strong>Country:</strong> ${d.COUNTRY}<br><strong>Year:</strong> ${d.YEAR}<br><strong>Mentions:</strong> ${d.MENTIONS}<br><strong>Fatalities:</strong> ${d.FATALITIES}`)
@@ -585,10 +591,12 @@ export default class ScatterPlot extends ScrollyChart {
                             .style('top', (event.pageY - 28) + 'px');
                     }
                 })
-                .on('mousemove', (event) => {
+                .on('pointermove', (event) => {
+                    if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
                     this.positionTooltip(event);
                 })
-                .on('mouseout', () => {
+                .on('pointerout', (event) => {
+                    if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
                     if (this.tooltip) {
                         this.tooltip.style('opacity', 0);
                     }

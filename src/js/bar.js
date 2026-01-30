@@ -266,7 +266,9 @@ export default class BarChart extends ScrollyChart {
         // Update
         bars.merge(barsEnter)
             .on('click', (event, d) => { event.stopPropagation(); this.showCountries(d.cluster); })
-            .on('mouseover', (event, d) => {
+            .on('pointerover', (event, d) => {
+                if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
+
                 d3.select(event.currentTarget).style('opacity', 0.8);
                 this.tooltip
                     .style('opacity', 1)
@@ -274,10 +276,13 @@ export default class BarChart extends ScrollyChart {
                     .style('left', (event.pageX + 10) + 'px')
                     .style('top', (event.pageY - 10) + 'px');
             })
-            .on('mousemove', (event) => {
+            .on('pointermove', (event) => {
+                if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
+
                 this.positionTooltip(event);
             })
-            .on('mouseout', (event) => {
+            .on('pointerout', (event) => {
+                if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
                 d3.select(event.currentTarget).style('opacity', 1);
                 this.tooltip.style('opacity', 0);
             })
@@ -382,7 +387,9 @@ export default class BarChart extends ScrollyChart {
         // Update
         bars.merge(barsEnter)
             .on('click', null)
-            .on('mouseover', (event, d) => {
+            .on('pointerover', (event, d) => {
+                if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
+
                 d3.select(event.currentTarget).style('opacity', 0.8);
                 this.tooltip
                     .style('opacity', 1)
@@ -390,10 +397,12 @@ export default class BarChart extends ScrollyChart {
                     .style('left', (event.pageX + 10) + 'px')
                     .style('top', (event.pageY - 10) + 'px');
             })
-            .on('mousemove', (event) => {
+            .on('pointermove', (event) => {
+                if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
                 this.positionTooltip(event);
             })
-            .on('mouseout', (event) => {
+            .on('pointerout', (event) => {
+                if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
                 d3.select(event.currentTarget).style('opacity', 1);
                 this.tooltip.style('opacity', 0);
             })
