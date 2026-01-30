@@ -1,6 +1,7 @@
 // ===== CHART CLASS =====
 export default class ScrollyChart {
     constructor(svgId, data, tooltip = null) {
+        this.svgId = svgId;
         this.svg = d3.select(`#${svgId}`);
         if (this.svg.empty()) return;
         
