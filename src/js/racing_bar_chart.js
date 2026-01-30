@@ -19,6 +19,11 @@ export default class RacingBarChart extends ScrollyChart {
         this.xScale = null;
         this.yScale = null;
         
+        // Store x-axis information
+        this.xAxis = null;
+        this.xAxisGroup = null;
+        this.maxValueByWeek = new Map(); // Store max value for each week
+        
         // Store raw country data by week (not cumulative)
     }
 
@@ -30,8 +35,8 @@ export default class RacingBarChart extends ScrollyChart {
         this.width = bbox.width;
         this.height = bbox.height;
 
-        // Minimal margins since we don't need axes
-        this.margin = { top: 60, right: 20, bottom: 40, left: 20 };
+        // Margins to accommodate top axis
+        this.margin = { top: 80, right: 40, bottom: 40, left: 20 };
         this.innerWidth = this.width - this.margin.left - this.margin.right;
         this.innerHeight = this.height - this.margin.top - this.margin.bottom;
 
@@ -69,33 +74,88 @@ export default class RacingBarChart extends ScrollyChart {
         
 
         this.processedData = new Map();
+        this.maxValueByWeek = new Map();
 
-        // For each week, store the data
+        // For each week, store the data and compute max value
         weekGroups.forEach((records, week) => {
             const weekData = new Map();
+            let maxValue = 0;
+            
             // For each week since the first to week included
             // Sum up mentions for each country to get cumulative values
             records.forEach(record => {                
+                const mentions = record.material_conflict_mentions || 0;
                 weekData.set(record.conflict_country_name, {
                     name: record.conflict_country_name,
                     continent: record.conflict_continent,
-                    mentions: record.material_conflict_mentions_weighted || 0
+                    mentions: mentions
                 });
+                maxValue = Math.max(maxValue, mentions);
             });
+            
             this.processedData.set(week, weekData);
+            this.maxValueByWeek.set(week, maxValue);
         });
         
     }
 
     setupChart() {
-        // Create x scale that will be reused and updated
-        this.xScale = d3.scaleLinear()
-            .range([0, this.innerWidth]);
+        // Create x scale that will be reused and updated (logarithmic)
+        this.xScale = d3.scaleLog()
+            .range([0, this.innerWidth])
+            .clamp(true); // Prevent issues with zero/negative values
         
         // Create y scale for positioning bars
         this.yScale = d3.scaleBand()
             .range([0, this.innerHeight])
             .padding(0.2);
+        
+        // Create x-axis with custom formatting
+        this.xAxis = d3.axisTop(this.xScale)
+            .tickSize(-this.innerHeight) // Grid lines extending down
+            .tickPadding(12)
+            .tickValues([10000, 100000, 1000000, 10000000, 100000000]); // 5 ticks with custom formatting
+        
+        // Create axis group with styling
+        this.xAxisGroup = this.g.append('g')
+            .attr('class', 'x-axis')
+            .attr('transform', `translate(0, -20)`); // Position above the chart
+        
+        // Style the axis
+        this.styleAxis();
+    }
+    
+    formatAxisValue(value) {
+        // Format large numbers in a readable way
+        if (value >= 1000000) {
+            return (value / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+        } else if (value >= 1000) {
+            return (value / 1000).toFixed(0) + 'k';
+        }
+        return value.toFixed(0);
+    }
+    
+    styleAxis() {
+        if (!this.xAxisGroup) return;
+        
+        // Style the domain line (make it invisible)
+        this.xAxisGroup.select('.domain')
+            .style('stroke', 'none');
+        
+        // Style grid lines
+        this.xAxisGroup.selectAll('.tick line')
+            .style('stroke', '#e5e7eb')
+            .style('stroke-width', '1px')
+            .style('stroke-dasharray', '2,3')
+            .style('opacity', 0.5);
+        
+        // Style tick labels
+        this.xAxisGroup.selectAll('.tick text')
+            .style('font-family', 'Inter, system-ui, sans-serif')
+            .style('font-size', '11px')
+            .style('font-weight', '500')
+            .style('fill', '#6b7280')
+            .style('letter-spacing', '0.01em');
     }
 
     getDisplayName(countryName) {
@@ -151,10 +211,39 @@ export default class RacingBarChart extends ScrollyChart {
         // Assign ranks
         topCountries.forEach((d, i) => d.rank = i);
         
-        // Update scales
-        const maxValue = d3.max(topCountries, d => d.value) || 100;
-        this.xScale.domain([0, maxValue * 1.1]);
+        // Update scales - for log scale, ensure minimum value is at least 1
+        const maxValue = this.maxValueByWeek.get(currentWeek) || 100;
+        const minValue = d3.min(topCountries, d => d.value) || 1;
+        
+        // Set domain with intelligent bounds for logarithmic scale
+        // Use a nice round lower bound (power of 10)
+        const lowerBound = Math.pow(10, Math.floor(Math.log10(minValue)));
+        // Upper bound with some padding
+        const upperBound = maxValue * 1.2;
+        
+        this.xScale.domain([lowerBound, upperBound]);
         this.yScale.domain(topCountries.map(d => d.name));
+        
+        // Dynamically filter tick values to only show those within the visible range
+        const allTickValues = [10000, 100000, 1000000, 10000000, 100000000];
+        const visibleTicks = allTickValues.filter(tick => 
+            tick >= lowerBound && tick <= upperBound
+        );
+
+        // Update the axis tick values
+        this.xAxis.tickValues(visibleTicks);
+
+        // Update axis with smooth transition
+        if (this.xAxisGroup) {
+            this.xAxisGroup
+                .transition()
+                .duration(500)
+                .ease(d3.easeQuadInOut)
+                .call(this.xAxis);
+            
+            // Re-apply styling after transition
+            this.styleAxis();
+        }
         
         // Bind data to bars
         const bars = this.g.selectAll('.country-bar')
@@ -242,9 +331,10 @@ export default class RacingBarChart extends ScrollyChart {
         barsUpdate
             .transition()
             .duration(500)
+            .ease(d3.easeQuadInOut)
             .attr('y', d => this.yScale(d.name))
             .attr('height', this.yScale.bandwidth())
-            .attr('width', d => this.xScale(d.value))
+            .attr('width', d => this.xScale(Math.max(1, d.value))) // Ensure value is at least 1 for log scale
             .attr('fill', d => this.continentColors[d.continent] || '#6b7280');
         
         // Country labels (centered on bars) - only show if they fit
@@ -279,13 +369,14 @@ export default class RacingBarChart extends ScrollyChart {
         labelsUpdate
             .transition()
             .duration(500)
-            .attr('x', d => this.xScale(d.value) / 2) // Center horizontally
+            .ease(d3.easeQuadInOut)
+            .attr('x', d => this.xScale(Math.max(1, d.value)) / 2) // Center horizontally
             .attr('y', d => this.yScale(d.name) + this.yScale.bandwidth() / 2)
             .attr('opacity', function(d) {
                 const displayName = self.getDisplayName(d.name);
                 // Calculate approximate text width (rough estimate: 7px per character)
                 const textWidth = displayName.length * 7 + 20; // +20 for padding
-                const barWidth = self.xScale(d.value);
+                const barWidth = self.xScale(Math.max(1, d.value));
                 return barWidth > textWidth ? 1 : 0;
             })
             .tween('text', function(d) {
