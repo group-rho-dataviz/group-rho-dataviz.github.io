@@ -333,7 +333,6 @@ export default class ChordChart extends ScrollyChart {
         
         this.arcPaths
             .data(arcData, d => d.index)
-            .join('path')
             .on('mouseover', (event, d) => {
                 d3.select(event.currentTarget).attr('opacity', 1);
 
@@ -357,7 +356,23 @@ export default class ChordChart extends ScrollyChart {
             .transition()
             .duration(400)
             .ease(d3.easeCubicInOut)
-            .attr('d', this.arcGenerator)
+            .attrTween('d', function(d) {
+                const node = this;
+                const previous = node.__data__ || d; // Fallback to current data if no previous
+                const interpolateStart = d3.interpolate(previous.startAngle, d.startAngle);
+                const interpolateEnd = d3.interpolate(previous.endAngle, d.endAngle);
+                const interpolateValue = d3.interpolate(previous.value, d.value);
+                
+                return (t) => {
+                    const interpolated = {
+                        startAngle: interpolateStart(t),
+                        endAngle: interpolateEnd(t),
+                        value: interpolateValue(t),
+                        index: d.index
+                    };
+                    return this.arcGenerator(interpolated);
+                };
+            }.bind(this))
             .attr('fill', d => colorScale(continents[d.index]));
 
         // If an arc is currently hovered, update its tooltip
