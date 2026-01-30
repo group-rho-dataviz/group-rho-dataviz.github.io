@@ -82,7 +82,7 @@
             <div class="prose prose-lg mb-12">
                 <p class="text-gray-700 text-lg leading-relaxed mb-6">
                 The procedure we followed to extract and analyze data from the GDELT database involved querying the dataset using SQL on Google BigQuery. The initial step was to generate a lookup table as described by 
-                <a href="https://blog.gdeltproject.org/mapping-the-media-a-geographic-lookup-of-gdelts-sources-2015-2021/" class="underline">an article on the GDELT website</a>.
+                <a href="https://blog.gdeltproject.org/mapping-the-media-a-geographic-lookup-of-gdelts-sources-2015-2021/" class="text-blue-600 hover:underline">an article on the GDELT website</a>.
                 </p>
             </div>
             
@@ -502,7 +502,7 @@
             <!-- Text Section -->
             <div class="prose prose-lg mb-12">
                 <p class="text-gray-700 text-lg leading-relaxed mb-6">
-                    The dataset we collected from GDELT consists of 7802681 rows and 28 columns, which leads to a total size of 2.53 GB. 
+                    The dataset we collected from GDELT consists of 7&nbsp;802&nbsp;681 rows and 28 columns, which leads to a total size of 2.53 GB. 
                     To effectively store this large volume of data locally we utilized the Parquet file format, known for its efficient storage and retrieval capabilities.
                     We also subdivided the dataset into smaller, more manageable chunks, as described in the code snippet below.
                 </p>
@@ -591,10 +591,27 @@ df_articles.<span class="python-function">to_parquet</span>(save_path + <span cl
                 <div class="bg-orange-50 border-l-4 border-orange-400 p-6 mb-6">
                     <h3 class="text-orange-600 font-bold text-sm uppercase tracking-wide mb-3">WHERE TO FIND THE DATA</h3>
                     <p class="text-gray-700 text-lg leading-relaxed m-0">
-                        Since data have already been processed and stored in Parquet format by us, but they were still too heavy to be uploaded to our github repository, you can instead directly access the normalized GDELT dataset files from our kaggle folder: <a href="kaggle.com/competitions/attention-gap/data" class="text-blue-600 hover:underline">kaggle.com/competitions/attention-gap/data</a>.
+                        Since data has already been processed and stored in Parquet format by us, but resulting files were still too heavy to be uploaded to our github repository, you can instead directly access the normalized GDELT dataset files from our kaggle folder: <a href="kaggle.com/competitions/attention-gap/data" class="text-blue-600 hover:underline">kaggle.com/competitions/attention-gap/data</a>.
                     </p>
                 </div>
             </div>            
+
+            <h2 class="sm:text-4xl lg:text-4xl font-black mb-8 leading-tight text-gray-900">ACLED Data</h2>
+            <div class="prose prose-lg mb-12">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    The ACLED Data we used can be downloaded from the <a href="https://acleddata.com/" class="text-blue-600 hover:underline">ACLED website</a> after a registration.
+                </p>
+            </div>
+
+            <h2 class="sm:text-4xl lg:text-4xl font-black mb-8 leading-tight text-gray-900">Chart Preprocessing</h2>
+            <div class="prose prose-lg mb-12">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    In order to create more compact datasets to our purpose we used python notebooks to preprocess the data and create the charts shown in the website. 
+                    The code used for the preprocessing is available in our <a href="https://github.com/group-rho-dataviz" class="text-blue-600 hover:underline">GitHub repository</a>.
+                </p>
+            </div>
+
+
             
         </article>
     </main>
