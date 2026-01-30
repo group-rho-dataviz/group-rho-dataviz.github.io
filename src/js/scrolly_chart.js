@@ -9,6 +9,8 @@ export default class ScrollyChart {
         // Data should be a Promise that resolves to an array of objects
         this.data = data;
         this.tooltip = tooltip;
+        this.safeWidth = w => Math.max(0, w);
+
         this.init();
     }
 

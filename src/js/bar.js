@@ -20,7 +20,7 @@ export default class BarChart extends ScrollyChart {
         if (!container) return;
 
         const bbox = container.getBoundingClientRect();
-        this.width = bbox.width;
+        this.width = Math.max(360, bbox.width);
         
         // Adjust margins for mobile
         this.height = Math.max(bbox.height, 550);
@@ -42,6 +42,8 @@ export default class BarChart extends ScrollyChart {
             .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
 
         this.xScale = d3.scaleBand().range([0, this.innerWidth]).padding(0.2);
+        this.safeBandwidth = () => Math.max(0, this.xScale.bandwidth());
+
         this.yScale = d3.scaleLinear().range([this.innerHeight, 0]);
 
         this.xAxisG = this.g.append('g')
@@ -218,9 +220,12 @@ export default class BarChart extends ScrollyChart {
 
         // Update title
         this.title
+            .interrupt()
+            .style('opacity', 0)
+            .text('Countries by Fatality Cluster (2025)')
             .transition()
             .duration(300)
-            .text('Countries by Fatality Cluster (2025)');
+            .style('opacity', 1);
 
         this.yAxisLabel
             .transition()
@@ -257,7 +262,7 @@ export default class BarChart extends ScrollyChart {
             .append('rect')
             .attr('class', 'cluster-bar')
             .attr('x', d => this.xScale(d.cluster))
-            .attr('width', this.xScale.bandwidth())
+            .attr('width', this.safeBandwidth())            
             .attr('y', this.innerHeight)
             .attr('height', 0)
             .attr('fill', d => d.color)
@@ -287,7 +292,7 @@ export default class BarChart extends ScrollyChart {
             .transition()
             .duration(600)
             .attr('x', d => this.xScale(d.cluster))
-            .attr('width', this.xScale.bandwidth())
+            .attr('width', this.safeBandwidth())            
             .attr('y', d => this.yScale(d.count))
             .attr('height', d => this.innerHeight - this.yScale(d.count))
             .attr('fill', d => d.color);
@@ -374,7 +379,7 @@ export default class BarChart extends ScrollyChart {
             .append('rect')
             .attr('class', 'cluster-bar')
             .attr('x', this.xScale(cluster))
-            .attr('width', this.xScale.bandwidth())
+            .attr('width', this.safeBandwidth())            
             .attr('y', this.innerHeight)
             .attr('height', 0)
             .style('cursor', 'pointer');
@@ -403,7 +408,7 @@ export default class BarChart extends ScrollyChart {
             .transition()
             .duration(600)
             .attr('x', this.xScale(cluster))
-            .attr('width', this.xScale.bandwidth())
+            .attr('width', this.safeBandwidth())            
             .attr('y', d => this.yScale(d.end))
             .attr('height', d => Math.max(0, this.yScale(d.start) - this.yScale(d.end)))
             .attr('fill', (d, i) => colorScale(i));

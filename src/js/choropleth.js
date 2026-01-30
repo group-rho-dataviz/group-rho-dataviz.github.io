@@ -23,8 +23,8 @@ export default class Choropleth extends ScrollyChart {
         if (!container) return;
 
         const bbox = container.getBoundingClientRect();
-        this.width = bbox.width;
-        this.height = bbox.height;
+        this.width = Math.max(360, bbox.width);
+        this.height = Math.max(240, bbox.height);
         
         this.margin = { top: 10, right: 10, bottom: 10, left: 10 };
         this.innerWidth = this.width - this.margin.left - this.margin.right;
@@ -37,7 +37,12 @@ export default class Choropleth extends ScrollyChart {
             .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
 
         // Set up projection - responsive scaling
-        const scale = Math.min(this.innerWidth / 6, this.innerHeight / 3.2);
+        const scale = Math.max(
+            90, // minimum safe Mercator scale
+            Math.min(this.innerWidth / 6, this.innerHeight / 3.2)
+        );
+
+
         this.projection = d3.geoMercator()
             .scale(scale)
             .center([15, 25])

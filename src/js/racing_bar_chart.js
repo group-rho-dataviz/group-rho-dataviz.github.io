@@ -253,7 +253,7 @@ export default class RacingBarChart extends ScrollyChart {
         bars.exit()
             .transition()
             .duration(500)
-            .attr('width', 0)
+            .attr('width', this.safeWidth(0))
             .attr('opacity', 0)
             .remove();
         
@@ -264,7 +264,7 @@ export default class RacingBarChart extends ScrollyChart {
             .attr('x', 0)
             .attr('y', d => this.yScale(d.name))
             .attr('height', this.yScale.bandwidth())
-            .attr('width', 0)
+            .attr('width', this.safeWidth(0))
             .attr('fill', d => this.continentColors[d.continent] || '#6b7280')
             .attr('rx', 4)
             .attr('opacity', 0.9);
@@ -334,7 +334,7 @@ export default class RacingBarChart extends ScrollyChart {
             .ease(d3.easeQuadInOut)
             .attr('y', d => this.yScale(d.name))
             .attr('height', this.yScale.bandwidth())
-            .attr('width', d => this.xScale(Math.max(1, d.value))) // Ensure value is at least 1 for log scale
+            .attr('width', d => this.safeWidth(this.xScale(Math.max(1, d.value)))) // Ensure value is at least 1 for log scale
             .attr('fill', d => this.continentColors[d.continent] || '#6b7280');
         
         // Country labels (centered on bars) - only show if they fit
