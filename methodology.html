@@ -134,7 +134,54 @@
             <!-- Text Section -->
             <div class="prose prose-lg mb-12">
                 <p class="text-gray-700 text-lg leading-relaxed mb-6">
-                    After creating the domain-to-country lookup table, we queried the GDELT database to aggregate media mentions weekly by grouping 
+                    The previous query returned a handy lookup table mapping media domains to their respective country codes based on the geographic distribution of their articles.
+                    Below you can see few selected rows of the generated lookup table. 
+                </p>
+            </div>
+
+
+            <!-- Table with Fade Effect -->
+            <div class="mb-12 table-fade">
+                <div class="overflow-hidden rounded-xl border border-gray-200 shadow-lg">
+                    <table class="min-w-full divide-y divide-gray-200 bg-white">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">domain</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">MediaCountryCode</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">aruba.com</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">AA</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">dubaitravelblog.com</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">AE</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">de24live.de</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">GM</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">genovatoday.it</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">IT</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">novamallorca.com</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">SP</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            
+            <!-- Text Section -->
+            <div class="prose prose-lg mb-12">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    After creating the domain-to-country lookup table, we queried the GDELT database to aggregate media mentions weekly.
+                    The primary key of our aggregation consists of the following dimensions:<pre>mention_week, conflict_country, actor1_country, actor2_country, media_country</pre>
                 </p>
             </div>
 
@@ -148,212 +195,316 @@
                                 <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                                 <div class="w-3 h-3 rounded-full bg-green-500"></div>
                             </div>
-                            <span class="text-gray-400 text-xs font-mono ml-3">lookup.sql</span>
+                            <span class="text-gray-400 text-xs font-mono ml-3">weekly_media_conflict_reports.sql</span>
                         </div>
                     </div>
                     <div class="p-6 bg-gray-800">                        
-<pre class="code-block text-gray-100 overflow-x-auto"><code>
-    CREATE OR REPLACE TABLE gdelt-dataviz-project.gdelt_agg.weekly_media_conflict_reports AS
+<pre class="code-block text-gray-100 overflow-x-auto"><code><span class="sql-keyword">CREATE OR REPLACE TABLE</span> gdelt-dataviz-project.gdelt_agg.weekly_media_conflict_reports <span class="sql-keyword">AS</span>
+<span class="sql-keyword">SELECT</span>
+  <span class="sql-comment">-- 1. TIME: Weekly Granularity</span>
+  <span class="sql-function">DATE_TRUNC</span>(
+    <span class="sql-function">DATE</span>(<span class="sql-function">PARSE_TIMESTAMP</span>(<span class="sql-string">'%Y%m%d%H%M%S'</span>, <span class="sql-function">CAST</span>(m.MentionTimeDate <span class="sql-keyword">AS</span> <span class="sql-keyword">STRING</span>))), 
+    <span class="sql-function">WEEK</span>(MONDAY)
+  ) <span class="sql-keyword">AS</span> mention_week,
 
-SELECT
-  -- 1. TIME: Weekly Granularity
-  DATE_TRUNC(
-    DATE(PARSE_TIMESTAMP('%Y%m%d%H%M%S', CAST(m.MentionTimeDate AS STRING))), 
-    WEEK(MONDAY)
-  ) AS mention_week,
+  <span class="sql-comment">-- 2. LOCATION: WHERE the conflict is happening</span>
+  e.ActionGeo_CountryCode <span class="sql-keyword">AS</span> conflict_country,
 
-  -- 2. LOCATION: WHERE the conflict is happening
-  e.ActionGeo_CountryCode AS conflict_country,
+  <span class="sql-comment">-- 3. ACTORS: WHO is involved in the conflict</span>
+  <span class="sql-function">IFNULL</span>(e.Actor1CountryCode, <span class="sql-string">'UNK'</span>) <span class="sql-keyword">AS</span> actor1_country,
+  <span class="sql-function">IFNULL</span>(e.Actor2CountryCode, <span class="sql-string">'UNK'</span>) <span class="sql-keyword">AS</span> actor2_country,
 
-  -- 3. ACTORS: WHO is involved in the conflict
-  IFNULL(e.Actor1CountryCode, 'UNK') AS actor1_country,
-  IFNULL(e.Actor2CountryCode, 'UNK') AS actor2_country,
-  -- If null keep it null
-  -- e.Actor1CountryCode AS actor1_country,
-  -- e.Actor2CountryCode AS actor2_country,
+  <span class="sql-comment">-- 4. MEDIA SOURCE: WHERE the media is reporting from</span>
+  <span class="sql-comment">-- Uses the GDELT Lookup we created above</span>
+  <span class="sql-function">IFNULL</span>(dlc_lookup.MediaCountryCode, <span class="sql-string">'UNK'</span>) <span class="sql-keyword">AS</span> media_country,
 
-  -- 4. MEDIA SOURCE: WHERE the media is reporting from
-  -- Uses the GDELT Lookup we created above
-  IFNULL(dlc_lookup.MediaCountryCode, 'UNK') AS media_country,
-  -- lookup.MediaCountryCode AS media_country,
+  <span class="sql-comment">-- 5. METRICS (Aggregated)</span>
+  <span class="sql-function">COUNT</span>(*) <span class="sql-keyword">AS</span> mentions_count,
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> m.GLOBALEVENTID) <span class="sql-keyword">AS</span> distinct_events,
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT</span> m.MentionSourceName) <span class="sql-keyword">AS</span> distinct_media_sources,
 
-  -- 5. METRICS (Aggregated)
-  COUNT(*) AS mentions_count,
-  COUNT(DISTINCT m.GLOBALEVENTID) AS distinct_events,
-  COUNT(DISTINCT m.MentionSourceName) AS distinct_media_sources,
+  <span class="sql-comment">-- 6. METRICS: CLASS PROFILE (Volume vs Diversity)</span>
+  <span class="sql-comment">-- Volume (How many articles?)</span>
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">CASE WHEN</span> e.QuadClass = 3 <span class="sql-keyword">THEN</span> 1 <span class="sql-keyword">END</span>)
+  <span class="sql-keyword">AS</span> verbal_conflict_mentions,
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">CASE WHEN</span> e.QuadClass = 4 <span class="sql-keyword">THEN</span> 1 <span class="sql-keyword">END</span>)
+  <span class="sql-keyword">AS</span> material_conflict_mentions,
+  <span class="sql-comment">-- Diversity (How many unique events?)</span>
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT CASE WHEN</span> e.QuadClass = 3 <span class="sql-keyword">THEN</span> m.GLOBALEVENTID <span class="sql-keyword">END</span>)
+  <span class="sql-keyword">AS</span> verbal_conflict_unique_events,
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT CASE WHEN</span> e.QuadClass = 4 <span class="sql-keyword">THEN</span> m.GLOBALEVENTID <span class="sql-keyword">END</span>)
+  <span class="sql-keyword">AS</span> material_conflict_unique_events,
 
-  -- 6. METRICS: CLASS PROFILE (Volume vs Diversity)
-  -- Volume (Quanti Articoli)
-  COUNT(CASE WHEN e.QuadClass = 3 THEN 1 END) AS verbal_conflict_mentions,
-  COUNT(CASE WHEN e.QuadClass = 4 THEN 1 END) AS material_conflict_mentions,
-  -- Diversity (Quanti Eventi Unici)
-  COUNT(DISTINCT CASE WHEN e.QuadClass = 3 THEN m.GLOBALEVENTID END) AS verbal_conflict_unique_events,
-  COUNT(DISTINCT CASE WHEN e.QuadClass = 4 THEN m.GLOBALEVENTID END) AS material_conflict_unique_events,
-
-  -- 7. METRICS: ACTOR PROFILE (Chi partecipa?)
-  -- Qui usiamo la logica "INVOLVES": Ci interessa se la categoria è presente nell'evento (o come attore 1 o come 2)
+  <span class="sql-comment">-- 7. METRICS: ACTOR PROFILE</span>
+  <span class="sql-comment">-- STATE (Gov, Mil, Police, ecc)</span>
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">CASE WHEN</span> 
+      e.Actor1Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'GOV'</span>, <span class="sql-string">'MIL'</span>, <span class="sql-string">'COP'</span>, <span class="sql-string">'JUD'</span>, <span class="sql-string">'LEG'</span>, <span class="sql-string">'SPY'</span>) <span class="sql-keyword">OR</span> 
+      e.Actor2Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'GOV'</span>, <span class="sql-string">'MIL'</span>, <span class="sql-string">'COP'</span>, <span class="sql-string">'JUD'</span>, <span class="sql-string">'LEG'</span>, <span class="sql-string">'SPY'</span>) 
+  <span class="sql-keyword">THEN</span> 1 <span class="sql-keyword">END</span>) <span class="sql-keyword">AS</span> state_mentions,
   
-  -- STATE (Gov, Mil, Police, ecc)
-  COUNT(CASE WHEN 
-      e.Actor1Type1Code IN ('GOV', 'MIL', 'COP', 'JUD', 'LEG', 'SPY') OR 
-      e.Actor2Type1Code IN ('GOV', 'MIL', 'COP', 'JUD', 'LEG', 'SPY') 
-  THEN 1 END) AS state_mentions,
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT CASE WHEN</span> 
+      e.Actor1Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'GOV'</span>, <span class="sql-string">'MIL'</span>, <span class="sql-string">'COP'</span>, <span class="sql-string">'JUD'</span>, <span class="sql-string">'LEG'</span>, <span class="sql-string">'SPY'</span>) <span class="sql-keyword">OR</span> 
+      e.Actor2Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'GOV'</span>, <span class="sql-string">'MIL'</span>, <span class="sql-string">'COP'</span>, <span class="sql-string">'JUD'</span>, <span class="sql-string">'LEG'</span>, <span class="sql-string">'SPY'</span>) 
+  <span class="sql-keyword">THEN</span> m.GLOBALEVENTID <span class="sql-keyword">END</span>) <span class="sql-keyword">AS</span> state_unique_events,
+
+  <span class="sql-comment">-- INSURGENTS (Rebels, Separatists, etc)</span>
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">CASE WHEN</span> 
+      e.Actor1Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'REB'</span>, <span class="sql-string">'INS'</span>, <span class="sql-string">'SEP'</span>, <span class="sql-string">'OPP'</span>, <span class="sql-string">'CRM'</span>) <span class="sql-keyword">OR</span> 
+      e.Actor2Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'REB'</span>, <span class="sql-string">'INS'</span>, <span class="sql-string">'SEP'</span>, <span class="sql-string">'OPP'</span>, <span class="sql-string">'CRM'</span>) 
+  <span class="sql-keyword">THEN</span> 1 <span class="sql-keyword">END</span>) <span class="sql-keyword">AS</span> insurgents_mentions,
+
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT CASE WHEN</span> 
+      e.Actor1Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'REB'</span>, <span class="sql-string">'INS'</span>, <span class="sql-string">'SEP'</span>, <span class="sql-string">'OPP'</span>, <span class="sql-string">'CRM'</span>) <span class="sql-keyword">OR</span> 
+      e.Actor2Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'REB'</span>, <span class="sql-string">'INS'</span>, <span class="sql-string">'SEP'</span>, <span class="sql-string">'OPP'</span>, <span class="sql-string">'CRM'</span>) 
+  <span class="sql-keyword">THEN</span> m.GLOBALEVENTID <span class="sql-keyword">END</span>) <span class="sql-keyword">AS</span> insurgents_unique_events,
+
+  <span class="sql-comment">-- CIVILIANS (The Victims usually)</span>
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">CASE WHEN</span> 
+      e.Actor1Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'CVL'</span>, <span class="sql-string">'REF'</span>, <span class="sql-string">'ELI'</span>, <span class="sql-string">'BUS'</span>, <span class="sql-string">'EDU'</span>, <span class="sql-string">'LAB'</span>, <span class="sql-string">'MED'</span>, <span class="sql-string">'REL'</span>, <span class="sql-string">'AGR'</span>) <span class="sql-keyword">OR</span> 
+      e.Actor2Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'CVL'</span>, <span class="sql-string">'REF'</span>, <span class="sql-string">'ELI'</span>, <span class="sql-string">'BUS'</span>, <span class="sql-string">'EDU'</span>, <span class="sql-string">'LAB'</span>, <span class="sql-string">'MED'</span>, <span class="sql-string">'REL'</span>, <span class="sql-string">'AGR'</span>) 
+  <span class="sql-keyword">THEN</span> 1 <span class="sql-keyword">END</span>) <span class="sql-keyword">AS</span> civilians_mentions,
+
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT CASE WHEN</span> 
+      e.Actor1Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'CVL'</span>, <span class="sql-string">'REF'</span>, <span class="sql-string">'ELI'</span>, <span class="sql-string">'BUS'</span>, <span class="sql-string">'EDU'</span>, <span class="sql-string">'LAB'</span>, <span class="sql-string">'MED'</span>, <span class="sql-string">'REL'</span>, <span class="sql-string">'AGR'</span>) <span class="sql-keyword">OR</span> 
+      e.Actor2Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'CVL'</span>, <span class="sql-string">'REF'</span>, <span class="sql-string">'ELI'</span>, <span class="sql-string">'BUS'</span>, <span class="sql-string">'EDU'</span>, <span class="sql-string">'LAB'</span>, <span class="sql-string">'MED'</span>, <span class="sql-string">'REL'</span>, <span class="sql-string">'AGR'</span>) 
+  <span class="sql-keyword">THEN</span> m.GLOBALEVENTID <span class="sql-keyword">END</span>) <span class="sql-keyword">AS</span> civilians_unique_events,
+
+  <span class="sql-comment">-- INTERNATIONALS (NGO, IGO)</span>
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">CASE WHEN</span> 
+      e.Actor1Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'IGO'</span>, <span class="sql-string">'NGO'</span>, <span class="sql-string">'MNC'</span>) <span class="sql-keyword">OR</span> 
+      e.Actor2Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'IGO'</span>, <span class="sql-string">'NGO'</span>, <span class="sql-string">'MNC'</span>) 
+  <span class="sql-keyword">THEN</span> 1 <span class="sql-keyword">END</span>) <span class="sql-keyword">AS</span> international_mentions,
+
+  <span class="sql-function">COUNT</span>(<span class="sql-keyword">DISTINCT CASE WHEN</span> 
+      e.Actor1Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'IGO'</span>, <span class="sql-string">'NGO'</span>, <span class="sql-string">'MNC'</span>) <span class="sql-keyword">OR</span> 
+      e.Actor2Type1Code <span class="sql-keyword">IN</span> (<span class="sql-string">'IGO'</span>, <span class="sql-string">'NGO'</span>, <span class="sql-string">'MNC'</span>) 
+  <span class="sql-keyword">THEN</span> m.GLOBALEVENTID <span class="sql-keyword">END</span>) <span class="sql-keyword">AS</span> international_unique_events,
+
+  <span class="sql-comment">-- Sentiment Analysis</span>
+  <span class="sql-function">AVG</span>(m.MentionDocTone) <span class="sql-keyword">AS</span> avg_tone,
+  <span class="sql-function">STDDEV</span>(m.MentionDocTone) <span class="sql-keyword">AS</span> stddev_tone,
+  <span class="sql-function">APPROX_QUANTILES</span>(m.MentionDocTone, 2)[<span class="sql-keyword">OFFSET</span>(1)] <span class="sql-keyword">AS</span> median_tone,
+
+  <span class="sql-comment">-- Impact (Weighted by mentions)</span>
+  <span class="sql-function">AVG</span>(e.GoldsteinScale) <span class="sql-keyword">AS</span> avg_impact,
+  <span class="sql-function">STDDEV</span>(e.GoldsteinScale) <span class="sql-keyword">AS</span> stddev_impact,
+  <span class="sql-function">APPROX_QUANTILES</span>(e.GoldsteinScale, 2)[<span class="sql-keyword">OFFSET</span>(1)] <span class="sql-keyword">AS</span> median_impact,
+
+  <span class="sql-comment">-- Most mentioned article</span>
+  <span class="sql-function">ARRAY_AGG</span>(
+    <span class="sql-function">STRUCT</span>(m.MentionIdentifier, e.NumMentions) 
+    <span class="sql-keyword">ORDER BY</span> e.NumMentions <span class="sql-keyword">DESC LIMIT</span> 1
+  )[<span class="sql-keyword">OFFSET</span>(0)].MentionIdentifier <span class="sql-keyword">AS</span> top_event_article_url,
+
+  <span class="sql-comment">-- Most impactful article</span>
+  <span class="sql-function">ARRAY_AGG</span>(
+    <span class="sql-function">STRUCT</span>(m.MentionIdentifier, e.GoldsteinScale) 
+    <span class="sql-keyword">ORDER BY</span> e.GoldsteinScale <span class="sql-keyword">ASC LIMIT</span> 1
+  )[<span class="sql-keyword">OFFSET</span>(0)].MentionIdentifier <span class="sql-keyword">AS</span> most_impactful_event_article_url  
+
+
+<span class="sql-keyword">FROM</span> <span class="sql-string">`gdelt-bq.gdeltv2.eventmentions_partitioned`</span> m
+<span class="sql-keyword">JOIN</span> <span class="sql-string">`gdelt-bq.gdeltv2.events_partitioned`</span> e
+  <span class="sql-keyword">ON</span> m.GLOBALEVENTID = e.GLOBALEVENTID
+
+<span class="sql-comment">-- JOIN LOOKUP</span>
+<span class="sql-keyword">LEFT JOIN</span> <span class="sql-string">`gdelt-dataviz-project.gdelt_agg.lookup_table`</span> dlc_lookup
+  <span class="sql-keyword">ON</span> <span class="sql-function">NET.REG_DOMAIN</span>(m.MentionIdentifier) = dlc_lookup.Domain
+
+<span class="sql-keyword">WHERE</span>
+  m._PARTITIONTIME >= <span class="sql-function">TIMESTAMP</span>(<span class="sql-string">'2015-01-01'</span>)
+  <span class="sql-keyword">AND</span> e._PARTITIONTIME >= <span class="sql-function">TIMESTAMP</span>(<span class="sql-string">'2015-01-01'</span>)
   
-  COUNT(DISTINCT CASE WHEN 
-      e.Actor1Type1Code IN ('GOV', 'MIL', 'COP', 'JUD', 'LEG', 'SPY') OR 
-      e.Actor2Type1Code IN ('GOV', 'MIL', 'COP', 'JUD', 'LEG', 'SPY') 
-  THEN m.GLOBALEVENTID END) AS state_unique_events,
+<span class="sql-comment">-- We only consider material and verbal conflict events</span>
+  <span class="sql-keyword">AND</span> e.QuadClass <span class="sql-keyword">in</span> (3,4)
 
-  -- INSURGENTS (Rebels, Separatists, etc)
-  COUNT(CASE WHEN 
-      e.Actor1Type1Code IN ('REB', 'INS', 'SEP', 'OPP', 'CRM') OR 
-      e.Actor2Type1Code IN ('REB', 'INS', 'SEP', 'OPP', 'CRM') 
-  THEN 1 END) AS insurgents_mentions,
+  <span class="sql-comment">-- Geographic Filter (Exclude events without country or generalist)</span>
+  <span class="sql-keyword">AND</span> e.ActionGeo_CountryCode <span class="sql-keyword">IS NOT NULL</span>
 
-  COUNT(DISTINCT CASE WHEN 
-      e.Actor1Type1Code IN ('REB', 'INS', 'SEP', 'OPP', 'CRM') OR 
-      e.Actor2Type1Code IN ('REB', 'INS', 'SEP', 'OPP', 'CRM') 
-  THEN m.GLOBALEVENTID END) AS insurgents_unique_events,
-
-  -- CIVILIANS (The Victims usually)
-  COUNT(CASE WHEN 
-      e.Actor1Type1Code IN ('CVL', 'REF', 'ELI', 'BUS', 'EDU', 'LAB', 'MED', 'REL', 'AGR') OR 
-      e.Actor2Type1Code IN ('CVL', 'REF', 'ELI', 'BUS', 'EDU', 'LAB', 'MED', 'REL', 'AGR') 
-  THEN 1 END) AS civilians_mentions,
-
-  COUNT(DISTINCT CASE WHEN 
-      e.Actor1Type1Code IN ('CVL', 'REF', 'ELI', 'BUS', 'EDU', 'LAB', 'MED', 'REL', 'AGR') OR 
-      e.Actor2Type1Code IN ('CVL', 'REF', 'ELI', 'BUS', 'EDU', 'LAB', 'MED', 'REL', 'AGR') 
-  THEN m.GLOBALEVENTID END) AS civilians_unique_events,
-
-  -- INTERNATIONALS (NGO, IGO)
-  COUNT(CASE WHEN 
-      e.Actor1Type1Code IN ('IGO', 'NGO', 'MNC') OR 
-      e.Actor2Type1Code IN ('IGO', 'NGO', 'MNC') 
-  THEN 1 END) AS international_mentions,
-
-  COUNT(DISTINCT CASE WHEN 
-      e.Actor1Type1Code IN ('IGO', 'NGO', 'MNC') OR 
-      e.Actor2Type1Code IN ('IGO', 'NGO', 'MNC') 
-  THEN m.GLOBALEVENTID END) AS international_unique_events,
-
-  -- Sentiment Analysis
-  AVG(m.MentionDocTone) AS avg_tone,
-  STDDEV(m.MentionDocTone) AS stddev_tone,
-  APPROX_QUANTILES(m.MentionDocTone, 2)[OFFSET(1)] AS median_tone,
-
-  -- Impact (Weighted by mentions)
-  AVG(e.GoldsteinScale) AS avg_impact,
-  STDDEV(e.GoldsteinScale) AS stddev_impact,
-  APPROX_QUANTILES(e.GoldsteinScale, 2)[OFFSET(1)] AS median_impact,
-
-  -- Most mentioned article
-  ARRAY_AGG(
-    STRUCT(m.MentionIdentifier, e.NumMentions) 
-    ORDER BY e.NumMentions DESC LIMIT 1
-  )[OFFSET(0)].MentionIdentifier AS top_event_article_url,
-
-  -- Most impactful article
-  ARRAY_AGG(
-    STRUCT(m.MentionIdentifier, e.GoldsteinScale) 
-    ORDER BY e.GoldsteinScale ASC LIMIT 1
-  )[OFFSET(0)].MentionIdentifier AS most_impactful_event_article_url  
-
-
-FROM `gdelt-bq.gdeltv2.eventmentions_partitioned` m
-JOIN `gdelt-bq.gdeltv2.events_partitioned` e
-  ON m.GLOBALEVENTID = e.GLOBALEVENTID
-
--- JOIN LOOKUP
-LEFT JOIN `gdelt-dataviz-project.gdelt_agg.lookup_table` dlc_lookup
-  ON NET.REG_DOMAIN(m.MentionIdentifier) = dlc_lookup.Domain
-
-WHERE
-  -- COST SAFETY - RECOMMENDED: Focus on recent years
-  m._PARTITIONTIME >= TIMESTAMP('2015-01-01')
-  AND e._PARTITIONTIME >= TIMESTAMP('2015-01-01')
-  
--- FILTRI ANTI-RUMORE
-  AND e.QuadClass in (3,4)  -- Solo Material and Verbal Conflict (Fights, Assaults, Wars)
-
-  -- Filtro Attori (Solo attori rilevanti, esclude privati cittadini)
-  -- AND (
-  --     e.Actor1Type1Code IN ('GOV', 'MIL', 'REB', 'INS', 'COP')
-  --  OR e.Actor2Type1Code IN ('GOV', 'MIL', 'REB', 'INS', 'COP')
-  -- )
-
-  -- Filtro Geografico (Esclude eventi senza paese o generalisti)
-  AND e.ActionGeo_CountryCode IS NOT NULL
-
-GROUP BY 1, 2, 3, 4, 5
-HAVING mentions_count > 5
+<span class="sql-keyword">GROUP BY</span> 1, 2, 3, 4, 5
+<span class="sql-keyword">HAVING</span> mentions_count > 5
 </code></pre>
                     </div>
                 </div>
             </div>
 
-            
+
+            <!-- Text Section -->
+            <div class="prose prose-lg mb-12">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    Below you can see few selected rows of the resulting weekly aggregated media mentions related to conflicts.
+                </p>
+            </div>            
+
             <!-- Table with Fade Effect -->
             <div class="mb-12 table-fade">
-                <div class="overflow-hidden rounded-xl border border-gray-200 shadow-lg">
+                <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-lg">
                     <table class="min-w-full divide-y divide-gray-200 bg-white">
-                        <thead class="bg-gray-100">
+                        <thead class="bg-gray-100 sticky top-0">
                             <tr>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">Country</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">Week</th>
-                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">Mentions</th>
-                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">Fatalities</th>
-                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans">Sentiment</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">mention_week</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">conflict_country</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">actor1_country</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">actor2_country</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">media_country</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">mentions_count</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">distinct_events</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">distinct_media_sources</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">verbal_conflict_mentions</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">material_conflict_mentions</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">verbal_conflict_unique_events</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">material_conflict_unique_events</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">state_mentions</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">state_unique_events</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">insurgents_mentions</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">insurgents_unique_events</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">civilians_mentions</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">civilians_unique_events</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">international_mentions</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">international_unique_events</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">avg_tone</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">stddev_tone</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">median_tone</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">avg_impact</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">stddev_impact</th>
+                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">median_impact</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">top_event_article_url</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider font-sans whitespace-nowrap">most_impactful_event_article_url</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-100">
                             <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Ukraine</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">2024-W23</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">15,842</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1,247</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-0.42</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2026-01-12</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">UK</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">UNK</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">GBR</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">UP</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">16</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">13</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">11</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">3</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">13</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">3</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">10</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">9</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">7</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">5</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">4</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-2.48</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">2.58</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-2.96</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-6.34</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">3.29</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-7.2</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-left font-mono">https://www.unian.ua/world/britaniya-hoche-finansuvati-ukrajinu-za-rahunok-rosiyskoji-nafti-the-times-13254819.html</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-left font-mono">https://www.eurointegration.com.ua/news/2026/01/12/7228928/</td>
                             </tr>
                             <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Palestine</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">2024-W23</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">12,394</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">856</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-0.38</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2026-01-12</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">FR</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">FRA</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">USA</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">US</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">101</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">28</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">71</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">41</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">60</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">11</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">17</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">17</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">5</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">44</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">2</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-2.31</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">3.04</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-0.34</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-5.36</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">2.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-5.0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-left font-mono">https://www.stltoday.com/news/local/crime-courts/article_ee54c885-b7ea-4670-8669-bf76252d1fd1.html</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-left font-mono">https://www.thenation.com/article/activism/puerto-rico-mothers-against-war-madres-contra-guerra/</td>
                             </tr>
                             <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Myanmar</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">2024-W23</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1,203</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">724</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-0.28</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2026-01-12</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">IS</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">GBR</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">UNK</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">UK</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">8</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">8</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">5</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">6</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">2</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">6</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">2</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">3</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">3</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-5.19</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">3.18</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-4.31</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-3.69</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">2.46</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-2.0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-left font-mono">https://www.cityam.com/londons-record-low-confidence-blamed-on-labour-workers-rights-bill/</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-left font-mono">https://www.thetimes.com/uk/politics/article/badenoch-condemns-police-protesters-israeli-restaurant-tp5fzbq6c</td>
                             </tr>
-                            <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Sudan</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">2024-W23</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">892</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1,582</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-0.51</td>
-                            </tr>
-                            <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Burkina Faso</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">2024-W23</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">347</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">412</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-0.33</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2026-01-12</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">UP</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">EUR</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">RUS</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">UK</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">208</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">5</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">105</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">207</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">4</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-4.748191</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0.274187</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-4.770318</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-2.052885</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">0.591478</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">-2.0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-left font-mono">https://www.andoveradvertiser.co.uk/news/national/25760295.us-accuses-russia-dangerous-inexplicable-escalation-war-ukraine/</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-left font-mono">https://www.thetimes.com/world/russia-ukraine-war/article/russia-ukraine-invasion-longer-soviet-union-ww2-involvement-g8gb2ljw5</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <h2 class="sm:text-4xl lg:text-4xl font-black mb-8 leading-tight text-gray-900">GDELT Data Management</h2>
             
             <!-- Text Section -->
             <div class="prose prose-lg mb-12">
                 <p class="text-gray-700 text-lg leading-relaxed mb-6">
-                    Notice the stark disparity: Sudan recorded more fatalities than Ukraine in this sample week, yet received less than 6% of the media coverage. This pattern persists across our entire dataset, revealing systematic underreporting of conflicts in Africa and Southeast Asia.
-                </p>
-                <p class="text-gray-700 text-lg leading-relaxed">
-                    To quantify these disparities, we developed a coverage-to-casualty ratio and applied statistical clustering to identify patterns. The Python implementation below demonstrates our analytical approach:
+                    The dataset we collected from GDELT consists of 7802681 rows and 28 columns, which leads to a total size of 2.53 GB. 
+                    To effectively store this large volume of data locally we utilized the Parquet file format, known for its efficient storage and retrieval capabilities.
+                    We also subdivided the dataset into smaller, more manageable chunks, as described in the code snippet below.
                 </p>
             </div>
             
@@ -367,44 +518,83 @@ HAVING mentions_count > 5
                                 <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                                 <div class="w-3 h-3 rounded-full bg-green-500"></div>
                             </div>
-                            <span class="text-gray-400 text-xs font-mono ml-3">analysis.py</span>
+                            <span class="text-gray-400 text-xs font-mono ml-3">dataset_creation.py</span>
                         </div>
                     </div>
                     <div class="p-6 bg-gray-800">
-                        <pre class="code-block text-gray-100 overflow-x-auto"><code><span class="python-keyword">import</span> pandas <span class="python-keyword">as</span> pd
+<pre class="code-block text-gray-100 overflow-x-auto"><code><span class="python-keyword">import</span> pandas <span class="python-keyword">as</span> pd
 <span class="python-keyword">import</span> numpy <span class="python-keyword">as</span> np
-<span class="python-keyword">from</span> sklearn.preprocessing <span class="python-keyword">import</span> StandardScaler
-<span class="python-keyword">from</span> sklearn.cluster <span class="python-keyword">import</span> KMeans
+<span class="python-keyword">import</span> matplotlib.pyplot <span class="python-keyword">as</span> plt
+<span class="python-keyword">import</span> json                            
+path_mentions = <span class="python-string">"../data/GDELT/conflict_data_final.csv"</span>
+df_mentions = pd.<span class="python-function">read_csv</span>(path_mentions)
+df_mentions.<span class="python-function">to_parquet</span>(<span class="python-string">"../data/GDELT/conflict_data_final.parquet"</span>, index=<span class="python-keyword">False</span>)
+key_cols = [<span class="python-string">'mention_week'</span>, <span class="python-string">'conflict_country'</span>, <span class="python-string">'actor1_country'</span>, <span class="python-string">'actor2_country'</span>, <span class="python-string">'media_country'</span>]
+df_keys = df_mentions[key_cols].<span class="python-function">drop_duplicates</span>().<span class="python-function">reset_index</span>(drop=<span class="python-keyword">True</span>)
+df_keys[<span class="python-string">'conflict_id'</span>] = df_keys.index
+df_mentions = df_mentions.<span class="python-function">merge</span>(df_keys, on=key_cols, how=<span class="python-string">'left'</span>)
 
-<span class="python-comment"># Load processed data</span>
-df = pd.<span class="python-function">read_csv</span>(<span class="python-string">'coverage_fatalities.csv'</span>)
+<span class="python-comment"># Now create normalized tables:</span>
+save_path = <span class="python-string">"../data/GDELT/"</span>
 
-<span class="python-comment"># Calculate coverage-to-casualty ratio</span>
-df[<span class="python-string">'coverage_ratio'</span>] = df[<span class="python-string">'mentions'</span>] / (df[<span class="python-string">'fatalities'</span>] + <span class="python-number">1</span>)
+<span class="python-comment"># 1. Dimension table (the keys + ID)</span>
+df_dimensions = df_mentions[[<span class="python-string">'conflict_id'</span>] + key_cols].<span class="python-function">drop_duplicates</span>()
+df_dimensions.<span class="python-function">to_parquet</span>(save_path + <span class="python-string">"gdelt_keys.parquet"</span>, index=<span class="python-keyword">False</span>)
 
-<span class="python-comment"># Normalize by population (per 100k inhabitants)</span>
-df[<span class="python-string">'normalized_coverage'</span>] = (
-    df[<span class="python-string">'mentions'</span>] / df[<span class="python-string">'population'</span>]
-) * <span class="python-number">100000</span>
+<span class="python-comment"># 2. Volume metrics (counts and mentions)</span>
+df_volume = df_mentions[[<span class="python-string">'conflict_id'</span>, <span class="python-string">'mentions_count'</span>, <span class="python-string">'distinct_events'</span>, <span class="python-string">'distinct_media_sources'</span>]]
+df_volume.<span class="python-function">to_parquet</span>(save_path + <span class="python-string">"gdelt_volume_metrics.parquet"</span>, index=<span class="python-keyword">False</span>)
 
-<span class="python-comment"># Apply log transformation to handle skewness</span>
-df[<span class="python-string">'log_mentions'</span>] = np.<span class="python-function">log1p</span>(df[<span class="python-string">'mentions'</span>])
-df[<span class="python-string">'log_fatalities'</span>] = np.<span class="python-function">log1p</span>(df[<span class="python-string">'fatalities'</span>])
+<span class="python-comment"># 3. Conflict type metrics (verbal vs material)</span>
+df_conflict_types = df_mentions[[<span class="python-string">'conflict_id'</span>, 
+                         <span class="python-string">'verbal_conflict_mentions'</span>, <span class="python-string">'material_conflict_mentions'</span>,
+                         <span class="python-string">'verbal_conflict_unique_events'</span>, <span class="python-string">'material_conflict_unique_events'</span>]]
+df_conflict_types.<span class="python-function">to_parquet</span>(save_path + <span class="python-string">"gdelt_conflict_types.parquet"</span>, index=<span class="python-keyword">False</span>)
 
-<span class="python-comment"># Standardize features for clustering</span>
-scaler = <span class="python-function">StandardScaler</span>()
-features = df[[<span class="python-string">'log_mentions'</span>, <span class="python-string">'log_fatalities'</span>, <span class="python-string">'avg_sentiment'</span>]]
-X_scaled = scaler.<span class="python-function">fit_transform</span>(features)
+<span class="python-comment"># 4. Actor type metrics (state, insurgents, civilians, international)</span>
+df_actors = df_mentions[[<span class="python-string">'conflict_id'</span>,
+                 <span class="python-string">'state_mentions'</span>, <span class="python-string">'state_unique_events'</span>,
+                 <span class="python-string">'insurgents_mentions'</span>, <span class="python-string">'insurgents_unique_events'</span>,
+                 <span class="python-string">'civilians_mentions'</span>, <span class="python-string">'civilians_unique_events'</span>,
+                 <span class="python-string">'international_mentions'</span>, <span class="python-string">'international_unique_events'</span>]]
+df_actors.<span class="python-function">to_parquet</span>(save_path + <span class="python-string">"gdelt_actor_metrics.parquet"</span>, index=<span class="python-keyword">False</span>)
 
-<span class="python-comment"># Cluster countries into coverage patterns</span>
-kmeans = <span class="python-function">KMeans</span>(n_clusters=<span class="python-number">4</span>, random_state=<span class="python-number">42</span>)
-df[<span class="python-string">'cluster'</span>] = kmeans.<span class="python-function">fit_predict</span>(X_scaled)
+<span class="python-comment"># 5. Sentiment/tone metrics</span>
+df_sentiment = df_mentions[[<span class="python-string">'conflict_id'</span>, 
+                    <span class="python-string">'avg_tone'</span>, <span class="python-string">'stddev_tone'</span>, <span class="python-string">'median_tone'</span>]]
+df_sentiment.<span class="python-function">to_parquet</span>(save_path + <span class="python-string">"gdelt_sentiment.parquet"</span>, index=<span class="python-keyword">False</span>)
 
-<span class="python-comment"># Export results</span>
-df.<span class="python-function">to_csv</span>(<span class="python-string">'analyzed_coverage_patterns.csv'</span>, index=<span class="python-keyword">False</span>)</code></pre>
+<span class="python-comment"># 6. Impact metrics</span>
+df_impact = df_mentions[[<span class="python-string">'conflict_id'</span>,
+                 <span class="python-string">'avg_impact'</span>, <span class="python-string">'stddev_impact'</span>, <span class="python-string">'median_impact'</span>]]
+df_impact.<span class="python-function">to_parquet</span>(save_path + <span class="python-string">"gdelt_impact.parquet"</span>, index=<span class="python-keyword">False</span>)
+
+<span class="python-comment"># 7. Article references (URLs)</span>
+df_articles = df_mentions[[<span class="python-string">'conflict_id'</span>, 
+                   <span class="python-string">'top_event_article_url'</span>, <span class="python-string">'most_impactful_event_article_url'</span>]]
+df_articles.<span class="python-function">to_parquet</span>(save_path + <span class="python-string">"gdelt_articles.parquet"</span>, index=<span class="python-keyword">False</span>)
+
+<span class="python-function">print</span>(<span class="python-string">"Files created:"</span>)
+<span class="python-function">print</span>(<span class="python-string">f"- gdelt_keys.parquet ({df_dimensions.shape})"</span>)
+<span class="python-function">print</span>(<span class="python-string">f"- gdelt_volume_metrics.parquet ({df_volume.shape})"</span>)
+<span class="python-function">print</span>(<span class="python-string">f"- gdelt_conflict_types.parquet ({df_conflict_types.shape})"</span>)
+<span class="python-function">print</span>(<span class="python-string">f"- gdelt_actor_metrics.parquet ({df_actors.shape})"</span>)
+<span class="python-function">print</span>(<span class="python-string">f"- gdelt_sentiment.parquet ({df_impact.shape})"</span>)
+<span class="python-function">print</span>(<span class="python-string">f"- gdelt_impact.parquet ({df_impact.shape})"</span>)
+<span class="python-function">print</span>(<span class="python-string">f"- gdelt_articles.parquet ({df_articles.shape})"</span>)</code></pre>                           
                     </div>
                 </div>
             </div>
+
+            <!-- Highlighted Goal Box -->
+            <div class="prose prose-lg mb-12">
+                <div class="bg-orange-50 border-l-4 border-orange-400 p-6 mb-6">
+                    <h3 class="text-orange-600 font-bold text-sm uppercase tracking-wide mb-3">WHERE TO FIND THE DATA</h3>
+                    <p class="text-gray-700 text-lg leading-relaxed m-0">
+                        Since data have already been processed and stored in Parquet format by us, but they were still too heavy to be uploaded to our github repository, you can instead directly access the normalized GDELT dataset files from our kaggle folder: <a href="kaggle.com/competitions/attention-gap/data" class="text-blue-600 hover:underline">kaggle.com/competitions/attention-gap/data</a>.
+                    </p>
+                </div>
+            </div>            
             
         </article>
     </main>
