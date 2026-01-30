@@ -6,6 +6,7 @@ import ChordChart from "./chord_chart.js";
 import RacingLineChart from "./racing_line_chart.js";
 import RacingBarChart from "./racing_bar_chart.js";
 import updateTop5Countries from "./weekly_top_5.js";
+import LineChart from "./line.js";
 
 
 // ===== TOOLTIP =====
@@ -31,6 +32,8 @@ const choroplethData = d3.csv('data/processed/choropleth_top_1_material_conflict
 const chordData = d3.csv('data/processed/chord_continent_data.csv', d3.autoType);
 const top5Data = d3.csv('data/processed/weekly_top_25_material_conflict.csv', d3.autoType);
 const racingData = d3.csv('data/processed/racing_bar_chart.csv', d3.autoType);
+const lineChartMyanmarData = d3.csv('data/processed/myanmar_fatalities_over_time.csv', d3.autoType);
+const lineChartBurkinaData = d3.csv('data/processed/burkina_faso_fatalities_over_time.csv', d3.autoType);
 
 // ===== JSON =====
 const geoData = await d3.json('src/json/world.json');
@@ -481,6 +484,39 @@ function switchToChart(newStepIndex, animate = true) {
         }
     }
 }
+
+// ===== LINE CHARTS =====
+const lineChartMyanmar = new LineChart('myanmar-line-chart', lineChartMyanmarData, tooltip);
+const lineChartBurkina = new LineChart('burkina-line-chart', lineChartBurkinaData, tooltip);
+const LineCharts = [lineChartMyanmar, lineChartBurkina];
+
+setTimeout(() => {
+    LineCharts.forEach(chart => {
+        if (chart) {
+            chart.init();
+            if (chart.g) {
+                chart.draw();
+            }
+        }
+    });
+}, 500);
+
+// LineChart RESIZE HANDLING
+let resizeTimeoutLine;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeoutLine);
+    resizeTimeoutLine = setTimeout(() => {
+        LineCharts.forEach(chart => {
+            if (chart) {
+                chart.init();
+                if (chart.g) {
+                    chart.draw();
+                }
+            }
+        });
+    }, 250);
+});
+
 
 // ===== SCROLL OBSERVER =====
 let currentStep = -1;
