@@ -3,7 +3,7 @@ import BarChart from "./bar.js";
 import ScatterPlot from "./scatter.js";
 import Choropleth from "./choropleth.js";
 import ChordChart from "./chord_chart.js";
-import RacingLineChart from "./racing_line_chart.js";
+// import RacingLineChart from "./racing_line_chart.js";
 import RacingBarChart from "./racing_bar_chart.js";
 import updateTop5Countries from "./weekly_top_5.js";
 
