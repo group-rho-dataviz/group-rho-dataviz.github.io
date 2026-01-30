@@ -117,7 +117,10 @@ export default class WaffleChart extends ScrollyChart {
             .attr('fill', d => d.color)
             .attr('opacity', 0.85)
             .style('cursor', 'pointer')
-            .on('mouseover', (event, d) => {
+            .on('pointerover', (event, d) => {
+                // if pointerType is touch, ignore hover
+                if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
+
                 this.tooltip
                     .style('opacity', 1)
                     .html(
@@ -136,10 +139,17 @@ export default class WaffleChart extends ScrollyChart {
                         </div>`
                     );
             })
-            .on('mousemove', (event) => {
+            .on('pointerdown', (event) => {
+                if (event.pointerType === 'touch' || event.pointerType === 'pen') {
+                    this.tooltip.style('opacity', 0);
+                }
+            })
+            .on('pointermove', (event) => {
+                if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
                 this.positionTooltip(event);
             })
-            .on('mouseout', () => {
+            .on('pointerout', (event) => {
+                if (event.pointerType === 'touch' || event.pointerType === 'pen') return;
                 this.tooltip.style('opacity', 0);
             })
             .on('scroll', () => {
