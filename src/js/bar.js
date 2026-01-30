@@ -405,7 +405,7 @@ export default class BarChart extends ScrollyChart {
             .attr('x', this.xScale(cluster))
             .attr('width', this.xScale.bandwidth())
             .attr('y', d => this.yScale(d.end))
-            .attr('height', d => this.yScale(d.start) - this.yScale(d.end))
+            .attr('height', d => Math.max(0, this.yScale(d.start) - this.yScale(d.end)))
             .attr('fill', (d, i) => colorScale(i));
         
         // Add country labels for larger segments
