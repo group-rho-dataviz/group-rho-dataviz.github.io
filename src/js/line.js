@@ -154,6 +154,7 @@ export default class LineChart extends ScrollyChart {
                         .attr("y", ay - 10)
                         .attr("fill", "orange")
                         .attr("text-anchor", "middle")
+                        .attr("pointer-events", "none")
                         .style("font-size", "12px")
                         .text("Rohingya Crisis Peak");
                 }
@@ -174,6 +175,7 @@ export default class LineChart extends ScrollyChart {
                         .attr("y", ay)
                         .attr("fill", "orange")
                         .attr("text-anchor", "left")
+                        .attr("pointer-events", "none")
                         .style("font-size", "12px")
                         .text("Military Coup");
                 }
@@ -194,6 +196,7 @@ export default class LineChart extends ScrollyChart {
                         .attr("y", ay - 10)
                         .attr("fill", "orange")
                         .attr("text-anchor", "middle")
+                        .attr("pointer-events", "none")
                         .style("font-size", "12px")
                         .text("Ouagadougou Attacks");
                 }
@@ -214,6 +217,7 @@ export default class LineChart extends ScrollyChart {
                         .attr("y", ay - 12)
                         .attr("fill", "orange")
                         .attr("text-anchor", "middle")
+                        .attr("pointer-events", "none")
                         .style("font-size", "12px")
                         .text("Military Coup");
                 }
