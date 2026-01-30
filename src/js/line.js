@@ -46,15 +46,10 @@ export default class LineChart extends ScrollyChart {
     draw() {
         if (!this.g) return;
 
-        if (this.svg.id === 'myanmar-line-chart')
-            console.log("Drawing Myanmar Line Chart");
-        else if (this.svg.id === 'burkina-line-chart')
-            console.log("Drawing Burkina Faso Line Chart");
-
         this.data.then(data => {
             // Process data
-            const xDomain = data.map(d => d.date);
-            const yMax = d3.max(data, d => d.fatalities);
+            const xDomain = data.map(d => d.Date);
+            const yMax = d3.max(data, d => d.Fatalities);
             this.xScale.domain(xDomain);
             this.yScale.domain([0, yMax]);
 
@@ -87,8 +82,8 @@ export default class LineChart extends ScrollyChart {
 
             // Draw line
             const line = d3.line()
-                .x(d => this.xScale(d.date) + this.xScale.bandwidth() / 2)
-                .y(d => this.yScale(d.fatalities))
+                .x(d => this.xScale(d.Date) + this.xScale.bandwidth() / 2)
+                .y(d => this.yScale(d.Fatalities))
                 .curve(d3.curveMonotoneX);
             this.g.append("path")
                 .datum(data)
@@ -117,8 +112,8 @@ export default class LineChart extends ScrollyChart {
                     let closest = null;
                     let minDist = Infinity;
                     data.forEach(d => {
-                        const cx = this.xScale(d.date) + this.xScale.bandwidth() / 2;
-                        const cy = this.yScale(d.fatalities);
+                        const cx = this.xScale(d.Date) + this.xScale.bandwidth() / 2;
+                        const cy = this.yScale(d.Fatalities);
                         const dist = Math.hypot(mx - cx, my - cy);
                         if (dist < minDist) {
                             minDist = dist;
@@ -130,7 +125,7 @@ export default class LineChart extends ScrollyChart {
                         this.tooltip
                             .style("display", "block")
                             .style("opacity", 1)
-                            .html(`Date: ${d3.timeFormat("%b %Y")(closest.date)}<br>Fatalities: ${closest.fatalities}`);
+                            .html(`Date: ${d3.timeFormat("%b %Y")(closest.Date)}<br>Fatalities: ${closest.Fatalities}`);
                     } else {
                         this.tooltip.style("opacity", 0).style("display", "none");
                     }
@@ -140,6 +135,89 @@ export default class LineChart extends ScrollyChart {
                 .on("mouseout", () => {
                     this.tooltip.style("opacity", 0).style("display", "none");
                 });
+
+            // Add Annotation
+            if (this.svgId === 'myanmar-line-chart') {
+                // Find data point for August 2017
+                const RohingyaData = data.find(d => d.Date.getFullYear() === 2017 && d.Date.getMonth() === 7);
+                if (RohingyaData) {
+                    const ax = this.xScale(RohingyaData.Date) + this.xScale.bandwidth() / 2;
+                    const ay = this.yScale(RohingyaData.Fatalities);
+                    this.g.append("circle")
+                        .attr("cx", ax)
+                        .attr("cy", ay)
+                        .attr("r", 5)
+                        .attr("fill", "orange")
+                        .attr("pointer-events", "none");
+                    this.g.append("text")
+                        .attr("x", ax) // center align
+                        .attr("y", ay - 10)
+                        .attr("fill", "orange")
+                        .attr("text-anchor", "middle")
+                        .style("font-size", "12px")
+                        .text("Rohingya Crisis Peak");
+                }
+
+                // Find data point for February 2021
+                const CoupData = data.find(d => d.Date.getFullYear() === 2021 && d.Date.getMonth() === 1);
+                if (CoupData) {
+                    const ax = this.xScale(CoupData.Date) + this.xScale.bandwidth() / 2;
+                    const ay = this.yScale(CoupData.Fatalities);
+                    this.g.append("circle")
+                        .attr("cx", ax)
+                        .attr("cy", ay)
+                        .attr("r", 5)
+                        .attr("fill", "orange")
+                        .attr("pointer-events", "none");
+                    this.g.append("text")
+                        .attr("x", ax + 10) // center align
+                        .attr("y", ay)
+                        .attr("fill", "orange")
+                        .attr("text-anchor", "left")
+                        .style("font-size", "12px")
+                        .text("Military Coup");
+                }
+            } else if (this.svgId === 'burkina-line-chart') {
+                // Find data point for January 2016
+                const AttackData = data.find(d => d.Date.getFullYear() === 2016 && d.Date.getMonth() === 0);
+                if (AttackData) {
+                    const ax = this.xScale(AttackData.Date) + this.xScale.bandwidth() / 2;
+                    const ay = this.yScale(AttackData.Fatalities);
+                    this.g.append("circle")
+                        .attr("cx", ax)
+                        .attr("cy", ay)
+                        .attr("r", 5)
+                        .attr("fill", "orange")
+                        .attr("pointer-events", "none");
+                    this.g.append("text")
+                        .attr("x", ax) // center align
+                        .attr("y", ay - 10)
+                        .attr("fill", "orange")
+                        .attr("text-anchor", "middle")
+                        .style("font-size", "12px")
+                        .text("Ouagadougou Attacks");
+                }
+
+                // Find data point for January 2022
+                const CoupData = data.find(d => d.Date.getFullYear() === 2022 && d.Date.getMonth() === 0);
+                if (CoupData) {
+                    const ax = this.xScale(CoupData.Date) + this.xScale.bandwidth() / 2;
+                    const ay = this.yScale(CoupData.Fatalities);
+                    this.g.append("circle")
+                        .attr("cx", ax)
+                        .attr("cy", ay)
+                        .attr("r", 5)
+                        .attr("fill", "orange")
+                        .attr("pointer-events", "none");
+                    this.g.append("text")
+                        .attr("x", ax - 15) // center align
+                        .attr("y", ay - 12)
+                        .attr("fill", "orange")
+                        .attr("text-anchor", "middle")
+                        .style("font-size", "12px")
+                        .text("Military Coup");
+                }
+            }
 
             // Set title
             this.title.text("Fatalities Over Time");
