@@ -38,15 +38,14 @@ export default class Choropleth extends ScrollyChart {
 
         // Set up projection - responsive scaling
         const scale = Math.max(
-            90, // minimum safe Mercator scale
-            Math.min(this.innerWidth / 6, this.innerHeight / 3.2)
+            40, // minimum safe Mercator scale
+            Math.min(this.innerWidth / 6, this.innerHeight / 4.2)
         );
-
 
         this.projection = d3.geoMercator()
             .scale(scale)
             .center([15, 25])
-            .translate([this.innerWidth / 2 + 22, this.innerHeight / 2 + 52]);
+            .translate([this.innerWidth / 2 + 20, this.innerHeight / 2 + 28]);
 
         this.path = d3.geoPath().projection(this.projection);
     }

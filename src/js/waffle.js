@@ -57,7 +57,7 @@ export default class WaffleChart extends ScrollyChart {
                     const category = this.selectedDetailed ? d.category : (d.category === 'not_in_conflict' ? 'not_in_conflict' : 'in_conflict');
                     const color = this.selectedDetailed ? this.colorsDetailed[category_to_index[category] % this.colorsDetailed.length] : this.colors[category_to_index[category] % this.colors.length];
                     if (i === 0 && j === 0 && !this._subtitleAdded) {
-                        this._subtitleAdded = true;
+                        this._subtitleAdded = false;
                         // add subtitle centered in the SVG using percentage x
                         this.subtitle = this.svg.append('text')
                             .attr('class', 'subtitle')

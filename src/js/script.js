@@ -154,7 +154,7 @@ if (mobileLegendContainer && continentColors) {
     const mobileLegendItems = mobileLegendContainer.querySelectorAll('.flex.items-center.gap-1');
     mobileLegendItems.forEach(item => {
         let continentName = item.querySelector('span')?.textContent.trim();
-        const colorBox = item.querySelector('.w-5.h-5.rounded-full');
+        const colorBox = item.querySelector('.w-4.h-4.rounded-full');
         
         switch(continentName){
             case 'NA' : continentName = 'North America'; break;
@@ -296,6 +296,52 @@ setTimeout(async () => {
         
         // Initialize play button UI
         updatePlayButtonUI();
+        
+        // ===== MOBILE INFO WINDOW TOGGLE =====
+        const mobileInfoToggleButton = document.getElementById('mobile-info-toggle-button');
+        const mobileInfoWindow = document.getElementById('mobile-info-window');
+        const mobileInfoCloseButton = document.getElementById('mobile-info-close-button');
+        const choroplethMapContainer = document.getElementById('choropleth-container');
+        const chordDiagramContainer = document.getElementById('chord-container');
+        
+        function openInfoWindow() {
+            // Pause animation when opening info window
+            if (isAnimationPlaying) {
+                isAnimationPlaying = false;
+                choroplethMap.pause();
+                chordDiagram.pause();
+                racingChart.pause();
+                updatePlayButtonUI();
+            }
+            
+            // Show info window
+            mobileInfoWindow?.classList.remove('hidden');
+        }
+        
+        function closeInfoWindow() {
+            // Hide info window
+            mobileInfoWindow?.classList.add('hidden');
+        }
+        
+        // Info button click - opens window and pauses animation
+        mobileInfoToggleButton?.addEventListener('click', openInfoWindow);
+        
+        // Close button click
+        mobileInfoCloseButton?.addEventListener('click', closeInfoWindow);
+        
+        // Click on map/chord to close info window
+        choroplethMapContainer?.addEventListener('click', (e) => {
+            // Only close if clicking on the container itself, not on countries
+            if (e.target === choroplethMapContainer || e.target.tagName === 'svg') {
+                closeInfoWindow();
+            }
+        });
+        
+        chordDiagramContainer?.addEventListener('click', (e) => {
+            if (e.target === chordDiagramContainer || e.target.tagName === 'svg') {
+                closeInfoWindow();
+            }
+        });
     }
 }, 500);
 
@@ -311,6 +357,7 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
     const chordIcon = document.getElementById('chord-icon');
     const choroplethContainer = document.getElementById('choropleth-container');
     const chordContainer = document.getElementById('chord-container');
+    const infobox = document.getElementById('desktop-info-box');
     
     if (getCurrentView() === 'map') {
         // Switch to chord view
@@ -318,6 +365,7 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
         choroplethContainer.classList.add('hidden');
         mapIcon.classList.remove('hidden');
         chordIcon.classList.add('hidden');
+        infobox.classList.add('lg:hidden');
         
         // Sync week position from map to chord
         const currentWeek = choroplethMap.currentWeekIndex;
@@ -340,6 +388,7 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
         chordContainer.classList.add('hidden');
         mapIcon.classList.add('hidden');
         chordIcon.classList.remove('hidden');
+        infobox.classList.remove('lg:hidden');
         
         // Sync week position from chord to map
         const currentWeek = chordDiagram.currentWeekIndex;
