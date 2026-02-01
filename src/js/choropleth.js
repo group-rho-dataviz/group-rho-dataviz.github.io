@@ -11,12 +11,25 @@ export default class Choropleth extends ScrollyChart {
         this.playInterval = null;
         this.hoveredCountry = null; // Track currently hovered country
         this.weekChangeCallback = null; 
+        this.weekManager = null; // Will be set externally
         
         // Color mappings for continents are defined in src/json/continent_colors.json as {"Name": "HexColor"}
         // So we should read that file and use those colors for consistency
         this.conflictCountryColors = new Map();
         this.colorPalette = colors;
     }
+
+    /**
+     * Set the centralized week manager
+     * @param {WeekManager} weekManager - The shared week manager instance
+     */
+    setWeekManager(weekManager) {
+        this.weekManager = weekManager;
+        if (weekManager) {
+            this.weeks = weekManager.getWeeks();
+        }
+    }
+
 
     async init() {
         const container = this.svg.node()?.parentElement;
@@ -92,7 +105,7 @@ export default class Choropleth extends ScrollyChart {
     processData(rawData) {
         // Get all unique conflict countries and assign colors
         const uniqueConflictContinents = Array.from(new Set(rawData.map(d => d.conflict_continent)));
-        const uniqueConflictCountries = Array.from(new Set(rawData.map(d => d.conflict_country_name)));
+        // const uniqueConflictCountries = Array.from(new Set(rawData.map(d => d.conflict_country_name)));
         uniqueConflictContinents.forEach((continent, i) => {
             this.conflictCountryColors.set(continent, this.colorPalette[continent]);
         });
@@ -105,14 +118,27 @@ export default class Choropleth extends ScrollyChart {
         );
         
         // Get sorted weeks (convert to Date for proper sorting)
+        /*
         this.weeks = Array.from(grouped.keys()).sort((a, b) => {
             return new Date(a) - new Date(b);
         });
+        */
+        // If week manager is set, use its weeks; otherwise build from data
+        if (this.weekManager) {
+            this.weeks = this.weekManager.getWeeks();
+        } else {
+            // Fallback: build weeks from data (old behavior)
+            this.weeks = Array.from(grouped.keys()).sort((a, b) => {
+                return new Date(a) - new Date(b);
+            });
+        }
         
         // Create lookup structure
         this.processedData = new Map();
         
         grouped.forEach((mediaCountries, week) => {
+            const matchedWeek = this.weeks.find(w => new Date(w).getTime() === new Date(week).getTime());
+            const finalKey = matchedWeek || week;            
             const weekData = new Map();
             mediaCountries.forEach((countries, mediaCountry) => {
                 countries.forEach((data, mediaContinent) => {
@@ -123,7 +149,14 @@ export default class Choropleth extends ScrollyChart {
                     weekData.set(`${mediaCountry}`, topCountry);
                 });
             });
-            this.processedData.set(week, weekData);
+            this.processedData.set(finalKey, weekData);
+        });
+
+        // Initialize missing weeks with empty Maps (for weeks with no data)
+        this.weeks.forEach(week => {
+            if (!this.processedData.has(week)) {
+                this.processedData.set(week, new Map());
+            }
         });
 
     }

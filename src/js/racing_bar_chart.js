@@ -11,6 +11,7 @@ export default class RacingBarChart extends ScrollyChart {
         this.topN = 10; // Number of countries to show
         this.fipsNames = fipsNames; // FIPS code to name mapping
         this.hoveredBar = null; // Track currently hovered bar
+        this.weekManager = null; // Will be set externally
         
         // Color mapping by continent
         this.continentColors = colors;
@@ -23,9 +24,19 @@ export default class RacingBarChart extends ScrollyChart {
         this.xAxis = null;
         this.xAxisGroup = null;
         this.maxValueByWeek = new Map(); // Store max value for each week
-        
-        // Store raw country data by week (not cumulative)
     }
+    
+    /**
+     * Set the centralized week manager
+     * @param {WeekManager} weekManager - The shared week manager instance
+     */
+    setWeekManager(weekManager) {
+        this.weekManager = weekManager;
+        if (weekManager) {
+            this.allWeeks = weekManager.getWeeks();
+        }
+    }
+
 
     init() {
         const container = this.svg.node()?.parentElement;
@@ -63,6 +74,7 @@ export default class RacingBarChart extends ScrollyChart {
         // Group by week and sort chronologically
         const weekGroups = d3.group(rawData, d => d.mention_week);
         
+        /*
         // Convert weeks to Date objects and sort them properly
         this.allWeeks = Array.from(weekGroups.keys())
             .map(week => ({
@@ -71,13 +83,30 @@ export default class RacingBarChart extends ScrollyChart {
             }))
             .sort((a, b) => a.dateObject - b.dateObject)
             .map(w => w.dateString);
-        
+        */
+
+        // If week manager is set, use its weeks; otherwise build from data
+        if (this.weekManager) {
+            this.allWeeks = this.weekManager.getWeeks();
+        } else {
+            // Fallback: build weeks from data (old behavior)
+            this.allWeeks = Array.from(weekGroups.keys())
+                .map(week => ({
+                    dateString: week,
+                    dateObject: new Date(week)
+                }))
+                .sort((a, b) => a.dateObject - b.dateObject)
+                .map(w => w.dateString);
+        }
 
         this.processedData = new Map();
         this.maxValueByWeek = new Map();
 
         // For each week, store the data and compute max value
         weekGroups.forEach((records, week) => {
+            const matchedWeek = this.allWeeks.find(w => new Date(w).getTime() === new Date(week).getTime());            
+            const finalKey = matchedWeek || week;            
+
             const weekData = new Map();
             let maxValue = 0;
             
@@ -93,10 +122,31 @@ export default class RacingBarChart extends ScrollyChart {
                 maxValue = Math.max(maxValue, mentions);
             });
             
-            this.processedData.set(week, weekData);
-            this.maxValueByWeek.set(week, maxValue);
+            this.processedData.set(finalKey, weekData);
+            this.maxValueByWeek.set(finalKey, maxValue);
         });
         
+        // Initialize missing weeks with data from the previous week
+        this.allWeeks.forEach((week, index) => {
+            if (!this.processedData.has(week)) {
+            // Use data from previous week if available
+            if (index > 0) {
+                const prevWeek = this.allWeeks[index - 1];
+                const prevData = this.processedData.get(prevWeek);
+                if (prevData) {
+                this.processedData.set(week, new Map(prevData));
+                this.maxValueByWeek.set(week, this.maxValueByWeek.get(prevWeek));
+                } else {
+                this.processedData.set(week, new Map());
+                this.maxValueByWeek.set(week, 100);
+                }
+            } else {
+                this.processedData.set(week, new Map());
+                this.maxValueByWeek.set(week, 100);
+            }
+            }
+        });
+
     }
 
     setupChart() {
@@ -389,6 +439,16 @@ export default class RacingBarChart extends ScrollyChart {
                     }
                 };
             });
+        // Update tooltip if currently hovering over a bar
+        if (this.hoveredBar) {
+            // Find the updated data for the hovered bar
+            const updatedData = topCountries.find(d => d.name === this.hoveredBar.name);
+            if (updatedData) {
+                this.hoveredBar = updatedData; // Update reference
+                this.updateTooltipContent(updatedData);
+            }
+        }
+
     }
 
     setWeek(index) {

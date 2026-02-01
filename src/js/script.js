@@ -6,7 +6,9 @@ import ChordChart from "./chord_chart.js";
 // import RacingLineChart from "./racing_line_chart.js";
 import RacingBarChart from "./racing_bar_chart.js";
 import updateTop5Countries from "./weekly_top_5.js";
+import updateInfoWindow, { hideInfoWindow } from "./infobox.js";
 import LineChart from "./line.js";
+import WeekManager from "./week_manager.js";
 
 
 // ===== TOOLTIP =====
@@ -34,11 +36,32 @@ const top5Data = d3.csv('data/processed/weekly_top_25_material_conflict.csv', d3
 const racingData = d3.csv('data/processed/racing_bar_chart.csv', d3.autoType);
 const lineChartMyanmarData = d3.csv('data/processed/myanmar_fatalities_over_time.csv', d3.autoType);
 const lineChartBurkinaData = d3.csv('data/processed/burkina_faso_fatalities_over_time.csv', d3.autoType);
+const newsArticlesData = d3.csv('data/processed/news_articles_datetime.csv', d3.autoType);
 
 // ===== JSON =====
 const geoData = await d3.json('src/json/world.json');
 const continentColors = await d3.json('src/json/continent_colors.json');
 const fips = await d3.json('src/json/fips.json');
+
+// ===== INITIALIZE CENTRALIZED WEEK MANAGER =====
+const weekManager = new WeekManager();
+
+// Load all datasets that contain week data
+const loadedChoroplethData = await choroplethData;
+const loadedChordData = await chordData;
+const loadedRacingData = await racingData;
+const loadedTop5Data = await top5Data;
+const loadedInfoData = await newsArticlesData;
+
+// Build the complete week list from all datasets
+weekManager.buildWeekList(
+    loadedChoroplethData,
+    loadedChordData,
+    loadedRacingData,
+    loadedTop5Data,
+    loadedInfoData
+);
+
 
 // ===== SCROLL TO TOP BUTTON =====
 const scrollTopBtn = document.getElementById('scrollTop');
@@ -130,9 +153,13 @@ const chordDiagram = new ChordChart('chord-diagram', chordData, tooltip, contine
 const choroplethMap = new Choropleth('choropleth-map', choroplethData, tooltip, geoData, continentColors);
 const racingChart = new RacingBarChart('racing-chart', racingData, tooltip, fips, continentColors);
 
+chordDiagram.setWeekManager(weekManager);
+choroplethMap.setWeekManager(weekManager);
+racingChart.setWeekManager(weekManager);
 
-// Load top 5 data early
+// Load top 5 and info data early
 let allTop5Data = null;
+let allInfoData = null;
 
 // Initialize continent legend colors
 const legendContainer = document.querySelector('#choropleth-legend')?.nextElementSibling;
@@ -171,23 +198,50 @@ if (mobileLegendContainer && continentColors) {
     });
 }
 
+// Helper function to update info window based on current week
+function syncInfoToWeek(weekIndex) {
+    // 1. Safety check: ensure data is loaded
+    if (!allInfoData) return;
+
+    // 2. Get the week from the manager
+    const rawWeek = weekManager.getWeekAtIndex(weekIndex);
+    if (!rawWeek) return;
+
+    // Convert to timestamp safely (handles both String and Date)
+    const targetTime = new Date(rawWeek).getTime();
+
+    // 3. Filter data
+    // We assume d.mention_week is a Date (from d3.autoType).
+    const weekData = allInfoData.filter(d => {
+        const dTime = d.mention_week instanceof Date ? d.mention_week.getTime() : new Date(d.mention_week).getTime();
+        return dTime === targetTime;
+    });
+
+    // 4. Update info window content
+    updateInfoWindow(weekData);
+}
+
 // Helper function to update top 5 based on current week
 function syncTop5ToWeek(weekIndex, source) {
+    // 1. Safety check: ensure data is loaded
     if (!allTop5Data) return;
     
-    let week;
-    if (source === 'map') {
-        week = choroplethMap.weeks[weekIndex];
-    } else if (source === 'chord') {
-        week = chordDiagram.allWeeks[weekIndex];
-    } else {
-        week = racingChart.allWeeks[weekIndex];
-    }
+    // 2. Get the week from the manager
+    const rawWeek = weekManager.getWeekAtIndex(weekIndex);
+    if (!rawWeek) return;
     
-    if (!week) return;
+    // Convert to timestamp safely (handles both String and Date)
+    const targetTime = new Date(rawWeek).getTime();
     
-    const weekTime = week.getTime();
-    const weekData = allTop5Data.filter(d => d.mention_week.getTime() === weekTime);
+    // 3. Filter data
+    // We assume d.mention_week is a Date (from d3.autoType). 
+    // If it's not, we convert it to match the targetTime.
+    const weekData = allTop5Data.filter(d => {
+        const dTime = d.mention_week instanceof Date ? d.mention_week.getTime() : new Date(d.mention_week).getTime();
+        return dTime === targetTime;
+    });
+    
+    // 4. Call your original function (Single Argument)
     updateTop5Countries(weekData);
 }
 
@@ -211,7 +265,10 @@ setTimeout(async () => {
         visualizationsInitialized = true;
         
         // Load top 5 data
-        allTop5Data = await top5Data;
+        allTop5Data = loadedTop5Data;
+
+        // Load info window data
+        allInfoData = loadedInfoData;
         
         // Initialize map (visible by default)
         choroplethMap.init();
@@ -234,15 +291,19 @@ setTimeout(async () => {
         // Set up callback for choropleth to update top 5 when playing
         choroplethMap.onWeekChange((weekIndex) => {
             syncTop5ToWeek(weekIndex, 'map');
+            syncInfoToWeek(weekIndex);
         });
         
         // Set up callback for chord to update top 5 when playing
         chordDiagram.onWeekChange = (weekIndex) => {
             syncTop5ToWeek(weekIndex, 'chord');
+            syncInfoToWeek(weekIndex);
         };
         
         // Initial render of top 5 for week 0
         syncTop5ToWeek(0, 'map');
+        // Initial render of info window for week 0
+        syncInfoToWeek(0);
         
         // Connect play button - single source of truth for play/pause state
         document.getElementById('play-button')?.addEventListener('click', () => {
@@ -289,6 +350,8 @@ setTimeout(async () => {
             
             // Update top 5 based on current view
             syncTop5ToWeek(weekIndex, currentView);
+            // Update info window based on current week
+            syncInfoToWeek(weekIndex);
             
             // Update button UI
             updatePlayButtonUI();
@@ -381,6 +444,8 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
         
         // Sync top 5 to current week
         syncTop5ToWeek(currentWeek, 'chord');
+        syncInfoToWeek(currentWeek);
+
         
     } else {
         // Switch to map view
@@ -420,6 +485,10 @@ document.getElementById('mobile-view-toggle-button')?.addEventListener('click', 
         mapIcon.classList.remove('hidden');
         chordIcon.classList.add('hidden');
         
+        // Close mobile info window if it's open
+        const mobileInfoWindow = document.getElementById('mobile-info-window');
+        mobileInfoWindow?.classList.add('hidden');
+        
         // Sync week position from map to chord
         const currentWeek = choroplethMap.currentWeekIndex;
         chordDiagram.setWeek(currentWeek);
@@ -434,7 +503,7 @@ document.getElementById('mobile-view-toggle-button')?.addEventListener('click', 
         
         // Sync top 5 to current week
         syncTop5ToWeek(currentWeek, 'chord');
-        
+        syncInfoToWeek(currentWeek);
     } else {
         // Switch to map view
         choroplethContainer.classList.remove('hidden');
@@ -456,6 +525,7 @@ document.getElementById('mobile-view-toggle-button')?.addEventListener('click', 
         
         // Sync top 5 to current week
         syncTop5ToWeek(currentWeek, 'map');
+        syncInfoToWeek(currentWeek);
     }
 });
 

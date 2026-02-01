@@ -1,5 +1,3 @@
-// TO DO: TOGGLE FOR WEIGHTED / UNWEIGHTED MENTIONS
-
 // Track previous week's rankings
 let previousRankings = new Map();
 

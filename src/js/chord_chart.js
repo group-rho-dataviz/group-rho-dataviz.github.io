@@ -11,7 +11,20 @@ export default class ChordChart extends ScrollyChart {
         this.isPlaying = false;
         this.playInterval = null;
         this.continents = []; // Fixed order of continents (not duplicated)
+        this.weekManager = null; // Will be set externally
     }
+
+    /**
+     * Set the centralized week manager
+     * @param {WeekManager} weekManager - The shared week manager instance
+     */
+    setWeekManager(weekManager) {
+        this.weekManager = weekManager;
+        if (weekManager) {
+            this.allWeeks = weekManager.getWeeks();
+        }
+    }
+
 
     init() {
         const container = this.svg.node()?.parentElement;
@@ -45,6 +58,7 @@ export default class ChordChart extends ScrollyChart {
         
         this.g = this.svg.append('g')
             .attr('transform', `translate(${this.width / 2},${this.height / 1.85})`);
+
     }
 
     async draw() {
@@ -77,13 +91,23 @@ export default class ChordChart extends ScrollyChart {
         
         // Group data by week
         const weekGroups = d3.group(rawData, d => d.mention_week);
-        // Sort weeks chronologically by converting to Date objects
-        this.allWeeks = Array.from(weekGroups.keys()).sort((a, b) => {
-            return new Date(a) - new Date(b);
-        });
+
+        // If week manager is set, use its weeks; otherwise build from data
+        if (this.weekManager) {
+            this.allWeeks = this.weekManager.getWeeks();
+        } else {
+            // Fallback: build weeks from data (old behavior)
+            this.allWeeks = Array.from(weekGroups.keys()).sort((a, b) => {
+                return new Date(a) - new Date(b);
+            });
+        }
+
         
         weekGroups.forEach((records, week) => {
             // Create matrix with fixed continent order
+            const matchedWeek = this.allWeeks.find(w => new Date(w).getTime() === new Date(week).getTime());            
+            const finalKey = matchedWeek || week;            
+
             const matrix = Array(n).fill(0).map(() => Array(n).fill(0));
             const continentIndex = new Map(this.continents.map((c, i) => [c, i]));
             
@@ -106,13 +130,50 @@ export default class ChordChart extends ScrollyChart {
                 }
             });
 
-            this.weekData.set(week, {
+            this.weekData.set(finalKey, {
                 matrix,
                 continents: this.continents,
                 records,
                 detailLookup
             });
         });
+        
+        // Initialize missing weeks with empty matrices (for weeks with no data)
+        this.allWeeks.forEach(week => {
+            if (!this.weekData.has(week)) {
+                const emptyMatrix = Array(n).fill(0).map(() => Array(n).fill(0));
+                this.weekData.set(week, {
+                    matrix: emptyMatrix,
+                    continents: this.continents,
+                    records: [],
+                    detailLookup: new Map()
+                });
+            }
+        });
+        
+    }
+
+    /**
+     * Helper to safely generate chords even when matrix is empty (all zeros).
+     * This prevents NaN values which crash the interpolation.
+     */
+    getSafeChords(matrix) {
+        const totalSum = d3.sum(matrix.map(row => d3.sum(row)));
+        
+        if (totalSum === 0) {
+            // Return a dummy chord object with zero angles
+            // This structure mimics what d3.chordDirected returns but with safe 0 values
+            const emptyChords = []; 
+            emptyChords.groups = this.continents.map((c, i) => ({
+                index: i,
+                startAngle: 0,
+                endAngle: 0,
+                value: 0
+            }));
+            return emptyChords;
+        }
+        
+        return this.chordLayout(matrix);
     }
 
     drawChordInitial(week) {
@@ -145,7 +206,8 @@ export default class ChordChart extends ScrollyChart {
         this.ribbonGenerator = d3.ribbon()
             .radius(radius);
 
-        const chords = this.chordLayout(matrix);
+        // USE SAFE CHORDS to prevent NaN on empty weeks
+        const chords = this.getSafeChords(matrix);
 
         const colorScale = (continent) => {
             return this.continentColors[continent] || '#888888';
@@ -214,28 +276,6 @@ export default class ChordChart extends ScrollyChart {
                 this.hoveredArc = null; // Clear hover state
                 this.tooltip.style('opacity', 0);
             });
-
-        // Add continent labels
-        /*
-        this.arcLabels = this.arcGroups
-            .append('text')
-            .each(d => { d.angle = (d.startAngle + d.endAngle) / 2; })
-            .attr('dy', '.35em')
-            .attr('transform', d => `
-                rotate(${(d.angle * 180 / Math.PI - 90)})
-                translate(${radius + 25})
-                ${d.angle > Math.PI ? 'rotate(180)' : ''}
-            `)
-            .attr('text-anchor', d => d.angle > Math.PI ? 'end' : 'start')
-            .attr('fill', '#f3f4f6')
-            .style('font-family', 'Inter, sans-serif')
-            .style('font-size', '10px')
-            .style('font-weight', '500')
-            .text(d => {
-                const continent = continents[d.index];
-                return continent.length > 15 ? continent.substring(0, 12) + '...' : continent;
-            });
-        */
     }
 
     updateRibbonTooltip(d, continents) {
@@ -294,14 +334,28 @@ export default class ChordChart extends ScrollyChart {
         this.currentMatrix = matrix;
         this.currentDetailLookup = detailLookup;
         
-        const chords = this.chordLayout(matrix);
+        // USE SAFE CHORDS
+        const chords = this.getSafeChords(matrix);
 
         const colorScale = (continent) => {
             return this.continentColors[continent] || '#888888';
         };
 
+        // Check if containers still exist (they might have been removed)
+        if (!this.ribbonsContainer || !this.ribbonsContainer.node() || !this.arcsContainer || !this.arcsContainer.node()) {
+            // Containers were removed, reinitialize them
+            this.ribbonsContainer = this.g.append('g').attr('class', 'ribbons');
+            this.arcsContainer = this.g.append('g').attr('class', 'arcs');
+            
+            // Initialize ribbon paths
+            this.ribbonPaths = this.ribbonsContainer.selectAll('path');
+            this.arcPaths = this.arcsContainer.selectAll('path');
+        }
+
+        
         // Update ribbon event handlers to use current week's data
-        this.ribbonPaths
+        // NOTE: We re-select from container to ensure we capture the fresh selection for the join
+        this.ribbonPaths = this.ribbonsContainer.selectAll('path')
             .data(chords, d => `${d.source.index}-${d.target.index}`)
             .join('path')
             .on('mouseover', (event, d) => {
@@ -331,6 +385,7 @@ export default class ChordChart extends ScrollyChart {
         // Smooth transition for arcs - they grow/shrink in place
         const arcData = chords.groups;
         
+        // Ensure we are selecting the paths inside the existing groups
         this.arcPaths
             .data(arcData, d => d.index)
             .on('mouseover', (event, d) => {
@@ -358,7 +413,18 @@ export default class ChordChart extends ScrollyChart {
             .ease(d3.easeCubicInOut)
             .attrTween('d', function(d) {
                 const node = this;
-                const previous = node.__data__ || d; // Fallback to current data if no previous
+                // Fallback to current data if no previous
+                // CRITICAL FIX: Ensure 'previous' has valid numbers. 
+                // If we are recovering from a "missing" week, previous might be undefined or contain NaNs.
+                const rawPrev = node.__data__ || d;
+                
+                const previous = {
+                    startAngle: isNaN(rawPrev.startAngle) ? 0 : rawPrev.startAngle,
+                    endAngle: isNaN(rawPrev.endAngle) ? 0 : rawPrev.endAngle,
+                    value: isNaN(rawPrev.value) ? 0 : rawPrev.value,
+                    index: d.index
+                };
+
                 const interpolateStart = d3.interpolate(previous.startAngle, d.startAngle);
                 const interpolateEnd = d3.interpolate(previous.endAngle, d.endAngle);
                 const interpolateValue = d3.interpolate(previous.value, d.value);
@@ -379,23 +445,6 @@ export default class ChordChart extends ScrollyChart {
         if (this.hoveredArc) {
             this.updateArcTooltip(this.hoveredArc, continents);
         }
-
-        // Update label positions smoothly
-        /*
-        this.arcLabels
-            .data(arcData, d => d.index)
-            .each(d => { d.angle = (d.startAngle + d.endAngle) / 2; })
-            .join('text')
-            .transition()
-            .duration(400)
-            .ease(d3.easeCubicInOut)
-            .attr('transform', d => `
-                rotate(${(d.angle * 180 / Math.PI - 90)})
-                translate(${this.radius + 25})
-                ${d.angle > Math.PI ? 'rotate(180)' : ''}
-            `)
-            .attr('text-anchor', d => d.angle > Math.PI ? 'end' : 'start');
-        */
     }
 
     updateWeekDisplay(week) {
