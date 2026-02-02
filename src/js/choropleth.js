@@ -113,8 +113,7 @@ export default class Choropleth extends ScrollyChart {
         // Group by week and media country
         const grouped = d3.group(rawData, 
             d => d.mention_week,
-            d => d.media_country,
-            d => d.media_continent
+            d => d.media_country
         );
         
         // Get sorted weeks (convert to Date for proper sorting)
@@ -141,13 +140,11 @@ export default class Choropleth extends ScrollyChart {
             const finalKey = matchedWeek || week;            
             const weekData = new Map();
             mediaCountries.forEach((countries, mediaCountry) => {
-                countries.forEach((data, mediaContinent) => {
-                    // Get the top covered country for this media country and continent
-                    const topCountry = data.reduce((max, curr) => 
-                        curr.material_conflict_mentions > max.material_conflict_mentions ? curr : max
-                    );
-                    weekData.set(`${mediaCountry}`, topCountry);
-                });
+                // Get the top covered country for this media country
+                const topCountry = countries.reduce((max, curr) => 
+                    curr.material_conflict_mentions > max.material_conflict_mentions ? curr : max
+                );
+                weekData.set(`${mediaCountry}`, topCountry);
             });
             this.processedData.set(finalKey, weekData);
         });

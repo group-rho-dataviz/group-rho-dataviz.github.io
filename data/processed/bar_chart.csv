@@ -1,74 +1,74 @@
-COUNTRY,YEAR,FATALITIES,FATALITY_CLUSTER
-Afghanistan,2025,915,Medium
-Algeria,2025,32,Low
-Angola,2025,192,Medium
-Australia,2025,16,Low
-Bangladesh,2025,372,Medium
-Belize,2025,37,Low
-Benin,2025,421,Medium
-Bolivia,2025,38,Low
-Brazil,2025,7815,High
-Burkina Faso,2025,5156,High
-Burundi,2025,208,Medium
-Cameroon,2025,1779,High
-Central African Republic,2025,1163,High
-Chad,2025,351,Medium
-Chile,2025,12,Low
-Colombia,2025,2293,High
-Democratic Republic of Congo,2025,7233,High
-Dominican Republic,2025,27,Low
-Ecuador,2025,4039,High
-Egypt,2025,53,Low
-Ethiopia,2025,6315,High
-Ghana,2025,263,Medium
-Guatemala,2025,507,Medium
-Guinea,2025,36,Low
-Haiti,2025,2692,High
-Honduras,2025,556,Medium
-India,2025,1159,High
-Indonesia,2025,253,Medium
-Iran,2025,726,Medium
-Iraq,2025,574,Medium
-Israel,2025,50,Low
-Ivory Coast,2025,36,Low
-Jamaica,2025,290,Medium
-Kenya,2025,975,Medium
-Lebanon,2025,412,Medium
-Liberia,2025,22,Low
-Libya,2025,282,Medium
-Madagascar,2025,264,Medium
-Malawi,2025,42,Low
-Mali,2025,3934,High
-Mexico,2025,8192,High
-Morocco,2025,54,Low
-Mozambique,2025,686,Medium
-Myanmar,2025,15454,High
-Nepal,2025,81,Low
-Niger,2025,1932,High
-Nigeria,2025,12096,High
-Pakistan,2025,5275,High
-Palestine,2025,16881,High
-Papua New Guinea,2025,140,Medium
-Peru,2025,47,Low
-Philippines,2025,535,Medium
-Puerto Rico,2025,168,Medium
-Republic of Congo,2025,17,Low
-Russia,2025,1843,High
-Rwanda,2025,19,Low
-Somalia,2025,9807,High
-South Africa,2025,155,Medium
-South Sudan,2025,3195,High
-Sudan,2025,18446,High
-Syria,2025,7885,High
-Tajikistan,2025,14,Low
-Tanzania,2025,126,Medium
-Thailand,2025,92,Low
-Togo,2025,29,Low
-Trinidad and Tobago,2025,181,Medium
-Turkey,2025,15,Low
-Uganda,2025,198,Medium
-Ukraine,2025,78347,High
-United States,2025,54,Low
-Venezuela,2025,435,Medium
-Yemen,2025,2894,High
-Zambia,2025,17,Low
+COUNTRY,FATALITIES,FATALITY_CLUSTER
+Afghanistan,915,Medium
+Algeria,32,Low
+Angola,192,Medium
+Australia,16,Low
+Bangladesh,372,Medium
+Belize,37,Low
+Benin,421,Medium
+Bolivia,38,Low
+Brazil,7815,High
+Burkina Faso,5156,High
+Burundi,208,Medium
+Cameroon,1779,High
+Central African Republic,1163,High
+Chad,351,Medium
+Chile,12,Low
+Colombia,2293,High
+Democratic Republic of Congo,7233,High
+Dominican Republic,27,Low
+Ecuador,4039,High
+Egypt,53,Low
+Ethiopia,6315,High
+Ghana,263,Medium
+Guatemala,507,Medium
+Guinea,36,Low
+Haiti,2692,High
+Honduras,556,Medium
+India,1159,High
+Indonesia,253,Medium
+Iran,726,Medium
+Iraq,574,Medium
+Israel,50,Low
+Ivory Coast,36,Low
+Jamaica,290,Medium
+Kenya,975,Medium
+Lebanon,412,Medium
+Liberia,22,Low
+Libya,282,Medium
+Madagascar,264,Medium
+Malawi,42,Low
+Mali,3934,High
+Mexico,8192,High
+Morocco,54,Low
+Mozambique,686,Medium
+Myanmar,15454,High
+Nepal,81,Low
+Niger,1932,High
+Nigeria,12096,High
+Pakistan,5275,High
+Palestine,16881,High
+Papua New Guinea,140,Medium
+Peru,47,Low
+Philippines,535,Medium
+Puerto Rico,168,Medium
+Republic of Congo,17,Low
+Russia,1843,High
+Rwanda,19,Low
+Somalia,9807,High
+South Africa,155,Medium
+South Sudan,3195,High
+Sudan,18446,High
+Syria,7885,High
+Tajikistan,14,Low
+Tanzania,126,Medium
+Thailand,92,Low
+Togo,29,Low
+Trinidad and Tobago,181,Medium
+Turkey,15,Low
+Uganda,198,Medium
+Ukraine,78347,High
+United States,54,Low
+Venezuela,435,Medium
+Yemen,2894,High
+Zambia,17,Low
