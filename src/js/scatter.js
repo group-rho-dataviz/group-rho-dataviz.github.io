@@ -47,6 +47,16 @@ export default class ScatterPlot extends ScrollyChart {
         } else {
             setup(this.data || []);
         }
+
+        // Hint text for tap interaction
+        this.hintText = this.svg.append('text')
+            .attr('x', this.width / 2)
+            .attr('y', this.margin.top * 3/4)
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#9ca3af')
+            .style('font-family', 'Inter, sans-serif')
+            .style('font-size', Math.max(this.width / 35, 8) + 'px')
+            .style('font-style', 'italic');
     }
 
     selectYear(year) {
@@ -65,6 +75,7 @@ export default class ScatterPlot extends ScrollyChart {
         if (!this.g) return;
 
         this.title.text("Mentions vs Fatalities");
+        this.hintText.text("Tap on a country to see its trajectory over time");
         this.data.then(data => {
             // Get data for the selected year
             let yearData = this.processDataByYear(data, this.year);
@@ -75,13 +86,13 @@ export default class ScatterPlot extends ScrollyChart {
             }
 
             // Set up scales
-            const xMax = d3.max(yearData, d => d.MENTIONS) || 10;
+            const xMax = d3.max(yearData, d => d.MENTIONS) * 1.2 || 10;
             this.xScale = d3.scaleSymlog()
                 .clamp(true)
                 .range([0, this.innerWidth])
                 .domain([1, xMax]);
 
-            const yMax = d3.max(yearData, d => d.FATALITIES) || 1;
+            const yMax = d3.max(yearData, d => d.FATALITIES) * 1.2 || 1;
             this.yScale = d3.scaleSymlog()
                 .clamp(true)
                 .range([this.innerHeight, 0])
@@ -657,29 +668,23 @@ export default class ScatterPlot extends ScrollyChart {
                 .attr('opacity', 1);
         }
         
-        // Add title showing the country name
-        const titleY = this.margin.top - 35;
-        this.svg.append('text')
-            .attr('class', 'trajectory-title')
-            .attr('x', this.width / 2)
-            .attr('y', titleY)
-            .attr('dy', '2em')
-            .attr('text-anchor', 'middle')
-            .attr('font-family', 'Inter, sans-serif')
-            .attr('font-size', isMobile ? '14px' : '18px')
-            .attr('font-weight', '700')
-            .attr('fill', '#f3f4f6')
-            .attr('opacity', 0)
+        // Update title to reflect selected country
+        this.title
             .text(`${clickedPoint.COUNTRY}: 2015-2025 Trajectory`)
             .transition()
-            .duration(600)
-            .attr('opacity', 1);
+            .duration(600);
     }
     
     collapseTrajectory(animate = true) {
         if (!this.selectedCountry) return;
         
         const duration = animate ? 400 : 0;
+
+        // Restore title
+        this.title
+            .text("Mentions vs Fatalities")
+            .transition()
+            .duration(duration);
         
         // Remove trajectory elements
         this.g.selectAll('.trajectory-group')
