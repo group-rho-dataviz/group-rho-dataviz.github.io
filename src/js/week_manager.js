@@ -71,34 +71,48 @@ export default class WeekManager {
         if (weeks.length < 2) return weeks;
         
         const result = [];
+        const seen = new Set();
         
         for (let i = 0; i < weeks.length - 1; i++) {
-            const current = new Date(weeks[i]);
-            const next = new Date(weeks[i + 1]);
+            const current = new Date(weeks[i] + 'T00:00:00Z'); // Use UTC to avoid DST issues
+            const next = new Date(weeks[i + 1] + 'T00:00:00Z');
             
-            result.push(weeks[i]);
+            // Add current week if not already seen
+            if (!seen.has(weeks[i])) {
+                result.push(weeks[i]);
+                seen.add(weeks[i]);
+            }
             
             // Add missing weeks (7-day intervals)
             let checkDate = new Date(current);
-            checkDate.setDate(checkDate.getDate() + 7);
+            checkDate.setUTCDate(checkDate.getUTCDate() + 7);
             
             while (checkDate < next) {
                 // Format as YYYY-MM-DD
-                const yearStr = checkDate.getFullYear();
-                const monthStr = String(checkDate.getMonth() + 1).padStart(2, '0');
-                const dayStr = String(checkDate.getDate()).padStart(2, '0');
-                result.push(`${yearStr}-${monthStr}-${dayStr}`);
+                const yearStr = checkDate.getUTCFullYear();
+                const monthStr = String(checkDate.getUTCMonth() + 1).padStart(2, '0');
+                const dayStr = String(checkDate.getUTCDate()).padStart(2, '0');
+                const weekStr = `${yearStr}-${monthStr}-${dayStr}`;
                 
-                checkDate.setDate(checkDate.getDate() + 7);
+                if (!seen.has(weekStr)) {
+                    result.push(weekStr);
+                    seen.add(weekStr);
+                }
+                
+                checkDate.setUTCDate(checkDate.getUTCDate() + 7);
             }
         }
         
-        // Add the last week
-        result.push(weeks[weeks.length - 1]);
+        // Add the last week if not already seen
+        const lastWeek = weeks[weeks.length - 1];
+        if (!seen.has(lastWeek)) {
+            result.push(lastWeek);
+            seen.add(lastWeek);
+        }
         
         return result;
     }
-
+    
     /**
      * Get the complete week list
      * @returns {Array} - Array of week strings

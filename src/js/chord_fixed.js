@@ -106,7 +106,6 @@ export default class ChordChart extends ScrollyChart {
         weekGroups.forEach((records, week) => {
             // Create matrix with fixed continent order
             const matchedWeek = this.allWeeks.find(w => new Date(w).getTime() === new Date(week).getTime());            
-        
             const finalKey = matchedWeek || week;            
 
             const matrix = Array(n).fill(0).map(() => Array(n).fill(0));
@@ -155,25 +154,29 @@ export default class ChordChart extends ScrollyChart {
     }
 
     /**
-     * Helper to safely generate chords even when matrix is empty (all zeros).
-     * This prevents NaN values which crash the interpolation.
+     * Safe wrapper for generating chord layout
+     * Handles cases where matrix is all zeros (missing data)
      */
     getSafeChords(matrix) {
         const totalSum = d3.sum(matrix.map(row => d3.sum(row)));
         
+        // If total mentions are 0, return a collapsed state to avoid NaNs
         if (totalSum === 0) {
-            // Return a dummy chord object with zero angles
-            // This structure mimics what d3.chordDirected returns but with safe 0 values
-            const emptyChords = []; 
+            // Create a fake chords object that emulates d3.chord structure
+            const emptyChords = []; // No ribbons
+            
+            // Create groups with 0 angles
             emptyChords.groups = this.continents.map((c, i) => ({
                 index: i,
                 startAngle: 0,
                 endAngle: 0,
                 value: 0
             }));
+            
             return emptyChords;
         }
-        
+
+        // Standard layout for valid data
         return this.chordLayout(matrix);
     }
 
@@ -207,7 +210,7 @@ export default class ChordChart extends ScrollyChart {
         this.ribbonGenerator = d3.ribbon()
             .radius(radius);
 
-        // USE SAFE CHORDS to prevent NaN on empty weeks
+        // USE SAFE CHORD GENERATION
         const chords = this.getSafeChords(matrix);
 
         const colorScale = (continent) => {
@@ -322,11 +325,9 @@ export default class ChordChart extends ScrollyChart {
 
     updateChordSmooth(week) {
         const data = this.weekData.get(week);
-        if (!data) {
-            return;
-        }
+        if (!data) return;
 
-        // this.currentWeekIndex = this.allWeeks.indexOf(week);
+        this.currentWeekIndex = this.allWeeks.indexOf(week);
         this.updateWeekDisplay(week);
         
         if (this.onWeekChange) {
@@ -337,124 +338,120 @@ export default class ChordChart extends ScrollyChart {
         this.currentMatrix = matrix;
         this.currentDetailLookup = detailLookup;
         
-        // USE SAFE CHORDS
+        // USE SAFE CHORD GENERATION
         const chords = this.getSafeChords(matrix);
 
         const colorScale = (continent) => {
             return this.continentColors[continent] || '#888888';
         };
 
-        // Check if containers still exist (they might have been removed)
+        // Check if containers still exist
         if (!this.ribbonsContainer || !this.ribbonsContainer.node() || !this.arcsContainer || !this.arcsContainer.node()) {
-            // Containers were removed, reinitialize them
             this.ribbonsContainer = this.g.append('g').attr('class', 'ribbons');
             this.arcsContainer = this.g.append('g').attr('class', 'arcs');
-            
-            // Initialize ribbon paths
-            this.ribbonPaths = this.ribbonsContainer.selectAll('path');
-            this.arcPaths = this.arcsContainer.selectAll('path');
         }
 
-        
-        // Update ribbon event handlers to use current week's data
-        // NOTE: We re-select from container to ensure we capture the fresh selection for the join
+        // Initialize/Re-select paths to ensure proper data binding
+        // Using .selectAll and .join helps maintain the selection state
         this.ribbonPaths = this.ribbonsContainer.selectAll('path')
-            .data(chords, d => `${d.source.index}-${d.target.index}`)
-            .join(
-                enter => enter.append('path')
-                    .attr('opacity', 0.6)  // Set default opacity for new ribbons
+            .data(chords, d => `${d.source.index}-${d.target.index}`);
+
+        this.ribbonPaths.join(
+            enter => enter.append('path')
+                .attr('d', this.ribbonGenerator)
+                .attr('fill', d => colorScale(continents[d.source.index]))
+                .attr('opacity', 0) // Start invisible
+                .call(enter => enter.transition().duration(400).attr('opacity', 0.6)),
+            update => update
+                .call(update => update.transition()
+                    .duration(400)
+                    .ease(d3.easeCubicInOut)
                     .attr('d', this.ribbonGenerator)
-                    .attr('fill', d => colorScale(continents[d.source.index])),
-                update => update,
-                exit => exit.remove()
-            )
-            .on('mouseover', (event, d) => {
-                d3.select(event.currentTarget).attr('opacity', 0.9);
-                this.hoveredRibbon = d;
-                this.updateRibbonTooltip(d, continents);
-            })
-            .on('mousemove', (event) => {
-                this.positionTooltip(event);
-            })
-            .on('mouseout', (event) => {
-                d3.select(event.currentTarget).attr('opacity', 0.6);
-                this.hoveredRibbon = null;
-                this.tooltip.style('opacity', 0);
-            })
-            .transition()
-            .duration(400)
-            .ease(d3.easeCubicInOut)
-            .attr('d', this.ribbonGenerator)
-            .attr('fill', d => colorScale(continents[d.source.index]));
+                    .attr('fill', d => colorScale(continents[d.source.index]))
+                    .attr('opacity', 0.6)),
+            exit => exit.transition().duration(400).attr('opacity', 0).remove()
+        )
+        // Re-attach listeners to all merged paths
+        .on('mouseover', (event, d) => {
+            d3.select(event.currentTarget).attr('opacity', 0.9);
+            this.hoveredRibbon = d;
+            this.updateRibbonTooltip(d, continents);
+        })
+        .on('mousemove', (event) => {
+            this.positionTooltip(event);
+        })
+        .on('mouseout', (event) => {
+            d3.select(event.currentTarget).attr('opacity', 0.6);
+            this.hoveredRibbon = null;
+            this.tooltip.style('opacity', 0);
+        });
 
-        // If a ribbon is currently hovered, update its tooltip
-        if (this.hoveredRibbon) {
-            this.updateRibbonTooltip(this.hoveredRibbon, continents);
-        }
-
-        // Smooth transition for arcs - they grow/shrink in place
+        // Smooth transition for arcs
         const arcData = chords.groups;
         
-        // Ensure we are selecting the paths inside the existing groups
-        this.arcPaths
+        // Re-select arc groups and paths
+        this.arcGroups = this.arcsContainer.selectAll('g')
             .data(arcData, d => d.index)
-            .on('mouseover', (event, d) => {
-                d3.select(event.currentTarget).attr('opacity', 1);
+            .join('g');
 
-                this.ribbonPaths
-                    .attr('opacity', rd => 
-                        (rd.source.index === d.index || rd.target.index === d.index) ? 0.9 : 0.1
-                    );
+        // We need to manage the paths inside the groups
+        // Since the groups correspond 1:1 with continents, we can select the path inside
+        const paths = this.arcGroups.selectAll('path')
+            .data(d => [d]); // Bind the single group data to the path
 
-                this.hoveredArc = d;
-                this.updateArcTooltip(d, continents);
-            })
-            .on('mousemove', (event) => {
-                this.positionTooltip(event);
-            })
-            .on('mouseout', (event) => {
-                d3.select(event.currentTarget).attr('opacity', 0.9);
-                this.ribbonPaths.attr('opacity', 0.6);
-                this.hoveredArc = null;
-                this.tooltip.style('opacity', 0);
-            })
-            .transition()
-            .duration(400)
-            .ease(d3.easeCubicInOut)
-            .attrTween('d', function(d) {
-                const node = this;
-                // Fallback to current data if no previous
-                // CRITICAL FIX: Ensure 'previous' has valid numbers. 
-                // If we are recovering from a "missing" week, previous might be undefined or contain NaNs.
-                const rawPrev = node.__data__ || d;
-                
-                const previous = {
-                    startAngle: isNaN(rawPrev.startAngle) ? 0 : rawPrev.startAngle,
-                    endAngle: isNaN(rawPrev.endAngle) ? 0 : rawPrev.endAngle,
-                    value: isNaN(rawPrev.value) ? 0 : rawPrev.value,
-                    index: d.index
-                };
+        paths.join(
+            enter => enter.append('path')
+                .attr('d', this.arcGenerator)
+                .attr('fill', d => colorScale(continents[d.index]))
+                .attr('stroke', '#fff')
+                .attr('stroke-width', 2),
+            update => update.transition()
+                .duration(400)
+                .ease(d3.easeCubicInOut)
+                .attrTween('d', function(d) {
+                    const node = this;
+                    // Safely handle previous state. 
+                    // If startAngle/endAngle are missing or NaN, default to 0
+                    const previous = node.__data__ || { startAngle: 0, endAngle: 0, value: 0 };
+                    
+                    const pStart = isNaN(previous.startAngle) ? 0 : previous.startAngle;
+                    const pEnd = isNaN(previous.endAngle) ? 0 : previous.endAngle;
+                    const dStart = isNaN(d.startAngle) ? 0 : d.startAngle;
+                    const dEnd = isNaN(d.endAngle) ? 0 : d.endAngle;
 
-                const interpolateStart = d3.interpolate(previous.startAngle, d.startAngle);
-                const interpolateEnd = d3.interpolate(previous.endAngle, d.endAngle);
-                const interpolateValue = d3.interpolate(previous.value, d.value);
-                
-                return (t) => {
-                    const interpolated = {
-                        startAngle: interpolateStart(t),
-                        endAngle: interpolateEnd(t),
-                        value: interpolateValue(t),
-                        index: d.index
+                    const interpolateStart = d3.interpolate(pStart, dStart);
+                    const interpolateEnd = d3.interpolate(pEnd, dEnd);
+                    
+                    return (t) => {
+                        return this.arcGenerator({
+                            startAngle: interpolateStart(t),
+                            endAngle: interpolateEnd(t),
+                            index: d.index
+                        });
                     };
-                    return this.arcGenerator(interpolated);
-                };
-            }.bind(this))
-            .attr('fill', d => colorScale(continents[d.index]));
-
-        // If an arc is currently hovered, update its tooltip
-        if (this.hoveredArc) {
-            this.updateArcTooltip(this.hoveredArc, continents);
-        }
+                }.bind(this))
+                .attr('fill', d => colorScale(continents[d.index]))
+        )
+        // Re-attach listeners
+        .on('mouseover', (event, d) => {
+            d3.select(event.currentTarget).attr('opacity', 1);
+            // Highlight connected ribbons
+            this.ribbonsContainer.selectAll('path')
+                .attr('opacity', rd => 
+                    (rd.source.index === d.index || rd.target.index === d.index) ? 0.9 : 0.1
+                );
+            this.hoveredArc = d;
+            this.updateArcTooltip(d, continents);
+        })
+        .on('mousemove', (event) => {
+            this.positionTooltip(event);
+        })
+        .on('mouseout', (event) => {
+            d3.select(event.currentTarget).attr('opacity', 0.9);
+            this.ribbonsContainer.selectAll('path').attr('opacity', 0.6);
+            this.hoveredArc = null;
+            this.tooltip.style('opacity', 0);
+        });
     }
 
     updateWeekDisplay(week) {
@@ -499,8 +496,8 @@ export default class ChordChart extends ScrollyChart {
         if (index >= 0 && index < this.allWeeks.length) {
             this.currentWeekIndex = index;
             this.currentWeek = this.allWeeks[index];
-
-            if (this.ribbonPaths && this.arcPaths) {
+            
+            if (this.ribbonsContainer && this.arcsContainer) {
                 this.updateChordSmooth(this.currentWeek);
             } else {
                 this.drawChordInitial(this.currentWeek);

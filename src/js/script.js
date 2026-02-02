@@ -257,6 +257,90 @@ function updatePlayButtonUI() {
     }
 }
 
+// ===== TIMELINE MARKERS ======
+/**
+ * Add timeline markers at key reference points
+ * @param {WeekManager} weekManager - The week manager instance
+ * @param {Array} markerDates - Array of date strings to mark (e.g., ['2015-06-01', '2016-01-01'])
+ */
+function addTimelineMarkers(weekManager, markerDates = null) {
+    const weeks = weekManager.getWeeks();
+    const totalWeeks = weeks.length;
+    
+    if (totalWeeks === 0) return;
+    
+    const markerContainer = document.getElementById('timeline-markers');
+    const labelContainer = document.getElementById('timeline-labels');
+    
+    if (!markerContainer || !labelContainer) return;
+    
+    // Clear existing markers
+    markerContainer.innerHTML = '';
+    labelContainer.innerHTML = '';
+    
+    let markersToAdd = [];
+    
+    if (markerDates && markerDates.length > 0) {
+        // Use provided dates
+        markersToAdd = markerDates.map(dateStr => {
+            const index = weekManager.getWeekIndex(dateStr);
+            return index >= 0 ? { index, date: dateStr } : null;
+        }).filter(m => m !== null);
+    } else {
+        // Auto-generate markers - evenly spaced throughout timeline
+        const numMarkers = 6;
+        const step = Math.floor(totalWeeks / (numMarkers + 1));
+        
+        for (let i = 1; i <= numMarkers; i++) {
+            const index = i * step;
+            if (index < totalWeeks) {
+                markersToAdd.push({ index, date: weeks[index] });
+            }
+        }
+    }
+    
+    // Create marker elements
+    markersToAdd.forEach(({ index, date }) => {
+        const position = (index / (totalWeeks - 1)) * 100;
+        
+        // Create marker tick
+        const marker = document.createElement('div');
+        marker.className = 'timeline-marker';
+        marker.style.left = `${position}%`;
+        marker.dataset.index = index;
+        marker.dataset.date = date;
+        
+        // Click to jump to this week
+        marker.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const weekIndex = parseInt(marker.dataset.index);
+            
+            // Update all charts
+            if (window.choroplethMap) window.choroplethMap.setWeek(weekIndex);
+            if (window.chordDiagram) window.chordDiagram.setWeek(weekIndex);
+            if (window.racingChart) window.racingChart.setWeek(weekIndex);
+        });
+        
+        markerContainer.appendChild(marker);
+        
+        // Create label with responsive text wrapping
+        const label = document.createElement('div');
+        label.className = 'timeline-marker-label text-[0.5rem] lg:text-xs text-gray-400 font-medium whitespace-normal max-w-[3rem] md:max-w-[4rem] lg:whitespace-nowrap lg:max-w-none text-center leading-tight';
+        label.style.left = `${position}%`;
+        
+        const dateObj = new Date(date);
+        const formattedDate = dateObj.toLocaleDateString('en-US', { 
+            month: 'short', 
+            year: 'numeric' 
+        });
+        label.textContent = formattedDate;
+        
+        labelContainer.appendChild(label);
+    });
+}
+
+addTimelineMarkers(weekManager);
+
 // ===== INITIALIZATION =====
 let visualizationsInitialized = false;
 
@@ -438,6 +522,8 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
         if (isAnimationPlaying) {
             choroplethMap.pause(); // Pause the hidden one
             chordDiagram.play();   // Continue playing the visible one
+            updatePlayButtonUI();
+
         } else {
             chordDiagram.pause();  // Keep paused if it was paused
         }
@@ -463,6 +549,8 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
         if (isAnimationPlaying) {
             chordDiagram.pause();    // Pause the hidden one
             choroplethMap.play();     // Continue playing the visible one
+            updatePlayButtonUI();
+
         } else {
             choroplethMap.pause();   // Keep paused if it was paused
         }

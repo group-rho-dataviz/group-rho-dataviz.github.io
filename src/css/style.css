@@ -262,3 +262,54 @@
     background: linear-gradient(to bottom, rgba(249, 250, 251, 0), rgba(249, 250, 251, 0.95) 60%, rgba(249, 250, 251, 1));
     pointer-events: none;
 }
+
+
+/* Timeline marker styles */
+.timeline-marker {
+    position: absolute;
+    width: 2px;
+    height: 12px;
+    background-color: #60a5fa;
+    transform: translateX(-50%);
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.2s;
+}
+
+.timeline-marker:hover {
+    background-color: #3b82f6;
+    height: 16px;
+    width: 3px;
+}
+
+.timeline-marker-label {
+    position: absolute;
+    font-size: 10px;
+    color: #9ca3af;
+    white-space: nowrap;
+    transform: translateX(-50%);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 500;
+}
+
+/* Hide slider thumb on webkit browsers for cleaner look */
+#week-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#week-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
