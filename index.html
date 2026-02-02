@@ -620,101 +620,333 @@
 
     <!-- STORIES SECTION -->
     <!-- Myanmar -->
-    <section id="myanmar_stories" class="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-4">Human Stories & Insights</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-6">Voices from the Silence</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    While cameras turn away, millions endure. Below we highlight two under-covered crises — Myanmar and Burkina Faso — with contextual charts: a distribution of media tone and a timeline of fatalities with annotated events.
+    <section id="myanmar_stories" class="bg-gray-50 py-12 sm:py-16 lg:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Header -->
+            <div class="mb-8 sm:mb-12 max-w-4xl mx-auto">
+                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-3">
+                    The Myanmar Tragedy
+                </span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
+                    Voices from the Silence
+                </h2>
+                <div class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-prose">
+                    <p class="mb-4">
+                        In recent years, Myanmar has faced escalating conflict and humanitarian crises: a military coup in 2021 triggered widespread protests, violent crackdowns and the dispacement of hundreds of people.
+                    </p>
+                    <p class="text-sm sm:text-base text-gray-500">
+                        Explore a timeline of fatalities with annotated events and look at photos that are able to tell the Myanmar tragedy behind the cold numbers.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Myanmar Line Chart -->
+            <div class="w-full max-w-5xl mx-auto">
+                <div class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg">
+                    <svg id="myanmar-line-chart" class="w-full h-64 sm:h-80 lg:h-96"></svg>
+                </div>
+            </div>
+
+            <div class="mt-16 mx-auto px-6 sm:px-8 max-w-prose mb-8 sm:mb-12">
+                <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
+                    Some words on the Myanmar tragedy and how to read the data.
                 </p>
             </div>
 
-            <figure class="w-full mb-16 relative group">
-                <div class="aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-sm bg-gray-100 shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Displaced families in Rakhine State, Myanmar" 
-                         class="w-full h-full object-cover transform transition duration-700 group-hover:scale-105">
-                </div>
-                <figcaption class="mt-3 text-xs sm:text-sm text-gray-500 font-sans border-l-2 border-gray-300 pl-3 italic">
-                    Displaced families in Rakhine State, Myanmar. Photo: [Photographer Name]
-                </figcaption>
-            </figure>
 
-            <!-- Myanmar Line Chart -->
-            <div class="w-full max-w-4xl mx-auto">
-                <div class="bg-gray-200 rounded-xl p-6 shadow-sm">
-                    <svg id="myanmar-line-chart" class="w-full h-96"></svg>
+            <!-- Image Carousel -->
+            <div class="mb-12 sm:mb-16">
+                <div class="relative overflow-hidden rounded-lg shadow-2xl bg-gray-100">
+                    <!-- Carousel Container -->
+                    <div id="myanmar-carousel" class="relative">
+                        <!-- Slides -->
+                        <div class="carousel-track flex transition-transform duration-500 ease-out">
+                            
+                            <!-- Slide 1 -->
+                            <div class="carousel-slide min-w-full">
+                                <div class="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+                                    <img src="src/images/myanmar/Rohingya_displaced_Muslims_09).jpg" 
+                                        alt="Rohingyas at the Kutupalong refugee camp in Bangladesh, October 2017" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="bg-white px-4 py-3 sm:px-6 sm:py-4 border-l-4 border-gray-900">
+                                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                        Rohingyas at the Kutupalong refugee camp in Bangladesh, October 2017
+                                    </p>
+                                    <p class="text-xs text-gray-500 mt-1">By <a rel="nofollow" class="external text" href="https://www.tasnimnews.ir">Tasnim News Agency</a>, <a href="https://creativecommons.org/licenses/by/4.0" title="Creative Commons Attribution 4.0">CC BY 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=63361996">Link</a></p>
+                                </div>
+                            </div>
+
+                            <!-- Slide 2 -->
+                            <div class="carousel-slide min-w-full">
+                                <div class="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+                                    <img src="src/images/myanmar/pyae-sone-htun-4xImZyV-yKs-unsplash.jpg" 
+                                        alt="Protests against the military coup (2021)" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="bg-white px-4 py-3 sm:px-6 sm:py-4 border-l-4 border-gray-900">
+                                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                        Protests against the military coup (2021)
+                                    </p>
+                                    <p class="text-xs text-gray-500 mt-1">Photo by <a href="https://unsplash.com/it/@kidzz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Pyae Sone Htun</a> on <a href="https://unsplash.com/it/foto/un-folto-gruppo-di-persone-con-cartelli-e-maschere-8RMZqdR79qM?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 3 -->
+                            <div class="carousel-slide min-w-full">
+                                <div class="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+                                    <img src="src/images/myanmar/Zaw_Min_Tun_at_VOA_interview_in_March_2023.jpg" 
+                                        alt="Zaw Min Tun being interviewed by VOA Burmese (2023)" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="bg-white px-4 py-3 sm:px-6 sm:py-4 border-l-4 border-gray-900">
+                                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                        Zaw Min Tun, spokesperson of the military council, cites security concerns as the reason for delaying the election date announcement (2023).
+                                    </p>
+                                    <p class="text-xs text-gray-500 mt-1"><a href="https://commons.wikimedia.org/wiki/File:Zaw_Min_Tun_at_VOA_interview_in_March_2023.jpg">Mya Thazin Aung</a>, Public domain, via Wikimedia Commons</p>
+                                </div>
+                            </div>
+
+                            <!-- Slide 4 -->
+                            <div class="carousel-slide min-w-full">
+                                <div class="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+                                    <img src="src/images/myanmar/MAF_bombing_Kyauktaw_Township_2025-01-12.png" 
+                                        alt="Myanmar Airforce (MAF) bombing Kyauktaw Township (2025)" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="bg-white px-4 py-3 sm:px-6 sm:py-4 border-l-4 border-gray-900">
+                                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                        Myanmar Airforce (MAF) bombing Kyauktaw Township (2025)
+                                    </p>
+                                    <p class="text-xs text-gray-500 mt-1">By MPATV, <a href="https://creativecommons.org/licenses/by/3.0" title="Creative Commons Attribution 3.0">CC BY 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=158189191">Link</a></p>
+                                </div>
+                            </div>
+
+                            <!-- Slide 3 -->
+                            <div class="carousel-slide min-w-full">
+                                <div class="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+                                    <img src="src/images/myanmar/Sagaing_Myoma_Mosque_after_2025_Myanmar_earthquake.jpg" 
+                                        alt="Sagaing Myoma Mosque after the earthquake (2025)" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="bg-white px-4 py-3 sm:px-6 sm:py-4 border-l-4 border-gray-900">
+                                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                        On March 28, 2025 a 7.7-magnitude earthquake impacted central Myanmar. This is the Sagaing Myoma Mosque after the earthquake.
+                                    </p>
+                                    <p class="text-xs text-gray-500 mt-1"><a href="https://commons.wikimedia.org/wiki/File:Sagaing_Myoma_Mosque_after_2025_Myanmar_earthquake.jpg">Kofoehtet</a>, <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a>, via Wikimedia Commons</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <!-- Navigation Arrows -->
+                        <button class="carousel-prev absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-900 p-2 sm:p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2" aria-label="Previous image">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button class="carousel-next absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-900 p-2 sm:p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2" aria-label="Next image">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dot Indicators -->
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                            <button class="carousel-dot w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white/60 hover:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900" data-slide="0" aria-label="Go to slide 1"></button>
+                            <button class="carousel-dot w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white/60 hover:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900" data-slide="1" aria-label="Go to slide 2"></button>
+                            <button class="carousel-dot w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white/60 hover:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900" data-slide="2" aria-label="Go to slide 3"></button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
     </section>
-    
+
+
     <!-- Burkina Faso -->
-    <section id="burkina_stories" class="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-4">Human Stories & Insights</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-6">Voices from the Silence</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    While cameras turn away, millions endure. Below we highlight two under-covered crises — Myanmar and Burkina Faso — with contextual charts: a distribution of media tone and a timeline of fatalities with annotated events.
+    <section id="burkina_stories" class="bg-gray-50 py-12 sm:py-16 lg:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Header -->
+            <div class="mb-8 sm:mb-12 max-w-4xl mx-auto">
+                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-3">
+                    The Burkina Faso Crisis
+                </span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
+                    Where the World Chose to Look Away
+                </h2>
+                <div class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-prose">
+                    <p class="mb-4">
+                        In recent years, Burkina Faso has faced escalating fatalities. Despite that the media coverage decreased.
+                    </p>
+                    <p class="text-sm sm:text-base text-gray-500">
+                        Explore a timeline of fatalities with annotated events and look at photos that are able to tell the Burkina Faso tragedy behind the cold numbers.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Burkina Faso Line Chart -->
+            <div class="w-full max-w-5xl mx-auto">
+                <div class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg">
+                    <svg id="burkina-line-chart" class="w-full h-64 sm:h-80 lg:h-96"></svg>
+                </div>
+            </div>
+
+            <div class="mt-16 mx-auto px-6 sm:px-8 max-w-prose mb-8 sm:mb-12">
+                <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
+                    Some words on the Burkina Faso tragedy and how to read the data.
                 </p>
             </div>
 
-            <figure class="w-full mb-16 relative group">
-                <div class="aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-sm bg-gray-100 shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Displaced families in Rakhine State, Myanmar" 
-                         class="w-full h-full object-cover transform transition duration-700 group-hover:scale-105">
-                </div>
-                <figcaption class="mt-3 text-xs sm:text-sm text-gray-500 font-sans border-l-2 border-gray-300 pl-3 italic">
-                    Displaced families in Rakhine State, Myanmar. Photo: [Photographer Name]
-                </figcaption>
-            </figure>
 
-            <!-- Burkina Faso Line Chart -->
-            <div class="w-full max-w-4xl mx-auto">
-                <div class="bg-gray-200 rounded-xl p-6 shadow-sm">
-                    <svg id="burkina-line-chart" class="w-full h-96"></svg>
+            <!-- Image Carousel -->
+            <div class="mb-12 sm:mb-16">
+                <div class="relative overflow-hidden rounded-lg shadow-2xl bg-gray-100">
+                    <!-- Carousel Container -->
+                    <div id="burkina-carousel" class="relative">
+                        <!-- Slides -->
+                        <div class="carousel-track flex transition-transform duration-500 ease-out">
+                            
+                            <!-- Slide 1 -->
+                            <div class="carousel-slide min-w-full">
+                                <div class="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+                                    <img src="src/images/myanmar/Rohingya_displaced_Muslims_09).jpg" 
+                                        alt="Rohingyas at the Kutupalong refugee camp in Bangladesh, October 2017" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="bg-white px-4 py-3 sm:px-6 sm:py-4 border-l-4 border-gray-900">
+                                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                        Rohingyas at the Kutupalong refugee camp in Bangladesh, October 2017
+                                    </p>
+                                    <p class="text-xs text-gray-500 mt-1">By <a rel="nofollow" class="external text" href="https://www.tasnimnews.ir">Tasnim News Agency</a>, <a href="https://creativecommons.org/licenses/by/4.0" title="Creative Commons Attribution 4.0">CC BY 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=63361996">Link</a></p>
+                                </div>
+                            </div>
+
+                            <!-- Slide 2 -->
+                            <div class="carousel-slide min-w-full">
+                                <div class="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+                                    <img src="src/images/myanmar/pyae-sone-htun-4xImZyV-yKs-unsplash.jpg" 
+                                        alt="Protests against the military coup (2021)" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="bg-white px-4 py-3 sm:px-6 sm:py-4 border-l-4 border-gray-900">
+                                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                        Protests against the military coup (2021)
+                                    </p>
+                                    <p class="text-xs text-gray-500 mt-1">Photo by <a href="https://unsplash.com/it/@kidzz?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Pyae Sone Htun</a> on <a href="https://unsplash.com/it/foto/un-folto-gruppo-di-persone-con-cartelli-e-maschere-8RMZqdR79qM?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 3 -->
+                            <div class="carousel-slide min-w-full">
+                                <div class="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+                                    <img src="src/images/myanmar/Zaw_Min_Tun_at_VOA_interview_in_March_2023.jpg" 
+                                        alt="Zaw Min Tun being interviewed by VOA Burmese (2023)" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="bg-white px-4 py-3 sm:px-6 sm:py-4 border-l-4 border-gray-900">
+                                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                        Zaw Min Tun, spokesperson of the military council, cites security concerns as the reason for delaying the election date announcement (2023).
+                                    </p>
+                                    <p class="text-xs text-gray-500 mt-1"><a href="https://commons.wikimedia.org/wiki/File:Zaw_Min_Tun_at_VOA_interview_in_March_2023.jpg">Mya Thazin Aung</a>, Public domain, via Wikimedia Commons</p>
+                                </div>
+                            </div>
+
+                            <!-- Slide 4 -->
+                            <div class="carousel-slide min-w-full">
+                                <div class="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+                                    <img src="src/images/myanmar/MAF_bombing_Kyauktaw_Township_2025-01-12.png" 
+                                        alt="Myanmar Airforce (MAF) bombing Kyauktaw Township (2025)" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="bg-white px-4 py-3 sm:px-6 sm:py-4 border-l-4 border-gray-900">
+                                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                        Myanmar Airforce (MAF) bombing Kyauktaw Township (2025)
+                                    </p>
+                                    <p class="text-xs text-gray-500 mt-1">By MPATV, <a href="https://creativecommons.org/licenses/by/3.0" title="Creative Commons Attribution 3.0">CC BY 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=158189191">Link</a></p>
+                                </div>
+                            </div>
+
+                            <!-- Slide 3 -->
+                            <div class="carousel-slide min-w-full">
+                                <div class="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9]">
+                                    <img src="src/images/myanmar/Sagaing_Myoma_Mosque_after_2025_Myanmar_earthquake.jpg" 
+                                        alt="Sagaing Myoma Mosque after the earthquake (2025)" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="bg-white px-4 py-3 sm:px-6 sm:py-4 border-l-4 border-gray-900">
+                                    <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                                        On March 28, 2025 a 7.7-magnitude earthquake impacted central Myanmar. This is the Sagaing Myoma Mosque after the earthquake.
+                                    </p>
+                                    <p class="text-xs text-gray-500 mt-1"><a href="https://commons.wikimedia.org/wiki/File:Sagaing_Myoma_Mosque_after_2025_Myanmar_earthquake.jpg">Kofoehtet</a>, <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a>, via Wikimedia Commons</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <!-- Navigation Arrows -->
+                        <button class="carousel-prev absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-900 p-2 sm:p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2" aria-label="Previous image">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button class="carousel-next absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-900 p-2 sm:p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2" aria-label="Next image">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dot Indicators -->
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                            <button class="carousel-dot w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white/60 hover:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900" data-slide="0" aria-label="Go to slide 1"></button>
+                            <button class="carousel-dot w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white/60 hover:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900" data-slide="1" aria-label="Go to slide 2"></button>
+                            <button class="carousel-dot w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white/60 hover:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900" data-slide="2" aria-label="Go to slide 3"></button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
             
         </div>
     </section>
     
     <!-- Comparison -->
-    <section id="comparison" class="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-4">Human Stories & Insights</span>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-6">Voices from the Silence</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    While cameras turn away, millions endure. Below we highlight two under-covered crises — Myanmar and Burkina Faso — with contextual charts: a distribution of media tone and a timeline of fatalities with annotated events.
-                </p>
+    <section id="comparison" class="bg-gray-50 py-12 sm:py-16 lg:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Header -->
+            <div class="mb-8 sm:mb-12 max-w-4xl mx-auto">
+                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-3">
+                    A Comparative Analysis
+                </span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
+                    Does Media Tone and Impact Vary Across Conflicts?
+                </h2>
+                <div class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-prose">
+                    <p class="mb-4">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, ratione!
+                    </p>
+                    <p class="text-sm sm:text-base text-gray-500">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus, ea?
+                    </p>
+                </div>
             </div>
 
-            <figure class="w-full mb-16 relative group">
-                <div class="aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-sm bg-gray-100 shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Displaced families in Rakhine State, Myanmar" 
-                         class="w-full h-full object-cover transform transition duration-700 group-hover:scale-105">
-                </div>
-                <figcaption class="mt-3 text-xs sm:text-sm text-gray-500 font-sans border-l-2 border-gray-300 pl-3 italic">
-                    Displaced families in Rakhine State, Myanmar. Photo: [Photographer Name]
-                </figcaption>
-            </figure>
 
             <!-- Violin Plot comparing Myanmar, Burkina Faso, Palestine, Italy Tone -->
-            <div class="w-full max-w-4xl mx-auto">
-                <div class="bg-gray-200 rounded-xl p-6 shadow-sm">
-                    <svg id="violinplot-tone-chart" class="w-full h-96"></svg>
+            <div class="w-full max-w-5xl mx-auto">
+                <div class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg">
+                    <svg id="violinplot-tone-chart" class="w-full h-64 sm:h-80 lg:h-96"></svg>
                 </div>
             </div>
 
             <!-- Explanation for Violin Plot Tone -->
-            <div class="max-w-4xl mx-auto mt-6">
-                <p class="text-gray-600 text-lg leading-relaxed">
+            <div class="mt-16 mx-auto px-6 sm:px-8 max-w-prose mb-8 sm:mb-12">
+                <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
                     The violin plot above illustrates the distribution of media tone for conflicts in Myanmar, Burkina
                     Faso, Palestine, and Italy. The width of each violin represents the density of articles at different tone levels,
                     ranging from -100 to +100, with -100 being extremely negative and +100 being extremely positive.
@@ -723,20 +955,54 @@
             </div>
 
             <!-- Violin Plot comparing Myanmar, Burkina Faso, Palestine, Italy Impact -->
-            <div class="w-full max-w-4xl mx-auto mt-12">
-                <div class="bg-gray-200 rounded-xl p-6 shadow-sm">
-                    <svg id="violinplot-impact-chart" class="w-full h-96"></svg>
+            <div class="w-full max-w-5xl mx-auto">
+                <div class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg">
+                    <svg id="violinplot-impact-chart" class="w-full h-64 sm:h-80 lg:h-96"></svg>
                 </div>
             </div>
 
             <!-- Explanation for Violin Plot Impact -->
-            <div class="max-w-4xl mx-auto mt-6">
-                <p class="text-gray-600 text-lg leading-relaxed">
+            <div class="mt-16 mx-auto px-6 sm:px-8 max-w-prose mb-8 sm:mb-12">
+                <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
                     The violin plot above illustrates the distribution of media impact for conflicts in Myanmar, Burkina Faso, Palestine, and Italy.
                     The width of each violin represents the density of articles at different impact levels, highlighting the varying degrees of media attention and perceived significance of these conflicts.
                     Myanmar and Burkina Faso show a broader spread of impact scores, indicating a wider range of media engagement with these crises compared to Palestine and Italy.
                 </p>
             </div>
+
+
+            <!-- Header -->
+            <div class="mb-8 sm:mb-12 max-w-4xl mx-auto">
+                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-3">
+                    The Actors Behind the Stories
+                </span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
+                    What are the Countries Involved in those Conflicts?
+                </h2>
+                <div class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-prose">
+                    <p class="mb-4">
+                        Each event in the GDELT database is associated with two primary actors: Actor1 and Actor2. These actors represent the main entities involved in the reported events, which can include countries, organizations, or other significant groups.
+                    </p>
+                    <p class="text-sm sm:text-base text-gray-500">
+                        Actor 1 typically denotes the initiator or primary party in the event, while Actor 2 represents the counterpart or secondary party. By analyzing the frequency and context of these actors in relation to specific conflicts, we can gain insights into the key players and their roles within these complex situations.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Network -->
+            <div class="w-full max-w-5xl mx-auto">
+                <div class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg">
+                    <svg id="network-chart" class="w-full h-64 sm:h-80 lg:h-96"></svg>
+                </div>
+            </div>
+
+            <!-- Explanation for Network Chart -->
+            <div class="mt-16 mx-auto px-6 sm:px-8 max-w-prose mb-8 sm:mb-12">
+                <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis labore non consequatur, quia eos voluptate distinctio praesentium esse necessitatibus aliquid.
+                </p>
+            </div>
+
 
         </div>
     </section>
