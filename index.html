@@ -640,13 +640,6 @@
                 </div>
             </div>
 
-            <!-- Myanmar Tone Distribution Chart -->
-            <div class="w-full max-w-4xl mx-auto mt-12">
-                <div class="bg-gray-200 rounded-xl p-6 shadow-sm">
-                    <svg id="myanmar-tone-chart" class="w-full h-96"></svg>
-                </div>
-            </div>
-
         </div>
     </section>
     
@@ -678,12 +671,63 @@
                     <svg id="burkina-line-chart" class="w-full h-96"></svg>
                 </div>
             </div>
+            
+        </div>
+    </section>
+    
+    <!-- Comparison -->
+    <section id="comparison" class="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-4">Human Stories & Insights</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-6">Voices from the Silence</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    While cameras turn away, millions endure. Below we highlight two under-covered crises — Myanmar and Burkina Faso — with contextual charts: a distribution of media tone and a timeline of fatalities with annotated events.
+                </p>
+            </div>
 
-            <!-- Burkina Faso Tone Distribution Chart -->
-            <div class="w-full max-w-4xl mx-auto mt-6">
-                <div class="bg-gray-200 rounded-xl p-6 shadow-sm">
-                    <svg id="burkina-tone-chart" class="w-full h-96"></svg>
+            <figure class="w-full mb-16 relative group">
+                <div class="aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-sm bg-gray-100 shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=2000&auto=format&fit=crop" 
+                         alt="Displaced families in Rakhine State, Myanmar" 
+                         class="w-full h-full object-cover transform transition duration-700 group-hover:scale-105">
                 </div>
+                <figcaption class="mt-3 text-xs sm:text-sm text-gray-500 font-sans border-l-2 border-gray-300 pl-3 italic">
+                    Displaced families in Rakhine State, Myanmar. Photo: [Photographer Name]
+                </figcaption>
+            </figure>
+
+            <!-- Violin Plot comparing Myanmar, Burkina Faso, Palestine, Italy Tone -->
+            <div class="w-full max-w-4xl mx-auto">
+                <div class="bg-gray-200 rounded-xl p-6 shadow-sm">
+                    <svg id="violinplot-tone-chart" class="w-full h-96"></svg>
+                </div>
+            </div>
+
+            <!-- Explanation for Violin Plot Tone -->
+            <div class="max-w-4xl mx-auto mt-6">
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    The violin plot above illustrates the distribution of media tone for conflicts in Myanmar, Burkina
+                    Faso, Palestine, and Italy. The width of each violin represents the density of articles at different tone levels,
+                    ranging from -100 to +100, with -100 being extremely negative and +100 being extremely positive.
+                    Notably, Myanmar and Burkina Faso exhibit a higher concentration of negative tones, reflecting the severity of the conflicts and the humanitarian crises unfolding in these regions.
+                </p>
+            </div>
+
+            <!-- Violin Plot comparing Myanmar, Burkina Faso, Palestine, Italy Impact -->
+            <div class="w-full max-w-4xl mx-auto mt-12">
+                <div class="bg-gray-200 rounded-xl p-6 shadow-sm">
+                    <svg id="violinplot-impact-chart" class="w-full h-96"></svg>
+                </div>
+            </div>
+
+            <!-- Explanation for Violin Plot Impact -->
+            <div class="max-w-4xl mx-auto mt-6">
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    The violin plot above illustrates the distribution of media impact for conflicts in Myanmar, Burkina Faso, Palestine, and Italy.
+                    The width of each violin represents the density of articles at different impact levels, highlighting the varying degrees of media attention and perceived significance of these conflicts.
+                    Myanmar and Burkina Faso show a broader spread of impact scores, indicating a wider range of media engagement with these crises compared to Palestine and Italy.
+                </p>
             </div>
 
         </div>

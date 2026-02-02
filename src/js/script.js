@@ -9,6 +9,7 @@ import updateTop5Countries from "./weekly_top_5.js";
 import updateInfoWindow, { hideInfoWindow } from "./infobox.js";
 import LineChart from "./line.js";
 import WeekManager from "./week_manager.js";
+import ViolinPlot from "./violin_plot.js";
 
 
 // ===== TOOLTIP =====
@@ -37,6 +38,8 @@ const racingData = d3.csv('data/processed/racing_bar_chart.csv', d3.autoType);
 const lineChartMyanmarData = d3.csv('data/processed/myanmar_fatalities_over_time.csv', d3.autoType);
 const lineChartBurkinaData = d3.csv('data/processed/burkina_faso_fatalities_over_time.csv', d3.autoType);
 const newsArticlesData = d3.csv('data/processed/news_articles_datetime.csv', d3.autoType);
+const violinPlotToneData = d3.csv('data/processed/violin_plot_tone.csv', d3.autoType);
+const violinPlotImpactData = d3.csv('data/processed/violin_plot_impact.csv', d3.autoType);
 
 // ===== JSON =====
 const geoData = await d3.json('src/json/world.json');
@@ -723,6 +726,38 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
+// ===== BOX PLOT =====
+const violinPlotTone = new ViolinPlot('violinplot-tone-chart', violinPlotToneData, tooltip);
+const violinPlotImpact = new ViolinPlot('violinplot-impact-chart', violinPlotImpactData, tooltip);
+const violinPlots = [violinPlotTone, violinPlotImpact];
+
+
+setTimeout(() => {
+    violinPlots.forEach(violinPlot => {
+        if (violinPlot) {
+            violinPlot.init();
+            if (violinPlot.g) {
+                violinPlot.draw();
+            }
+        }
+    });
+}, 500);
+
+// ViolinPlot RESIZE HANDLING
+let resizeTimeoutViolin;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeoutViolin);
+    resizeTimeoutViolin = setTimeout(() => {
+        violinPlots.forEach(violinPlot => {
+            if (violinPlot) {
+                violinPlot.init();
+                if (violinPlot.g) {
+                    violinPlot.draw();
+                }
+            }
+        });
+    }, 250);
+});
 
 // ===== SCROLL OBSERVER =====
 let currentStep = -1;
