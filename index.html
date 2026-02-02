@@ -143,7 +143,8 @@
 
                                 <!-- TRANSITION -->
                                 <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                                    Let’s now look more closely at which countries are behind these numbers.
+                                    As the bar chart shows, the countries with the highest fatalities in 2025 are <span class="bg-yellow-400 text-gray-900 px-2 py-1 font-bold">Ukraine, Sudan, Palestine, Myanmar and Nigeria.</span>
+                                    We will then see how fatalities and media coverage compare for these and other conflicts.
                                 </p>
                             </div>
 
@@ -153,31 +154,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <!--
-                    <div class="min-h-screen flex items-center py-12" data-step="2">
-                        <div class="w-full">
-                            <div class="step-content max-w-xl">
-                                <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                                    Looking more closely at the countries behind the highest number of fatalities, a clear pattern emerges: 
-                                    <span class="bg-yellow-400 text-gray-900 px-2 py-1 font-bold">Ukraine, Sudan, Palestine, Myanmar, Nigeria, and Somalia</span> 
-                                    are currently among the deadliest conflicts in the world in 2025.
-                                </p>
-
-                                <p class="text-lg sm:text-xl text-gray-300 leading-relaxed">
-                                    The real question, however, is whether the world has been paying 
-                                    <span class="bg-yellow-400 text-gray-900 px-2 py-1 font-bold">the proper level of attention</span> 
-                                    to each of them over the past year — or if some tragedies remain far more visible than others.
-                                </p>
-                            </div>
-
-                            <div class="mobile-chart-wrapper mt-8 bg-gray-800 rounded-xl p-6 chart-width-limiter" style="min-height: 400px;">
-                                <svg id="mobile-chart-2" class="w-full h-full"></svg>
-                            </div>
-                        </div>
-                    </div>
-                    -->
 
 
                     <!-- Step 2 -->
@@ -208,28 +184,6 @@
                         </div>
                     </div>
 
-                    <!-- Step 4 -->
-                    <!--
-                        <div class="min-h-screen flex items-center py-12" data-step="4">
-                            <div class="w-full">
-                                <div class="step-content max-w-xl">
-                                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-6 leading-tight">
-                                        The Forgotten Crises
-                                    </h2>
-                                    <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                                        The Democratic Republic of Congo has lost over <span class="bg-red-500 text-white px-2 py-1 font-bold">1.2 million people</span> to conflict since 2015—yet receives just 18% of the coverage that Ukraine does.
-                                    </p>
-                                    <p class="text-lg sm:text-xl text-gray-300 leading-relaxed">
-                                        In Sudan, Yemen, and Myanmar, violence continues while cameras turn away.
-                                    </p>
-                                </div>
-                            
-                                <div class="mobile-chart-wrapper mt-8 bg-gray-800 rounded-xl p-6 chart-width-limiter" style="min-height: 400px;">
-                                    <svg id="mobile-chart-4" class="w-full h-full"></svg>
-                                </div>
-                            </div>
-                        </div>
-                    -->
                 </div>
 
                 <!-- DESKTOP/TABLET: Sticky Visualization (hidden on mobile) -->
@@ -267,7 +221,7 @@
                 <div class="hidden lg:block lg:col-span-3 space-y-4 overflow-y-auto" style="max-height: 750px;">
                     <!-- Mentions Intensity Legend -->
                     <div class="bg-gray-800 rounded-xl shadow-xl p-4 border border-gray-700">
-                        <h3 class="text-white font-sans font-semibold text-base mb-3" id="choropleth-legend">Mentions Intensity</h3>
+                        <h3 class="text-white font-sans font-semibold text-base mb-3" id="choropleth-legend">Continent Legend</h3>
                         <div class="space-y-2">
                             <div class="flex items-center gap-3">
                                 <div class="w-6 h-6 rounded-full bg-blue-400 flex-shrink-0"></div>
@@ -599,7 +553,7 @@
                 <!-- Right Panel - Trends -->
                 <div class="hidden lg:block lg:col-span-3" style="max-height: 750px;">
                     <div class="bg-gray-800 rounded-xl shadow-xl p-4 border border-gray-700 h-full flex flex-col" style="min-height: 0;">
-                        <h3 class="text-white font-sans font-semibold text-base mb-3 flex-shrink-0">Cumulative Mentions</h3>
+                        <h3 class="text-white font-sans font-semibold text-base mb-3 flex-shrink-0">Cumulative Mentions <span class="text-xs">(since 2015)</span></h3>
                         <div class="relative flex-1" style="min-height: 0;">
                             <svg id="racing-chart" class="w-full h-full"></svg>
                         </div>
@@ -618,10 +572,29 @@
 
         <div class="mt-16 sm:px-16 lg:px-80 mx-auto">
             <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                By comparing conflict fatalities to news articles published, we can quantify the <span class="bg-red-500 text-white px-2 py-1 font-bold">attention gap</span>.
+                The dashboard gives us many insights into how media attention to conflicts fluctuates over time. 
             </p>
             <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, provident! Vero veritatis inventore maiores, earum blanditiis ratione perspiciatis vitae voluptates dolorem quasi optio ut dignissimos laudantium tenetur ipsum at dicta libero! Modi tenetur dolor temporibus veniam impedit, quo provident harum totam ratione nisi, qui cum facilis aspernatur excepturi placeat, necessitatibus consequuntur in itaque ad. Dolor quo est quis saepe, placeat expedita sit, qui enim et fuga dolorum blanditiis. Unde, quis. Sunt odio dicta mollitia possimus maiores impedit sed quibusdam illum assumenda. Quos sapiente, ducimus ea natus voluptate qui veritatis itaque. Amet molestias suscipit et temporibus optio blanditiis quae officiis delectus.
+                We can see that in the years from 2015 to 2020 the Syrian civil war consistently received the most media attention,
+                likely due to the high number of casualties and the involvement of multiple international actors. Even then however, the Israeli-Palestinian conflict and Russia were highly attentioned.
+                However, starting in 2021 we see a shift in media attention: in 2022 Ukraine quickly rose to dominate media coverage,
+                likely due to the full-scale invasion by Russia in February 2022.
+            </p>
+            <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
+                What might be shocking to some is that despite the high number of casualties in conflicts such as Yemen, Afghanistan, and Ethiopia, these conflicts received relatively low media attention.
+            </p>  
+            <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
+                Another strange trend is the near absence of South American mentions, despite ongoing violence in countries such as Brazil that in 2025 reached more than 7000 fatalities.
+            </p>
+            <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
+                What is revealed is that huge outbursts of violence such as shootings, bombings, and military invasions tend to capture media attention more than prolonged conflicts with high casualties but less dramatic events.
+                As an example we can mention the week of 16th November 2015 when Paris was attacked by ISIS militants, leading to a spike in media attention to France that week, or the week of October 2nd 2023 when Hamas and other terroristic groups launched attacks in Israel.
+                This two events, as many others did, shifted the global media focus to these countries for a short period of time.
+            </p>
+            <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
+                The chord diagram reveals interesting connections between countries experiencing conflict.
+                We can see that each continent tends to have strong internal connections: the most talked about things for a continent is what happens within that continent.
+                It also reveals that the number of mentions of South American and Oceanian countries are very low, as the ribbons are very thin compared to other continents.
             </p>
 
         </div>
