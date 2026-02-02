@@ -137,6 +137,7 @@ export default class LineChart extends ScrollyChart {
                 });
 
             // Add Annotation
+            const annotationColor = "maroon";
             if (this.svgId === 'myanmar-line-chart') {
                 // Find data point for August 2017
                 const RohingyaData = data.find(d => d.Date.getFullYear() === 2017 && d.Date.getMonth() === 7);
@@ -147,12 +148,12 @@ export default class LineChart extends ScrollyChart {
                         .attr("cx", ax)
                         .attr("cy", ay)
                         .attr("r", 5)
-                        .attr("fill", "red")
+                        .attr("fill", annotationColor)
                         .attr("pointer-events", "none");
                     this.g.append("text")
                         .attr("x", ax) // center align
                         .attr("y", ay - 10)
-                        .attr("fill", "red")
+                        .attr("fill", annotationColor)
                         .attr("text-anchor", "middle")
                         .attr("pointer-events", "none")
                         .style("font-size", "12px")
@@ -168,12 +169,12 @@ export default class LineChart extends ScrollyChart {
                         .attr("cx", ax)
                         .attr("cy", ay)
                         .attr("r", 5)
-                        .attr("fill", "red")
+                        .attr("fill", annotationColor)
                         .attr("pointer-events", "none");
                     this.g.append("text")
                         .attr("x", ax + 10) // center align
                         .attr("y", ay)
-                        .attr("fill", "red")
+                        .attr("fill", annotationColor)
                         .attr("text-anchor", "left")
                         .attr("pointer-events", "none")
                         .style("font-size", "12px")
@@ -189,12 +190,12 @@ export default class LineChart extends ScrollyChart {
                         .attr("cx", ax)
                         .attr("cy", ay)
                         .attr("r", 5)
-                        .attr("fill", "red")
+                        .attr("fill", annotationColor)
                         .attr("pointer-events", "none");
                     this.g.append("text")
                         .attr("x", ax) // center align
                         .attr("y", ay - 10)
-                        .attr("fill", "red")
+                        .attr("fill", annotationColor)
                         .attr("text-anchor", "middle")
                         .attr("pointer-events", "none")
                         .style("font-size", "12px")
@@ -210,12 +211,12 @@ export default class LineChart extends ScrollyChart {
                         .attr("cx", ax)
                         .attr("cy", ay)
                         .attr("r", 5)
-                        .attr("fill", "red")
+                        .attr("fill", annotationColor)
                         .attr("pointer-events", "none");
                     this.g.append("text")
                         .attr("x", ax - 15) // center align
                         .attr("y", ay - 12)
-                        .attr("fill", "red")
+                        .attr("fill", annotationColor)
                         .attr("text-anchor", "middle")
                         .attr("pointer-events", "none")
                         .style("font-size", "12px")
