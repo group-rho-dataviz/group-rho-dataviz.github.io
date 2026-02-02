@@ -211,7 +211,7 @@
                 <span class="inline-block font-sans text-xs font-semibold tracking-wider uppercase text-gray-500 mb-3">Global Coverage Map</span>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight">Where the World Watches</h2>
                 <p class="text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                    Explore how media attention flows across borders and shifts over time.
+                    From 2015 to 2025, the map shows which continent each country talked about most each week; switch to the chord view to see how continents talked about one another, click a country to reveal its most mentioned counterpart and total mentions, open the info icon for that week’s headlines and sources, and follow the chord's ribbons to see the top five cross-continental mentions.
                 </p>
             </div>
 
@@ -221,7 +221,7 @@
                 <div class="hidden lg:block lg:col-span-3 space-y-4 overflow-y-auto" style="max-height: 750px;">
                     <!-- Mentions Intensity Legend -->
                     <div class="bg-gray-800 rounded-xl shadow-xl p-4 border border-gray-700">
-                        <h3 class="text-white font-sans font-semibold text-base mb-3" id="choropleth-legend">Continent Legend</h3>
+                        <h3 class="text-white font-sans font-semibold text-base mb-3" id="choropleth-legend">Continents</h3>
                         <div class="space-y-2">
                             <div class="flex items-center gap-3">
                                 <div class="w-6 h-6 rounded-full bg-blue-400 flex-shrink-0"></div>
@@ -391,30 +391,32 @@
 
                         <!-- Mobile-only: Horizontal Legend -->
                         <div class="lg:hidden bg-gray-850 px-4 py-3 border-t border-gray-700">
-                            <div class="flex items-center justify-center gap-4 md:gap-7 flex-wrap" id="mobile-choropleth-legend">
+                            <h3 class="text-white font-sans font-semibold text-base mb-3 text-center" id="choropleth-legend">Continents</h3>
+                            <div class="flex items-center justify-evenly gap-4 md:gap-7 flex-wrap" id="mobile-choropleth-legend">
+
                                 <div class="flex flex-col items-center gap-1">
                                     <div class="w-4 h-4 rounded-full bg-blue-400 flex-shrink-0"></div>
-                                    <span class="text-gray-300 text-xs font-sans font-semibold">NA</span>
+                                    <span class="text-gray-300 text-[0.5rem] font-sans font-semibold text-center">North</br>America</span>
                                 </div>
                                 <div class="flex flex-col items-center gap-1">
                                     <div class="w-4 h-4 rounded-full bg-cyan-400 flex-shrink-0"></div>
-                                    <span class="text-gray-300 text-xs font-sans font-semibold">SA</span>
+                                    <span class="text-gray-300 text-[0.5rem] font-sans font-semibold text-center">South</br>America</span>
                                 </div>
                                 <div class="flex flex-col items-center gap-1">
                                     <div class="w-4 h-4 rounded-full bg-green-400 flex-shrink-0"></div>
-                                    <span class="text-gray-300 text-xs font-sans font-semibold">EU</span>
+                                    <span class="text-gray-300 text-[0.5rem] font-sans font-semibold">Europe</span>
                                 </div>
                                 <div class="flex flex-col items-center gap-1">
                                     <div class="w-4 h-4 rounded-full bg-red-400 flex-shrink-0"></div>
-                                    <span class="text-gray-300 text-xs font-sans font-semibold">AF</span>
+                                    <span class="text-gray-300 text-[0.5rem] font-sans font-semibold">Africa</span>
                                 </div>
                                 <div class="flex flex-col items-center gap-1">
                                     <div class="w-4 h-4 rounded-full bg-yellow-400 flex-shrink-0"></div>
-                                    <span class="text-gray-300 text-xs font-sans font-semibold">AS</span>
+                                    <span class="text-gray-300 text-[0.5rem] font-sans font-semibold">Asia</span>
                                 </div>
                                 <div class="flex flex-col items-center gap-1">
                                     <div class="w-4 h-4 rounded-full bg-orange-400 flex-shrink-0"></div>
-                                    <span class="text-gray-300 text-xs font-sans font-semibold">OC</span>
+                                    <span class="text-gray-300 text-[0.5rem] font-sans font-semibold">Oceania</span>
                                 </div>
                             </div>
                         </div>
@@ -572,31 +574,26 @@
 
         <div class="mt-16 sm:px-16 lg:px-80 mx-auto">
             <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                The dashboard gives us many insights into how media attention to conflicts fluctuates over time. 
+                The dashboard highlights how media attention to conflict has shifted over the past decade.
             </p>
             <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                We can see that in the years from 2015 to 2020 the Syrian civil war consistently received the most media attention,
-                likely due to the high number of casualties and the involvement of multiple international actors. Even then however, the Israeli-Palestinian conflict and Russia were highly attentioned.
-                However, starting in 2021 we see a shift in media attention: in 2022 Ukraine quickly rose to dominate media coverage,
-                likely due to the full-scale invasion by Russia in February 2022.
+                From 2015 through roughly 2020, the Syrian civil war consistently dominated coverage, reflecting both the scale of civilian casualties and the involvement of multiple international actors. During the same period, the Israeli–Palestinian conflict and Russia also drew sustained attention.             </p>
             </p>
             <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                What might be shocking to some is that despite the high number of casualties in conflicts such as Yemen, Afghanistan, and Ethiopia, these conflicts received relatively low media attention.
+                Beginning in 2021, however, the focus shifted sharply: in 2022, <span class="bg-red-500 text-white px-2 py-1 font-bold">Ukraine rapidly came to dominate global media coverage</span> following Russia’s full-scale invasion in February of that year.
             </p>  
             <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                Another strange trend is the near absence of South American mentions, despite ongoing violence in countries such as Brazil that in 2025 reached more than 7000 fatalities.
+                By contrast, several conflicts with extremely high human costs—notably in <span class="bg-yellow-400 text-gray-900 px-2 py-1 font-bold">Yemen, Afghanistan, and Ethiopia</span>—received comparatively limited attention, despite years of sustained violence and large numbers of casualties.
+            </p>  
+            <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
+                Another striking pattern is the <span class="bg-red-500 text-white px-2 py-1 font-bold">near absence of South American coverage</span>. Ongoing violence in countries such as Brazil, where conflict-related deaths have reached into the thousands in recent years, rarely appears in global media attention at the same scale as conflicts elsewhere.
             </p>
             <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                What is revealed is that huge outbursts of violence such as shootings, bombings, and military invasions tend to capture media attention more than prolonged conflicts with high casualties but less dramatic events.
-                As an example we can mention the week of 16th November 2015 when Paris was attacked by ISIS militants, leading to a spike in media attention to France that week, or the week of October 2nd 2023 when Hamas and other terroristic groups launched attacks in Israel.
-                This two events, as many others did, shifted the global media focus to these countries for a short period of time.
+                Overall, the data suggest that <span class="bg-yellow-400 text-gray-900 px-2 py-1 font-bold">sudden, visually dramatic events</span>—such as major attacks, bombings, or military invasions—are more likely to drive spikes in coverage than prolonged conflicts marked by steady but less spectacular violence. This pattern is visible, for example, in mid-November 2015, following the ISIS attacks in Paris, and again in early October 2023, after Hamas launched large-scale attacks in Israel. In both cases, global attention surged briefly before receding.
             </p>
             <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-                The chord diagram reveals interesting connections between countries experiencing conflict.
-                We can see that each continent tends to have strong internal connections: the most talked about things for a continent is what happens within that continent.
-                It also reveals that the number of mentions of South American and Oceanian countries are very low, as the ribbons are very thin compared to other continents.
+                The chord diagram further illustrates these dynamics by showing how attention flows between regions. Most coverage remains inward-looking, with <span class="bg-yellow-400 text-gray-900 px-2 py-1 font-bold">continents focusing primarily on conflicts within their own borders</span>. South America and Oceania stand out for their limited presence, reflected in consistently thin connections compared with other regions.
             </p>
-
         </div>
     </section>
 

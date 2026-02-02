@@ -182,10 +182,9 @@ if (mobileLegendContainer && continentColors) {
     mobileLegendItems.forEach(item => {
         let continentName = item.querySelector('span')?.textContent.trim();
         const colorBox = item.querySelector('.w-4.h-4.rounded-full');
-        
         switch(continentName){
-            case 'NA' : continentName = 'North America'; break;
-            case 'SA' : continentName = 'South America'; break;
+            case 'NorthAmerica' : continentName = 'North America'; break;
+            case 'SouthAmerica' : continentName = 'South America'; break;
             case 'OC' : continentName = 'Oceania'; break;
             case 'EU' : continentName = 'Europe'; break;
             case 'AS' : continentName = 'Asia'; break;
