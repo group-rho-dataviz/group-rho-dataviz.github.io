@@ -228,10 +228,13 @@ export default class RacingBarChart extends ScrollyChart {
         if (!this.tooltip) return;
         
         const displayName = d.name;
-        const formattedValue = d.value >= 1000 
+        const formattedValue = d.value >= 1000000 
+            ? (d.value / 1000000).toFixed(1) + 'M' 
+            :
+            d.value >= 1000 
             ? (d.value / 1000).toFixed(1) + 'k' 
             : Math.round(d.value).toLocaleString();
-        
+
         this.tooltip
             .html(`
                 <strong>${displayName}</strong><br/>
