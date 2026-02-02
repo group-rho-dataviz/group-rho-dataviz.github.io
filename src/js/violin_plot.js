@@ -40,7 +40,7 @@ export default class ViolinPlot extends ScrollyChart {
             .attr('text-anchor', 'middle')
             .attr('fill', 'darkslategray')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', Math.min(this.width / 22, 22) + 'px')
+            .style('font-size', Math.min(this.width / 22, 20) + 'px')
             .style('font-weight', '600');
     }
 
@@ -166,16 +166,20 @@ export default class ViolinPlot extends ScrollyChart {
 
             // Add y-axis label
             this.svg.selectAll('.y-axis-label').remove();
-            this.svg.append('text')
+            const yAxisLabel = this.svg.append('text')
                 .attr('class', 'y-axis-label')
                 .attr('transform', `rotate(-90)`)
                 .attr('x', -this.height / 2)
-                .attr('y', this.margin.left / 4)
+                .attr('y', this.margin.left / 5)
                 .attr('text-anchor', 'middle')
                 .attr('fill', '#9ca3af')
                 .style('font-family', 'Inter, sans-serif')
-                .style('font-size', Math.max(this.width / 40, 10) + 'px')
-                .text('Median News Tone');
+                .style('font-size', Math.max(this.width / 40, 8) + 'px')
+            if (this.svgId.includes('tone')) {
+                yAxisLabel.text('Median News Tone Score');
+            } else {
+                yAxisLabel.text('Median News Impact Score');
+            }
 
             function kernelDensityEstimator(kernel, X) {
                 return function(V) {
@@ -198,6 +202,12 @@ export default class ViolinPlot extends ScrollyChart {
         this.title
             .attr('x', this.width / 2)
             .attr('y', this.margin.top / 2)
-            .text("Distribution of Conflict-Related News Tone by Country (2021-2025)");
+        if (this.svgId.includes('tone')) {
+            this.title
+                .text("Distribution of Conflict-Related News Tone by Country (2021-2025)");
+        } else {
+            this.title
+                .text("Distribution of Conflict-Related News Impact by Country (2021-2025)");
+        }
     }
 }
