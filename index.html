@@ -1000,10 +1000,30 @@
 
 
             <!-- Violin Plot comparing Myanmar, Burkina Faso, Palestine, Italy Tone -->
-            <div class="w-full max-w-3xl mx-auto">
+            <div class="w-full max-w-3xl mx-auto relative">
                 <div class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg">
                     <svg id="violinplot-tone-chart" class="w-full h-80 lg:h-96 w-100"></svg>
+                    <svg id="boxplot-tone-chart" class="hidden w-full h-80 lg:h-96 w-100"></svg>
                 </div>
+
+                <!-- Violin to Boxplot Button -->
+                <button id="tone-violin-toggle-button" class="absolute bottom-2 lg:bottom-4 left-4 z-10 bg-white hover:bg-gray-50 text-gray-700 rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all duration-300 border-2 border-gray-300 hover:border-gray-400 hover:scale-110" title="Switch view">
+                    
+                    <svg id="violin-tone-icon" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M13 2C13 1.44772 12.5523 1 12 1C11.4477 1 11 1.44772 11 2V6.1C11 6.1 6 7.5 6 12C6 16.5 11 17.9 11 17.9V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V17.9C13 17.9 18 16.5 18 12C18 7.5 13 6.1 13 6.1V2ZM12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z"/>
+                    </svg>
+
+                    <svg id="box-tone-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="7" y="8" width="10" height="8" rx="1" />
+                        <line x1="12" y1="3" x2="12" y2="8" />
+                        <line x1="9" y1="3" x2="15" y2="3" />
+                        <line x1="12" y1="16" x2="12" y2="21" />
+                        <line x1="9" y1="21" x2="15" y2="21" />
+                        <line x1="7" y1="12" x2="17" y2="12" />
+                    </svg>
+
+                </button>
+
             </div>
 
             <!-- Data Sources -->
@@ -1024,10 +1044,31 @@
             </div>
 
             <!-- Violin Plot comparing Myanmar, Burkina Faso, Palestine, Italy Impact -->
-            <div class="w-full max-w-3xl mx-auto">
+            <div class="w-full max-w-3xl mx-auto relative">
                 <div class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 shadow-lg">
                     <svg id="violinplot-impact-chart" class="w-full h-80 lg:h-96 w-100"></svg>
+                    <svg id="boxplot-impact-chart" class="hidden w-full h-80 lg:h-96 w-100"></svg>
                 </div>
+
+
+                <!-- Violin to Boxplot Button -->
+                <button id="impact-violin-toggle-button" class="absolute bottom-2 lg:bottom-4 left-4 z-10 bg-white hover:bg-gray-50 text-gray-700 rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all duration-300 border-2 border-gray-300 hover:border-gray-400 hover:scale-110" title="Switch view">
+                    
+                    <svg id="violin-impact-icon" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M13 2C13 1.44772 12.5523 1 12 1C11.4477 1 11 1.44772 11 2V6.1C11 6.1 6 7.5 6 12C6 16.5 11 17.9 11 17.9V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V17.9C13 17.9 18 16.5 18 12C18 7.5 13 6.1 13 6.1V2ZM12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z"/>
+                    </svg>
+
+                    <svg id="box-impact-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="7" y="8" width="10" height="8" rx="1" />
+                        <line x1="12" y1="3" x2="12" y2="8" />
+                        <line x1="9" y1="3" x2="15" y2="3" />
+                        <line x1="12" y1="16" x2="12" y2="21" />
+                        <line x1="9" y1="21" x2="15" y2="21" />
+                        <line x1="7" y1="12" x2="17" y2="12" />
+                    </svg>
+
+                </button>
+
             </div>
 
             <!-- Data Sources -->

@@ -138,7 +138,7 @@ export default class WordCloud extends ScrollyChart {
         this.subtitle
             .attr('x', this.width / 2)
             .attr('y', this.margin.top / 2 + 20)
-            .text('Size shows total events • Color shows perpetrator/victim ratio');
+            .text('Size shows total events mentioning the country as an actor • Color shows perpetrator/victim ratio');
     }
 
     layoutWords() {

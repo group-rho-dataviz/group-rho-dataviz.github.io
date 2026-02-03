@@ -10,7 +10,7 @@ import updateInfoWindow, { hideInfoWindow } from "./infobox.js";
 import LineChart from "./line.js";
 import WeekManager from "./week_manager.js";
 import ViolinPlot from "./violin_plot.js";
-
+import BoxPlot from "./box_plot.js";
 import WordCloud from "./word_cloud.js";
 
 // ===== TOOLTIP =====
@@ -731,11 +731,14 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
-// ===== BOX PLOT =====
+// ===== VIOLIN PLOT =====
 const violinPlotTone = new ViolinPlot('violinplot-tone-chart', violinPlotToneData, tooltip);
 const violinPlotImpact = new ViolinPlot('violinplot-impact-chart', violinPlotImpactData, tooltip);
 const violinPlots = [violinPlotTone, violinPlotImpact];
 
+const boxPlotTone = new BoxPlot('boxplot-tone-chart', violinPlotToneData, tooltip);
+const boxPlotImpact = new BoxPlot('boxplot-impact-chart', violinPlotImpactData, tooltip);
+const boxPlots = [boxPlotTone, boxPlotImpact];
 
 setTimeout(() => {
     violinPlots.forEach(violinPlot => {
@@ -746,6 +749,15 @@ setTimeout(() => {
             }
         }
     });
+
+    boxPlots.forEach(boxPlot => {
+        if (boxPlot) {
+            boxPlot.init();
+            if(boxPlot.g){
+                boxPlot.draw();
+            }
+        }
+    })
 }, 500);
 
 // ViolinPlot RESIZE HANDLING
@@ -762,6 +774,63 @@ window.addEventListener('resize', () => {
             }
         });
     }, 250);
+});
+
+
+// BoxPlot RESIZE HANDLING
+let resizeTimeoutBox;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeoutBox);
+    resizeTimeoutBox = setTimeout(() => {
+        boxPlots.forEach(boxPlot => {
+            if (boxPlot) {
+                boxPlot.init();
+                if (boxPlot.g) {
+                    boxPlot.draw();
+                }
+            }
+        });
+    }, 250);
+});
+
+
+// Get Buttons
+let toneViolinToggleButton = document.getElementById('tone-violin-toggle-button');
+let impactViolinToggleButton = document.getElementById('impact-violin-toggle-button');
+
+// Add Event Listeners
+toneViolinToggleButton.addEventListener('click', () => {
+    let isCurrentlyViolin = !document.getElementById('violinplot-tone-chart').classList.contains('hidden');
+    if (isCurrentlyViolin) {
+        // Switch to box plot - show violin icon (to indicate you can switch back to violin)
+        document.getElementById('violinplot-tone-chart').classList.add('hidden');
+        document.getElementById('boxplot-tone-chart').classList.remove('hidden');
+        document.getElementById('violin-tone-icon').classList.remove('hidden');
+        document.getElementById('box-tone-icon').classList.add('hidden');
+    } else {
+        // Switch to violin plot - show box icon (to indicate you can switch to box)
+        document.getElementById('violinplot-tone-chart').classList.remove('hidden');
+        document.getElementById('boxplot-tone-chart').classList.add('hidden');
+        document.getElementById('violin-tone-icon').classList.add('hidden');
+        document.getElementById('box-tone-icon').classList.remove('hidden');
+    }
+});
+
+impactViolinToggleButton.addEventListener('click', () => {
+    let isCurrentlyViolin = !document.getElementById('violinplot-impact-chart').classList.contains('hidden');
+    if (isCurrentlyViolin) {
+        // Switch to box plot - show violin icon (to indicate you can switch back to violin)
+        document.getElementById('violinplot-impact-chart').classList.add('hidden');
+        document.getElementById('boxplot-impact-chart').classList.remove('hidden');
+        document.getElementById('violin-impact-icon').classList.remove('hidden');
+        document.getElementById('box-impact-icon').classList.add('hidden');
+    } else {
+        // Switch to violin plot - show box icon (to indicate you can switch to box)
+        document.getElementById('violinplot-impact-chart').classList.remove('hidden');
+        document.getElementById('boxplot-impact-chart').classList.add('hidden');
+        document.getElementById('violin-impact-icon').classList.add('hidden');
+        document.getElementById('box-impact-icon').classList.remove('hidden');
+    }
 });
 
 // ===== WORD CLOUD =====
@@ -823,8 +892,8 @@ window.addEventListener('resize', () => {
                 }
             }
         });
-    }, 250);
-    
+    }, 
+250);
 // ===== SCROLL OBSERVER =====
 let currentStep = -1;
 
