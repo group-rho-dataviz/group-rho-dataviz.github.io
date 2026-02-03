@@ -55,7 +55,7 @@ export default class ScatterPlot extends ScrollyChart {
             .attr('text-anchor', 'middle')
             .attr('fill', '#9ca3af')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', Math.max(this.width / 35, 8) + 'px')
+            .style('font-size', Math.min(this.width / 35, 12) + 'px')
             .style('font-style', 'italic');
     }
 

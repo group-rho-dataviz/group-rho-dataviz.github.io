@@ -156,7 +156,7 @@ export default class LineChart extends ScrollyChart {
                         .attr("fill", annotationColor)
                         .attr("text-anchor", "middle")
                         .attr("pointer-events", "none")
-                        .style("font-size", "12px")
+                        .style('font-size', Math.min(this.width / 30, 12) + 'px')
                         .text("Rohingya Crisis Peak");
                 }
 
@@ -177,7 +177,7 @@ export default class LineChart extends ScrollyChart {
                         .attr("fill", annotationColor)
                         .attr("text-anchor", "left")
                         .attr("pointer-events", "none")
-                        .style("font-size", "12px")
+                        .style('font-size', Math.min(this.width / 30, 12) + 'px')
                         .text("Military Coup");
                 }
             } else if (this.svgId === 'burkina-line-chart') {
@@ -198,7 +198,7 @@ export default class LineChart extends ScrollyChart {
                         .attr("fill", annotationColor)
                         .attr("text-anchor", "middle")
                         .attr("pointer-events", "none")
-                        .style("font-size", "12px")
+                        .style('font-size', Math.min(this.width / 30, 12) + 'px')
                         .text("Ouagadougou Attacks");
                 }
 
@@ -219,7 +219,7 @@ export default class LineChart extends ScrollyChart {
                         .attr("fill", annotationColor)
                         .attr("text-anchor", "middle")
                         .attr("pointer-events", "none")
-                        .style("font-size", "12px")
+                        .style('font-size', Math.min(this.width / 30, 12) + 'px')
                         .text("Military Coup");
                 }
             }

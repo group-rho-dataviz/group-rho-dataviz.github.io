@@ -40,7 +40,7 @@ export default class ViolinPlot extends ScrollyChart {
             .attr('text-anchor', 'middle')
             .attr('fill', 'darkslategray')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', Math.min(this.width / 22, 20) + 'px')
+            .style('font-size', Math.min(this.width / 35, 20) + 'px')
             .style('font-weight', '600');
     }
 
@@ -96,8 +96,9 @@ export default class ViolinPlot extends ScrollyChart {
                 this.xAxisG.selectAll('text')
                     .attr("transform", "rotate(-40)")
                     .style("text-anchor", "end")
-                    .attr("dx", "-0.1em")
-                    .attr("dy", "0.1em");
+                    .attr("dx", "-0.2em")
+                    .attr("dy", "-0.1em")
+                    .style('font-size', Math.min(this.width / 30, 10) + 'px');
             } else {
                 this.xAxisG.selectAll('text')
                     .attr("transform", "rotate(0)")
@@ -105,6 +106,8 @@ export default class ViolinPlot extends ScrollyChart {
                     .attr("dx", "0em")
                     .attr("dy", "0.75em");
             }
+            // Remove x-axis ticks
+            this.xAxisG.selectAll('.tick line').remove();
 
             // Draw violin plots
             const violinWidth = this.xScale.bandwidth() * 0.8;
@@ -174,7 +177,7 @@ export default class ViolinPlot extends ScrollyChart {
                 .attr('text-anchor', 'middle')
                 .attr('fill', '#9ca3af')
                 .style('font-family', 'Inter, sans-serif')
-                .style('font-size', Math.max(this.width / 40, 8) + 'px')
+                .style('font-size', Math.min(this.width / 40, 12) + 'px')
             if (this.svgId.includes('tone')) {
                 yAxisLabel.text('Median News Tone Score');
             } else {
