@@ -11,6 +11,7 @@ import LineChart from "./line.js";
 import WeekManager from "./week_manager.js";
 import ViolinPlot from "./violin_plot.js";
 
+import WordCloud from "./word_cloud.js";
 
 // ===== TOOLTIP =====
 let tooltip = d3.select('body').append('div')
@@ -40,6 +41,10 @@ const lineChartBurkinaData = d3.csv('data/processed/burkina_faso_fatalities_over
 const newsArticlesData = d3.csv('data/processed/news_articles_datetime.csv', d3.autoType);
 const violinPlotToneData = d3.csv('data/processed/violin_plot_tone.csv', d3.autoType);
 const violinPlotImpactData = d3.csv('data/processed/violin_plot_impact.csv', d3.autoType);
+
+const myanmarWordCloudData = d3.csv('data/processed/myanmar_word_cloud.csv', d3.autoType);
+const burkinaFasoWordCloudData = d3.csv('data/processed/burkina_faso_word_cloud.csv', d3.autoType);
+const palestineWordCloudData = d3.csv('data/processed/palestine_word_cloud.csv', d3.autoType);
 
 // ===== JSON =====
 const geoData = await d3.json('src/json/world.json');
@@ -759,6 +764,67 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
+// ===== WORD CLOUD =====
+const wordClouds = {
+    'myanmar': new WordCloud('word-cloud-chart', myanmarWordCloudData, 'Myanmar', tooltip),
+    'burkina': new WordCloud('word-cloud-chart', burkinaFasoWordCloudData, 'Burkina Faso', tooltip),
+    'palestine': new WordCloud('word-cloud-chart', palestineWordCloudData, 'Palestine', tooltip),
+};
+
+let myanmarButton = document.getElementById('myanmar-word-cloud-button');
+let burkinaButton = document.getElementById('burkina-word-cloud-button');
+let palestineButton = document.getElementById('palestine-word-cloud-button');
+
+let wordCloud = wordClouds['myanmar']; // Default
+
+setTimeout(() => {
+    if (wordCloud) {
+        wordCloud.init();
+        if (wordCloud.g) {
+            wordCloud.draw();
+        }
+    }
+});
+
+myanmarButton.addEventListener('click', () => {
+    wordCloud = wordClouds['myanmar'];
+    wordCloud.init();
+    if (wordCloud.g) {
+        wordCloud.draw();
+    }
+});
+
+burkinaButton.addEventListener('click', () => {
+    wordCloud = wordClouds['burkina'];
+    wordCloud.init();
+    if (wordCloud.g) {
+        wordCloud.draw();
+    }
+});
+
+palestineButton.addEventListener('click', () => {
+    wordCloud = wordClouds['palestine'];
+    wordCloud.init();
+    if (wordCloud.g) {
+        wordCloud.draw();
+    }
+});
+
+
+// WordCloud RESIZE HANDLING
+let resizeTimeoutWordCloud;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeoutWordCloud);
+    resizeTimeoutWordCloud = setTimeout(() => {
+        if (wordCloud) {
+            wordCloud.init();
+            if (wordCloud.g) {
+                wordCloud.draw();
+                }
+            }
+        });
+    }, 250);
+    
 // ===== SCROLL OBSERVER =====
 let currentStep = -1;
 

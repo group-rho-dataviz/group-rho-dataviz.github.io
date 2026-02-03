@@ -1,0 +1,5 @@
+country,isActor1,count
+A,true,23
+B,false,50
+A,false,2
+C,false,100
