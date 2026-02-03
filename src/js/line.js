@@ -104,7 +104,7 @@ export default class LineChart extends ScrollyChart {
                 .attr("stroke-width", 30) // wide stroke to make hovering easier
                 .style("pointer-events", "stroke")
                 .on("mouseover", (event) => {
-                    this.tooltip.style("display", "block").style("opacity", 1);
+                    this.tooltip.style("opacity", 1);
                 })
                 .on("mousemove", (event) => {
                     // determine nearest data point to mouse
@@ -123,17 +123,16 @@ export default class LineChart extends ScrollyChart {
 
                     if (closest && minDist <= bisectThreshold) {
                         this.tooltip
-                            .style("display", "block")
                             .style("opacity", 1)
                             .html(`Date: ${d3.timeFormat("%b %Y")(closest.Date)}<br>Fatalities: ${closest.Fatalities}`);
                     } else {
-                        this.tooltip.style("opacity", 0).style("display", "none");
+                        this.tooltip.style("opacity", 0);
                     }
 
                     this.positionTooltip(event);
                 })
                 .on("mouseout", () => {
-                    this.tooltip.style("opacity", 0).style("display", "none");
+                    this.tooltip.style("opacity", 0);
                 });
 
             // Add Annotation
