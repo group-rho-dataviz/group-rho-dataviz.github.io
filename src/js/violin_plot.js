@@ -40,7 +40,7 @@ export default class ViolinPlot extends ScrollyChart {
             .attr('text-anchor', 'middle')
             .attr('fill', 'darkslategray')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', Math.min(this.width / 35, 20) + 'px')
+            .style('font-size', Math.min(this.width / 30, 20) + 'px')
             .style('font-weight', '600');
     }
 
@@ -85,8 +85,10 @@ export default class ViolinPlot extends ScrollyChart {
                 .attr('y1', d => this.yScale(d))
                 .attr('y2', d => this.yScale(d))
                 .attr('stroke', 'lightgray');
-            // Y-axis labels
+            // Y-axis labels size 12px or smaller
             this.yAxisG.call(d3.axisLeft(this.yScale).tickSizeOuter(0));
+            this.yAxisG.selectAll('text')
+                .style('font-size', Math.min(this.width / 40, 12) + 'px');
             // Remove y-axis line
             this.yAxisG.selectAll('.domain').remove();
             // X-axis labels
@@ -207,10 +209,10 @@ export default class ViolinPlot extends ScrollyChart {
             .attr('y', this.margin.top / 2)
         if (this.svgId.includes('tone')) {
             this.title
-                .text("Distribution of Conflict-Related News Tone by Country (2021-2025)");
+                .text("Distribution of Conflict-Related News Tone (2021-2025)");
         } else {
             this.title
-                .text("Distribution of Conflict-Related News Impact by Country (2021-2025)");
+                .text("Distribution of Conflict-Related News Impact (2021-2025)");
         }
     }
 }
