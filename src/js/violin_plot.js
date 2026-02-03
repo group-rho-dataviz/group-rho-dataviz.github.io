@@ -151,11 +151,16 @@ export default class ViolinPlot extends ScrollyChart {
                         .x1(dd => x(dd[1]))
                         .y(dd => y(dd[0]))
                         .curve(d3.curveLinear);
-                    d3.select(nodes[i]).append('path')
+                    const path = d3.select(nodes[i]).append('path')
                         .datum(density)
                         .attr('d', area)
-                        .attr('fill', '#6b7280')
                         .attr('opacity', 0.7);
+
+                    if (this.svgId.includes('tone')) {
+                        path.attr('fill', '#6b7280');
+                    } else {
+                        path.attr('fill', 'red');
+                    }
 
                     // Draw median line slightly shorter than full violin width
                     const medianY = y(d.median);
