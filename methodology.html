@@ -6,13 +6,10 @@
     <title>The Attention Gap | Media Coverage of Global Conflicts</title>
       <link rel="icon" type="image/x-icon" href="src/images/favicon.png">
 
-
     <link rel="stylesheet" href="src/css/style.css">
-    <script type="module" defer src="src/js/script.js"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="src/js/tailwind_config.js"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -29,8 +26,11 @@
                 <nav role="navigation" aria-label="Primary" class="hidden md:flex gap-8 font-sans text-sm">
                     <a href="index.html#data" class="text-gray-600 hover:text-gray-900 transition">The Problem</a>
                     <a href="index.html#map" class="text-gray-600 hover:text-gray-900 transition">Coverage Map</a>
-                    <a href="index.html#stories" class="text-gray-600 hover:text-gray-900 transition">Stories</a>
+                    <a href="index.html#myanmar_stories" class="text-gray-600 hover:text-gray-900 transition">Myanmar Tragedy</a>
+                    <a href="index.html#burkina_stories" class="text-gray-600 hover:text-gray-900 transition">Burkina Faso Crisis</a>
+                    <a href="index.html#comparison" class="text-gray-600 hover:text-gray-900 transition">A Comparison</a>
                 </nav>
+
 
                 <!-- Mobile: hamburger -->
                 <div class="md:hidden">
@@ -52,9 +52,12 @@
                 <div class="px-2 pt-2 pb-3 space-y-1 font-sans">
                     <a href="index.html#data" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">The Problem</a>
                     <a href="index.html#map" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Coverage Map</a>
-                    <a href="index.html#stories" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Stories</a>
+                    <a href="index.html#myanmar_stories" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Myanmar Tragedy</a>
+                    <a href="index.html#burkina_stories" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Burkina Faso Crisis</a>
+                    <a href="index.html#comparison" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">A Comparison</a>
                 </div>
             </div>
+
         </div>
     </header>
 
@@ -181,7 +184,7 @@
             <div class="prose prose-lg mb-12">
                 <p class="text-gray-700 text-lg leading-relaxed mb-6">
                     After creating the domain-to-country lookup table, we queried the GDELT database to aggregate media mentions weekly.
-                    The primary key of our aggregation consists of the following dimensions:<pre>mention_week, conflict_country, actor1_country, actor2_country, media_country</pre>
+                    The primary key of our aggregation consists of the following dimensions: <span class="bg-yellow-400 text-gray-900 px-2 py-1 font-bold">mention_week, conflict_country, actor1_country, actor2_country, media_country.</span>
                 </p>
             </div>
 
@@ -644,10 +647,12 @@ df_articles.<span class="python-function">to_parquet</span>(save_path + <span cl
             <!-- Bottom Section -->
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
                 <p class="font-sans text-sm text-gray-500">© 2025-2026 The Group Rho</p>
-                <nav class="flex gap-6 text-sm">
+                <nav class="flex flex-wrap gap-6 text-sm justify-center sm:justify-end">
                     <a href="index.html#data" class="text-gray-400 hover:text-white transition">The Problem</a>
                     <a href="index.html#map" class="text-gray-400 hover:text-white transition">Coverage Map</a>
-                    <a href="index.html#stories" class="text-gray-400 hover:text-white transition">Stories</a>
+                    <a href="index.html#myanmar_stories" class="text-gray-400 hover:text-white transition">Myanmar Tragedy</a>
+                    <a href="index.html#burkina_stories" class="text-gray-400 hover:text-white transition">Burkina Faso Crisis</a>
+                    <a href="index.html#comparison" class="text-gray-400 hover:text-white transition">A Comparison</a>
                 </nav>
             </div>
         </div>
