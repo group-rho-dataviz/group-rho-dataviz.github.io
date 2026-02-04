@@ -381,7 +381,7 @@
                 <div class="lg:col-span-6 h-[calc(100vh_-_80px)] lg:h-auto" style="max-height: 750px;">
                     <div class="relative bg-gray-800 rounded-2xl shadow-2xl border border-gray-700 overflow-hidden h-full flex flex-col">
                         <!-- Toggle Button -->
-                        <button id="view-toggle-button" class="hidden lg:flex absolute top-4 right-4 z-10 bg-gray-700 hover:bg-gray-600 text-white rounded-full w-10 h-10 items-center justify-center shadow-lg transition-all duration-300 border-2 border-gray-600 hover:border-gray-500" title="Switch view">
+                        <button id="view-toggle-button" class="hidden lg:flex absolute top-4 right-4 z-10 bg-gray-700 hover:bg-gray-600 text-white rounded-full w-10 h-10 items-center justify-center shadow-lg transition-all duration-300 border-2 border-gray-600 hover:border-gray-500 cursor-pointer" title="Switch view">
                             <!-- Map icon (shown when chord is active) -->
                             <svg id="map-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -563,7 +563,7 @@
                         <!-- Timeline Controls -->
                         <div class="bg-gray-750 border-t border-gray-700 p-2 md:p-3 flex-shrink-0">
                             <div class="flex items-center gap-3">
-                                <button id="play-button" class="min-w-[70px] justify-center bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 font-sans font-semibold text-sm transition-all duration-200 flex items-center gap-2 shadow-lg flex-shrink-0">
+                                <button id="play-button" class="cursor-pointer min-w-[70px] justify-center bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-4 py-2 font-sans font-semibold text-sm transition-all duration-200 flex items-center gap-2 shadow-lg flex-shrink-0">
                                     <svg id="play-icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
                                     </svg>
@@ -1027,7 +1027,7 @@
                 </div>
 
                 <!-- Violin to Boxplot Button -->
-                <button id="tone-violin-toggle-button" class="absolute bottom-2 lg:bottom-4 left-4 z-10 bg-white hover:bg-gray-50 text-gray-700 rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all duration-300 border-2 border-gray-300 hover:border-gray-400 hover:scale-110" title="Switch view">
+                <button id="tone-violin-toggle-button" class="cursor-pointer absolute bottom-2 lg:bottom-4 left-4 z-10 bg-white hover:bg-gray-50 text-gray-700 rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all duration-300 border-2 border-gray-300 hover:border-gray-400 hover:scale-110" title="Switch view">
                     
                     <svg id="violin-tone-icon" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M13 2C13 1.44772 12.5523 1 12 1C11.4477 1 11 1.44772 11 2V6.1C11 6.1 6 7.5 6 12C6 16.5 11 17.9 11 17.9V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V17.9C13 17.9 18 16.5 18 12C18 7.5 13 6.1 13 6.1V2ZM12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z"/>
@@ -1072,7 +1072,7 @@
 
 
                 <!-- Violin to Boxplot Button -->
-                <button id="impact-violin-toggle-button" class="absolute bottom-2 lg:bottom-4 left-4 z-10 bg-white hover:bg-gray-50 text-gray-700 rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all duration-300 border-2 border-gray-300 hover:border-gray-400 hover:scale-110" title="Switch view">
+                <button id="impact-violin-toggle-button" class="cursor-pointer absolute bottom-2 lg:bottom-4 left-4 z-10 bg-white hover:bg-gray-50 text-gray-700 rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all duration-300 border-2 border-gray-300 hover:border-gray-400 hover:scale-110" title="Switch view">
                     
                     <svg id="violin-impact-icon" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M13 2C13 1.44772 12.5523 1 12 1C11.4477 1 11 1.44772 11 2V6.1C11 6.1 6 7.5 6 12C6 16.5 11 17.9 11 17.9V22C11 22.5523 11.4477 23 12 23C12.5523 23 13 22.5523 13 22V17.9C13 17.9 18 16.5 18 12C18 7.5 13 6.1 13 6.1V2ZM12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z"/>
@@ -1134,15 +1134,15 @@
 
                 <div class="flex justify-center gap-4 mt-1">
                     <button id="myanmar-word-cloud-button" 
-                            class="lg:mt-4 mt-2 px-2 py-2 text-xs lg:text-base lg:px-4 lg:py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
+                            class="cursor-pointer lg:mt-4 mt-2 px-2 py-2 text-xs lg:text-base lg:px-4 lg:py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
                         Myanmar
                     </button>
                     <button id="burkina-word-cloud-button" 
-                            class="lg:mt-4 mt-2 px-2 py-2 text-xs lg:text-base lg:px-4 lg:py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
+                            class="cursor-pointer lg:mt-4 mt-2 px-2 py-2 text-xs lg:text-base lg:px-4 lg:py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
                         Burkina Faso
                     </button>
                     <button id="palestine-word-cloud-button" 
-                            class="lg:mt-4 mt-2 px-2 py-2 text-xs lg:text-base lg:px-4 lg:py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
+                            class="cursor-pointer lg:mt-4 mt-2 px-2 py-2 text-xs lg:text-base lg:px-4 lg:py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
                         Palestine
                     </button>
                 </div>
@@ -1209,7 +1209,7 @@
 
     <!-- Scroll to Top Button -->
     <button id="scrollTop" 
-            class="z-30 fixed bottom-8 right-8 bg-gradient-to-r from-red-500 to-orange-500 text-white p-3 rounded-full shadow-lg pointer-events-none transition-opacity hover:bg-brand-blue"
+            class="cursor-pointer z-30 fixed bottom-8 right-8 bg-gradient-to-r from-red-500 to-orange-500 text-white p-3 rounded-full shadow-lg pointer-events-none transition-opacity hover:bg-brand-blue"
             style="opacity: 0; pointer-events: none; visibility: hidden;">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
