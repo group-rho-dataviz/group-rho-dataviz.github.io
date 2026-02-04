@@ -496,6 +496,33 @@ setTimeout(async () => {
                 closeInfoWindow();
             }
         });
+
+
+        const loader = document.getElementById('loading-overlay');
+        const progressBar = document.getElementById('loading-progress');
+        
+        if (loader) {
+            // 1. Snap progress bar to 100% instantly when data is ready
+            if (progressBar) {
+                progressBar.style.width = '100%';
+                progressBar.style.transitionDuration = '300ms'; // Fast finish
+            }
+
+            // 2. Wait a tiny bit for the bar to fill, then fade out
+            setTimeout(() => {
+                // Fade out visually
+                loader.classList.add('opacity-0', 'pointer-events-none');
+                
+                // Re-enable scrolling
+                document.body.classList.remove('overflow-hidden');
+                
+                // Remove from DOM
+                setTimeout(() => {
+                    loader.remove();
+                }, 700);
+            }, 500); // Wait 500ms for user to see the "100%" state
+        }
+
     }
 }, 500);
 
@@ -940,7 +967,7 @@ window.addEventListener('resize', () => {
 
         [...violinPlots, ...boxPlots].forEach(plot => {
             // Check if the container is hidden before redrawing
-            const container = document.getElementById(plot.id); // Assuming ID matches container
+            const container = document.getElementById(plot.id);
             if (plot && container && !container.classList.contains('hidden')) {
                 plot.init();
                 if (plot.g) plot.draw();

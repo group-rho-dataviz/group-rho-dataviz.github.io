@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Attention Gap | Media Coverage of Global Conflicts</title>
-      <link rel="icon" type="image/x-icon" href="src/images/favicon.png">
-
+    <link rel="icon" type="image/x-icon" href="src/images/favicon.png">
+      
     <link rel="stylesheet" href="src/css/style_o.css">
 
     <script defer src="src/js/vendor/d3.min.js"></script>
@@ -15,8 +15,50 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+
 </head>
-<body class="bg-gray-50 font-serif text-gray-900 antialiased">
+<body class="bg-gray-50 font-serif text-gray-900 antialiased overflow-hidden">
+
+    <!-- LOADING SCREEN -->
+    <div id="loading-overlay" class="fixed top-0 left-0 w-full h-full z-[9999] bg-gray-900 flex flex-col items-center justify-center transition-opacity duration-700 ease-out">
+        
+        <div class="relative flex items-center justify-center mb-8">
+            
+            <div class="absolute w-32 h-32 border-2 border-dashed border-gray-600 rounded-full animate-spin duration-[10s]"></div>
+            
+            <div class="absolute w-24 h-24 border-t-2 border-red-500 rounded-full animate-spin"></div>
+            
+            <div class="relative z-10">
+                <div class="w-4 h-4 bg-orange-500 rounded-full animate-ping absolute opacity-75"></div>
+                <div class="w-4 h-4 bg-gradient-to-r from-red-500 to-orange-500 rounded-full shadow-[0_0_20px_rgba(239,68,68,0.8)]"></div>
+            </div>
+        </div>
+
+        <div class="text-center space-y-4 z-10">
+            <h2 class="font-sans text-sm font-bold tracking-[0.3em] text-white uppercase animate-pulse">
+                Loading data...
+            </h2>
+            
+            <div class="flex items-end justify-center gap-1 h-4">
+                <div class="w-1 bg-red-500/50 animate-pulse" style="height: 40%; animation-delay: 0ms"></div>
+                <div class="w-1 bg-red-500/50 animate-pulse" style="height: 70%; animation-delay: 150ms"></div>
+                <div class="w-1 bg-red-500/50 animate-pulse" style="height: 100%; animation-delay: 300ms"></div>
+                <div class="w-1 bg-red-500/50 animate-pulse" style="height: 60%; animation-delay: 450ms"></div>
+                <div class="w-1 bg-red-500/50 animate-pulse" style="height: 30%; animation-delay: 600ms"></div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-gray-800">
+            <div id="loading-progress" class="h-full bg-gradient-to-r from-red-500 to-orange-500 w-0 transition-all duration-[2000ms] ease-out"></div>
+        </div>
+    </div>
+    <script>
+        // Make the progress bar move to 80% immediately while waiting for JS
+        setTimeout(() => {
+            const bar = document.getElementById('loading-progress');
+            if(bar) bar.style.width = '80%';
+        }, 100);
+    </script>    
 
     <!-- FIXED HEADER -->
     <header role="banner" aria-label="Site header" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
