@@ -715,21 +715,6 @@ setTimeout(() => {
     });
 }, 500);
 
-// LineChart RESIZE HANDLING
-let resizeTimeoutLine;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeoutLine);
-    resizeTimeoutLine = setTimeout(() => {
-        LineCharts.forEach(chart => {
-            if (chart) {
-                chart.init();
-                if (chart.g) {
-                    chart.draw();
-                }
-            }
-        });
-    }, 250);
-});
 
 // ===== VIOLIN PLOT =====
 const violinPlotTone = new ViolinPlot('violinplot-tone-chart', violinPlotToneData, tooltip);
@@ -759,39 +744,6 @@ setTimeout(() => {
         }
     })
 }, 500);
-
-// ViolinPlot RESIZE HANDLING
-let resizeTimeoutViolin;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeoutViolin);
-    resizeTimeoutViolin = setTimeout(() => {
-        violinPlots.forEach(violinPlot => {
-            if (violinPlot) {
-                violinPlot.init();
-                if (violinPlot.g) {
-                    violinPlot.draw();
-                }
-            }
-        });
-    }, 250);
-});
-
-
-// BoxPlot RESIZE HANDLING
-let resizeTimeoutBox;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeoutBox);
-    resizeTimeoutBox = setTimeout(() => {
-        boxPlots.forEach(boxPlot => {
-            if (boxPlot) {
-                boxPlot.init();
-                if (boxPlot.g) {
-                    boxPlot.draw();
-                }
-            }
-        });
-    }, 250);
-});
 
 
 // Get Buttons
@@ -880,20 +832,6 @@ palestineButton.addEventListener('click', () => {
 });
 
 
-// WordCloud RESIZE HANDLING
-let resizeTimeoutWordCloud;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeoutWordCloud);
-    resizeTimeoutWordCloud = setTimeout(() => {
-        if (wordCloud) {
-            wordCloud.init();
-            if (wordCloud.g) {
-                wordCloud.draw();
-                }
-            }
-        });
-    }, 
-250);
 // ===== SCROLL OBSERVER =====
 let currentStep = -1;
 
@@ -935,7 +873,12 @@ setTimeout(() => {
 
 // ===== RESIZE =====
 let resizeTimeout;
+let lastWindowWidth = window.innerWidth;
 window.addEventListener('resize', () => {
+    if (window.innerWidth === lastWindowWidth) return;
+    // Update last window width
+    lastWindowWidth = window.innerWidth;
+
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
         // Desktop chart
@@ -969,7 +912,7 @@ window.addEventListener('resize', () => {
             choroplethMap.init();
             if (choroplethMap.g) {
                 choroplethMap.draw();
-                setTimeout(() => choroplethMap.setWeek(currentMapWeek), 50);
+                choroplethMap.setWeek(currentMapWeek);
             }
         }
         
@@ -978,7 +921,7 @@ window.addEventListener('resize', () => {
             chordDiagram.init();
             if (chordDiagram.g) {
                 chordDiagram.draw();
-                setTimeout(() => chordDiagram.setWeek(currentChordWeek), 50);
+                chordDiagram.setWeek(currentChordWeek);
             }
         }
         
@@ -987,8 +930,27 @@ window.addEventListener('resize', () => {
             racingChart.init();
             if (racingChart.g) {
                 racingChart.draw();
-                setTimeout(() => racingChart.setWeek(currentRacingWeek), 50);
+                racingChart.setWeek(currentRacingWeek);
             }
+        }
+
+        LineCharts.forEach(chart => {
+             if (chart) { chart.init(); if (chart.g) chart.draw(); }
+        });        
+
+        [...violinPlots, ...boxPlots].forEach(plot => {
+            // Check if the container is hidden before redrawing
+            const container = document.getElementById(plot.id); // Assuming ID matches container
+            if (plot && container && !container.classList.contains('hidden')) {
+                plot.init();
+                if (plot.g) plot.draw();
+            }
+        });        
+
+        // --- 5. Word Cloud ---
+        if (wordCloud) {
+            wordCloud.init();
+            if (wordCloud.g) wordCloud.draw();
         }
 
     }, 250);
