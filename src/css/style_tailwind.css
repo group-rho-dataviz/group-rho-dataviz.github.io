@@ -1,12 +1,5 @@
 @import "tailwindcss";
-
-@theme {
-  /* Syntax: --[namespace]-[name]: value; 
-     This overrides the default 'font-serif' and 'font-sans' utilities.
-  */
-  --font-family-serif: "Merriweather", "Georgia", serif;
-  --font-family-sans: "Inter", system-ui, sans-serif;
-}
+@config "../../tailwind.config.js"; /* Point to your JS file */
 
 .step-content {
     opacity: 0.3;
