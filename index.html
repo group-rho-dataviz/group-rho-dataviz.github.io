@@ -6,14 +6,12 @@
     <title>The Attention Gap | Media Coverage of Global Conflicts</title>
       <link rel="icon" type="image/x-icon" href="src/images/favicon.png">
 
+    <link rel="stylesheet" href="src/css/style_o.css">
 
-    <link rel="stylesheet" href="src/css/style.css">
+    <script defer src="https://d3js.org/d3.v7.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>    
     <script type="module" defer src="src/js/script.js"></script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="src/js/tailwind_config.js"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>    
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -27,7 +25,7 @@
                 <a href="index.html" class="font-sans text-sm font-bold tracking-wider uppercase">The Attention Gap</a>
 
                 <!-- Desktop nav -->
-                <nav role="navigation" aria-label="Primary" class="hidden md:flex gap-8 font-sans text-sm">
+                <nav role="navigation" aria-label="Primary" class="hidden lg:flex gap-8 font-sans text-sm">
                     <a href="#data" class="text-gray-600 hover:text-gray-900 transition">The Problem</a>
                     <a href="#map" class="text-gray-600 hover:text-gray-900 transition">Coverage Map</a>
                     <a href="#myanmar_stories" class="text-gray-600 hover:text-gray-900 transition">Myanmar Tragedy</a>
@@ -36,7 +34,7 @@
                 </nav>
 
                 <!-- Mobile: hamburger -->
-                <div class="md:hidden">
+                <div class="lg:hidden">
                     <button id="mobile-menu-button"
                         class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         aria-controls="mobile-menu" aria-expanded="false"
@@ -51,7 +49,7 @@
             </div>
 
             <!-- Mobile menu (hidden by default) -->
-            <div id="mobile-menu" class="hidden md:hidden mt-2">
+            <div id="mobile-menu" class="hidden lg:hidden mt-2">
                 <div class="px-2 pt-2 pb-3 space-y-1 font-sans">
                     <a href="#data" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">The Problem</a>
                     <a href="#map" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Coverage Map</a>
