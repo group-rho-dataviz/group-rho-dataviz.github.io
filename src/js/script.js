@@ -332,12 +332,11 @@ function addTimelineMarkers(weekManager, markerDates = null) {
         
         // Create label with responsive text wrapping
         const label = document.createElement('div');
-        label.className = 'timeline-marker-label text-[0.4rem] lg:text-[0.6rem] text-gray-400 font-medium whitespace-normal max-w-[3rem] md:max-w-[4rem] lg:whitespace-nowrap lg:max-w-none text-center leading-tight';
+        label.className = 'timeline-marker-label text-[0.3rem] lg:text-[0.6rem] text-gray-400 font-medium whitespace-normal max-w-[3rem] md:max-w-[4rem] lg:whitespace-nowrap lg:max-w-none text-center leading-tight';
         label.style.left = `${position}%`;
         
         const dateObj = new Date(date);
         const formattedDate = dateObj.toLocaleDateString('en-US', { 
-            month: 'short', 
             year: 'numeric' 
         });
         label.textContent = formattedDate;
