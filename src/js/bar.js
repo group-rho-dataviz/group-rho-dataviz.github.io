@@ -465,7 +465,7 @@ export default class BarChart extends ScrollyChart {
             .duration(600)
             .attr('x', this.xScale(cluster) + this.xScale.bandwidth() / 2)
             .attr('y', this.yScale(totalFatalities) - 12)  // Position above bar
-            .text(d => d.toLocaleString())  // Format with commas
+            .text(d => d.toLocaleString() + ' Fatalities')  // Format with commas
             .style('opacity', 1);
     }
 }
