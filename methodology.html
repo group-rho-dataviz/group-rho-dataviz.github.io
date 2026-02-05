@@ -604,11 +604,50 @@ df_articles.<span class="python-function">to_parquet</span>(save_path + <span cl
                 </p>
             </div>
 
-            <h2 class="sm:text-4xl lg:text-4xl font-black mb-8 leading-tight text-gray-900">Chart Preprocessing</h2>
+            <h2 class="sm:text-4xl lg:text-4xl font-black mb-8 leading-tight text-gray-900">Data Cleaning and Imputation</h2>
             <div class="prose prose-lg mb-12">
                 <p class="text-gray-700 text-lg leading-relaxed mb-6">
-                    In order to create more compact datasets to our purpose we used python notebooks to preprocess the data and create the charts shown in the website. 
-                    The code used for the preprocessing is available in our <a href="https://github.com/group-rho-dataviz/group-rho-dataviz.github.io" class="text-blue-600 hover:underline">GitHub repository</a>.
+                    For both datasets we chose to ignore the presence of missing values, as they were not significant in number and did not affect our analysis.
+                    The majority of data were already in a clean and usable format, so we did not need to perform any significant data cleaning or imputation steps.
+                </p>
+            </div>
+
+
+            <h2 class="sm:text-4xl lg:text-4xl font-black mb-8 leading-tight text-gray-900">Data Processing and Analysis</h2>
+            <div class="prose prose-lg mb-12">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    For the data processing and analysis we mainly used Python with libraries such as Pandas, NumPy and Matplotlib to manipulate the data and create preliminary visualizations.
+                </p>
+            </div>
+
+            <h2 class="sm:text-4xl lg:text-4xl font-black mb-8 leading-tight text-gray-900">Limitations</h2>
+            <div class="prose prose-lg mb-12">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    Starting with the GDELT dataset, we had to deal with a large volume of data, which required us to reduce it by selecting only the most relevant columns and aggregating it at a weekly level.
+                    Moreover, the GDELT dataset is based on media reports, with a huge part that comes from the United States: that may introduce a bias in the data, as it may not fully represent the global media coverage of armed conflicts.
+                </p>
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    As for the ACLED dataset, it is based on reports from local sources, which may not be as comprehensive or accurate as those from international media outlets. 
+                    Moreover, the ACLED dataset focuses on political violence and protests, which may not capture all types of armed conflicts.
+                </p>
+            </div>
+
+
+            <h2 class="sm:text-4xl lg:text-4xl font-black mb-8 leading-tight text-gray-900">Plots</h2>
+            <div class="prose prose-lg mb-12">
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    After the data processing pipeline, the final plots we produced are:
+                    <ol class="list-decimal list-inside">
+                        <li>Waffle Chart</li>
+                        <li>Bar Chart (Normal and Stacked)</li>
+                        <li>Scatter Plot (With Connected Scatter Plot)</li>
+                        <li>Choropleth Map</li>
+                        <li>Chord Diagram</li>
+                        <li>Cumulative Bar Chart</li>
+                        <li>Line Chart x2</li>
+                        <li>Violin Plot/Box Plot x2</li>
+                        <li>Word Cloud</li>
+                    </ol> 
                 </p>
             </div>
 
