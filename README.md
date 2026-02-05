@@ -8,6 +8,7 @@ By Group Rho:
 - Fabrizio Sardo (5250158)
 
 Website: <https://group-rho-dataviz.github.io/>
+
 Methodology Report: <https://group-rho-dataviz.github.io/methodology.html>
 
 ---
@@ -27,8 +28,9 @@ The final section is dedicated to our takeaways and conclusions and provides a m
 
 The GDELT and ACLED datasets were used for this project.
 
-<https://acleddata.com/>
-<https://www.gdeltproject.org/>
+[ACLED](https://acleddata.com/)
+
+[GDELT](https://www.gdeltproject.org/)
 
 In particular, the GDELT data has been queried using Google BigQuery; since data has already been processed and stored in Parquet format by us, but resulting files were still too heavy to be uploaded to our github repository, you can instead directly access the normalized GDELT dataset files from our [Kaggle folder](https://www.kaggle.com/datasets/fabriziosardo/the-attention-gap-gdelt-dataviz-project).
 
@@ -37,20 +39,24 @@ In particular, the GDELT data has been queried using Google BigQuery; since data
 ## Folder Structure
 
 ```text
-data/
-├── ACLED/
-├── GDELT/
-├── processed/
-preprocessing/
-src/
-├── css/
-├── js/
-├── json/
-├── images/
+.
+├── data/
+│   ├── ACLED/
+│   ├── GDELT/
+│   └── processed/
+├── preprocessing/
+├── src/
+│   ├── css/
+│   ├── js/
+│   ├── json/
+│   └── images/
+├── methodology.html
 └── index.html
 ```
 
 `data/ACLED/` and `data/GDELT/` contain the original raw data files extracted from the respective sources, while `data/processed/` contains processed data files used for the visualizations.
+
+In order to serve this website locally, you can simply clone this repository and open the `index.html` file in your web browser since all the data files are already included in the `data/processed/` folder..
 
 ## Preprocessing
 
