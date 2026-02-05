@@ -26,11 +26,7 @@ The final section is dedicated to our takeaways and conclusions and provides a m
 
 ## Data Sources
 
-The GDELT and ACLED datasets were used for this project.
-
-[ACLED](https://acleddata.com/)
-
-[GDELT](https://www.gdeltproject.org/)
+The [GDELT](https://www.gdeltproject.org/) and [ACLED](https://acleddata.com/) datasets were used for this project.
 
 In particular, the GDELT data has been queried using Google BigQuery; since data has already been processed and stored in Parquet format by us, but resulting files were still too heavy to be uploaded to our github repository, you can instead directly access the normalized GDELT dataset files from our [Kaggle folder](https://www.kaggle.com/datasets/fabriziosardo/the-attention-gap-gdelt-dataviz-project).
 
