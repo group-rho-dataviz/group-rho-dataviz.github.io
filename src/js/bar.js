@@ -54,11 +54,11 @@ export default class BarChart extends ScrollyChart {
         // Title - positioned at top
         this.title = this.svg.append('text')
             .attr('x', this.width / 2)
-            .attr('y', this.margin.top / 2.5)
+            .attr('y', this.margin.top / 2)
             .attr('text-anchor', 'middle')
             .attr('fill', '#f3f4f6')
             .style('font-family', 'Inter, sans-serif')
-            .style('font-size', this.width / 20 + 'px')
+            .style('font-size', Math.min(this.width / 22, 22) + 'px')
             .style('font-weight', '600');
             
         // Hint text for tap interaction
@@ -200,7 +200,7 @@ export default class BarChart extends ScrollyChart {
         this.title
             .transition()
             .duration(300)
-            .text(`Countries by Fatality Cluster (2025)`);
+            .text(`Number of Countries per Fatality Range (2025)`);
         
         // Show hint text
         this.hintText
@@ -313,8 +313,8 @@ export default class BarChart extends ScrollyChart {
         
         // Update title (shorter for mobile)
         const titleText = isMobile 
-            ? `${cluster} Cluster Fatalities` 
-            : `Fatalities by Country - ${cluster} Cluster`;
+            ? `${cluster} Range Fatalities (Stacked)` 
+            : `Fatalities by Country - ${cluster} Range (Stacked)`;
         
         this.title
             .transition()
