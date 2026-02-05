@@ -143,7 +143,7 @@ export default class WordCloud extends ScrollyChart {
         this.subtitle
             .attr('x', this.width / 2)
             .attr('y', this.margin.top / 2 + 20)
-            .text('Size shows total events mentioning the country as an actor • Color shows perpetrator/victim ratio');
+            .text('Size shows total events mentioning the country as an actor • Color shows primary/secondary actor ratio');
     }
 
     layoutWords(activeArea) {
@@ -259,8 +259,8 @@ export default class WordCloud extends ScrollyChart {
                         .style('opacity', 1)
                         .html(`
                             <strong>${d.country}</strong><br>
-                            Perpetrator: ${d.countAsActor1.toLocaleString()} (${perpetratorPercent}%)<br>
-                            Victim: ${d.countAsActor2.toLocaleString()} (${victimPercent}%)<br>
+                            Primary: ${d.countAsActor1.toLocaleString()} (${perpetratorPercent}%)<br>
+                            Secondary: ${d.countAsActor2.toLocaleString()} (${victimPercent}%)<br>
                             <strong>Total: ${d.totalCount.toLocaleString()}</strong>
                         `);
                 }
