@@ -63,6 +63,9 @@ export default class LineChart extends ScrollyChart {
 
             const yAxis = d3.axisLeft(this.yScale).ticks(5);
             this.yAxisG.call(yAxis).selectAll("path").remove();
+            // Put y-axis labels in bold if they are % 1000 == 0
+            this.yAxisG.selectAll("text")
+                .style("font-weight", d => d % 1000 === 0 ? "bolder" : "normal");
 
             // Draw thin horizontal grid lines at y ticks
             const yTicks = this.yScale.ticks(5);
