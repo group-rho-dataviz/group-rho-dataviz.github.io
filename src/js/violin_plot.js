@@ -217,7 +217,7 @@ export default class ViolinPlot extends ScrollyChart {
                 .text("Distribution of Conflict-Related News Tone (2021-2025)");
         } else {
             this.title
-                .text("Distribution of Conflict-Related News Impact (2021-2025)");
+                .text("Distribution of Conflict-Related Event Impact (2021-2025)");
         }
     }
 }

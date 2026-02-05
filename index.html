@@ -1045,13 +1045,17 @@
                     A Comparative Analysis
                 </span>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
-                    Does Media Tone and Impact Vary Across Conflicts?
+                    Does Media Tone and Event Impact Vary Across Conflicts?
                 </h2>
                 <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, ratione!
+                    To explore how media coverage differs across conflicts, we compare the distribution of media tone and event impact for Myanmar, Burkina, Palestine, and Italy.
+                    By analyzing these metrics, we can gain insights into how the severity and nature of conflicts influence global media narratives and public perception.
+                    Italy serves as a control case, representing a non-conflict scenario for comparison.
                 </p>
                 <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus, ea?
+                    The tone metric ranges from -100 (extremely negative) to +100 (extremely positive), and it's calculated based on the sentiment of media coverage.
+                    The score is calculated as the difference between the percentage of positive words and the percentage of negative words in articles related to each event.
+                    So a score of -20 would indicate that negative words outnumber positive words by 20 percentage points.
                 </p>
             </div>
 
@@ -1093,10 +1097,18 @@
             <!-- Explanation for Violin Plot Tone -->
             <div class="mt-12 mx-auto max-w-prose mb-8 sm:mb-12">
                 <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
-                    The violin plot above illustrates the distribution of media tone for conflicts in Myanmar, Burkina
-                    Faso, Palestine, and Italy. The width of each violin represents the density of articles at different tone levels,
-                    ranging from -100 to +100, with -100 being extremely negative and +100 being extremely positive.
-                    Notably, Myanmar and Burkina Faso exhibit a higher concentration of negative tones, reflecting the severity of the conflicts and the humanitarian crises unfolding in these regions.
+                    The violin plot above illustrates the distribution of media tone for conflicts in Myanmar, Burkina Faso, Palestine, and Italy.
+                </p>
+                <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
+                    Notably, while Palestine exhibits a higher concentration of negative tones, the distributions looks relatively similar to Myanmar and Burkina Faso.
+                    As expected, since Italy is not experiencing a conflict, its media tone distribution skews more positively compared to the other three countries.
+                </p>
+                <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
+                    The next plot examines the event impact metric across the same conflicts.
+                </p>
+                <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
+                    The event impact metric is based on the Goldstein scale, which rates events from -10 (most negative impact) to +10 (most positive impact) based on their severity and consequences.
+                    For example, a score of -5 might represent the expulsion of people from a region, while a score of +5 could indicate a promise of aid or support; a score of -10 corresponds to extreme events like massacres or invasions.
                 </p>
             </div>
 
@@ -1138,9 +1150,9 @@
             <!-- Explanation for Violin Plot Impact -->
             <div class="mt-12 mx-auto max-w-prose mb-8 sm:mb-12">
                 <p class="text-lg sm:text-xl text-gray-600 mb-4 leading-relaxed">
-                    The violin plot above illustrates the distribution of media impact for conflicts in Myanmar, Burkina Faso, Palestine, and Italy.
-                    The width of each violin represents the density of articles at different impact levels, highlighting the varying degrees of media attention and perceived significance of these conflicts.
-                    Myanmar and Burkina Faso show a broader spread of impact scores, indicating a wider range of media engagement with these crises compared to Palestine and Italy.
+                    The violin plot above illustrates the distribution of event impact for conflicts in Myanmar, Burkina Faso, Palestine, and Italy.
+                    Is easy to see how Palestine exhibits almost only events ratred -10, indicating a high frequency of severe negative events such as massacres and invasions.
+                    But also Myanmar and Burkina Faso show a significant concentration of events with highly negative impact scores.
                 </p>
             </div>
 
