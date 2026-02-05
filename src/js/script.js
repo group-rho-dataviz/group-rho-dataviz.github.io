@@ -169,6 +169,7 @@ racingChart.setWeekManager(weekManager);
 let allTop5Data = null;
 let allInfoData = null;
 
+
 // Initialize continent legend colors
 const legendContainer = document.querySelector('#choropleth-legend')?.nextElementSibling;
 if (legendContainer && continentColors) {
@@ -538,6 +539,8 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
     const choroplethContainer = document.getElementById('choropleth-container');
     const chordContainer = document.getElementById('chord-container');
     const infobox = document.getElementById('desktop-info-box');
+
+    let legendTitles = document.querySelectorAll('#choropleth-legend');
     
     if (getCurrentView() === 'map') {
         // Switch to chord view
@@ -546,6 +549,10 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
         mapIcon.classList.remove('hidden');
         chordIcon.classList.add('hidden');
         infobox.classList.add('lg:hidden');
+
+        legendTitles.forEach(title => {
+            title.textContent = 'Continents';
+        });
         
         // Sync week position from map to chord
         const currentWeek = choroplethMap.currentWeekIndex;
@@ -573,6 +580,10 @@ document.getElementById('view-toggle-button')?.addEventListener('click', functio
         mapIcon.classList.add('hidden');
         chordIcon.classList.remove('hidden');
         infobox.classList.remove('lg:hidden');
+
+        legendTitles.forEach(title => {
+            title.textContent = 'Most Mentioned Continent';
+        });
         
         // Sync week position from chord to map
         const currentWeek = chordDiagram.currentWeekIndex;
@@ -598,6 +609,8 @@ document.getElementById('mobile-view-toggle-button')?.addEventListener('click', 
     const chordIcon = document.getElementById('mobile-chord-icon');
     const choroplethContainer = document.getElementById('choropleth-container');
     const chordContainer = document.getElementById('chord-container');
+
+    let legendTitles = document.querySelectorAll('#choropleth-legend');
     
     if (getCurrentView() === 'map') {
         // Switch to chord view
@@ -605,7 +618,13 @@ document.getElementById('mobile-view-toggle-button')?.addEventListener('click', 
         choroplethContainer.classList.add('hidden');
         mapIcon.classList.remove('hidden');
         chordIcon.classList.add('hidden');
-        
+
+
+        legendTitles.forEach(title => {
+            title.textContent = 'Continents';
+        });
+
+
         // Close mobile info window if it's open
         const mobileInfoWindow = document.getElementById('mobile-info-window');
         mobileInfoWindow?.classList.add('hidden');
@@ -631,6 +650,10 @@ document.getElementById('mobile-view-toggle-button')?.addEventListener('click', 
         chordContainer.classList.add('hidden');
         mapIcon.classList.add('hidden');
         chordIcon.classList.remove('hidden');
+
+        legendTitles.forEach(title => {
+            title.textContent = 'Most Mentioned Continent';
+        });
         
         // Sync week position from chord to map
         const currentWeek = chordDiagram.currentWeekIndex;

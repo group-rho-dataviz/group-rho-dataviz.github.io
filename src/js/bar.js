@@ -200,7 +200,7 @@ export default class BarChart extends ScrollyChart {
         this.title
             .transition()
             .duration(300)
-            .text(`Number of Countries per Fatality Range (2025)`);
+            .text(`Number of Countries per Fatalities (2025)`);
         
         // Show hint text
         this.hintText
