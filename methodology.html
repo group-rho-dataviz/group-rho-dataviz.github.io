@@ -333,6 +333,10 @@
             <!-- Text Section -->
             <div class="prose prose-lg mb-12">
                 <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    In order to focus our attention on just conflict, we used the provided GDELT attribute QuadClass, which categorizes events into four broad classes: Verbal Cooperation (1), Material Cooperation (2), Verbal Conflict (3), and Material Conflict (4). For our analysis, we filtered the dataset to include only events classified as Verbal Conflict and Material Conflict, ensuring that our insights are specifically tailored to understanding media coverage of conflicts.
+                </p>
+
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
                     Below you can see few selected rows of the resulting weekly aggregated media mentions related to conflicts.
                 </p>
             </div>            
@@ -609,6 +613,9 @@ df_articles.<span class="python-function">to_parquet</span>(save_path + <span cl
                 <p class="text-gray-700 text-lg leading-relaxed mb-6">
                     For both datasets we chose to ignore the presence of missing values, as they were not significant in number and did not affect our analysis.
                     The majority of data were already in a clean and usable format, so we did not need to perform any significant data cleaning or imputation steps.
+                </p>
+                <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                    We also decided to follow what the datasets we chose already assumed: in the list of countries we consider there are some that are not actual countries, but rather territories; for example Greenland is considered separately from Denmark.
                 </p>
             </div>
 
